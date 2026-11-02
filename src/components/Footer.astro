@@ -1,0 +1,218 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import logo from '../assets/brand/msserver-logo.png';
+import certs from '../assets/footer/certificacoes.png';
+import eco from '../assets/footer/projetos-socioambientais.png';
+import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
+---
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-col footer-contact">
+      <a href={LINKS.home} class="footer-logo" aria-label="MSSERVER, página inicial">
+        <Image src={logo} alt="MSSERVER Soluções em Servidores" widths={[180, 360]} sizes="168px" loading="lazy" />
+      </a>
+      <ul class="contact-list">
+        <li><Icon name="clock" size={18} /><span>{CONTACT.hours}</span></li>
+        <li><Icon name="map-pin" size={18} /><span>{CONTACT.address}</span></li>
+        {
+          CONTACT.emails.map((e) => (
+            <li>
+              <Icon name="mail" size={18} />
+              <a href={`mailto:${e}`}>{e}</a>
+            </li>
+          ))
+        }
+        {
+          CONTACT.phones.map((p) => (
+            <li>
+              <Icon name="phone" size={18} />
+              <a href={`tel:${p.e164}`}>{p.display}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <Image src={certs} alt="Certificações: EXIN Cloud Computing Foundation e Tier III Design (Uptime Institute)" class="footer-certs" widths={[220, 440]} sizes="220px" loading="lazy" />
+    </div>
+
+    <nav class="footer-col" aria-labelledby="footer-menu">
+      <h2 id="footer-menu">Menu</h2>
+      <ul class="footer-links">
+        {
+          FOOTER_MENU.map((l) => (
+            <li>
+              <a href={l.href}>{l.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="footer-col">
+      <h2>Nossas redes</h2>
+      <ul class="footer-social">
+        {
+          SOCIAL.map((s) => (
+            <li>
+              <a href={s.url} target="_blank" rel="noopener" aria-label={s.name}>
+                <Icon name={s.icon} size={18} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <h2 class="footer-eco-title">Projetos socioambientais</h2>
+      <Image src={eco} alt="Projetos socioambientais: Green IT, Carbon Free Brasil e CETESB" class="footer-eco" widths={[300, 600]} sizes="300px" loading="lazy" />
+    </div>
+  </div>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>{CONTACT.copyright}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: clamp(3.5rem, 2.5rem + 3vw, 5rem) 2rem;
+    background: var(--c-paper);
+    border-top: 1px solid var(--c-line);
+    font-size: 0.92rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    gap: 2.75rem;
+  }
+
+  @media (min-width: 720px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-contact {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.7fr) minmax(0, 1fr);
+      gap: 3.5rem;
+    }
+
+    .footer-contact {
+      grid-column: auto;
+    }
+  }
+
+  .footer-logo {
+    display: inline-block;
+    border-radius: 6px;
+  }
+
+  .footer-logo :global(img) {
+    width: 168px;
+    height: auto;
+  }
+
+  .contact-list {
+    list-style: none;
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 1.5rem;
+    color: var(--c-ink-2);
+  }
+
+  .contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .contact-list :global(svg) {
+    flex: none;
+    margin-top: 2px;
+    color: var(--c-orange-deep);
+  }
+
+  .footer a {
+    color: var(--c-ink-2);
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    color: var(--c-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer-certs {
+    width: 200px;
+    height: auto;
+    margin-top: 1.75rem;
+  }
+
+  .footer-col h2 {
+    margin-bottom: 1rem;
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-orange-text);
+  }
+
+  .footer-links {
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .footer-social {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .footer-social a {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--c-line-2);
+    border-radius: 12px;
+    background: var(--c-surface);
+    color: var(--c-ink);
+    transition: border-color 0.2s var(--ease-out), background-color 0.2s var(--ease-out), color 0.2s, transform 0.2s var(--ease-out);
+  }
+
+  .footer-social a:hover {
+    border-color: var(--c-indigo-950);
+    background: var(--c-indigo-950);
+    color: var(--c-on-dark);
+    transform: translateY(-2px);
+  }
+
+  .footer-eco-title {
+    margin-top: 2rem;
+  }
+
+  .footer-eco {
+    width: 280px;
+    max-width: 100%;
+    height: auto;
+    padding: 0.75rem 1rem;
+    border-radius: var(--r-md);
+    background: var(--c-indigo-950);
+  }
+
+  .footer-bottom {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--c-line);
+    color: var(--c-ink-3);
+    font-size: 0.82rem;
+  }
+</style>

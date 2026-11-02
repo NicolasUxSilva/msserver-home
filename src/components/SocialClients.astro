@@ -1,0 +1,214 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { CLIENTS, CLIENTS_TITLE, SOCIAL_TITLE } from '../data/content';
+import { SOCIAL } from '../config/site';
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/clients/*.png', { eager: true });
+const logos = CLIENTS.map((c) => ({ ...c, src: files[`../assets/clients/${c.file}.png`].default }));
+---
+
+<section class="social on-dark" aria-labelledby="social-title">
+  <div class="social-bg" aria-hidden="true"></div>
+  <div class="container social-inner">
+    <h2 id="social-title" data-reveal>{SOCIAL_TITLE}</h2>
+    <ul class="social-list" data-reveal style="--reveal-i:1">
+      {
+        SOCIAL.map((s) => (
+          <li>
+            <a href={s.url} target="_blank" rel="noopener" aria-label={s.name} data-track="social_click" data-track-location={s.icon}>
+              <Icon name={s.icon} size={22} />
+              <span class="social-name">{s.name}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="clients" aria-labelledby="clients-title">
+  <div class="container clients-inner">
+    <h2 id="clients-title" class="clients-title">{CLIENTS_TITLE}</h2>
+    <ul class="clients-list">
+      {
+        logos.map((l, i) => (
+          <li data-reveal style={`--reveal-i:${i % 5}`}>
+            <Image src={l.src} alt={l.name} widths={[200, 400]} sizes="180px" loading="lazy" class="client-logo" />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* ——— Redes ——— */
+  .social {
+    position: relative;
+    padding-block: clamp(3.5rem, 2.5rem + 3vw, 5.5rem);
+    background: var(--c-indigo-950);
+    color: var(--c-on-dark);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .social-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(60% 90% at 50% 130%, rgb(249 131 5 / 0.22), transparent 70%),
+      radial-gradient(50% 60% at 10% 0%, rgb(61 58 134 / 0.5), transparent 70%);
+  }
+
+  .social-inner {
+    display: grid;
+    justify-items: center;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .social h2 {
+    font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.8rem);
+    max-width: 20ch;
+  }
+
+  .social-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .social-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 52px;
+    padding: 0 1.15rem;
+    border: 1px solid var(--c-line-dark-2);
+    border-radius: 14px;
+    background: rgb(255 255 255 / 0.04);
+    color: var(--c-on-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition:
+      background-color 0.2s var(--ease-out),
+      border-color 0.2s var(--ease-out),
+      transform 0.2s var(--ease-out);
+  }
+
+  .social-list a:hover {
+    border-color: rgb(255 255 255 / 0.5);
+    background: rgb(255 255 255 / 0.1);
+    transform: translateY(-2px);
+  }
+
+  .social-list a :global(svg) {
+    color: var(--c-orange);
+  }
+
+  @media (max-width: 479px) {
+    .social-list a {
+      width: 52px;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .social-name {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+  }
+
+  /* ——— Clientes (padrão da faixa de logos das landings) ——— */
+  .clients {
+    padding-block: clamp(3.5rem, 2.5rem + 3vw, 5.5rem);
+  }
+
+  .clients-inner {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .clients-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-ink-3);
+  }
+
+  .clients-title::after {
+    content: '';
+    width: 2.5rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.45;
+  }
+
+  .clients-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--c-line);
+    border-left: 1px solid var(--c-line);
+  }
+
+  .clients-list li {
+    display: grid;
+    place-items: center;
+    min-height: 96px;
+    padding: 0.85rem;
+    border-right: 1px solid var(--c-line);
+    border-bottom: 1px solid var(--c-line);
+    background: var(--c-surface);
+  }
+
+  .client-logo {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    border-radius: 8px;
+    filter: grayscale(1);
+    opacity: 0.72;
+    transition:
+      filter 0.3s var(--ease-out),
+      opacity 0.3s var(--ease-out),
+      transform 0.3s var(--ease-out);
+  }
+
+  .clients-list li:hover .client-logo {
+    filter: none;
+    opacity: 1;
+    transform: scale(1.04);
+  }
+
+  @media (min-width: 640px) {
+    .clients-list {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .clients-list li {
+      min-height: 120px;
+      padding: 1.25rem;
+    }
+  }
+
+  @media (hover: none) {
+    .client-logo {
+      filter: none;
+      opacity: 0.9;
+    }
+  }
+</style>

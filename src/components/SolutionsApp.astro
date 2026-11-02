@@ -1,0 +1,432 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Icon from './Icon.astro';
+import { APP, SOLUTIONS } from '../data/content';
+import { APP_STORES } from '../config/site';
+import appScreens from '../assets/app/app-telas.png';
+import appStore from '../assets/app/app-store.png';
+import googlePlay from '../assets/app/google-play.png';
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/solutions/*.jpg', { eager: true });
+// Imagens originais do acordeão: verticais no desktop e horizontais no celular.
+const panels = await Promise.all(
+  SOLUTIONS.map(async (s) => {
+    const d = files[`../assets/solutions/${s.key}-desktop.jpg`].default;
+    const m = files[`../assets/solutions/${s.key}-mobile.jpg`].default;
+    const [dImg, mImg] = await Promise.all([getImage({ src: d, width: 640, format: 'webp', quality: 80 }), getImage({ src: m, width: 800, format: 'webp', quality: 80 })]);
+    return { ...s, dSrc: dImg.src, mSrc: mImg.src };
+  }),
+);
+---
+
+<section class="band" aria-label="Soluções e aplicativo">
+  <div class="container band-grid">
+    <div class="sol">
+      <p class="eyebrow sol-eyebrow"><b>02</b> Soluções</p>
+      <ul class="acc" data-reveal>
+        {
+          panels.map((p, i) => {
+            const Tag = p.href ? 'a' : 'div';
+            return (
+              <li class="acc-item" style={`--d:url(${p.dSrc});--m:url(${p.mSrc})`} data-acc-item data-open={i === 0 ? '' : undefined}>
+                <Tag class="acc-panel" href={p.href ?? undefined} tabindex={p.href ? undefined : 0}>
+                  <span class="acc-media" aria-hidden="true" />
+                  <span class="acc-shade" aria-hidden="true" />
+                  <span class="acc-index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="acc-body">
+                    {'mobileTitle' in p && p.mobileTitle ? (
+                      <h2 class="acc-title">
+                        <span class="only-d">{p.title}</span>
+                        <span class="only-m">{p.mobileTitle}</span>
+                      </h2>
+                    ) : (
+                      <h2 class="acc-title">{p.title}</h2>
+                    )}
+                    <span class="acc-text">{p.text}</span>
+                    {p.href && (
+                      <span class="acc-more" aria-hidden="true">
+                        <Icon name="arrow-up-right" size={18} />
+                      </span>
+                    )}
+                  </span>
+                </Tag>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+
+    <div class="app on-dark" id="appmobile" data-reveal style="--reveal-i:1">
+      <div class="app-pattern" aria-hidden="true"></div>
+      <Image src={appScreens} alt="" class="app-screens" widths={[480, 960]} sizes="(min-width: 1100px) 520px, 90vw" loading="lazy" />
+      <div class="app-copy">
+        <h2 class="app-title">
+          <span class="app-kicker">{APP.kicker}</span>
+          <span>{APP.title}</span>
+        </h2>
+        <a class="btn btn--primary btn--lg" href={APP.button.href} target="_blank" rel="noopener" data-track="app_click" data-track-location="home-app">
+          {APP.button.label}
+          <Icon name="arrow-right" class="btn-arrow" />
+        </a>
+        <div class="stores">
+          <a href={APP_STORES.ios} target="_blank" rel="noopener" data-track="app_store_click" data-track-location="ios">
+            <Image src={appStore} alt="Baixar na App Store" height={44} densities={[1, 2]} loading="lazy" />
+          </a>
+          <a href={APP_STORES.android} target="_blank" rel="noopener" data-track="app_store_click" data-track-location="android">
+            <Image src={googlePlay} alt="Disponível no Google Play" height={44} densities={[1, 2]} loading="lazy" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Acordeão de imagens: no desktop, o painel sob o mouse ou com foco se expande (como no
+  // WordPress). Sem JS, o primeiro painel fica aberto.
+  const items = [...document.querySelectorAll<HTMLElement>('[data-acc-item]')];
+  const open = (el: HTMLElement) => items.forEach((i) => i.toggleAttribute('data-open', i === el));
+  items.forEach((el) => {
+    el.addEventListener('pointerenter', (e) => e.pointerType === 'mouse' && open(el));
+    el.addEventListener('focusin', () => open(el));
+  });
+</script>
+
+<style>
+  .band {
+    padding-block: clamp(1rem, 0.5rem + 2vw, 2rem) var(--section-y);
+  }
+
+  .band-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 1100px) {
+    .band-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: stretch;
+    }
+  }
+
+  .sol {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sol-eyebrow {
+    margin-bottom: 1.25rem;
+  }
+
+  /* ——— Acordeão ——— */
+  .acc {
+    list-style: none;
+    flex: 1;
+    display: flex;
+    gap: 0.6rem;
+    min-height: 520px;
+  }
+
+  .acc-item {
+    flex: 1;
+    min-width: 0;
+    transition: flex-grow 0.6s var(--ease-out);
+  }
+
+  .acc-item[data-open] {
+    flex-grow: 3.2;
+  }
+
+  .acc-panel {
+    position: relative;
+    display: block;
+    height: 100%;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--c-indigo-900);
+    color: var(--c-on-dark);
+    text-decoration: none;
+    isolation: isolate;
+  }
+
+  .acc-panel:focus-visible {
+    outline-color: var(--c-orange);
+  }
+
+  .acc-media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: var(--d) right center / cover no-repeat;
+    transform: scale(1.02);
+    transition:
+      transform 0.8s var(--ease-out),
+      background-position 0.6s var(--ease-out);
+  }
+
+  .acc-item[data-open] .acc-media {
+    background-position: left center;
+    transform: scale(1.06);
+  }
+
+  .acc-shade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgb(14 13 34 / 0.35), rgb(14 13 34 / 0.94) 58%);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-out);
+  }
+
+  .acc-item[data-open] .acc-shade {
+    opacity: 1;
+  }
+
+  .acc-index {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--c-line-dark-2);
+    border-radius: 6px;
+    background: rgb(14 13 34 / 0.5);
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--c-on-dark-2);
+  }
+
+  .acc-body {
+    position: absolute;
+    inset: auto 0 0;
+    display: grid;
+    gap: 0.75rem;
+    padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.35s var(--ease-out),
+      transform 0.45s var(--ease-out);
+    pointer-events: none;
+  }
+
+  .acc-item[data-open] .acc-body {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.18s;
+  }
+
+  .acc-title {
+    font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.75rem);
+    color: var(--c-on-dark);
+  }
+
+  .acc-text {
+    max-width: 46ch;
+    color: var(--c-on-dark-2);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .acc-more {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    margin-top: 0.25rem;
+    border-radius: 10px;
+    background: var(--c-orange);
+    color: #1a0f02;
+    transition: transform 0.2s var(--ease-out);
+  }
+
+  .acc-panel:hover .acc-more {
+    transform: translate(2px, -2px);
+  }
+
+  /* ——— App ——— */
+  .app {
+    position: relative;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    min-height: 520px;
+    margin-top: 0;
+    padding: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+    border-radius: var(--r-xl);
+    background:
+      radial-gradient(120% 80% at 100% 0%, rgb(61 58 134 / 0.55), transparent 55%),
+      radial-gradient(80% 60% at 0% 100%, rgb(249 131 5 / 0.14), transparent 60%),
+      var(--c-indigo-950);
+    color: var(--c-on-dark);
+    text-align: center;
+    overflow: hidden;
+    isolation: isolate;
+    scroll-margin-top: calc(var(--header-h) + 16px);
+  }
+
+  @media (min-width: 1100px) {
+    .app {
+      margin-top: calc(1.25rem + 1.2em);
+    }
+  }
+
+  .app-pattern {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    opacity: 0.5;
+    background-image:
+      repeating-linear-gradient(30deg, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(150deg, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 28px);
+  }
+
+  /* Colagem original de telas do app, como fundo da composição. */
+  .app :global(.app-screens) {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    z-index: -1;
+    width: min(110%, 640px);
+    max-width: none;
+    transform: translate(-50%, -50%);
+    opacity: 0.22;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  .app-copy {
+    display: grid;
+    justify-items: center;
+    gap: 1.75rem;
+  }
+
+  .app-title {
+    display: grid;
+    gap: 0.4rem;
+    font-size: clamp(2.4rem, 1.6rem + 3vw, 4rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .app-kicker {
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-orange);
+  }
+
+  .stores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .stores a {
+    display: block;
+    border-radius: 9px;
+    transition: transform 0.18s var(--ease-out), opacity 0.18s;
+  }
+
+  .stores a:hover {
+    transform: translateY(-2px);
+  }
+
+  .stores :global(img) {
+    height: 44px;
+    width: auto;
+  }
+
+  /* ——— Tablet e celular: painéis empilhados, texto sempre visível ——— */
+  @media (max-width: 1099px) {
+    .acc {
+      flex-direction: column;
+      min-height: 0;
+      gap: 0.75rem;
+    }
+
+    .acc-item,
+    .acc-item[data-open] {
+      flex: none;
+    }
+
+    .acc-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      height: auto;
+      background: var(--c-indigo-950);
+    }
+
+    .acc-media {
+      position: relative;
+      inset: auto;
+      z-index: 0;
+      aspect-ratio: 4 / 3;
+      background-image: var(--m);
+      background-position: center !important;
+      transform: none !important;
+    }
+
+    .acc-shade,
+    .acc-index {
+      display: none;
+    }
+
+    .acc-body {
+      position: static;
+      opacity: 1;
+      transform: none;
+      align-content: center;
+      gap: 0.5rem;
+    }
+
+    .acc-text {
+      font-size: 0.9rem;
+    }
+
+    .acc-more {
+      width: 36px;
+      height: 36px;
+    }
+
+    .app {
+      min-height: 0;
+      margin-top: 0.5rem;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .acc-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .acc-body {
+      padding: 1.1rem 1.15rem 1.25rem;
+    }
+  }
+
+  .only-m {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .only-d {
+      display: none;
+    }
+
+    .only-m {
+      display: inline;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .acc-item,
+    .acc-media,
+    .acc-body {
+      transition: none;
+    }
+  }
+</style>

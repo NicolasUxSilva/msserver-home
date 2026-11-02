@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+import soraUrl from '@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?url';
+import interUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import monoUrl from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url';
+import { SITE, TRACKING } from '../config/site';
+import schema from '../data/schema.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+}
+
+const { title = SITE.title, description = SITE.description, canonical = SITE.canonical } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
+
+const range =
+  'U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD';
+const fontFaces = `
+@font-face{font-family:'Sora Variable';font-style:normal;font-display:swap;font-weight:100 800;src:url(${soraUrl}) format('woff2-variations');unicode-range:${range}}
+@font-face{font-family:'Inter Variable';font-style:normal;font-display:swap;font-weight:100 900;src:url(${interUrl}) format('woff2-variations');unicode-range:${range}}
+@font-face{font-family:'JetBrains Mono Variable';font-style:normal;font-display:swap;font-weight:100 800;src:url(${monoUrl}) format('woff2-variations');unicode-range:${range}}`;
+
+// Mesmos scripts de rastreamento da home no WordPress (GTM, Google Ads, Meta Pixel, Clarity e RD Station).
+const tracking = `
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${TRACKING.gtm}');
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${TRACKING.googleAds}');
+(function(){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=${TRACKING.googleAds}';document.head.appendChild(g);})();
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${TRACKING.metaPixel}');fbq('track','PageView');
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${TRACKING.clarity}");`;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'max-image-preview:large'} />
+    <meta name="theme-color" content="#f5f4f0" />
+
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:site_name" content={SITE.ogSiteName} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={SITE.ogImage} />
+    <meta property="og:image:secure_url" content={SITE.ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={SITE.ogImage} />
+
+    <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon-32.png`} />
+    <link rel="icon" type="image/png" sizes="192x192" href={`${base}/icon-192.png`} />
+    <link rel="apple-touch-icon" href={`${base}/apple-touch-icon.png`} />
+
+    <link rel="preload" href={soraUrl} as="font" type="font/woff2" crossorigin />
+    <style set:html={fontFaces}></style>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+    {TRACKING.enabled && <script is:inline set:html={tracking} />}
+    {TRACKING.enabled && <script is:inline async src={TRACKING.rdStation} />}
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body>
+    {
+      TRACKING.enabled && (
+        <noscript>
+          <iframe src={`https://www.googletagmanager.com/ns.html?id=${TRACKING.gtm}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager" />
+        </noscript>
+      )
+    }
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <slot />
+    <script>
+      import { initPage } from '../scripts/page';
+      initPage();
+    </script>
+  </body>
+</html>

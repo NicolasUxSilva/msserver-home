@@ -1,0 +1,35 @@
+{
+  "fetchedAt": "2026-11-02T00:53:36.440Z",
+  "posts": [
+    {
+      "id": 8468,
+      "date": "2026-10-31T23:52:46",
+      "url": "https://msserver.com.br/review-servidor-poweredge-vale-a-pena/",
+      "title": "Review servidor PowerEdge: vale a pena para empresas?",
+      "excerpt": "Review servidor PowerEdge: critérios técnicos para avaliar desempenho, expansão, suporte e custo-benefício em ambientes críticos de empresas brasileiras",
+      "image": "post-8468.jpg",
+      "imageAlt": "Review servidor PowerEdge: vale a pena para empresas?",
+      "comments": "No Comments"
+    },
+    {
+      "id": 8466,
+      "date": "2026-10-29T23:52:57",
+      "url": "https://msserver.com.br/ssd-sas-versus-sata-servidores-corporativos/",
+      "title": "SSD SAS versus SATA para servidores corporativos",
+      "excerpt": "SSD SAS versus SATA: entenda desempenho, disponibilidade e custo para escolher o armazenamento certo para servidores e cargas corporativas críticas.",
+      "image": "post-8466.jpg",
+      "imageAlt": "SSD SAS versus SATA para servidores corporativos",
+      "comments": "No Comments"
+    },
+    {
+      "id": 8461,
+      "date": "2026-10-27T23:55:12",
+      "url": "https://msserver.com.br/como-configurar-raid-empresarial/",
+      "title": "Como configurar RAID empresarial sem erro",
+      "excerpt": "Aprenda como configurar RAID empresarial com segurança: escolha o nível, valide discos, teste falhas e proteja a operação crítica da empresa com controle.",
+      "image": "post-8461.jpg",
+      "imageAlt": "Como configurar RAID empresarial sem erro",
+      "comments": "No Comments"
+    }
+  ]
+}

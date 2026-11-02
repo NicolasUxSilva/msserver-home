@@ -1,0 +1,728 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/msserver-logo.png';
+import Icon from './Icon.astro';
+import { LINKS, NAV } from '../config/site';
+
+// Itens com submenu: "Servidores" (link + submenu) e "Soluções" (apenas submenu, como no WordPress).
+const isCurrent = (href?: string) => href === LINKS.home;
+---
+
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href={LINKS.home} aria-label="MSSERVER, página inicial">
+      <Image src={logo} alt="MSSERVER Soluções em Servidores" widths={[160, 320, 480]} sizes="148px" loading="eager" fetchpriority="high" class="brand-logo" />
+    </a>
+
+    <nav class="nav-desktop" aria-label="Menu principal">
+      <ul class="nav-list">
+        {
+          NAV.map((item, i) => (
+            <li class:list={['nav-item', item.children && 'has-sub']} data-nav-item>
+              {item.href ? (
+                <a class="nav-link" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              ) : (
+                <button class="nav-link nav-link--button" type="button" aria-expanded="false" aria-controls={`sub-${i}`} data-sub-toggle>
+                  {item.label}
+                  <Icon name="chevron-down" size={16} class="nav-chevron" />
+                </button>
+              )}
+              {item.children && item.href && (
+                <button class="nav-caret" type="button" aria-expanded="false" aria-controls={`sub-${i}`} aria-label={`Abrir submenu de ${item.label}`} data-sub-toggle>
+                  <Icon name="chevron-down" size={16} class="nav-chevron" />
+                </button>
+              )}
+              {item.children && (
+                <div class="nav-panel" id={`sub-${i}`} hidden data-sub-panel>
+                  <div class="nav-panel-grid">
+                    <ul class="nav-panel-col">
+                      {item.children
+                        .filter((c) => !c.children)
+                        .map((c) => (
+                          <li>
+                            <a class="nav-panel-link" href={c.href}>
+                              {c.label}
+                              <Icon name="arrow-right" size={16} class="nav-panel-arrow" />
+                            </a>
+                          </li>
+                        ))}
+                    </ul>
+                    {item.children
+                      .filter((c) => c.children)
+                      .map((group) => (
+                        <div class="nav-panel-group">
+                          {group.href ? (
+                            <a class="nav-panel-head" href={group.href}>
+                              {group.label}
+                              <Icon name="arrow-right" size={14} class="nav-panel-arrow" />
+                            </a>
+                          ) : (
+                            <p class="nav-panel-head">{group.label}</p>
+                          )}
+                          <ul class:list={['nav-panel-sub', group.children!.length > 4 && 'nav-panel-sub--2col']}>
+                            {group.children!.map((c) => (
+                              <li>
+                                <a href={c.href}>{c.label}</a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <form class="search" role="search" action={LINKS.search} method="get" data-search>
+        <label class="sr-only" for="busca-produtos">Pesquisar produtos</label>
+        <Icon name="search" size={18} class="search-icon" />
+        <input id="busca-produtos" class="search-input" type="search" name="s" placeholder="Perquisar produtos..." autocomplete="off" />
+        <input type="hidden" name="post_type" value="product" />
+        <input type="hidden" name="dgwt_wcas" value="1" />
+        <button class="search-submit" type="submit" aria-label="Pesquisar"><Icon name="arrow-right" size={18} /></button>
+      </form>
+      <button class="icon-btn search-toggle" type="button" aria-expanded="false" aria-controls="busca-movel" aria-label="Abrir busca de produtos" data-search-toggle>
+        <Icon name="search" size={20} />
+      </button>
+      <button class="icon-btn menu-toggle" type="button" aria-expanded="false" aria-controls="menu-movel" aria-label="Abrir menu" data-menu-toggle>
+        <span class="menu-toggle-bars" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="busca-movel" class="search-panel" hidden data-search-panel>
+    <form class="container search-panel-form" role="search" action={LINKS.search} method="get">
+      <label class="sr-only" for="busca-produtos-movel">Pesquisar produtos</label>
+      <Icon name="search" size={20} class="search-icon" />
+      <input id="busca-produtos-movel" class="search-input" type="search" name="s" placeholder="Perquisar produtos..." autocomplete="off" />
+      <input type="hidden" name="post_type" value="product" />
+      <input type="hidden" name="dgwt_wcas" value="1" />
+      <button class="btn btn--primary btn--sm" type="submit">Pesquisar</button>
+    </form>
+  </div>
+
+  <div id="menu-movel" class="mobile-menu" hidden>
+    <nav class="container mobile-menu-inner" aria-label="Menu">
+      <ul class="m-list">
+        {
+          NAV.map((item, i) => (
+            <li class="m-item">
+              <div class="m-row">
+                {item.href ? (
+                  <a class="m-link" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                ) : (
+                  <button class="m-link m-link--button" type="button" aria-expanded="false" aria-controls={`m-sub-${i}`} data-sub-toggle>
+                    {item.label}
+                  </button>
+                )}
+                {item.children && (
+                  <button class="m-caret" type="button" aria-expanded="false" aria-controls={`m-sub-${i}`} aria-label={`Abrir submenu de ${item.label}`} data-sub-toggle tabindex={item.href ? undefined : -1}>
+                    <Icon name="chevron-down" size={20} />
+                  </button>
+                )}
+              </div>
+              {item.children && (
+                <ul class="m-sub" id={`m-sub-${i}`} hidden data-sub-panel>
+                  {item.children.map((c, j) => (
+                    <li>
+                      <div class="m-row m-row--sub">
+                        {c.href ? (
+                          <a href={c.href}>{c.label}</a>
+                        ) : (
+                          <button class="m-link--button" type="button" aria-expanded="false" aria-controls={`m-sub-${i}-${j}`} data-sub-toggle>
+                            {c.label}
+                          </button>
+                        )}
+                        {c.children && (
+                          <button class="m-caret m-caret--sm" type="button" aria-expanded="false" aria-controls={`m-sub-${i}-${j}`} aria-label={`Abrir submenu de ${c.label}`} data-sub-toggle tabindex={c.href ? undefined : -1}>
+                            <Icon name="chevron-down" size={18} />
+                          </button>
+                        )}
+                      </div>
+                      {c.children && (
+                        <ul class="m-sub m-sub--deep" id={`m-sub-${i}-${j}`} hidden data-sub-panel>
+                          {c.children.map((d) => (
+                            <li>
+                              <a href={d.href}>{d.label}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(245 244 240 / 0.86);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
+  }
+
+  .site-header:global(.is-scrolled) {
+    border-bottom-color: var(--c-line);
+    background: rgb(245 244 240 / 0.94);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    height: var(--header-h);
+  }
+
+  .brand {
+    flex: none;
+    display: block;
+    border-radius: 6px;
+  }
+
+  .brand-logo {
+    width: 148px;
+    height: auto;
+  }
+
+  /* ——— Navegação desktop ——— */
+  .nav-desktop {
+    display: none;
+    margin-inline: auto;
+  }
+
+  .nav-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+  }
+
+  .nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0.7rem;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    color: var(--c-ink-2);
+    font-size: 0.925rem;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: color 0.15s var(--ease-out), background-color 0.15s var(--ease-out);
+  }
+
+  .has-sub > .nav-link:not(.nav-link--button) {
+    padding-right: 0.15rem;
+  }
+
+  .nav-link:hover,
+  .nav-item.is-open > .nav-link {
+    color: var(--c-ink);
+    background: rgb(27 24 32 / 0.05);
+  }
+
+  .nav-link[aria-current='page'] {
+    color: var(--c-ink);
+  }
+
+  .nav-link[aria-current='page']::after {
+    content: '';
+    position: absolute;
+    left: 0.7rem;
+    right: 0.7rem;
+    bottom: 2px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--c-orange);
+  }
+
+  .nav-caret {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 34px;
+    margin-left: -2px;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    color: var(--c-ink-3);
+  }
+
+  .nav-caret:hover {
+    color: var(--c-ink);
+  }
+
+  .nav-link :global(.nav-chevron),
+  .nav-caret :global(.nav-chevron) {
+    transition: transform 0.2s var(--ease-out);
+  }
+
+  [aria-expanded='true'] :global(.nav-chevron) {
+    transform: rotate(180deg);
+  }
+
+  .nav-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -0.5rem;
+    z-index: 5;
+    min-width: 260px;
+    padding: 0.6rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-md);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-2);
+    animation: panel-in 0.2s var(--ease-out);
+  }
+
+  /* Ponte invisível para o mouse não perder o hover entre o item e o painel. */
+  .nav-panel::before {
+    content: '';
+    position: absolute;
+    inset: -12px 0 auto;
+    height: 12px;
+  }
+
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+
+  .nav-panel-grid {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .nav-panel-col {
+    list-style: none;
+    min-width: 200px;
+  }
+
+  .nav-panel-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 9px;
+    color: var(--c-ink);
+    font-size: 0.925rem;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background-color 0.15s var(--ease-out);
+  }
+
+  .nav-panel-link:hover {
+    background: var(--c-paper);
+  }
+
+  .nav-panel :global(.nav-panel-arrow) {
+    color: var(--c-ink-3);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.15s var(--ease-out), transform 0.2s var(--ease-out);
+  }
+
+  .nav-panel a:hover :global(.nav-panel-arrow) {
+    opacity: 1;
+    transform: none;
+  }
+
+  .nav-panel-group {
+    min-width: 220px;
+    padding: 0.85rem 0.95rem 0.95rem;
+    border-radius: 11px;
+    background: var(--c-paper);
+  }
+
+  .nav-panel-head {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-orange-text);
+    text-decoration: none;
+  }
+
+  a.nav-panel-head:hover {
+    color: var(--c-ink);
+  }
+
+  .nav-panel-sub {
+    list-style: none;
+    display: grid;
+    gap: 0.1rem 1rem;
+  }
+
+  .nav-panel-sub--2col {
+    grid-template-columns: repeat(2, minmax(0, auto));
+  }
+
+  .nav-panel-sub a {
+    display: block;
+    padding: 0.35rem 0;
+    color: var(--c-ink-2);
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav-panel-sub a:hover {
+    color: var(--c-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ——— Ações: busca e menu ——— */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
+  .search {
+    position: relative;
+    display: none;
+    align-items: center;
+  }
+
+  .search :global(.search-icon) {
+    position: absolute;
+    left: 0.85rem;
+    color: var(--c-ink-3);
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 200px;
+    height: 42px;
+    padding: 0 2.6rem 0 2.5rem;
+    border: 1px solid var(--c-line-2);
+    border-radius: 12px;
+    background: var(--c-surface);
+    font-size: 0.9rem;
+    transition: width 0.3s var(--ease-out), border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+
+  .search-input::placeholder {
+    color: var(--c-ink-3);
+  }
+
+  .search-input:focus {
+    width: 260px;
+    outline: none;
+    border-color: var(--c-indigo-600);
+    box-shadow: 0 0 0 3px rgb(61 58 134 / 0.16);
+  }
+
+  .search-input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .search-submit {
+    position: absolute;
+    right: 5px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--c-orange);
+    color: #1a0f02;
+    transition: background-color 0.18s var(--ease-out);
+  }
+
+  .search-submit:hover {
+    background: var(--c-orange-hover);
+  }
+
+  .icon-btn {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--c-line-2);
+    border-radius: 12px;
+    background: var(--c-surface);
+    color: var(--c-ink);
+    transition: border-color 0.18s var(--ease-out), background-color 0.18s var(--ease-out);
+  }
+
+  .icon-btn:hover {
+    border-color: var(--c-ink-3);
+  }
+
+  .search-toggle[aria-expanded='true'] {
+    border-color: var(--c-ink);
+  }
+
+  .search-panel {
+    border-top: 1px solid var(--c-line);
+    background: var(--c-paper);
+    animation: panel-in 0.2s var(--ease-out);
+  }
+
+  .search-panel-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-block: 0.85rem;
+  }
+
+  .search-panel-form :global(.search-icon) {
+    position: absolute;
+    left: calc(var(--gutter) + 0.85rem);
+    color: var(--c-ink-3);
+    pointer-events: none;
+  }
+
+  .search-panel-form .search-input,
+  .search-panel-form .search-input:focus {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    height: 44px;
+    padding-right: 0.85rem;
+  }
+
+  .menu-toggle-bars,
+  .menu-toggle-bars::before,
+  .menu-toggle-bars::after {
+    display: block;
+    width: 18px;
+    height: 1.75px;
+    border-radius: 2px;
+    background: var(--c-ink);
+    transition: transform 0.25s var(--ease-out), opacity 0.2s;
+  }
+
+  .menu-toggle-bars {
+    position: relative;
+  }
+
+  .menu-toggle-bars::before,
+  .menu-toggle-bars::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .menu-toggle-bars::before {
+    top: -6px;
+  }
+
+  .menu-toggle-bars::after {
+    top: 6px;
+  }
+
+  .menu-toggle[aria-expanded='true'] .menu-toggle-bars {
+    background: transparent;
+  }
+
+  .menu-toggle[aria-expanded='true'] .menu-toggle-bars::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .menu-toggle[aria-expanded='true'] .menu-toggle-bars::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* ——— Menu móvel ——— */
+  .mobile-menu {
+    position: fixed;
+    inset: var(--header-h) 0 0;
+    background: var(--c-paper);
+    border-top: 1px solid var(--c-line);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    animation: menu-in 0.25s var(--ease-out);
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  .mobile-menu-inner {
+    padding-block: 0.5rem 2.5rem;
+  }
+
+  .m-list,
+  .m-sub {
+    list-style: none;
+  }
+
+  .m-item {
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  .m-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .m-link {
+    flex: 1;
+    display: block;
+    padding: 1rem 0.25rem;
+    border: 0;
+    background: none;
+    font-family: var(--f-display);
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    text-align: left;
+    text-decoration: none;
+  }
+
+  .m-link[aria-current='page'] {
+    color: var(--c-orange-text);
+  }
+
+  .m-link--button {
+    border: 0;
+    background: none;
+    text-align: left;
+  }
+
+  .m-caret {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--c-line-2);
+    border-radius: 12px;
+    background: var(--c-surface);
+    color: var(--c-ink-2);
+  }
+
+  .m-caret :global(svg) {
+    transition: transform 0.2s var(--ease-out);
+  }
+
+  .m-caret[aria-expanded='true'] :global(svg) {
+    transform: rotate(180deg);
+  }
+
+  .m-caret--sm {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .m-sub {
+    padding: 0 0 1rem 0.25rem;
+    animation: menu-in 0.2s var(--ease-out);
+  }
+
+  .m-sub a,
+  .m-row--sub .m-link--button {
+    flex: 1;
+    display: block;
+    padding: 0.6rem 0;
+    color: var(--c-ink-2);
+    font-size: 1rem;
+    text-decoration: none;
+  }
+
+  .m-sub--deep {
+    margin: 0 0 0.5rem 0.25rem;
+    padding: 0.25rem 0 0.25rem 1rem;
+    border-left: 2px solid var(--c-orange);
+  }
+
+  .m-sub--deep a {
+    padding: 0.45rem 0;
+    font-size: 0.95rem;
+  }
+
+  :global(html.menu-open) {
+    overflow: hidden;
+  }
+
+  @media (max-width: 419px) {
+    .brand-logo {
+      width: 124px;
+    }
+
+    .header-inner {
+      gap: 0.75rem;
+    }
+  }
+
+  @media (min-width: 1180px) {
+    .nav-desktop {
+      display: block;
+    }
+
+    .header-actions {
+      margin-left: 0;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1360px) {
+    .search {
+      display: flex;
+    }
+
+    .search-toggle,
+    .search-panel {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1180px) and (max-width: 1259px) {
+    .nav-link {
+      padding-inline: 0.55rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>

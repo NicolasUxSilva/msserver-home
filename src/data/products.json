@@ -1,0 +1,219 @@
+{
+  "fetchedAt": "2026-11-02T00:53:29.991Z",
+  "tabs": [
+    {
+      "id": "rack",
+      "label": "Rack",
+      "products": [
+        5668,
+        5642,
+        4990,
+        4935,
+        4881,
+        4866
+      ]
+    },
+    {
+      "id": "torre",
+      "label": "Torre",
+      "products": [
+        4966,
+        4958,
+        4954,
+        4924,
+        4917,
+        4905
+      ]
+    },
+    {
+      "id": "escala-nuvem",
+      "label": "Escala Nuvem",
+      "products": [
+        4990,
+        5614,
+        5642,
+        5649,
+        5655,
+        5662
+      ]
+    }
+  ],
+  "products": {
+    "4866": {
+      "id": 4866,
+      "name": "Servidor Dell PowerEdge R420",
+      "url": "https://msserver.com.br/servidor/servidor-dell-r420/",
+      "image": "4866.jpg",
+      "imageAlt": "",
+      "min": 5300,
+      "max": 6450,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "4881": {
+      "id": 4881,
+      "name": "Servidor Dell PowerEdge R620",
+      "url": "https://msserver.com.br/servidor/servidor-dell-r620/",
+      "image": "4881.jpg",
+      "imageAlt": "",
+      "min": 8950,
+      "max": 9850,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "4905": {
+      "id": 4905,
+      "name": "Servidor Dell PowerEdge T410",
+      "url": "https://msserver.com.br/servidor/servidor-dell-t410/",
+      "image": "4905.jpg",
+      "imageAlt": "",
+      "min": 3550,
+      "max": 4250,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "4917": {
+      "id": 4917,
+      "name": "Servidor Dell PowerEdge T630",
+      "url": "https://msserver.com.br/servidor/servidor-dell-t630/",
+      "image": "4917.jpg",
+      "imageAlt": "",
+      "min": 12850,
+      "max": 13800,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "4924": {
+      "id": 4924,
+      "name": "Servidor Dell PowerEdge T420",
+      "url": "https://msserver.com.br/servidor/servidor-torre-dell-t420-2/",
+      "image": "4924.jpg",
+      "imageAlt": "",
+      "min": 4600,
+      "max": 5300,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "4935": {
+      "id": 4935,
+      "name": "Servidor HP Proliant DL360 G9",
+      "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g9/",
+      "image": "4935.jpg",
+      "imageAlt": "",
+      "min": 12000,
+      "max": 13250,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "4954": {
+      "id": 4954,
+      "name": "Servidor HP Proliant ML110 G9",
+      "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml110-g9/",
+      "image": "4954.jpg",
+      "imageAlt": "",
+      "min": 4800,
+      "max": 6200,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "4958": {
+      "id": 4958,
+      "name": "Servidor HP Proliant ML350 G8",
+      "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g8/",
+      "image": "4958.jpg",
+      "imageAlt": "",
+      "min": 5900,
+      "max": 6600,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "4966": {
+      "id": 4966,
+      "name": "Servidor HP Proliant ML310 G8",
+      "url": "https://msserver.com.br/servidor/servidor-hp-ml310-g8/",
+      "image": "4966.jpg",
+      "imageAlt": "",
+      "min": 3900,
+      "max": 4500,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "4990": {
+      "id": 4990,
+      "name": "Servidor Dell PowerEdge R740",
+      "url": "https://msserver.com.br/servidor/servidor-dell-r740/",
+      "image": "4990.jpg",
+      "imageAlt": "",
+      "min": 23500,
+      "max": 26500,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "5614": {
+      "id": 5614,
+      "name": "Servidor Dell PowerEdge R730 XD",
+      "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730-xd/",
+      "image": "5614.jpg",
+      "imageAlt": "",
+      "min": 20500,
+      "max": 25450,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "5642": {
+      "id": 5642,
+      "name": "Servidor Dell PowerEdge R720",
+      "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r720/",
+      "image": "5642.jpg",
+      "imageAlt": "",
+      "min": 9950,
+      "max": 11000,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "5649": {
+      "id": 5649,
+      "name": "Servidor Dell PowerEdge R520",
+      "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r520/",
+      "image": "5649.jpg",
+      "imageAlt": "",
+      "min": 7500,
+      "max": 8300,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "5655": {
+      "id": 5655,
+      "name": "Servidor Dell PowerEdge R530",
+      "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r530/",
+      "image": "5655.jpg",
+      "imageAlt": "",
+      "min": 14500,
+      "max": 21450,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "5662": {
+      "id": 5662,
+      "name": "Servidor HP Proliant DL380P G8 v2",
+      "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380p-g8/",
+      "image": "5662.jpg",
+      "imageAlt": "",
+      "min": 6800,
+      "max": 7800,
+      "rating": 0,
+      "button": "Selecionar opções"
+    },
+    "5668": {
+      "id": 5668,
+      "name": "Servidor HP Proliant DL380 G7",
+      "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g7/",
+      "image": "5668.jpg",
+      "imageAlt": "",
+      "min": 3800,
+      "max": 4500,
+      "rating": 0,
+      "button": "Selecionar opções"
+    }
+  }
+}

@@ -1,0 +1,170 @@
+---
+import { Image } from 'astro:assets';
+import data from '../data/posts.json';
+import { POSTS_READ_MORE, POSTS_TITLE } from '../data/content';
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/posts/*.jpg', { eager: true });
+// Data no formato do WordPress ("31 de outubro de 2026"), em português.
+const fmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'America/Sao_Paulo' });
+---
+
+<section class="section section--surface posts" id="blog" aria-labelledby="posts-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow"><b>03</b> Blog</p>
+        <h2 id="posts-title">{POSTS_TITLE}</h2>
+      </div>
+    </div>
+
+    <ul class="post-grid">
+      {
+        data.posts.map((p, i) => {
+          const img = p.image ? files[`../assets/posts/${p.image}`]?.default : undefined;
+          return (
+            <li class="post" data-reveal style={`--reveal-i:${i}`}>
+              <a class="post-thumb" href={p.url} tabindex="-1" aria-hidden="true">
+                {img && <Image src={img} alt="" widths={[400, 640, 900]} sizes="(min-width: 1024px) 400px, (min-width: 720px) 45vw, 92vw" loading="lazy" />}
+              </a>
+              <div class="post-body">
+                <h3 class="post-title">
+                  <a href={p.url}>{p.title}</a>
+                </h3>
+                <p class="post-excerpt">{p.excerpt}</p>
+                <a class="post-more" href={p.url} aria-label={`${POSTS_READ_MORE.replace(' »', '')}: ${p.title}`}>
+                  {POSTS_READ_MORE}
+                </a>
+              </div>
+              <p class="post-meta">
+                <time datetime={p.date}>{fmt(p.date)}</time>
+                <span>{p.comments}</span>
+              </p>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .post-grid {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 720px) {
+    .post-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .post-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+  }
+
+  .post {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-paper);
+    overflow: hidden;
+    transition: border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+  }
+
+  .post:hover {
+    border-color: var(--c-line-2);
+    box-shadow: var(--shadow-1);
+    transform: translateY(-2px);
+  }
+
+  .post-thumb {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--c-paper-2);
+  }
+
+  .post-thumb :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .post:hover .post-thumb :global(img) {
+    transform: scale(1.04);
+  }
+
+  .post-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    flex: 1;
+    padding: 1.4rem 1.5rem 1.25rem;
+  }
+
+  .post-title {
+    font-size: 1.2rem;
+    line-height: 1.25;
+  }
+
+  .post-title a {
+    text-decoration: none;
+  }
+
+  .post-title a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+
+  .post-excerpt {
+    color: var(--c-ink-2);
+    font-size: 0.95rem;
+  }
+
+  .post-more {
+    margin-top: auto;
+    padding-top: 0.25rem;
+    color: var(--c-indigo-600);
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+  }
+
+  .post-more:hover {
+    color: var(--c-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.9rem;
+    padding: 0.85rem 1.5rem;
+    border-top: 1px solid var(--c-line);
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: var(--c-ink-3);
+  }
+
+  .post-meta span::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    margin-right: 0.9rem;
+    border-radius: 50%;
+    background: var(--c-line-2);
+    vertical-align: middle;
+  }
+</style>

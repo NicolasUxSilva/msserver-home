@@ -1,0 +1,426 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import data from '../data/products.json';
+import { LINE } from '../data/content';
+
+type Product = { id: number; name: string; url: string; image: string | null; imageAlt: string; min: number; max: number; rating: number; button: string };
+const products = data.products as unknown as Record<string, Product>;
+const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/products/*.jpg', { eager: true });
+const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+---
+
+<section class="section line" id="nossa-linha" aria-labelledby="line-title">
+  <div class="container">
+    <div class="line-head">
+      <div>
+        <p class="eyebrow"><b>01</b> Servidores</p>
+        <h2 id="line-title">{LINE.title}</h2>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Formato dos servidores" data-tabs>
+        <span class="tabs-ink" aria-hidden="true" data-tabs-ink></span>
+        {
+          data.tabs.map((t, i) => (
+            <button class="tab" type="button" role="tab" id={t.id} aria-controls={`${t.id}-tab`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tab>
+              {t.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    {
+      data.tabs.map((t, i) => (
+        <div class="tab-panel" id={`${t.id}-tab`} role="tabpanel" aria-labelledby={t.id} tabindex="0" hidden={i !== 0} data-tab-panel>
+          <ul class="grid">
+            {t.products.map((id, j) => {
+              const p = products[String(id)];
+              const photo = p.image ? photos[`../assets/products/${p.image}`]?.default : undefined;
+              return (
+                <li class="card" data-reveal style={`--reveal-i:${j % 3}`}>
+                  <a class="card-photo" href={p.url} tabindex="-1" aria-hidden="true">
+                    {photo && <Image src={photo} alt="" widths={[320, 480, 640, 800]} sizes="(min-width: 1100px) 380px, (min-width: 640px) 45vw, 92vw" loading={i === 0 && j < 3 ? 'eager' : 'lazy'} />}
+                  </a>
+                  <div class="card-body">
+                    <h3 class="card-title">
+                      <a href={p.url}>{p.name}</a>
+                    </h3>
+                    <p class="rating" role="img" aria-label={`Rated ${p.rating} out of 5`}>
+                      {[0, 1, 2, 3, 4].map((k) => (
+                        <Icon name="star" size={14} class={k < Math.round(p.rating) ? 'star is-on' : 'star'} />
+                      ))}
+                    </p>
+                    <p class="price">
+                      {p.min === p.max ? (
+                        <span>{brl(p.min)}</span>
+                      ) : (
+                        <Fragment>
+                          <span>{brl(p.min)}</span>
+                          <span class="price-sep" aria-label="até">–</span>
+                          <span>{brl(p.max)}</span>
+                        </Fragment>
+                      )}
+                    </p>
+                    <a class="btn btn--dark btn--sm card-btn" href={p.url} aria-label={`${p.button}: ${p.name}`}>
+                      {p.button}
+                      <Icon name="arrow-right" size={16} class="btn-arrow" />
+                    </a>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))
+    }
+
+    <div class="line-foot">
+      <a class="btn btn--outline btn--lg" href={LINE.viewAll.href}>
+        {LINE.viewAll.label}
+        <Icon name="arrow-right" class="btn-arrow" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Abas acessíveis (padrão WAI-ARIA): clique, setas, Home/End. O conteúdo das três abas
+  // fica no HTML, como no WordPress.
+  const list = document.querySelector<HTMLElement>('[data-tabs]');
+  if (list) {
+    const tabs = [...list.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+    const ink = list.querySelector<HTMLElement>('[data-tabs-ink]')!;
+    const moveInk = (tab: HTMLElement) => {
+      ink.style.width = `${tab.offsetWidth}px`;
+      ink.style.transform = `translateX(${tab.offsetLeft}px)`;
+    };
+    const select = (tab: HTMLButtonElement, focus = false) => {
+      for (const t of tabs) {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        const panel = document.getElementById(t.getAttribute('aria-controls')!)!;
+        panel.hidden = !on;
+        if (on) {
+          panel.classList.remove('is-entering');
+          void panel.offsetWidth;
+          panel.classList.add('is-entering');
+          panel.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-in'));
+        }
+      }
+      moveInk(tab);
+      if (focus) tab.focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(t));
+      t.addEventListener('keydown', (e) => {
+        const k = e.key;
+        let n = -1;
+        if (k === 'ArrowRight') n = (i + 1) % tabs.length;
+        else if (k === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+        else if (k === 'Home') n = 0;
+        else if (k === 'End') n = tabs.length - 1;
+        if (n >= 0) {
+          e.preventDefault();
+          select(tabs[n], true);
+        }
+      });
+    });
+    const current = () => tabs.find((t) => t.getAttribute('aria-selected') === 'true') ?? tabs[0];
+    list.classList.add('has-ink');
+    moveInk(current());
+    new ResizeObserver(() => moveInk(current())).observe(list);
+    document.fonts?.ready.then(() => moveInk(current()));
+  }
+</script>
+
+<style>
+  .line {
+    padding-top: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
+  }
+
+  .line-head {
+    display: grid;
+    gap: 1.5rem 3rem;
+    margin-bottom: clamp(2rem, 1.25rem + 2.5vw, 3.25rem);
+  }
+
+  @media (min-width: 900px) {
+    .line-head {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+    }
+  }
+
+  .line-head h2 {
+    margin-top: 1.1rem;
+    font-size: var(--t-h2);
+  }
+
+  /* ——— Abas ——— */
+  .tabs {
+    position: relative;
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    width: fit-content;
+    max-width: 100%;
+    padding: 5px;
+    border: 1px solid var(--c-line);
+    border-radius: 14px;
+    background: var(--c-surface);
+  }
+
+  .tabs-ink {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 0;
+    border-radius: 10px;
+    background: var(--c-indigo-950);
+    opacity: 0;
+    transition:
+      transform 0.35s var(--ease-out),
+      width 0.35s var(--ease-out);
+  }
+
+  .tabs:global(.has-ink) .tabs-ink {
+    opacity: 1;
+  }
+
+  .tab {
+    position: relative;
+    z-index: 1;
+    min-height: 44px;
+    padding: 0 1.35rem;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--c-ink-2);
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: color 0.25s var(--ease-out);
+  }
+
+  .tab:hover {
+    color: var(--c-ink);
+  }
+
+  .tab[aria-selected='true'] {
+    color: var(--c-on-dark);
+  }
+
+  /* Sem JS, a aba ativa usa fundo próprio. */
+  .tabs:not(:global(.has-ink)) .tab[aria-selected='true'] {
+    background: var(--c-indigo-950);
+  }
+
+  @media (max-width: 479px) {
+    .tabs {
+      width: 100%;
+    }
+
+    .tab {
+      padding: 0 0.75rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  .tab-panel:focus-visible {
+    outline-offset: 8px;
+    border-radius: var(--r-lg);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tab-panel:global(.is-entering) .card {
+      animation: card-in 0.5s var(--ease-out) both;
+    }
+
+    .tab-panel:global(.is-entering) .card:nth-child(3n + 2) {
+      animation-delay: 0.06s;
+    }
+
+    .tab-panel:global(.is-entering) .card:nth-child(3n) {
+      animation-delay: 0.12s;
+    }
+  }
+
+  @keyframes card-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  /* ——— Cartões (padrão do catálogo das landings) ——— */
+  .grid {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    overflow: hidden;
+    transition:
+      box-shadow 0.25s var(--ease-out),
+      border-color 0.25s var(--ease-out),
+      transform 0.25s var(--ease-out);
+  }
+
+  .card:hover {
+    border-color: var(--c-line-2);
+    box-shadow: var(--shadow-1);
+  }
+
+  .card-photo {
+    display: block;
+    aspect-ratio: 4 / 3;
+    background: #fff;
+    border-bottom: 1px solid var(--c-line);
+    overflow: hidden;
+  }
+
+  .card-photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .card:hover .card-photo :global(img) {
+    transform: scale(1.04);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    flex: 1;
+    padding: 1.2rem 1.4rem 1.4rem;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+    line-height: 1.2;
+  }
+
+  .card-title a {
+    text-decoration: none;
+  }
+
+  .card-title a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+
+  .rating {
+    display: flex;
+    gap: 2px;
+    color: var(--c-line-2);
+  }
+
+  .rating :global(.star.is-on) {
+    color: var(--c-orange);
+    fill: currentColor;
+  }
+
+  .price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.1rem 0.45rem;
+    margin-top: 0.2rem;
+    font-family: var(--f-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  .price-sep {
+    color: var(--c-ink-3);
+    font-weight: 400;
+  }
+
+  .card-btn {
+    margin-top: auto;
+  }
+
+  .price {
+    margin-bottom: 0.9rem;
+  }
+
+  .card-btn:hover :global(.btn-arrow) {
+    transform: translateX(3px);
+  }
+
+  .line-foot {
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(2rem, 1.5rem + 1.5vw, 3rem);
+  }
+
+  /* Celular: cartões horizontais, compactos (mesma adaptação da landing de servidores). */
+  @media (max-width: 639px) {
+    .card {
+      flex-direction: row;
+    }
+
+    .card-photo {
+      flex: none;
+      width: 38%;
+      aspect-ratio: auto;
+      border-bottom: 0;
+      border-right: 1px solid var(--c-line);
+      display: grid;
+      place-items: center;
+    }
+
+    .card-body {
+      min-width: 0;
+      padding: 0.95rem 1rem 1rem;
+      gap: 0.35rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+    }
+
+    .price {
+      font-size: 1.05rem;
+    }
+
+    .price {
+      margin-bottom: 0.5rem;
+    }
+
+    .card-btn {
+      white-space: normal;
+    }
+
+    .line-foot .btn {
+      width: 100%;
+    }
+  }
+</style>

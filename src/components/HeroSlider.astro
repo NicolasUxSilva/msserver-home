@@ -1,0 +1,629 @@
+---
+import { getImage } from 'astro:assets';
+import Icon from './Icon.astro';
+import { SLIDES } from '../data/content';
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/hero/*.jpg', { eager: true });
+const img = (name: string) => files[`../assets/hero/${name}.jpg`].default;
+
+// Banners originais do WordPress: versão larga (≥ 768 px) e versão vertical (celular).
+const slides = await Promise.all(
+  SLIDES.map(async (s, i) => {
+    const d = img(`slide-${i + 1}-desktop`);
+    const m = img(`slide-${i + 1}-mobile`);
+    const [dWebp, mWebp] = await Promise.all([
+      getImage({ src: d, widths: [960, 1440, 1920, 2400].filter((w) => w <= d.width), format: 'webp', quality: 78 }),
+      getImage({ src: m, widths: [480, 720, 941].filter((w) => w <= m.width), format: 'webp', quality: 78 }),
+    ]);
+    const fallback = await getImage({ src: d, width: 1440, format: 'jpg', quality: 78 });
+    return { ...s, dSet: dWebp.srcSet.attribute, mSet: mWebp.srcSet.attribute, fallback: fallback.src, w: d.width, h: d.height };
+  }),
+);
+const total = String(slides.length).padStart(2, '0');
+---
+
+<section class="hero" id="inicio" aria-roledescription="carrossel" aria-label="Destaques da MSSERVER" data-slider>
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="stage on-dark">
+      <div class="track" data-slider-track>
+        {
+          slides.map((s, i) => (
+            <article class="slide" id={`slide-${s.key}`} role="group" aria-roledescription="slide" aria-label={`${i + 1} de ${slides.length}`} data-slide data-active={i === 0 ? '' : undefined}>
+              <picture class="slide-media">
+                <source media="(max-width: 767px)" srcset={s.mSet} sizes="100vw" type="image/webp" />
+                <source srcset={s.dSet} sizes="(min-width: 1320px) 1240px, 100vw" type="image/webp" />
+                <img src={s.fallback} alt={s.alt} width={s.w} height={s.h} loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : undefined} decoding="async" />
+              </picture>
+              <div class="slide-scrim" aria-hidden="true" />
+
+              {/* Um bloco de texto por slide. Onde o slider do celular do WordPress tinha textos e
+                  destinos próprios, as duas versões existem e cada uma aparece no seu tamanho de tela. */}
+              <div class="slide-copy">
+                <span class="slide-count" aria-hidden="true">
+                  <span class="kicker-mark" />
+                  {String(i + 1).padStart(2, '0')} / {total}
+                </span>
+                {s.desktop.heading === s.mobile.heading ? (
+                  i === 0 ? <h1 class="slide-title">{s.desktop.heading}</h1> : <p class="slide-title">{s.desktop.heading}</p>
+                ) : (
+                  <Fragment>
+                    <p class="slide-title only-d">{s.desktop.heading}</p>
+                    <p class="slide-title only-m">{s.mobile.heading}</p>
+                  </Fragment>
+                )}
+                <p class="slide-desc only-d">{s.desktop.description}</p>
+                <p class="slide-desc only-m">{s.mobile.description}</p>
+                <p class="slide-hl only-d">{s.desktop.highlight}</p>
+                {s.mobile.highlight && <p class="slide-hl only-m">{s.mobile.highlight}</p>}
+                {s.desktop.keywords && <p class="slide-kw only-d">{s.desktop.keywords}</p>}
+                {/* Desktop/tablet: o slide inteiro é o link (link "esticado" sobre o banner), como no WordPress. */}
+                <a class="btn btn--primary btn--lg slide-btn slide-btn--stretch only-d" href={s.desktop.href} target={s.desktop.newTab ? '_blank' : undefined} rel={s.desktop.newTab ? 'noopener' : undefined} tabindex={i === 0 ? undefined : -1} data-track="hero_click" data-track-location={`slide-${i + 1}`}>
+                  {s.desktop.button}
+                  <Icon name="arrow-right" class="btn-arrow" />
+                </a>
+                <a class="btn btn--primary btn--lg slide-btn only-m" href={s.mobile.href} tabindex={i === 0 ? undefined : -1} data-track="hero_click" data-track-location={`slide-${i + 1}-mobile`}>
+                  {s.mobile.button}
+                  <Icon name="arrow-right" class="btn-arrow" />
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="dots" role="group" aria-label="Escolher slide">
+        {
+          slides.map((s, i) => (
+            <button class="dot" type="button" aria-label={`Ir para o slide ${i + 1}: ${s.desktop.heading}`} aria-controls={`slide-${s.key}`} aria-current={i === 0 ? 'true' : undefined} data-slider-dot={i}>
+              <span class="dot-label">{s.desktop.heading}</span>
+              <span class="dot-bar" aria-hidden="true">
+                <i />
+              </span>
+            </button>
+          ))
+        }
+      </div>
+      <div class="arrows">
+        <button class="arrow" type="button" aria-label="Pausar a troca automática" data-slider-pause>
+          <Icon name="pause" size={18} class="i-pause" />
+          <Icon name="play" size={18} class="i-play" />
+        </button>
+        <button class="arrow" type="button" aria-label="Slide anterior" data-slider-prev><Icon name="chevron-left" size={20} /></button>
+        <button class="arrow" type="button" aria-label="Próximo slide" data-slider-next><Icon name="chevron-right" size={20} /></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Slider leve: rolagem horizontal nativa com snap (arrastar/deslizar funciona sem JS),
+  // troca automática a cada 5 s (como no WordPress), pausada ao interagir, com o mouse sobre
+  // o banner, fora da tela ou com redução de movimento.
+  const root = document.querySelector<HTMLElement>('[data-slider]');
+  const track = root?.querySelector<HTMLElement>('[data-slider-track]');
+  if (root && track) {
+    const slides = [...track.querySelectorAll<HTMLElement>('[data-slide]')];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-slider-dot]')];
+    const pauseBtn = root.querySelector<HTMLButtonElement>('[data-slider-pause]')!;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const DELAY = 5000;
+    let index = 0;
+    let userPaused = reduce.matches;
+    let hover = false;
+    let visible = true;
+    let timer = 0;
+
+    const setActive = (i: number) => {
+      index = i;
+      slides.forEach((s, j) => {
+        const on = j === i;
+        s.toggleAttribute('data-active', on);
+        s.querySelectorAll<HTMLElement>('a').forEach((a) => (on ? a.removeAttribute('tabindex') : a.setAttribute('tabindex', '-1')));
+        s.setAttribute('aria-hidden', String(!on));
+      });
+      dots.forEach((d, j) => (j === i ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current')));
+    };
+
+    const go = (i: number) => {
+      const n = (i + slides.length) % slides.length;
+      track.scrollTo({ left: n * track.clientWidth, behavior: reduce.matches ? 'auto' : 'smooth' });
+      setActive(n);
+      schedule();
+    };
+
+    const running = () => !userPaused && !hover && visible;
+    const schedule = () => {
+      clearTimeout(timer);
+      root.classList.toggle('is-playing', running());
+      // Reinicia a animação da barra de progresso do slide atual.
+      root.classList.remove('tick');
+      void root.offsetWidth;
+      root.classList.add('tick');
+      if (running()) timer = window.setTimeout(() => go(index + 1), DELAY);
+    };
+
+    const syncPause = () => {
+      pauseBtn.setAttribute('aria-label', userPaused ? 'Retomar a troca automática' : 'Pausar a troca automática');
+      pauseBtn.classList.toggle('is-paused', userPaused);
+    };
+
+    let scrollTimer = 0;
+    track.addEventListener(
+      'scroll',
+      () => {
+        clearTimeout(scrollTimer);
+        scrollTimer = window.setTimeout(() => {
+          const n = Math.round(track.scrollLeft / track.clientWidth);
+          if (n !== index) {
+            setActive(n);
+            schedule();
+          }
+        }, 90);
+      },
+      { passive: true },
+    );
+
+    root.querySelector('[data-slider-prev]')?.addEventListener('click', () => go(index - 1));
+    root.querySelector('[data-slider-next]')?.addEventListener('click', () => go(index + 1));
+    dots.forEach((d, j) => d.addEventListener('click', () => go(j)));
+    pauseBtn.addEventListener('click', () => {
+      userPaused = !userPaused;
+      syncPause();
+      schedule();
+    });
+    const stage = root.querySelector<HTMLElement>('.stage')!;
+    stage.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') {
+        hover = true;
+        schedule();
+      }
+    });
+    stage.addEventListener('pointerleave', () => {
+      hover = false;
+      schedule();
+    });
+    root.addEventListener('focusin', () => {
+      hover = true;
+      schedule();
+    });
+    root.addEventListener('focusout', (e) => {
+      if (!root.contains(e.relatedTarget as Node)) {
+        hover = false;
+        schedule();
+      }
+    });
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') go(index + 1);
+      if (e.key === 'ArrowLeft') go(index - 1);
+    });
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      schedule();
+    }).observe(root);
+    addEventListener('resize', () => track.scrollTo({ left: index * track.clientWidth }));
+
+    setActive(0);
+    syncPause();
+    schedule();
+  }
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(1.25rem, 0.5rem + 2vw, 2.25rem) 0;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgb(27 24 32 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(27 24 32 / 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 20%, transparent 75%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+  }
+
+  .stage {
+    position: relative;
+    border-radius: var(--r-xl);
+    background: var(--c-indigo-950);
+    box-shadow: var(--shadow-2);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slide {
+    position: relative;
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    aspect-ratio: 1713 / 918;
+    min-height: 460px;
+    color: var(--c-on-dark);
+    overflow: hidden;
+  }
+
+  .slide-media,
+  .slide-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide-media img {
+    object-fit: cover;
+    object-position: left center;
+    transform: scale(1.04);
+    transition: transform 6s var(--ease-out);
+  }
+
+  .slide[data-active] .slide-media img {
+    transform: scale(1);
+  }
+
+  /* Escurece só o lado do texto; a arte do banner fica intacta à esquerda. */
+  .slide-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 38%, rgb(14 13 34 / 0.55) 62%, rgb(14 13 34 / 0.78) 100%);
+  }
+
+  .slide-copy {
+    position: absolute;
+    inset: 0;
+    --copy-w: min(46%, 560px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
+    padding-left: calc(100% - var(--copy-w) + clamp(1.5rem, 1rem + 2.5vw, 3.5rem));
+  }
+
+  .only-m {
+    display: none;
+  }
+
+  .slide-copy .slide-title,
+  .slide-copy .slide-desc,
+  .slide-copy .slide-hl,
+  .slide-copy .slide-kw,
+  .slide-copy .slide-count {
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* O botão cobre o banner inteiro: clicar em qualquer ponto leva ao destino do slide. */
+  .slide-btn--stretch::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--r-xl);
+  }
+
+  .slide-btn--stretch:focus-visible {
+    outline-offset: 3px;
+  }
+
+  .slide-copy > * {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.6s var(--ease-out),
+      transform 0.6s var(--ease-out);
+  }
+
+  .slide[data-active] .slide-copy > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .slide[data-active] .slide-copy > :nth-child(2) {
+    transition-delay: 0.08s;
+  }
+  .slide[data-active] .slide-copy > :nth-child(3) {
+    transition-delay: 0.16s;
+  }
+  .slide[data-active] .slide-copy > :nth-child(n + 4) {
+    transition-delay: 0.24s;
+  }
+
+  .slide-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 0.75rem 0.35rem 0.6rem;
+    border: 1px solid var(--c-line-dark-2);
+    border-radius: 999px;
+    background: rgb(14 13 34 / 0.35);
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--c-on-dark-2);
+  }
+
+  .kicker-mark {
+    width: 9px;
+    height: 9px;
+    background: var(--c-orange);
+    transform: rotate(45deg);
+    border-radius: 1px;
+  }
+
+  .slide-title {
+    margin: 0.25rem 0 0;
+    font-family: var(--f-display);
+    font-size: clamp(1.9rem, 1rem + 2.4vw, 3.1rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+
+  .slide-desc {
+    max-width: 44ch;
+    color: var(--c-on-dark-2);
+    font-size: var(--t-lead);
+    line-height: 1.55;
+  }
+
+  .slide-hl {
+    max-width: 40ch;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--c-orange);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .slide-kw {
+    color: var(--c-on-dark-3);
+    font-size: 0.85rem;
+  }
+
+  .slide-btn {
+    margin-top: 0.75rem;
+  }
+
+  .slide-btn {
+    position: static;
+  }
+
+  /* ——— Controles ——— */
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 1.1rem;
+  }
+
+  .dots {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    max-width: 760px;
+  }
+
+  .dot {
+    display: grid;
+    gap: 0.55rem;
+    padding: 0.25rem 0;
+    border: 0;
+    background: none;
+    text-align: left;
+  }
+
+  .dot-label {
+    overflow: hidden;
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--c-ink-3);
+    transition: color 0.2s var(--ease-out);
+  }
+
+  .dot[aria-current] .dot-label,
+  .dot:hover .dot-label {
+    color: var(--c-ink);
+  }
+
+  .dot-bar {
+    position: relative;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--c-line-2);
+    overflow: hidden;
+  }
+
+  .dot-bar i {
+    position: absolute;
+    inset: 0;
+    background: var(--c-orange);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .dot[aria-current] .dot-bar i {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.is-playing.tick) .dot[aria-current] .dot-bar i {
+      animation: progress 5s linear both;
+    }
+  }
+
+  @keyframes progress {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  .arrows {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .arrow {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--c-line-2);
+    border-radius: 12px;
+    background: var(--c-surface);
+    color: var(--c-ink);
+    transition: border-color 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+  }
+
+  .arrow:hover {
+    border-color: var(--c-ink-3);
+    transform: translateY(-1px);
+  }
+
+  .arrow :global(.i-play),
+  .arrow:global(.is-paused) :global(.i-pause) {
+    display: none;
+  }
+
+  .arrow:global(.is-paused) :global(.i-play) {
+    display: block;
+  }
+
+  @media (max-width: 1023px) {
+    .slide-copy {
+      --copy-w: min(56%, 520px);
+    }
+
+    .slide-scrim {
+      background: linear-gradient(90deg, transparent 28%, rgb(14 13 34 / 0.72) 50%, rgb(14 13 34 / 0.88) 100%);
+    }
+
+    .slide-desc {
+      font-size: 1rem;
+    }
+
+    .slide-kw {
+      display: none;
+    }
+  }
+
+  /* ——— Celular: banner vertical, texto no topo ——— */
+  @media (max-width: 767px) {
+    .hero {
+      padding-top: 0.75rem;
+    }
+
+    .stage {
+      border-radius: var(--r-lg);
+    }
+
+    .slide {
+      aspect-ratio: 941 / 1671;
+      min-height: 0;
+      max-height: 86svh;
+    }
+
+    .slide-media img {
+      object-position: center bottom;
+    }
+
+    .slide-scrim {
+      background: linear-gradient(180deg, rgb(14 13 34 / 0.55) 0%, rgb(14 13 34 / 0.25) 45%, transparent 62%);
+    }
+
+    .only-d {
+      display: none;
+    }
+
+    .only-m {
+      display: block;
+    }
+
+    a.only-m {
+      display: inline-flex;
+    }
+
+    .slide-count {
+      display: none;
+    }
+
+    .slide-copy {
+      inset: 0 0 auto;
+      justify-content: flex-start;
+      gap: 0.75rem;
+      padding: clamp(4.25rem, 3rem + 5vw, 5.25rem) 1.25rem 1.5rem;
+    }
+
+    .slide-title {
+      font-size: clamp(1.65rem, 1.1rem + 3vw, 2.2rem);
+    }
+
+    .slide-desc {
+      font-size: 0.98rem;
+    }
+
+    .slide-hl {
+      font-size: 0.92rem;
+    }
+
+    .slide-btn {
+      margin-top: 0.25rem;
+    }
+
+    .dot-label {
+      display: none;
+    }
+
+    .dots {
+      gap: 0.5rem;
+    }
+
+    /* Deixa livre o canto do botão flutuante de WhatsApp. */
+    .controls {
+      gap: 1rem;
+      padding-right: 70px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slide-media img,
+    .slide-copy > * {
+      transition: none;
+      transform: none;
+    }
+  }
+</style>

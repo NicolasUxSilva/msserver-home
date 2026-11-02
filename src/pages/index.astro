@@ -1,0 +1,70 @@
+---
+// Home institucional da MSSERVER: mesma estrutura, conteúdos, materiais e links da home do
+// WordPress, na identidade visual das landings de servidores físicos e de Cloud.
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import HeroSlider from '../components/HeroSlider.astro';
+import ProductLine from '../components/ProductLine.astro';
+import SolutionsApp from '../components/SolutionsApp.astro';
+import VideoSection from '../components/VideoSection.astro';
+import LatestPosts from '../components/LatestPosts.astro';
+import SocialClients from '../components/SocialClients.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { whatsappUrl } from '../config/site';
+---
+
+<Base>
+  <Header />
+  <main id="conteudo">
+    <HeroSlider />
+    <ProductLine />
+    <SolutionsApp />
+    <VideoSection />
+    <LatestPosts />
+    <SocialClients />
+  </main>
+  <Footer />
+  <a class="wa-fab" href={whatsappUrl()} target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp" data-wa-fab data-track="contact_whatsapp_click" data-track-location="flutuante">
+    <Icon name="whatsapp" size={28} />
+  </a>
+</Base>
+
+<style>
+  .wa-fab {
+    position: fixed;
+    right: clamp(1rem, 0.6rem + 1.5vw, 1.75rem);
+    bottom: calc(clamp(1rem, 0.6rem + 1.5vw, 1.75rem) + env(safe-area-inset-bottom));
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #1faa53;
+    color: #fff;
+    box-shadow: 0 12px 30px -10px rgb(0 0 0 / 0.45);
+    transition:
+      opacity 0.3s var(--ease-out),
+      transform 0.3s var(--ease-out),
+      background-color 0.2s;
+  }
+
+  :global(.js) .wa-fab:not(:global(.is-visible)) {
+    opacity: 0;
+    transform: translateY(16px) scale(0.9);
+  }
+
+  .wa-fab:hover {
+    background: #189548;
+    transform: translateY(-2px);
+  }
+
+  .wa-fab:focus-visible {
+    outline-color: var(--c-indigo-600);
+  }
+
+  :global(html.menu-open) .wa-fab {
+    display: none;
+  }
+</style>
