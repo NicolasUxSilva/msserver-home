@@ -75,9 +75,8 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 - **Coluna lateral fixa (desktop):** título e controles de uma seção longa ficam ao alcance
   enquanto o conteúdo passa ao lado (`.line-aside` em `ProductLine.astro`). Abaixo de 1100 px a
   coluna "se desfaz" com `display: contents` e os itens viram uma sequência simples.
-- **Carrossel no celular:** `[data-rail]` + `.rail-meter` (`data-rail-pos`, `data-rail-bar`),
-  com `initRails()` em `src/scripts/page.ts` e estilos do indicador em `site.css`. Reutilizável
-  em outras listas de itens equivalentes.
+- **Carrossel no celular:** a lista (`[data-rail]`) rola na horizontal com encaixe nativo
+  (`scroll-snap`), o próximo cartão aparecendo na borda; só CSS, sem indicador.
 
 ## Breakpoints
 

@@ -309,14 +309,14 @@ test.describe('desktop: linha de servidores', () => {
 test.describe('celular: carrossel de servidores', () => {
   test.skip(({ isMobile }) => !isMobile, 'somente celular');
 
-  test('servidores deslizam na horizontal com indicador de posição', async ({ page }) => {
+  test('servidores deslizam na horizontal', async ({ page }) => {
     await page.goto('/');
     const rail = page.locator('#rack-tab [data-rail]');
     await rail.scrollIntoViewIfNeeded();
-    const pos = page.locator('#rack-tab [data-rail-pos]');
-    await expect(pos).toHaveText('01');
+    // A lista é mais larga que a tela e rola na horizontal até o último cartão.
+    expect(await rail.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
     await rail.evaluate((el) => el.scrollTo({ left: el.scrollWidth }));
-    await expect(pos).toHaveText('06');
+    await expect(page.locator('#rack-tab .card').last()).toBeInViewport();
     // Nenhum cartão fica de fora: todos continuam no DOM e acessíveis.
     await expect(page.locator('#rack-tab .card')).toHaveCount(6);
   });

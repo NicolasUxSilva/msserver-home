@@ -27,7 +27,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
           data.tabs.map((t, i) => (
             <button class="tab" type="button" role="tab" id={t.id} aria-controls={`${t.id}-tab`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tab>
               <span class="tab-label">{t.label}</span>
-              <span class="tab-count" aria-hidden="true">{pad(t.products.length)}</span>
             </button>
           ))
         }
@@ -86,10 +85,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
                 );
               })}
             </ul>
-            <div class="rail-meter" aria-hidden="true">
-              <span class="rail-count"><b data-rail-pos>01</b> / {pad(t.products.length)}</span>
-              <span class="rail-track"><i data-rail-bar></i></span>
-            </div>
           </div>
         ))
       }
@@ -308,18 +303,9 @@ const pad = (n: number) => String(n).padStart(2, '0');
       background-color var(--dur-1) var(--ease-out);
   }
 
-  .tab-count {
-    font-family: var(--f-mono);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    color: var(--c-ink-3);
-    transition: color 0.3s var(--ease-out);
-  }
-
   @media (min-width: 1100px) {
     .tab {
-      justify-content: space-between;
+      justify-content: flex-start;
       min-height: 52px;
       padding: 0 1.1rem;
       font-size: 1rem;
@@ -337,10 +323,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
 
   .tab[aria-selected='true'] {
     color: var(--c-on-dark);
-  }
-
-  .tab[aria-selected='true'] .tab-count {
-    color: var(--c-orange);
   }
 
   .tab:focus-visible {
@@ -594,10 +576,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
     .price {
       font-size: 1.1rem;
       margin-bottom: 0.75rem;
-    }
-
-    .rail-meter {
-      display: flex;
     }
 
     .line-foot .btn {
