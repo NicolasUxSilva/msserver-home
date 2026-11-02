@@ -1,0 +1,185 @@
+/* ——— Camada do site institucional ———
+   Estende o global.css das landings (que continua idêntico) com o que o site precisa a mais:
+   estados de interação completos, superfícies escuras compartilhadas, cartões clicáveis e o
+   ritmo de entrada ao rolar. Use estas classes nas próximas páginas. */
+
+:root {
+  --shadow-lift: 0 2px 4px rgb(17 15 40 / 0.04), 0 22px 44px -22px rgb(17 15 40 / 0.32);
+  --ring-dark: 0 0 0 1px rgb(255 255 255 / 0.08) inset;
+  --dur-1: 0.18s;
+  --dur-2: 0.32s;
+  --dur-3: 0.7s;
+}
+
+/* ——— Botões: pressão, foco e profundidade ——— */
+.btn:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: 0.08s;
+}
+
+.btn--primary {
+  box-shadow:
+    inset 0 -2px 0 rgb(0 0 0 / 0.12),
+    0 8px 20px -10px rgb(208 88 0 / 0.55);
+}
+
+.btn--primary:hover {
+  box-shadow:
+    inset 0 -2px 0 rgb(0 0 0 / 0.12),
+    0 14px 28px -12px rgb(208 88 0 / 0.65);
+}
+
+.btn--dark:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px -14px rgb(14 13 34 / 0.7);
+}
+
+.btn--outline {
+  background: var(--c-surface);
+}
+
+.btn--outline:hover {
+  transform: translateY(-1px);
+  border-color: var(--c-ink);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-1);
+}
+
+.btn:focus-visible {
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+.btn--primary:focus-visible {
+  outline-color: var(--c-indigo-600);
+}
+
+.on-dark .btn--primary:focus-visible {
+  outline-color: var(--c-on-dark);
+}
+
+/* Seta "↗" de link externo: aparece no hover/foco e indica que abre fora do site. */
+.ext-arrow {
+  opacity: 0;
+  transform: translate(-3px, 3px);
+  transition:
+    opacity var(--dur-1) var(--ease-out),
+    transform var(--dur-2) var(--ease-out);
+}
+
+a:hover > .ext-arrow,
+a:focus-visible > .ext-arrow {
+  opacity: 1;
+  transform: none;
+}
+
+/* Sublinhado que cresce da esquerda: links de texto em listas e rodapé. */
+.u-link {
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition:
+    background-size var(--dur-2) var(--ease-out),
+    color var(--dur-1) var(--ease-out);
+}
+
+.u-link:hover,
+.u-link:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* ——— Cartão clicável: o link do título cobre o cartão inteiro ——— */
+.card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.card-link:focus-visible {
+  outline: none;
+}
+
+.has-card-link {
+  position: relative;
+}
+
+.has-card-link:has(.card-link:focus-visible) {
+  outline: 3px solid var(--c-indigo-600);
+  outline-offset: 3px;
+}
+
+/* Elementos de ação dentro do cartão ficam acima do link esticado. */
+.has-card-link .card-raise {
+  position: relative;
+  z-index: 2;
+}
+
+/* ——— Superfície escura compartilhada (padrão "console" das landings) ——— */
+.dark-surface {
+  position: relative;
+  background: var(--c-indigo-950);
+  color: var(--c-on-dark);
+  isolation: isolate;
+}
+
+.dark-surface__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dark-surface__hatch {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image:
+    repeating-linear-gradient(30deg, rgb(255 255 255 / 0.03) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(150deg, rgb(255 255 255 / 0.03) 0 1px, transparent 1px 34px);
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(10px);
+  will-change: transform;
+}
+
+.glow--indigo {
+  background: radial-gradient(closest-side, rgb(61 58 134 / 0.6), transparent);
+}
+
+.glow--orange {
+  background: radial-gradient(closest-side, rgb(249 131 5 / 0.2), transparent);
+}
+
+/* ——— Rótulo editorial: a linha cresce quando o cabeçalho entra em cena ——— */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] .eyebrow::after,
+  .js .eyebrow[data-reveal]::after {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.9s var(--ease-out) 0.25s;
+  }
+
+  .js [data-reveal].is-in .eyebrow::after,
+  .js .eyebrow[data-reveal].is-in::after {
+    transform: scaleX(1);
+  }
+
+  /* Entrada com leve aproximação, para blocos de mídia. */
+  .js [data-reveal='zoom'] {
+    transform: translateY(18px) scale(0.97);
+  }
+}
+
+/* Rótulo editorial sobre superfícies escuras. */
+.dark-surface .eyebrow {
+  color: var(--c-on-dark-3);
+}
+
+.dark-surface .eyebrow b {
+  color: var(--c-orange);
+}

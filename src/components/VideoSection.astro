@@ -6,16 +6,20 @@ import { VIDEO } from '../config/site';
 const params = new URLSearchParams({ list: VIDEO.playlist, mute: '1', playsinline: '1', rel: '0', cc_load_policy: '0' });
 const embed = `https://www.youtube.com/embed/${VIDEO.id}?${params}`;
 const watch = `https://www.youtube.com/watch?v=${VIDEO.id}&list=${VIDEO.playlist}`;
+// Miniatura do próprio vídeo no YouTube, exibida enquanto o player carrega.
+const poster = `https://i.ytimg.com/vi/${VIDEO.id}/maxresdefault.jpg`;
 ---
 
-<section class="video on-dark" aria-label={VIDEO.title}>
-  <div class="video-bg" aria-hidden="true"></div>
+<section class="video" aria-label={VIDEO.title}>
   <div class="container">
-    <div class="frame" data-reveal data-video data-src={embed} data-title={VIDEO.title}>
-      <a class="frame-fallback" href={watch} target="_blank" rel="noopener" data-video-fallback>
-        <span class="play"><Icon name="play" size={28} /></span>
-        <span class="sr-only">Assistir ao vídeo no YouTube</span>
-      </a>
+    <div class="bezel" data-video-bezel>
+      <div class="frame" data-video data-src={embed} data-title={VIDEO.title}>
+        <img class="poster" src={poster} alt="" width="1280" height="720" loading="lazy" decoding="async" onerror="this.remove()" />
+        <a class="frame-fallback" href={watch} target="_blank" rel="noopener" data-video-fallback>
+          <span class="play"><Icon name="play" size={28} /></span>
+          <span class="sr-only">Assistir ao vídeo no YouTube</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -50,50 +54,50 @@ const watch = `https://www.youtube.com/watch?v=${VIDEO.id}&list=${VIDEO.playlist
 </script>
 
 <style>
+  /* O vídeo fecha o capítulo escuro e avança sobre a seção seguinte (ver .chapter em index). */
   .video {
     position: relative;
-    padding-block: clamp(3rem, 2rem + 4vw, 6rem);
-    background: var(--c-indigo-950);
-    overflow: hidden;
-    isolation: isolate;
+    padding-top: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+    view-timeline: --video block;
   }
 
-  .video-bg {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background:
-      radial-gradient(60% 80% at 50% 120%, rgb(249 131 5 / 0.18), transparent 70%),
-      radial-gradient(50% 60% at 90% 0%, rgb(61 58 134 / 0.55), transparent 70%);
-  }
-
-  .video-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0.45;
-    background-image:
-      repeating-linear-gradient(30deg, rgb(255 255 255 / 0.03) 0 1px, transparent 1px 34px),
-      repeating-linear-gradient(150deg, rgb(255 255 255 / 0.03) 0 1px, transparent 1px 34px);
-    mask-image: radial-gradient(70% 80% at 50% 60%, #000, transparent);
-    -webkit-mask-image: radial-gradient(70% 80% at 50% 60%, #000, transparent);
+  /* Moldura em duas camadas: aro translúcido + tela, como um monitor sobre o fundo. */
+  .bezel {
+    position: relative;
+    max-width: 1120px;
+    margin-inline: auto;
+    padding: clamp(6px, 0.4rem + 0.4vw, 12px);
+    border: 1px solid var(--c-line-dark-2);
+    border-radius: calc(var(--r-xl) + 8px);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02));
+    box-shadow:
+      0 40px 70px -45px rgb(14 13 34 / 0.55),
+      0 18px 36px -24px rgb(14 13 34 / 0.35);
   }
 
   .frame {
     position: relative;
     aspect-ratio: 16 / 9;
-    max-width: 1120px;
-    margin-inline: auto;
-    border: 1px solid var(--c-line-dark-2);
     border-radius: var(--r-xl);
-    background: #000;
-    box-shadow: 0 40px 90px -40px rgb(0 0 0 / 0.8);
+    background: #05050f;
     overflow: hidden;
+    isolation: isolate;
+  }
+
+  .poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+    transition: opacity 0.6s var(--ease-out);
   }
 
   .frame :global(iframe) {
     position: absolute;
     inset: 0;
+    z-index: 2;
     width: 100%;
     height: 100%;
     border: 0;
@@ -105,27 +109,72 @@ const watch = `https://www.youtube.com/watch?v=${VIDEO.id}&list=${VIDEO.playlist
     opacity: 1;
   }
 
+  .frame:global(.is-loaded) .poster {
+    opacity: 0;
+  }
+
   .frame-fallback {
     position: absolute;
     inset: 0;
+    z-index: 1;
     display: grid;
     place-items: center;
+    background: radial-gradient(closest-side, rgb(14 13 34 / 0.35), transparent);
     color: var(--c-on-dark);
   }
 
   .play {
     display: grid;
     place-items: center;
-    width: 72px;
-    height: 72px;
+    width: 76px;
+    height: 76px;
+    padding-left: 4px;
     border-radius: 50%;
     background: var(--c-orange);
     color: #1a0f02;
+    box-shadow:
+      0 0 0 10px rgb(249 131 5 / 0.18),
+      0 18px 40px -12px rgb(0 0 0 / 0.6);
+    transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+  }
+
+  .frame-fallback:hover .play {
+    transform: scale(1.06);
+    box-shadow:
+      0 0 0 14px rgb(249 131 5 / 0.22),
+      0 18px 40px -12px rgb(0 0 0 / 0.6);
+  }
+
+  /* A moldura se aproxima conforme entra na tela (ligado ao scroll, sem JS). */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .bezel {
+        animation: bezel-in linear both;
+        animation-timeline: --video;
+        animation-range: entry 0% cover 45%;
+      }
+    }
+  }
+
+  @keyframes bezel-in {
+    from {
+      transform: translateY(40px) scale(0.92);
+      opacity: 0.4;
+    }
   }
 
   @media (max-width: 639px) {
+    .bezel {
+      border-radius: calc(var(--r-lg) + 6px);
+    }
+
     .frame {
       border-radius: var(--r-lg);
+    }
+
+    .play {
+      width: 60px;
+      height: 60px;
     }
   }
 </style>

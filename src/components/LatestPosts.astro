@@ -10,7 +10,7 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'n
 
 <section class="section section--surface posts" id="blog" aria-labelledby="posts-title">
   <div class="container">
-    <div class="section-head section-head--split">
+    <div class="section-head section-head--split" data-reveal>
       <div>
         <p class="eyebrow"><b>03</b> Blog</p>
         <h2 id="posts-title">{POSTS_TITLE}</h2>
@@ -22,16 +22,17 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'n
         data.posts.map((p, i) => {
           const img = p.image ? files[`../assets/posts/${p.image}`]?.default : undefined;
           return (
-            <li class="post" data-reveal style={`--reveal-i:${i}`}>
-              <a class="post-thumb" href={p.url} tabindex="-1" aria-hidden="true">
-                {img && <Image src={img} alt="" widths={[400, 640, 900]} sizes="(min-width: 1024px) 400px, (min-width: 720px) 45vw, 92vw" loading="lazy" />}
-              </a>
+            <li class:list={['post has-card-link', i === 0 && 'post--lead']} data-reveal style={`--reveal-i:${i}`}>
+              {/* O cartão inteiro leva ao post (link do título esticado). */}
+              <div class="post-thumb" aria-hidden="true">
+                {img && <Image src={img} alt="" widths={[400, 640, 900, 1200]} sizes={i === 0 ? '(min-width: 1024px) 680px, 92vw' : '(min-width: 1024px) 240px, (min-width: 720px) 45vw, 92vw'} loading="lazy" />}
+              </div>
               <div class="post-body">
                 <h3 class="post-title">
-                  <a href={p.url}>{p.title}</a>
+                  <a class="card-link" href={p.url}>{p.title}</a>
                 </h3>
                 <p class="post-excerpt">{p.excerpt}</p>
-                <a class="post-more" href={p.url} aria-label={`${POSTS_READ_MORE.replace(' »', '')}: ${p.title}`}>
+                <a class="post-more card-raise" href={p.url} aria-label={`${POSTS_READ_MORE.replace(' »', '')}: ${p.title}`}>
                   {POSTS_READ_MORE}
                 </a>
               </div>
@@ -48,6 +49,16 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'n
 </section>
 
 <style>
+  /* Logo abaixo do vídeo, que avança sobre esta seção: o respiro superior é menor. */
+  .posts {
+    padding-top: clamp(3.5rem, 2.5rem + 3vw, 6rem);
+  }
+
+  .section-head {
+    margin-bottom: clamp(2rem, 1.25rem + 2vw, 3rem);
+  }
+
+  /* Hierarquia editorial: a postagem mais recente em destaque, as outras duas ao lado. */
   .post-grid {
     list-style: none;
     display: grid;
@@ -58,12 +69,22 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'n
     .post-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .post--lead {
+      grid-column: 1 / -1;
+    }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1180px) {
     .post-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      grid-template-rows: repeat(2, auto);
       gap: 1.25rem;
+    }
+
+    .post--lead {
+      grid-column: 1;
+      grid-row: 1 / span 2;
     }
   }
 
@@ -74,31 +95,55 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'n
     border-radius: var(--r-lg);
     background: var(--c-paper);
     overflow: hidden;
-    transition: border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+    cursor: pointer;
+    transition:
+      border-color var(--dur-2) var(--ease-out),
+      box-shadow var(--dur-2) var(--ease-out),
+      transform var(--dur-2) var(--ease-out),
+      background-color var(--dur-2) var(--ease-out);
   }
 
   .post:hover {
     border-color: var(--c-line-2);
-    box-shadow: var(--shadow-1);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-4px);
+  }
+
+  .post:active {
     transform: translateY(-2px);
+    transition-duration: 0.08s;
   }
 
   .post-thumb {
-    display: block;
+    position: relative;
     aspect-ratio: 16 / 10;
     overflow: hidden;
     background: var(--c-paper-2);
+  }
+
+  .post-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgb(14 13 34 / 0.18));
+    opacity: 0;
+    transition: opacity var(--dur-2) var(--ease-out);
+  }
+
+  .post:hover .post-thumb::after {
+    opacity: 1;
   }
 
   .post-thumb :global(img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s var(--ease-out);
+    transition: transform 0.8s var(--ease-out);
   }
 
   .post:hover .post-thumb :global(img) {
-    transform: scale(1.04);
+    transform: scale(1.05);
   }
 
   .post-body {
@@ -115,14 +160,18 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'n
     line-height: 1.25;
   }
 
-  .post-title a {
-    text-decoration: none;
+  .post--lead .post-title {
+    font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.75rem);
   }
 
-  .post-title a:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
+  .post-title a {
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size var(--dur-2) var(--ease-out);
+  }
+
+  .post:hover .post-title a {
+    background-size: 100% 1px;
   }
 
   .post-excerpt {
@@ -130,19 +179,30 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'n
     font-size: 0.95rem;
   }
 
+  .post--lead .post-excerpt {
+    max-width: 58ch;
+    font-size: 1rem;
+  }
+
   .post-more {
+    display: inline-flex;
+    align-items: center;
     margin-top: auto;
-    padding-top: 0.25rem;
+    padding: 0.35rem 0.1rem 0.15rem;
     color: var(--c-indigo-600);
     font-weight: 600;
     font-size: 0.92rem;
     text-decoration: none;
+    letter-spacing: 0;
+    transition:
+      color var(--dur-1) var(--ease-out),
+      letter-spacing var(--dur-2) var(--ease-out);
   }
 
+  .post:hover .post-more,
   .post-more:hover {
-    color: var(--c-ink);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    color: var(--c-orange-text);
+    letter-spacing: 0.02em;
   }
 
   .post-meta {
@@ -166,5 +226,43 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'n
     border-radius: 50%;
     background: var(--c-line-2);
     vertical-align: middle;
+  }
+
+  /* Postagens secundárias: horizontais no desktop, para equilibrar com o destaque. */
+  @media (min-width: 1180px) {
+    .post:not(.post--lead) {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      grid-template-rows: 1fr auto;
+    }
+
+    .post:not(.post--lead) .post-thumb {
+      grid-row: 1 / span 2;
+      aspect-ratio: auto;
+      height: 100%;
+    }
+
+    .post:not(.post--lead) .post-body {
+      padding: 1.25rem 1.35rem 0.75rem;
+      gap: 0.55rem;
+    }
+
+    .post:not(.post--lead) .post-excerpt {
+      font-size: 0.9rem;
+    }
+
+    .post:not(.post--lead) .post-meta {
+      padding: 0.7rem 1.35rem;
+    }
+
+    .post--lead .post-thumb {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .post:hover {
+      transform: none;
+    }
   }
 </style>

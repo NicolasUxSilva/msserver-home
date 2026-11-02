@@ -20,15 +20,15 @@ const panels = await Promise.all(
 ---
 
 <section class="band" aria-label="Soluções e aplicativo">
-  <div class="container band-grid">
-    <div class="sol">
-      <p class="eyebrow sol-eyebrow"><b>02</b> Soluções</p>
-      <ul class="acc" data-reveal>
+  <div class="container">
+    <p class="eyebrow band-eyebrow" data-reveal><b>02</b> Soluções</p>
+    <div class="band-grid">
+      <ul class="acc" data-acc>
         {
           panels.map((p, i) => {
             const Tag = p.href ? 'a' : 'div';
             return (
-              <li class="acc-item" style={`--d:url(${p.dSrc});--m:url(${p.mSrc})`} data-acc-item data-open={i === 0 ? '' : undefined}>
+              <li class="acc-item" style={`--d:url(${p.dSrc});--m:url(${p.mSrc});--reveal-i:${i}`} data-acc-item data-open={i === 0 ? '' : undefined} data-reveal>
                 <Tag class="acc-panel" href={p.href ?? undefined} tabindex={p.href ? undefined : 0}>
                   <span class="acc-media" aria-hidden="true" />
                   <span class="acc-shade" aria-hidden="true" />
@@ -55,27 +55,27 @@ const panels = await Promise.all(
           })
         }
       </ul>
-    </div>
 
-    <div class="app on-dark" id="appmobile" data-reveal style="--reveal-i:1">
-      <div class="app-pattern" aria-hidden="true"></div>
-      <Image src={appScreens} alt="" class="app-screens" widths={[480, 960]} sizes="(min-width: 1100px) 520px, 90vw" loading="lazy" />
-      <div class="app-copy">
-        <h2 class="app-title">
-          <span class="app-kicker">{APP.kicker}</span>
-          <span>{APP.title}</span>
-        </h2>
-        <a class="btn btn--primary btn--lg" href={APP.button.href} target="_blank" rel="noopener" data-track="app_click" data-track-location="home-app">
-          {APP.button.label}
-          <Icon name="arrow-right" class="btn-arrow" />
-        </a>
-        <div class="stores">
-          <a href={APP_STORES.ios} target="_blank" rel="noopener" data-track="app_store_click" data-track-location="ios">
-            <Image src={appStore} alt="Baixar na App Store" height={44} densities={[1, 2]} loading="lazy" />
+      {/* Cartão claro: a colagem original do app foi desenhada para fundo branco. */}
+      <div class="app" id="appmobile" data-reveal style="--reveal-i:2">
+        <Image src={appScreens} alt="" class="app-screens" widths={[480, 960]} sizes="(min-width: 1100px) 600px, 92vw" loading="lazy" />
+        <div class="app-copy">
+          <h2 class="app-title">
+            <span class="app-kicker">{APP.kicker}</span>
+            <span>{APP.title}</span>
+          </h2>
+          <a class="btn btn--primary btn--lg" href={APP.button.href} target="_blank" rel="noopener" data-track="app_click" data-track-location="home-app">
+            {APP.button.label}
+            <Icon name="arrow-right" class="btn-arrow" />
           </a>
-          <a href={APP_STORES.android} target="_blank" rel="noopener" data-track="app_store_click" data-track-location="android">
-            <Image src={googlePlay} alt="Disponível no Google Play" height={44} densities={[1, 2]} loading="lazy" />
-          </a>
+          <div class="stores">
+            <a href={APP_STORES.ios} target="_blank" rel="noopener" data-track="app_store_click" data-track-location="ios">
+              <Image src={appStore} alt="Baixar na App Store" height={44} densities={[1, 2]} loading="lazy" />
+            </a>
+            <a href={APP_STORES.android} target="_blank" rel="noopener" data-track="app_store_click" data-track-location="android">
+              <Image src={googlePlay} alt="Disponível no Google Play" height={44} densities={[1, 2]} loading="lazy" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -95,7 +95,11 @@ const panels = await Promise.all(
 
 <style>
   .band {
-    padding-block: clamp(1rem, 0.5rem + 2vw, 2rem) var(--section-y);
+    padding-block: var(--section-y) clamp(3rem, 2rem + 3vw, 5rem);
+  }
+
+  .band-eyebrow {
+    margin-bottom: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
   }
 
   .band-grid {
@@ -105,37 +109,28 @@ const panels = await Promise.all(
 
   @media (min-width: 1100px) {
     .band-grid {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 1.25rem;
       align-items: stretch;
     }
-  }
-
-  .sol {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sol-eyebrow {
-    margin-bottom: 1.25rem;
   }
 
   /* ——— Acordeão ——— */
   .acc {
     list-style: none;
-    flex: 1;
     display: flex;
     gap: 0.6rem;
-    min-height: 520px;
+    min-height: 540px;
   }
 
   .acc-item {
     flex: 1;
     min-width: 0;
-    transition: flex-grow 0.6s var(--ease-out);
+    transition: flex-grow 0.7s var(--ease-out);
   }
 
   .acc-item[data-open] {
-    flex-grow: 3.2;
+    flex-grow: 3.4;
   }
 
   .acc-panel {
@@ -148,6 +143,21 @@ const panels = await Promise.all(
     color: var(--c-on-dark);
     text-decoration: none;
     isolation: isolate;
+    box-shadow: inset 0 0 0 1px var(--c-line-dark);
+  }
+
+  .acc-panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
+    transition: box-shadow var(--dur-2) var(--ease-out);
+    pointer-events: none;
+  }
+
+  .acc-item[data-open] .acc-panel::after {
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16);
   }
 
   .acc-panel:focus-visible {
@@ -161,20 +171,28 @@ const panels = await Promise.all(
     background: var(--d) right center / cover no-repeat;
     transform: scale(1.02);
     transition:
-      transform 0.8s var(--ease-out),
-      background-position 0.6s var(--ease-out);
+      transform 0.9s var(--ease-out),
+      background-position 0.7s var(--ease-out),
+      background-size 0.7s var(--ease-out),
+      filter var(--dur-2) var(--ease-out);
   }
 
+  .acc-item:not([data-open]) .acc-panel:hover .acc-media {
+    filter: brightness(1.25);
+  }
+
+  /* Aberto: aproxima a fotografia e deixa de fora o rótulo vertical embutido no banner. */
   .acc-item[data-open] .acc-media {
-    background-position: left center;
-    transform: scale(1.06);
+    background-size: 175% auto;
+    background-position: 15% 30%;
+    transform: scale(1.04);
   }
 
   .acc-shade {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(180deg, rgb(14 13 34 / 0.35), rgb(14 13 34 / 0.94) 58%);
+    background: linear-gradient(180deg, rgb(14 13 34 / 0.3), rgb(14 13 34 / 0.95) 58%);
     opacity: 0;
     transition: opacity 0.5s var(--ease-out);
   }
@@ -195,6 +213,14 @@ const panels = await Promise.all(
     font-size: 0.7rem;
     letter-spacing: 0.08em;
     color: var(--c-on-dark-2);
+    transition:
+      color var(--dur-2) var(--ease-out),
+      border-color var(--dur-2) var(--ease-out);
+  }
+
+  .acc-item[data-open] .acc-index {
+    border-color: rgb(249 131 5 / 0.6);
+    color: var(--c-orange);
   }
 
   .acc-body {
@@ -202,23 +228,23 @@ const panels = await Promise.all(
     inset: auto 0 0;
     display: grid;
     gap: 0.75rem;
-    padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+    padding: clamp(1.25rem, 1rem + 1vw, 1.9rem);
     opacity: 0;
     transform: translateY(16px);
     transition:
-      opacity 0.35s var(--ease-out),
-      transform 0.45s var(--ease-out);
+      opacity 0.3s var(--ease-out),
+      transform 0.5s var(--ease-out);
     pointer-events: none;
   }
 
   .acc-item[data-open] .acc-body {
     opacity: 1;
     transform: none;
-    transition-delay: 0.18s;
+    transition-delay: 0.2s;
   }
 
   .acc-title {
-    font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.75rem);
+    font-size: clamp(1.4rem, 1.1rem + 0.9vw, 1.85rem);
     color: var(--c-on-dark);
   }
 
@@ -232,17 +258,18 @@ const panels = await Promise.all(
   .acc-more {
     display: grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
-    margin-top: 0.25rem;
-    border-radius: 10px;
+    width: 42px;
+    height: 42px;
+    margin-top: 0.35rem;
+    border-radius: 12px;
     background: var(--c-orange);
     color: #1a0f02;
-    transition: transform 0.2s var(--ease-out);
+    box-shadow: 0 10px 22px -12px rgb(249 131 5 / 0.8);
+    transition: transform var(--dur-2) var(--ease-out);
   }
 
   .acc-panel:hover .acc-more {
-    transform: translate(2px, -2px);
+    transform: translate(3px, -3px);
   }
 
   /* ——— App ——— */
@@ -251,48 +278,34 @@ const panels = await Promise.all(
     display: grid;
     align-content: center;
     justify-items: center;
-    min-height: 520px;
-    margin-top: 0;
+    min-height: 540px;
     padding: clamp(2rem, 1.5rem + 2vw, 3.5rem);
     border-radius: var(--r-xl);
     background:
-      radial-gradient(120% 80% at 100% 0%, rgb(61 58 134 / 0.55), transparent 55%),
-      radial-gradient(80% 60% at 0% 100%, rgb(249 131 5 / 0.14), transparent 60%),
-      var(--c-indigo-950);
-    color: var(--c-on-dark);
+      radial-gradient(90% 70% at 50% 0%, #fff 30%, transparent 75%),
+      linear-gradient(180deg, var(--c-surface), var(--c-paper));
+    color: var(--c-ink);
     text-align: center;
     overflow: hidden;
     isolation: isolate;
+    box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.6);
     scroll-margin-top: calc(var(--header-h) + 16px);
   }
 
-  @media (min-width: 1100px) {
-    .app {
-      margin-top: calc(1.25rem + 1.2em);
-    }
-  }
-
-  .app-pattern {
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    opacity: 0.5;
-    background-image:
-      repeating-linear-gradient(30deg, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 28px),
-      repeating-linear-gradient(150deg, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 28px);
-  }
-
-  /* Colagem original de telas do app, como fundo da composição. */
+  /* Colagem original de telas do app, ao fundo (como na home do WordPress). */
   .app :global(.app-screens) {
     position: absolute;
     inset: 50% auto auto 50%;
     z-index: -1;
-    width: min(110%, 640px);
+    width: min(125%, 720px);
     max-width: none;
-    transform: translate(-50%, -50%);
-    opacity: 0.22;
-    mix-blend-mode: screen;
+    transform: translate(-50%, -50%) rotate(-4deg);
     pointer-events: none;
+    transition: transform 1.2s var(--ease-out);
+  }
+
+  .app:hover :global(.app-screens) {
+    transform: translate(-50%, -52%) rotate(-3deg) scale(1.03);
   }
 
   .app-copy {
@@ -303,19 +316,19 @@ const panels = await Promise.all(
 
   .app-title {
     display: grid;
-    gap: 0.4rem;
-    font-size: clamp(2.4rem, 1.6rem + 3vw, 4rem);
-    letter-spacing: -0.04em;
-    line-height: 1;
+    gap: 0.5rem;
+    font-size: clamp(2.6rem, 1.6rem + 3.4vw, 4.4rem);
+    letter-spacing: -0.045em;
+    line-height: 0.98;
   }
 
   .app-kicker {
     font-family: var(--f-mono);
     font-size: var(--t-label);
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--c-orange);
+    color: var(--c-orange-text);
   }
 
   .stores {
@@ -328,16 +341,28 @@ const panels = await Promise.all(
   .stores a {
     display: block;
     border-radius: 9px;
-    transition: transform 0.18s var(--ease-out), opacity 0.18s;
+    box-shadow: 0 8px 18px -12px rgb(0 0 0 / 0.6);
+    transition:
+      transform var(--dur-1) var(--ease-out),
+      box-shadow var(--dur-1) var(--ease-out);
   }
 
   .stores a:hover {
     transform: translateY(-2px);
+    box-shadow: 0 14px 24px -12px rgb(0 0 0 / 0.55);
+  }
+
+  .stores a:active {
+    transform: translateY(0) scale(0.97);
   }
 
   .stores :global(img) {
     height: 44px;
     width: auto;
+  }
+
+  .only-m {
+    display: none;
   }
 
   /* ——— Tablet e celular: painéis empilhados, texto sempre visível ——— */
@@ -357,7 +382,7 @@ const panels = await Promise.all(
       display: grid;
       grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
       height: auto;
-      background: var(--c-indigo-950);
+      background: rgb(255 255 255 / 0.03);
     }
 
     .acc-media {
@@ -367,6 +392,7 @@ const panels = await Promise.all(
       aspect-ratio: 4 / 3;
       background-image: var(--m);
       background-position: center !important;
+      background-size: cover !important;
       transform: none !important;
     }
 
@@ -393,23 +419,9 @@ const panels = await Promise.all(
     }
 
     .app {
-      min-height: 0;
+      min-height: 420px;
       margin-top: 0.5rem;
     }
-  }
-
-  @media (max-width: 639px) {
-    .acc-panel {
-      grid-template-columns: 1fr;
-    }
-
-    .acc-body {
-      padding: 1.1rem 1.15rem 1.25rem;
-    }
-  }
-
-  .only-m {
-    display: none;
   }
 
   @media (max-width: 767px) {
@@ -422,10 +434,25 @@ const panels = await Promise.all(
     }
   }
 
+  @media (max-width: 639px) {
+    .acc-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .acc-media {
+      aspect-ratio: 16 / 9;
+    }
+
+    .acc-body {
+      padding: 1.1rem 1.15rem 1.25rem;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .acc-item,
     .acc-media,
-    .acc-body {
+    .acc-body,
+    .app :global(.app-screens) {
       transition: none;
     }
   }

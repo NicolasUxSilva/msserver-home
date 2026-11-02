@@ -19,12 +19,12 @@ const slides = await Promise.all(
     return { ...s, dSet: dWebp.srcSet.attribute, mSet: mWebp.srcSet.attribute, fallback: fallback.src, w: d.width, h: d.height };
   }),
 );
-const total = String(slides.length).padStart(2, '0');
 ---
 
 <section class="hero" id="inicio" aria-roledescription="carrossel" aria-label="Destaques da MSSERVER" data-slider>
   <div class="hero-grid-bg" aria-hidden="true"></div>
   <div class="container hero-inner">
+    <div class="stage-halo" aria-hidden="true"></div>
     <div class="stage on-dark">
       <div class="track" data-slider-track>
         {
@@ -40,10 +40,6 @@ const total = String(slides.length).padStart(2, '0');
               {/* Um bloco de texto por slide. Onde o slider do celular do WordPress tinha textos e
                   destinos próprios, as duas versões existem e cada uma aparece no seu tamanho de tela. */}
               <div class="slide-copy">
-                <span class="slide-count" aria-hidden="true">
-                  <span class="kicker-mark" />
-                  {String(i + 1).padStart(2, '0')} / {total}
-                </span>
                 {s.desktop.heading === s.mobile.heading ? (
                   i === 0 ? <h1 class="slide-title">{s.desktop.heading}</h1> : <p class="slide-title">{s.desktop.heading}</p>
                 ) : (
@@ -71,28 +67,32 @@ const total = String(slides.length).padStart(2, '0');
           ))
         }
       </div>
-    </div>
 
-    <div class="controls">
-      <div class="dots" role="group" aria-label="Escolher slide">
-        {
-          slides.map((s, i) => (
-            <button class="dot" type="button" aria-label={`Ir para o slide ${i + 1}: ${s.desktop.heading}`} aria-controls={`slide-${s.key}`} aria-current={i === 0 ? 'true' : undefined} data-slider-dot={i}>
-              <span class="dot-label">{s.desktop.heading}</span>
-              <span class="dot-bar" aria-hidden="true">
-                <i />
-              </span>
-            </button>
-          ))
-        }
-      </div>
-      <div class="arrows">
-        <button class="arrow" type="button" aria-label="Pausar a troca automática" data-slider-pause>
-          <Icon name="pause" size={18} class="i-pause" />
-          <Icon name="play" size={18} class="i-play" />
-        </button>
-        <button class="arrow" type="button" aria-label="Slide anterior" data-slider-prev><Icon name="chevron-left" size={20} /></button>
-        <button class="arrow" type="button" aria-label="Próximo slide" data-slider-next><Icon name="chevron-right" size={20} /></button>
+      {/* Barra de controle dentro do palco: progresso, slide atual e navegação. */}
+      <div class="bar">
+        <div class="dots" role="group" aria-label="Escolher slide">
+          {
+            slides.map((s, i) => (
+              <button class="dot" type="button" aria-label={`Ir para o slide ${String(i + 1).padStart(2, '0')} ${s.desktop.heading}`} aria-controls={`slide-${s.key}`} aria-current={i === 0 ? 'true' : undefined} data-slider-dot={i}>
+                <span class="dot-bar" aria-hidden="true">
+                  <i />
+                </span>
+                <span class="dot-text" aria-hidden="true">
+                  <span class="dot-num">{String(i + 1).padStart(2, '0')}</span>{' '}
+                  <span class="dot-label">{s.desktop.heading}</span>
+                </span>
+              </button>
+            ))
+          }
+        </div>
+        <div class="arrows">
+          <button class="arrow" type="button" aria-label="Pausar a troca automática" data-slider-pause>
+            <Icon name="pause" size={16} class="i-pause" />
+            <Icon name="play" size={16} class="i-play" />
+          </button>
+          <button class="arrow" type="button" aria-label="Slide anterior" data-slider-prev><Icon name="chevron-left" size={18} /></button>
+          <button class="arrow" type="button" aria-label="Próximo slide" data-slider-next><Icon name="chevron-right" size={18} /></button>
+        </div>
       </div>
     </div>
   </div>
@@ -211,22 +211,27 @@ const total = String(slides.length).padStart(2, '0');
   }
 </script>
 
+
 <style>
   .hero {
     position: relative;
-    padding-block: clamp(1.25rem, 0.5rem + 2vw, 2.25rem) 0;
-    overflow: hidden;
+    padding-top: clamp(1.25rem, 0.5rem + 2vw, 2.25rem);
+    overflow-x: clip;
+    view-timeline: --hero block;
   }
 
+  /* Grade técnica das landings: nasce atrás do palco e se dissolve sobre a seção seguinte,
+     costurando o hero à linha de servidores. */
   .hero-grid-bg {
     position: absolute;
-    inset: 0;
+    inset: 0 0 -320px;
     background-image:
-      linear-gradient(to right, rgb(27 24 32 / 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(27 24 32 / 0.05) 1px, transparent 1px);
+      linear-gradient(to right, rgb(27 24 32 / 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(27 24 32 / 0.055) 1px, transparent 1px);
     background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 20%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 20%, transparent 75%);
+    background-position: center top;
+    mask-image: radial-gradient(ellipse 75% 60% at 50% 45%, #000 25%, transparent 72%);
+    -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 45%, #000 25%, transparent 72%);
     pointer-events: none;
   }
 
@@ -234,13 +239,37 @@ const total = String(slides.length).padStart(2, '0');
     position: relative;
   }
 
+  /* Halo sob o palco: dá profundidade e liga o banner escuro ao fundo claro. */
+  .stage-halo {
+    position: absolute;
+    inset: 12% 4% -8%;
+    background:
+      radial-gradient(50% 60% at 25% 60%, rgb(61 58 134 / 0.35), transparent 70%),
+      radial-gradient(40% 50% at 80% 80%, rgb(249 131 5 / 0.18), transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
   .stage {
     position: relative;
     border-radius: var(--r-xl);
     background: var(--c-indigo-950);
-    box-shadow: var(--shadow-2);
+    box-shadow:
+      0 0 0 1px rgb(14 13 34 / 0.06),
+      var(--shadow-2);
     overflow: hidden;
     isolation: isolate;
+  }
+
+  /* Fio de luz na borda interna, como no console das landings. */
+  .stage::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
+    pointer-events: none;
   }
 
   .track {
@@ -261,7 +290,9 @@ const total = String(slides.length).padStart(2, '0');
     scroll-snap-align: start;
     scroll-snap-stop: always;
     aspect-ratio: 1713 / 918;
-    min-height: 460px;
+    min-height: 480px;
+    max-height: calc(100svh - var(--header-h) - 3rem);
+    width: 100%;
     color: var(--c-on-dark);
     overflow: hidden;
   }
@@ -277,7 +308,7 @@ const total = String(slides.length).padStart(2, '0');
   .slide-media img {
     object-fit: cover;
     object-position: left center;
-    transform: scale(1.04);
+    transform: scale(1.05);
     transition: transform 6s var(--ease-out);
   }
 
@@ -285,24 +316,27 @@ const total = String(slides.length).padStart(2, '0');
     transform: scale(1);
   }
 
-  /* Escurece só o lado do texto; a arte do banner fica intacta à esquerda. */
+  /* Escurece só o lado do texto e a base (onde fica a barra); a arte do banner fica intacta. */
   .slide-scrim {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, transparent 38%, rgb(14 13 34 / 0.55) 62%, rgb(14 13 34 / 0.78) 100%);
+    background:
+      linear-gradient(90deg, transparent 38%, rgb(14 13 34 / 0.55) 62%, rgb(14 13 34 / 0.8) 100%),
+      linear-gradient(0deg, rgb(14 13 34 / 0.7), transparent 22%);
   }
 
   .slide-copy {
     position: absolute;
     inset: 0;
+    --pad: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
     --copy-w: min(46%, 560px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     gap: 1rem;
-    padding: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
-    padding-left: calc(100% - var(--copy-w) + clamp(1.5rem, 1rem + 2.5vw, 3.5rem));
+    padding: var(--pad) var(--pad) calc(var(--pad) + 3.5rem);
+    padding-left: calc(100% - var(--copy-w) + var(--pad));
   }
 
   .only-m {
@@ -312,8 +346,7 @@ const total = String(slides.length).padStart(2, '0');
   .slide-copy .slide-title,
   .slide-copy .slide-desc,
   .slide-copy .slide-hl,
-  .slide-copy .slide-kw,
-  .slide-copy .slide-count {
+  .slide-copy .slide-kw {
     position: relative;
     z-index: 1;
     pointer-events: none;
@@ -327,16 +360,12 @@ const total = String(slides.length).padStart(2, '0');
     border-radius: var(--r-xl);
   }
 
-  .slide-btn--stretch:focus-visible {
-    outline-offset: 3px;
-  }
-
   .slide-copy > * {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(16px);
     transition:
       opacity 0.6s var(--ease-out),
-      transform 0.6s var(--ease-out);
+      transform 0.7s var(--ease-out);
   }
 
   .slide[data-active] .slide-copy > * {
@@ -354,33 +383,10 @@ const total = String(slides.length).padStart(2, '0');
     transition-delay: 0.24s;
   }
 
-  .slide-count {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.35rem 0.75rem 0.35rem 0.6rem;
-    border: 1px solid var(--c-line-dark-2);
-    border-radius: 999px;
-    background: rgb(14 13 34 / 0.35);
-    font-family: var(--f-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    color: var(--c-on-dark-2);
-  }
-
-  .kicker-mark {
-    width: 9px;
-    height: 9px;
-    background: var(--c-orange);
-    transform: rotate(45deg);
-    border-radius: 1px;
-  }
-
   .slide-title {
-    margin: 0.25rem 0 0;
+    margin: 0;
     font-family: var(--f-display);
-    font-size: clamp(1.9rem, 1rem + 2.4vw, 3.1rem);
+    font-size: clamp(1.9rem, 1rem + 2.4vw, 3.15rem);
     font-weight: 600;
     letter-spacing: -0.035em;
     line-height: 1.04;
@@ -405,67 +411,107 @@ const total = String(slides.length).padStart(2, '0');
 
   .slide-kw {
     color: var(--c-on-dark-3);
-    font-size: 0.85rem;
-  }
-
-  .slide-btn {
-    margin-top: 0.75rem;
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
   }
 
   .slide-btn {
     position: static;
+    margin-top: 0.75rem;
   }
 
-  /* ——— Controles ——— */
-  .controls {
+  /* Com o mouse sobre o banner, o CTA reage: o banner inteiro é o link. */
+  .slide:hover .slide-btn--stretch {
+    background: var(--c-orange-hover);
+  }
+
+  .slide:hover .slide-btn--stretch :global(.btn-arrow) {
+    transform: translateX(3px);
+  }
+
+  /* ——— Barra de controle ——— */
+  .bar {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 3;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-    gap: 1.5rem;
-    margin-top: 1.1rem;
+    gap: 2rem;
+    padding: 0 clamp(1.25rem, 0.8rem + 1.6vw, 2.25rem) clamp(1rem, 0.7rem + 0.8vw, 1.5rem);
+    pointer-events: none;
+  }
+
+  .bar > * {
+    pointer-events: auto;
   }
 
   .dots {
     flex: 1;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
+    gap: 0.75rem;
     max-width: 760px;
   }
 
   .dot {
     display: grid;
-    gap: 0.55rem;
-    padding: 0.25rem 0;
+    gap: 0.6rem;
+    min-width: 0;
+    padding: 0.5rem 0 0.25rem;
     border: 0;
     background: none;
+    color: var(--c-on-dark-3);
     text-align: left;
+    transition: color var(--dur-1) var(--ease-out);
+  }
+
+  .dot:hover {
+    color: var(--c-on-dark-2);
+  }
+
+  .dot[aria-current] {
+    color: var(--c-on-dark);
+  }
+
+  .dot-text {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+
+  .dot-num {
+    flex: none;
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+
+  .dot[aria-current] .dot-num {
+    color: var(--c-orange);
   }
 
   .dot-label {
     overflow: hidden;
-    font-family: var(--f-mono);
-    font-size: 0.7rem;
+    font-size: 0.82rem;
     font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: var(--c-ink-3);
-    transition: color 0.2s var(--ease-out);
-  }
-
-  .dot[aria-current] .dot-label,
-  .dot:hover .dot-label {
-    color: var(--c-ink);
   }
 
   .dot-bar {
     position: relative;
-    height: 3px;
-    border-radius: 3px;
-    background: var(--c-line-2);
+    height: 2px;
+    border-radius: 2px;
+    background: rgb(255 255 255 / 0.18);
     overflow: hidden;
+    transition: background-color var(--dur-1) var(--ease-out);
+  }
+
+  .dot:hover .dot-bar {
+    background: rgb(255 255 255 / 0.32);
   }
 
   .dot-bar i {
@@ -494,24 +540,39 @@ const total = String(slides.length).padStart(2, '0');
 
   .arrows {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .arrow {
     display: grid;
     place-items: center;
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--c-line-2);
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--c-line-dark-2);
     border-radius: 12px;
-    background: var(--c-surface);
-    color: var(--c-ink);
-    transition: border-color 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+    background: rgb(14 13 34 / 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--c-on-dark);
+    transition:
+      background-color var(--dur-1) var(--ease-out),
+      border-color var(--dur-1) var(--ease-out),
+      transform var(--dur-1) var(--ease-out);
   }
 
   .arrow:hover {
-    border-color: var(--c-ink-3);
+    border-color: rgb(255 255 255 / 0.45);
+    background: rgb(255 255 255 / 0.12);
     transform: translateY(-1px);
+  }
+
+  .arrow:active {
+    transform: scale(0.94);
+  }
+
+  .arrow:focus-visible,
+  .dot:focus-visible {
+    outline-color: var(--c-orange);
   }
 
   .arrow :global(.i-play),
@@ -523,13 +584,57 @@ const total = String(slides.length).padStart(2, '0');
     display: block;
   }
 
+  /* ——— Profundidade ao rolar (animação ligada ao scroll, sem JS) ———
+     O palco recua levemente e a imagem se desloca mais devagar que a página. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .stage {
+        animation: stage-depth linear both;
+        animation-timeline: --hero;
+        animation-range: exit 0% exit 100%;
+      }
+
+      .slide-media {
+        animation: media-drift linear both;
+        animation-timeline: --hero;
+        animation-range: exit 0% exit 100%;
+      }
+
+      .stage-halo {
+        animation: halo-fade linear both;
+        animation-timeline: --hero;
+        animation-range: exit 0% exit 80%;
+      }
+    }
+  }
+
+  @keyframes stage-depth {
+    to {
+      transform: translateY(6%) scale(0.955);
+    }
+  }
+
+  @keyframes media-drift {
+    to {
+      transform: translateY(9%);
+    }
+  }
+
+  @keyframes halo-fade {
+    to {
+      opacity: 0;
+    }
+  }
+
   @media (max-width: 1023px) {
     .slide-copy {
       --copy-w: min(56%, 520px);
     }
 
     .slide-scrim {
-      background: linear-gradient(90deg, transparent 28%, rgb(14 13 34 / 0.72) 50%, rgb(14 13 34 / 0.88) 100%);
+      background:
+        linear-gradient(90deg, transparent 28%, rgb(14 13 34 / 0.72) 50%, rgb(14 13 34 / 0.88) 100%),
+        linear-gradient(0deg, rgb(14 13 34 / 0.7), transparent 22%);
     }
 
     .slide-desc {
@@ -537,6 +642,10 @@ const total = String(slides.length).padStart(2, '0');
     }
 
     .slide-kw {
+      display: none;
+    }
+
+    .dot-label {
       display: none;
     }
   }
@@ -554,7 +663,7 @@ const total = String(slides.length).padStart(2, '0');
     .slide {
       aspect-ratio: 941 / 1671;
       min-height: 0;
-      max-height: 86svh;
+      max-height: 84svh;
     }
 
     .slide-media img {
@@ -562,7 +671,9 @@ const total = String(slides.length).padStart(2, '0');
     }
 
     .slide-scrim {
-      background: linear-gradient(180deg, rgb(14 13 34 / 0.55) 0%, rgb(14 13 34 / 0.25) 45%, transparent 62%);
+      background:
+        linear-gradient(180deg, rgb(14 13 34 / 0.6) 0%, rgb(14 13 34 / 0.25) 45%, transparent 62%),
+        linear-gradient(0deg, rgb(14 13 34 / 0.75), transparent 18%);
     }
 
     .only-d {
@@ -575,10 +686,6 @@ const total = String(slides.length).padStart(2, '0');
 
     a.only-m {
       display: inline-flex;
-    }
-
-    .slide-count {
-      display: none;
     }
 
     .slide-copy {
@@ -604,18 +711,22 @@ const total = String(slides.length).padStart(2, '0');
       margin-top: 0.25rem;
     }
 
-    .dot-label {
-      display: none;
+    .bar {
+      gap: 1rem;
+      padding: 0 0.9rem 0.9rem;
     }
 
     .dots {
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
 
-    /* Deixa livre o canto do botão flutuante de WhatsApp. */
-    .controls {
-      gap: 1rem;
-      padding-right: 70px;
+    .dot-num {
+      font-size: 0.65rem;
+    }
+
+    .arrow {
+      width: 38px;
+      height: 38px;
     }
   }
 

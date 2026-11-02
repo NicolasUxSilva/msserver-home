@@ -178,12 +178,17 @@ const isCurrent = (href?: string) => href === LINKS.home;
     backdrop-filter: saturate(1.4) blur(14px);
     -webkit-backdrop-filter: saturate(1.4) blur(14px);
     border-bottom: 1px solid transparent;
-    transition: border-color 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
+    transition:
+      border-color 0.25s var(--ease-out),
+      background-color 0.25s var(--ease-out),
+      box-shadow 0.35s var(--ease-out);
   }
 
+  /* Ao rolar, o header ganha borda e uma sombra curta: fica claro que flutua sobre a página. */
   .site-header:global(.is-scrolled) {
     border-bottom-color: var(--c-line);
     background: rgb(245 244 240 / 0.94);
+    box-shadow: 0 10px 30px -24px rgb(17 15 40 / 0.45);
   }
 
   .header-inner {
@@ -197,6 +202,11 @@ const isCurrent = (href?: string) => href === LINKS.home;
     flex: none;
     display: block;
     border-radius: 6px;
+    transition: opacity var(--dur-1) var(--ease-out);
+  }
+
+  .brand:hover {
+    opacity: 0.8;
   }
 
   .brand-logo {
@@ -240,21 +250,8 @@ const isCurrent = (href?: string) => href === LINKS.home;
     transition: color 0.15s var(--ease-out), background-color 0.15s var(--ease-out);
   }
 
-  .has-sub > .nav-link:not(.nav-link--button) {
-    padding-right: 0.15rem;
-  }
-
-  .nav-link:hover,
-  .nav-item.is-open > .nav-link {
-    color: var(--c-ink);
-    background: rgb(27 24 32 / 0.05);
-  }
-
-  .nav-link[aria-current='page'] {
-    color: var(--c-ink);
-  }
-
-  .nav-link[aria-current='page']::after {
+  /* Traço laranja: indica a página atual e cresce sob o item em hover. */
+  .nav-link::after {
     content: '';
     position: absolute;
     left: 0.7rem;
@@ -263,6 +260,37 @@ const isCurrent = (href?: string) => href === LINKS.home;
     height: 2px;
     border-radius: 2px;
     background: var(--c-orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+    opacity: 0.55;
+  }
+
+  .has-sub > .nav-link:not(.nav-link--button) {
+    padding-right: 0.15rem;
+  }
+
+  .nav-link:hover,
+  .nav-item.is-open > .nav-link {
+    color: var(--c-ink);
+  }
+
+  .nav-item.is-open > .nav-link,
+  .nav-item.is-open > .nav-caret {
+    background: rgb(27 24 32 / 0.05);
+  }
+
+  .nav-link[aria-current='page'] {
+    color: var(--c-ink);
+  }
+
+  .nav-link[aria-current='page']::after {
+    transform: scaleX(1);
+    opacity: 1;
   }
 
   .nav-caret {
@@ -301,7 +329,50 @@ const isCurrent = (href?: string) => href === LINKS.home;
     border-radius: var(--r-md);
     background: var(--c-surface);
     box-shadow: var(--shadow-2);
-    animation: panel-in 0.2s var(--ease-out);
+    transform-origin: top left;
+    animation: panel-in 0.24s var(--ease-out);
+  }
+
+  /* Seta do painel apontando para o item que o abriu. */
+  .nav-panel > .nav-panel-grid::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 1.6rem;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid var(--c-line);
+    border-left: 1px solid var(--c-line);
+    background: var(--c-surface);
+    transform: rotate(45deg);
+  }
+
+  /* Itens entram em cascata curta. */
+  @media (prefers-reduced-motion: no-preference) {
+    .nav-panel-col li,
+    .nav-panel-group {
+      animation: item-in 0.35s var(--ease-out) both;
+    }
+
+    .nav-panel-col li:nth-child(2) {
+      animation-delay: 0.03s;
+    }
+    .nav-panel-col li:nth-child(3) {
+      animation-delay: 0.06s;
+    }
+    .nav-panel-col li:nth-child(n + 4) {
+      animation-delay: 0.09s;
+    }
+    .nav-panel-group {
+      animation-delay: 0.08s;
+    }
+  }
+
+  @keyframes item-in {
+    from {
+      opacity: 0;
+      transform: translateX(-6px);
+    }
   }
 
   /* Ponte invisível para o mouse não perder o hover entre o item e o painel. */
@@ -315,7 +386,7 @@ const isCurrent = (href?: string) => href === LINKS.home;
   @keyframes panel-in {
     from {
       opacity: 0;
-      transform: translateY(-6px);
+      transform: translateY(-6px) scale(0.98);
     }
   }
 
@@ -341,11 +412,14 @@ const isCurrent = (href?: string) => href === LINKS.home;
     font-weight: 500;
     white-space: nowrap;
     text-decoration: none;
-    transition: background-color 0.15s var(--ease-out);
+    transition:
+      background-color 0.15s var(--ease-out),
+      padding 0.25s var(--ease-out);
   }
 
   .nav-panel-link:hover {
     background: var(--c-paper);
+    padding-left: 0.95rem;
   }
 
   .nav-panel :global(.nav-panel-arrow) {
@@ -596,6 +670,33 @@ const isCurrent = (href?: string) => href === LINKS.home;
 
   .m-item {
     border-bottom: 1px solid var(--c-line);
+  }
+
+  /* Itens do menu móvel entram em cascata ao abrir. */
+  @media (prefers-reduced-motion: no-preference) {
+    .m-item {
+      animation: item-up 0.4s var(--ease-out) both;
+    }
+
+    .m-item:nth-child(2) { animation-delay: 0.03s; }
+    .m-item:nth-child(3) { animation-delay: 0.06s; }
+    .m-item:nth-child(4) { animation-delay: 0.09s; }
+    .m-item:nth-child(5) { animation-delay: 0.12s; }
+    .m-item:nth-child(6) { animation-delay: 0.15s; }
+    .m-item:nth-child(7) { animation-delay: 0.18s; }
+    .m-item:nth-child(n + 8) { animation-delay: 0.21s; }
+  }
+
+  @keyframes item-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
+  .m-link:active,
+  .m-sub a:active {
+    color: var(--c-orange-text);
   }
 
   .m-row {

@@ -9,47 +9,46 @@ import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
 
 <footer class="footer">
   <div class="container footer-grid">
-    <div class="footer-col footer-contact">
+    <div class="footer-col footer-contact" data-reveal>
       <a href={LINKS.home} class="footer-logo" aria-label="MSSERVER, página inicial">
         <Image src={logo} alt="MSSERVER Soluções em Servidores" widths={[180, 360]} sizes="168px" loading="lazy" />
       </a>
       <ul class="contact-list">
-        <li><Icon name="clock" size={18} /><span>{CONTACT.hours}</span></li>
-        <li><Icon name="map-pin" size={18} /><span>{CONTACT.address}</span></li>
+        <li><span class="c-ico"><Icon name="clock" size={16} /></span><span>{CONTACT.hours}</span></li>
+        <li><span class="c-ico"><Icon name="map-pin" size={16} /></span><span>{CONTACT.address}</span></li>
         {
           CONTACT.emails.map((e) => (
             <li>
-              <Icon name="mail" size={18} />
-              <a href={`mailto:${e}`}>{e}</a>
+              <span class="c-ico"><Icon name="mail" size={16} /></span>
+              <a class="u-link" href={`mailto:${e}`}>{e}</a>
             </li>
           ))
         }
         {
           CONTACT.phones.map((p) => (
             <li>
-              <Icon name="phone" size={18} />
-              <a href={`tel:${p.e164}`}>{p.display}</a>
+              <span class="c-ico"><Icon name="phone" size={16} /></span>
+              <a class="u-link" href={`tel:${p.e164}`}>{p.display}</a>
             </li>
           ))
         }
       </ul>
-      <Image src={certs} alt="Certificações: EXIN Cloud Computing Foundation e Tier III Design (Uptime Institute)" class="footer-certs" widths={[220, 440]} sizes="220px" loading="lazy" />
     </div>
 
-    <nav class="footer-col" aria-labelledby="footer-menu">
+    <nav class="footer-col" aria-labelledby="footer-menu" data-reveal style="--reveal-i:1">
       <h2 id="footer-menu">Menu</h2>
       <ul class="footer-links">
         {
           FOOTER_MENU.map((l) => (
             <li>
-              <a href={l.href}>{l.label}</a>
+              <a class="u-link" href={l.href}>{l.label}</a>
             </li>
           ))
         }
       </ul>
     </nav>
 
-    <div class="footer-col">
+    <div class="footer-col" data-reveal style="--reveal-i:2">
       <h2>Nossas redes</h2>
       <ul class="footer-social">
         {
@@ -62,8 +61,16 @@ import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
           ))
         }
       </ul>
+    </div>
+
+    <div class="footer-col footer-seals" data-reveal style="--reveal-i:3">
+      <div class="seal seal--light">
+        <Image src={certs} alt="Certificações: EXIN Cloud Computing Foundation e Tier III Design (Uptime Institute)" class="footer-certs" widths={[240, 480]} sizes="240px" loading="lazy" />
+      </div>
       <h2 class="footer-eco-title">Projetos socioambientais</h2>
-      <Image src={eco} alt="Projetos socioambientais: Green IT, Carbon Free Brasil e CETESB" class="footer-eco" widths={[300, 600]} sizes="300px" loading="lazy" />
+      <div class="seal seal--dark">
+        <Image src={eco} alt="Projetos socioambientais: Green IT, Carbon Free Brasil e CETESB" class="footer-eco" widths={[300, 600]} sizes="300px" loading="lazy" />
+      </div>
     </div>
   </div>
   <div class="container">
@@ -75,6 +82,7 @@ import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
 
 <style>
   .footer {
+    position: relative;
     padding-block: clamp(3.5rem, 2.5rem + 3vw, 5rem) 2rem;
     background: var(--c-paper);
     border-top: 1px solid var(--c-line);
@@ -83,12 +91,27 @@ import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
 
   .footer-grid {
     display: grid;
-    gap: 2.75rem;
+    gap: 2.5rem;
   }
 
-  @media (min-width: 720px) {
+  /* Celular: menu e redes lado a lado; contato e selos ocupam a largura toda. */
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 1.5rem;
+  }
+
+  .footer-contact,
+  .footer-seals {
+    grid-column: 1 / -1;
+  }
+
+  @media (min-width: 640px) {
     .footer-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 0.8fr) minmax(0, 1.2fr);
+    }
+
+    .footer-seals {
+      grid-column: auto;
     }
 
     .footer-contact {
@@ -96,10 +119,10 @@ import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1180px) {
     .footer-grid {
-      grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.7fr) minmax(0, 1fr);
-      gap: 3.5rem;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.7fr) minmax(0, 0.75fr) minmax(0, 1fr);
+      gap: 3rem;
     }
 
     .footer-contact {
@@ -110,6 +133,11 @@ import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
   .footer-logo {
     display: inline-block;
     border-radius: 6px;
+    transition: opacity var(--dur-1) var(--ease-out);
+  }
+
+  .footer-logo:hover {
+    opacity: 0.8;
   }
 
   .footer-logo :global(img) {
@@ -120,42 +148,39 @@ import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
   .contact-list {
     list-style: none;
     display: grid;
-    gap: 0.7rem;
-    margin-top: 1.5rem;
+    gap: 0.75rem;
+    margin-top: 1.6rem;
     color: var(--c-ink-2);
   }
 
   .contact-list li {
     display: flex;
     align-items: flex-start;
-    gap: 0.65rem;
+    gap: 0.7rem;
   }
 
-  .contact-list :global(svg) {
+  .c-ico {
+    display: grid;
+    place-items: center;
     flex: none;
-    margin-top: 2px;
+    width: 28px;
+    height: 28px;
+    margin-top: -3px;
+    border-radius: 8px;
+    background: var(--c-orange-tint);
     color: var(--c-orange-deep);
   }
 
   .footer a {
     color: var(--c-ink-2);
-    text-decoration: none;
   }
 
   .footer a:hover {
     color: var(--c-ink);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .footer-certs {
-    width: 200px;
-    height: auto;
-    margin-top: 1.75rem;
   }
 
   .footer-col h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.1rem;
     font-family: var(--f-mono);
     font-size: var(--t-label);
     font-weight: 500;
@@ -167,12 +192,13 @@ import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
   .footer-links {
     list-style: none;
     display: grid;
-    gap: 0.6rem;
+    gap: 0.65rem;
   }
 
   .footer-social {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
   }
 
@@ -185,7 +211,12 @@ import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
     border-radius: 12px;
     background: var(--c-surface);
     color: var(--c-ink);
-    transition: border-color 0.2s var(--ease-out), background-color 0.2s var(--ease-out), color 0.2s, transform 0.2s var(--ease-out);
+    text-decoration: none;
+    transition:
+      border-color var(--dur-1) var(--ease-out),
+      background-color var(--dur-1) var(--ease-out),
+      color var(--dur-1),
+      transform var(--dur-2) var(--ease-out);
   }
 
   .footer-social a:hover {
@@ -195,17 +226,55 @@ import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
     transform: translateY(-2px);
   }
 
-  .footer-eco-title {
-    margin-top: 2rem;
+  @media (max-width: 639px) {
+    .footer-social {
+      gap: 0.35rem;
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+    }
+  }
+
+  .footer-social a:active {
+    transform: scale(0.95);
+  }
+
+  /* Selos: certificações e projetos socioambientais como peças da mesma família. */
+  .seal {
+    display: grid;
+    place-items: center;
+    padding: 0.9rem 1.1rem;
+    border-radius: var(--r-md);
+  }
+
+  .seal--light {
+    border: 1px solid var(--c-line);
+    background: var(--c-surface);
+  }
+
+  .seal--dark {
+    background:
+      radial-gradient(100% 100% at 100% 0%, rgb(61 58 134 / 0.5), transparent 70%),
+      var(--c-indigo-950);
+  }
+
+  .footer-certs {
+    width: 230px;
+    max-width: 100%;
+    height: auto;
   }
 
   .footer-eco {
-    width: 280px;
+    width: 260px;
     max-width: 100%;
     height: auto;
-    padding: 0.75rem 1rem;
-    border-radius: var(--r-md);
-    background: var(--c-indigo-950);
+  }
+
+  .footer-eco-title {
+    margin-top: 1.75rem;
   }
 
   .footer-bottom {

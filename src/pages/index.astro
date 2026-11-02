@@ -19,35 +19,164 @@ import { whatsappUrl } from '../config/site';
   <main id="conteudo">
     <HeroSlider />
     <ProductLine />
-    <SolutionsApp />
-    <VideoSection />
+    {/* Capítulo escuro: soluções, app e vídeo dividem a mesma superfície. O vídeo avança
+        sobre a seção de postagens, costurando o escuro ao claro. */}
+    <div class="chapter dark-surface on-dark">
+      <div class="dark-surface__bg chapter-bg" aria-hidden="true">
+        <div class="dark-surface__hatch chapter-hatch"></div>
+        <div class="glow glow--indigo chapter-glow-a"></div>
+        <div class="glow glow--orange chapter-glow-b"></div>
+        <div class="glow glow--indigo chapter-glow-c"></div>
+      </div>
+      <SolutionsApp />
+      <VideoSection />
+    </div>
     <LatestPosts />
     <SocialClients />
   </main>
   <Footer />
   <a class="wa-fab" href={whatsappUrl()} target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp" data-wa-fab data-track="contact_whatsapp_click" data-track-location="flutuante">
-    <Icon name="whatsapp" size={28} />
+    <span class="wa-fab-icon"><Icon name="whatsapp" size={28} /></span>
+    <span class="wa-fab-label" aria-hidden="true">WhatsApp</span>
   </a>
 </Base>
 
 <style>
+  /* ——— Capítulo escuro ——— */
+  .chapter {
+    --overhang: clamp(4rem, 1.5rem + 10vw, 12rem);
+    view-timeline: --chapter block;
+  }
+
+  /* O fundo escuro termina antes do fim do capítulo; o restante já é a superfície branca
+     da seção seguinte, por onde o vídeo avança. */
+  .chapter-bg {
+    bottom: var(--overhang);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+  }
+
+  .chapter::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    z-index: -2;
+    height: var(--overhang);
+    background: var(--c-surface);
+  }
+
+  .chapter-hatch {
+    mask-image: radial-gradient(80% 60% at 50% 35%, #000, transparent 85%);
+    -webkit-mask-image: radial-gradient(80% 60% at 50% 35%, #000, transparent 85%);
+  }
+
+  .chapter-glow-a {
+    top: -12%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    max-width: 900px;
+    max-height: 900px;
+  }
+
+  .chapter-glow-b {
+    top: 30%;
+    left: -15%;
+    width: 50vw;
+    height: 40vw;
+  }
+
+  .chapter-glow-c {
+    bottom: 0;
+    left: 20%;
+    width: 60vw;
+    height: 30vw;
+    opacity: 0.8;
+  }
+
+  /* Os brilhos se deslocam mais devagar que o conteúdo: profundidade sem roubar o scroll. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .chapter-glow-a,
+      .chapter-glow-c {
+        animation: drift-down linear both;
+        animation-timeline: --chapter;
+      }
+
+      .chapter-glow-b {
+        animation: drift-up linear both;
+        animation-timeline: --chapter;
+      }
+    }
+  }
+
+  @keyframes drift-down {
+    from {
+      transform: translateY(-12%);
+    }
+    to {
+      transform: translateY(18%);
+    }
+  }
+
+  @keyframes drift-up {
+    from {
+      transform: translateY(20%);
+    }
+    to {
+      transform: translateY(-15%);
+    }
+  }
+
+  /* ——— WhatsApp flutuante ——— */
   .wa-fab {
     position: fixed;
     right: clamp(1rem, 0.6rem + 1.5vw, 1.75rem);
     bottom: calc(clamp(1rem, 0.6rem + 1.5vw, 1.75rem) + env(safe-area-inset-bottom));
     z-index: 40;
-    display: grid;
-    place-items: center;
-    width: 58px;
+    display: flex;
+    align-items: center;
     height: 58px;
-    border-radius: 50%;
+    padding: 0 15px;
+    border-radius: 999px;
     background: #1faa53;
     color: #fff;
-    box-shadow: 0 12px 30px -10px rgb(0 0 0 / 0.45);
+    text-decoration: none;
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.12) inset,
+      0 14px 32px -12px rgb(14 60 30 / 0.6);
     transition:
-      opacity 0.3s var(--ease-out),
-      transform 0.3s var(--ease-out),
-      background-color 0.2s;
+      opacity 0.35s var(--ease-out),
+      transform 0.35s var(--ease-out),
+      background-color var(--dur-1),
+      box-shadow var(--dur-2) var(--ease-out);
+  }
+
+  .wa-fab-icon {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+  }
+
+  /* O rótulo abre no hover/foco e deixa claro o que o botão faz. */
+  .wa-fab-label {
+    max-width: 0;
+    overflow: hidden;
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition:
+      max-width 0.4s var(--ease-out),
+      margin 0.4s var(--ease-out),
+      opacity 0.25s var(--ease-out);
+  }
+
+  .wa-fab:hover .wa-fab-label,
+  .wa-fab:focus-visible .wa-fab-label {
+    max-width: 120px;
+    margin: 0 0.35rem 0 0.6rem;
+    opacity: 1;
   }
 
   :global(.js) .wa-fab:not(:global(.is-visible)) {
@@ -58,13 +187,47 @@ import { whatsappUrl } from '../config/site';
   .wa-fab:hover {
     background: #189548;
     transform: translateY(-2px);
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.12) inset,
+      0 18px 36px -12px rgb(14 60 30 / 0.65);
+  }
+
+  .wa-fab:active {
+    transform: translateY(0) scale(0.97);
   }
 
   .wa-fab:focus-visible {
     outline-color: var(--c-indigo-600);
   }
 
+  /* Um único pulso ao aparecer, para ser notado; depois fica quieto. */
+  @media (prefers-reduced-motion: no-preference) {
+    .wa-fab:global(.is-visible)::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      animation: wa-pulse 1.6s var(--ease-out) 0.4s 2 both;
+      pointer-events: none;
+    }
+  }
+
+  @keyframes wa-pulse {
+    from {
+      box-shadow: 0 0 0 0 rgb(31 170 83 / 0.45);
+    }
+    to {
+      box-shadow: 0 0 0 16px rgb(31 170 83 / 0);
+    }
+  }
+
   :global(html.menu-open) .wa-fab {
     display: none;
+  }
+
+  @media (hover: none) {
+    .wa-fab-label {
+      display: none;
+    }
   }
 </style>

@@ -95,3 +95,26 @@ GTM `GTM-KTDRRP3`, Google Ads `AW-715484072`, Meta Pixel `4553103271463659`, Cla
 celular) são os mesmos da home. Só carregam com `PUBLIC_TRACKING=true`. Os eventos de conversão
 do Google Ads (`gtag_report_conversion`) presentes no HTML do WordPress não estão ligados a nenhum
 elemento da home; se forem usados via GTM, continuam funcionando pelo container.
+
+## Etapa 02 (refinamento visual e de interação)
+
+Nada de conteúdo, link ou funcionalidade foi removido. Mudanças de apresentação que vale saber:
+
+- **Cartões de produto e de post:** o cartão inteiro passou a ser clicável. O link da foto do
+  produto/post virou parte do link do título (mesmo destino); o botão "Selecionar opções" e o
+  "Leia mais »" continuam como links próprios.
+- **Slider:** o contador "01 / 03" saiu de dentro do texto; a barra de controle (progresso,
+  número e título de cada slide, pausa e setas) foi para dentro do banner.
+- **App:** o cartão "Conheça nosso app" voltou a ter fundo claro, para o qual a colagem
+  original de telas foi desenhada (no WordPress ela também fica sobre branco).
+- **Clientes:** os mesmos 10 logos, na versão monocromática usada nas landings
+  (`scripts/client-logos.mjs` gera `src/assets/clients-mono/` a partir dos originais, que
+  continuam em `src/assets/clients/`).
+- **Redes sociais:** os nomes (Facebook, Instagram, Linkedin, Youtube), que no WordPress eram
+  texto para leitores de tela, agora aparecem ao lado dos ícones.
+- **Vídeo:** enquanto o player carrega, a moldura mostra a miniatura do próprio vídeo no
+  YouTube (`i.ytimg.com`). Se ela não carregar, some sem deixar ícone quebrado.
+- **Rodapé:** as certificações passaram da coluna de contato para a coluna de projetos
+  socioambientais, formando um bloco de selos.
+- **WhatsApp flutuante:** mostra o rótulo "WhatsApp" (texto do plugin Click to Chat) no hover
+  e dá um pulso discreto ao aparecer.

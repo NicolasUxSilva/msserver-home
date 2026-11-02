@@ -83,7 +83,10 @@ test('imagens e fontes carregam, sem erros no console', async ({ page }) => {
   // Força o carregamento das imagens dos slides e das abas ocultas.
   await page.evaluate(() => document.querySelectorAll('img[loading="lazy"]').forEach((i) => ((i as HTMLImageElement).loading = 'eager')));
   await page.waitForLoadState('networkidle');
-  const broken = await page.evaluate(() => [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src));
+  // Imagens do próprio site (a miniatura do YouTube é externa e fica bloqueada nos testes).
+  const broken = await page.evaluate(() =>
+    [...document.images].filter((i) => i.src.startsWith(location.origin) && i.complete && i.naturalWidth === 0).map((i) => i.src),
+  );
   expect(broken).toEqual([]);
   expect(failed).toEqual([]);
   expect(errors).toEqual([]);
@@ -126,7 +129,7 @@ test('slider: navegação, pausa e destinos', async ({ page, isMobile }) => {
   await expect(active()).toHaveAttribute('id', 'slide-app');
   const link = active().getByRole('link', { name: 'Baixar o app' });
   await expect(link).toHaveAttribute('href', isMobile ? '#appmobile' : 'https://msserver.com.br/aplicativo-ms-server/');
-  await page.getByRole('button', { name: /^Ir para o slide 3/ }).click();
+  await page.getByRole('button', { name: /^Ir para o slide 03/ }).click();
   await expect(active()).toHaveAttribute('id', 'slide-nuvem');
   await expect(active().getByRole('link', { name: isMobile ? 'Obter suporte' : 'Nuvem' })).toHaveAttribute(
     'href',
@@ -230,16 +233,23 @@ test.describe('celular', () => {
   test('âncora do slide do app leva à seção do app', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('button', { name: 'Pausar a troca automática' }).click();
-    await page.getByRole('button', { name: /^Ir para o slide 2/ }).click();
+    await page.getByRole('button', { name: /^Ir para o slide 02/ }).click();
     await page.locator('[data-slide][data-active]').getByRole('link', { name: 'Baixar o app' }).click();
     await expect(page.locator('#appmobile')).toBeInViewport();
   });
 });
 
+const settle = (page: Page) =>
+  expect
+    .poll(() =>
+      page.evaluate(() => [...document.querySelectorAll<HTMLElement>('[data-reveal]')].filter((el) => el.offsetParent !== null && getComputedStyle(el).opacity !== '1').length),
+    )
+    .toBe(0);
+
 test('acessibilidade (axe, WCAG 2.1 AA)', async ({ page }) => {
   await page.goto('/');
   await scrollAll(page);
-  await page.waitForTimeout(800);
+  await settle(page);
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
   expect(results.violations.map((v) => `${v.id}: ${v.nodes.length} (${v.nodes[0]?.target})`)).toEqual([]);
 });
@@ -252,4 +262,28 @@ test('redução de movimento: slider parado e conteúdo visível', async ({ brow
   await expect(page.locator('[data-slide][data-active]')).toHaveAttribute('id', 'slide-servidores');
   await expect(page.locator('h1')).toBeVisible();
   await ctx.close();
+});
+
+test('cartões inteiros clicáveis levam ao mesmo destino do título', async ({ page }) => {
+  await page.route('https://msserver.com.br/**', (r) => r.fulfill({ body: 'ok', contentType: 'text/html' }));
+  await page.goto('/');
+  const card = page.locator('#rack-tab .card').first();
+  await card.scrollIntoViewIfNeeded();
+  // Clique real do usuário sobre a foto (sem seletor): o link esticado do título recebe o clique.
+  let box = (await card.locator('.card-photo').boundingBox())!;
+  await page.mouse.click(box.x + 30, box.y + 30);
+  await expect(page).toHaveURL('https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g7/');
+  await page.goto('/');
+  const post = page.locator('.post').first();
+  await post.scrollIntoViewIfNeeded();
+  box = (await post.locator('.post-thumb').boundingBox())!;
+  await page.mouse.click(box.x + 30, box.y + 30);
+  await expect(page).toHaveURL(/msserver\.com\.br\/review-servidor-poweredge-vale-a-pena\/$/);
+});
+
+test('vídeo mostra a miniatura do próprio vídeo enquanto o player carrega', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('[data-video] .poster, [data-video] iframe').first()).toHaveCount(1);
+  const html = await page.content();
+  expect(html).toContain('https://i.ytimg.com/vi/1MQYjMeyX6w/maxresdefault.jpg');
 });

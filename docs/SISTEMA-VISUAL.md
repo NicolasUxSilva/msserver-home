@@ -5,6 +5,10 @@ Base para as próximas páginas. Os tokens e componentes vêm das landings de
 [Cloud](https://github.com/NicolasUxSilva/cloud-ms): `src/styles/global.css` é o mesmo arquivo
 da landing de Cloud, sem alterações. Ao reformular uma página nova, reutilize-o como está.
 
+O site acrescenta uma segunda camada, `src/styles/site.css`, com o que as páginas
+institucionais precisam além das landings (estados de interação, superfícies escuras
+compartilhadas, cartões clicáveis). Ela não altera nenhum token do `global.css`.
+
 ## Tokens (`:root` em `global.css`)
 
 | Grupo | Tokens | Uso |
@@ -33,6 +37,25 @@ da landing de Cloud, sem alterações. Ao reformular uma página nova, reutilize
   com JS e sem "reduzir movimento"; `initReveal()` em `src/scripts/page.ts` garante que nada fique
   invisível.
 
+## Camada do site (`site.css`)
+
+| Classe / token | Uso |
+| --- | --- |
+| `--shadow-lift`, `--dur-1/2/3` | Elevação de cartões em hover; durações curtas (0,18 s), médias (0,32 s) e de entrada (0,7 s) |
+| `.btn:active`, sombras do `.btn--primary` | Pressão (escala 0,98) e brilho laranja sob o CTA principal |
+| `.has-card-link` + `.card-link` (+ `.card-raise`) | Cartão inteiro clicável: o link do título cobre o cartão; botões internos ficam acima |
+| `.u-link` | Sublinhado que cresce da esquerda (rodapé, listas) |
+| `.ext-arrow` | Seta ↗ que aparece no hover de links externos |
+| `.dark-surface` + `__bg`, `__hatch`, `.glow--indigo/--orange` | Superfície índigo com hachura e brilhos (console e CTA final das landings) |
+| `data-reveal="zoom"` | Variação de entrada para mídia |
+
+## Ritmo de superfícies da home
+
+Papel (hero + linha de servidores, com a grade técnica do hero se dissolvendo sobre a seção
+seguinte) → capítulo escuro único (soluções, app e vídeo) → branco (postagens; o vídeo
+avança sobre essa fronteira) → faixa escura (redes) → papel (clientes e rodapé). Alternar
+superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade sem divisores.
+
 ## Padrões de componente usados na home
 
 | Padrão | Onde | Reaproveitar em |
@@ -55,7 +78,12 @@ do Elementor.
 
 ## Movimento
 
-- Entradas: 0,7 s, `translateY(14px)` → 0, escalonamento de 70 ms (`data-reveal`).
+- Entradas: 0,7 s, `translateY(14px)` → 0, escalonamento de 70 ms (`data-reveal`). A linha do
+  rótulo `.eyebrow` cresce quando o cabeçalho entra.
+- Ligado ao scroll (CSS `animation-timeline`, sem JS, só com suporte do navegador e sem
+  "reduzir movimento"): o palco do hero recua levemente ao sair da tela e a imagem se desloca
+  mais devagar; os brilhos do capítulo escuro derivam em velocidade própria; a moldura do vídeo
+  se aproxima ao entrar.
 - Hover: 0,18–0,25 s; botões sobem 1 px; setas deslizam 3 px; fotos ampliam 3–4 %.
 - Slider: troca a cada 5 s, barra de progresso, pausa com mouse/foco/fora da tela e botão de pausa.
 - Sem scroll hijacking; rolagem suave só sem "reduzir movimento".

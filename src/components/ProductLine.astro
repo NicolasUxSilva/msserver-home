@@ -12,7 +12,7 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
 
 <section class="section line" id="nossa-linha" aria-labelledby="line-title">
   <div class="container">
-    <div class="line-head">
+    <div class="line-head" data-reveal>
       <div>
         <p class="eyebrow"><b>01</b> Servidores</p>
         <h2 id="line-title">{LINE.title}</h2>
@@ -37,13 +37,14 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
               const p = products[String(id)];
               const photo = p.image ? photos[`../assets/products/${p.image}`]?.default : undefined;
               return (
-                <li class="card" data-reveal style={`--reveal-i:${j % 3}`}>
-                  <a class="card-photo" href={p.url} tabindex="-1" aria-hidden="true">
+                <li class="card has-card-link" data-reveal style={`--reveal-i:${j % 3}`}>
+                  {/* O cartão inteiro leva à página do produto (link do título esticado). */}
+                  <div class="card-photo" aria-hidden="true">
                     {photo && <Image src={photo} alt="" widths={[320, 480, 640, 800]} sizes="(min-width: 1100px) 380px, (min-width: 640px) 45vw, 92vw" loading={i === 0 && j < 3 ? 'eager' : 'lazy'} />}
-                  </a>
+                  </div>
                   <div class="card-body">
                     <h3 class="card-title">
-                      <a href={p.url}>{p.name}</a>
+                      <a class="card-link" href={p.url}>{p.name}</a>
                     </h3>
                     <p class="rating" role="img" aria-label={`Rated ${p.rating} out of 5`}>
                       {[0, 1, 2, 3, 4].map((k) => (
@@ -56,12 +57,12 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
                       ) : (
                         <Fragment>
                           <span>{brl(p.min)}</span>
-                          <span class="price-sep" aria-label="até">–</span>
+                          <span class="price-sep">–</span>
                           <span>{brl(p.max)}</span>
                         </Fragment>
                       )}
                     </p>
-                    <a class="btn btn--dark btn--sm card-btn" href={p.url} aria-label={`${p.button}: ${p.name}`}>
+                    <a class="btn btn--dark btn--sm card-btn card-raise" href={p.url} aria-label={`${p.button}: ${p.name}`}>
                       {p.button}
                       <Icon name="arrow-right" size={16} class="btn-arrow" />
                     </a>
@@ -139,6 +140,19 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     padding-top: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
   }
 
+  /* Luz suave atrás da grade: os cartões brancos ganham relevo sobre o papel. */
+  .line::before {
+    content: '';
+    position: absolute;
+    inset: 18% 0 0;
+    background: radial-gradient(60% 55% at 50% 45%, rgb(255 255 255 / 0.75), transparent 75%);
+    pointer-events: none;
+  }
+
+  .line > .container {
+    position: relative;
+  }
+
   .line-head {
     display: grid;
     gap: 1.5rem 3rem;
@@ -169,6 +183,7 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     border: 1px solid var(--c-line);
     border-radius: 14px;
     background: var(--c-surface);
+    box-shadow: var(--shadow-1);
   }
 
   .tabs-ink {
@@ -178,10 +193,11 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     left: 0;
     border-radius: 10px;
     background: var(--c-indigo-950);
+    box-shadow: 0 6px 14px -8px rgb(14 13 34 / 0.6);
     opacity: 0;
     transition:
-      transform 0.35s var(--ease-out),
-      width 0.35s var(--ease-out);
+      transform 0.45s var(--ease-out),
+      width 0.45s var(--ease-out);
   }
 
   .tabs:global(.has-ink) .tabs-ink {
@@ -200,15 +216,26 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     font-size: 0.95rem;
     font-weight: 600;
     white-space: nowrap;
-    transition: color 0.25s var(--ease-out);
+    transition:
+      color 0.3s var(--ease-out),
+      background-color var(--dur-1) var(--ease-out);
   }
 
-  .tab:hover {
+  .tab:hover:not([aria-selected='true']) {
     color: var(--c-ink);
+    background: var(--c-paper);
+  }
+
+  .tab:active {
+    transform: scale(0.97);
   }
 
   .tab[aria-selected='true'] {
     color: var(--c-on-dark);
+  }
+
+  .tab:focus-visible {
+    outline-offset: 2px;
   }
 
   /* Sem JS, a aba ativa usa fundo próprio. */
@@ -234,7 +261,7 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
 
   @media (prefers-reduced-motion: no-preference) {
     .tab-panel:global(.is-entering) .card {
-      animation: card-in 0.5s var(--ease-out) both;
+      animation: card-in 0.55s var(--ease-out) both;
     }
 
     .tab-panel:global(.is-entering) .card:nth-child(3n + 2) {
@@ -249,11 +276,11 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
   @keyframes card-in {
     from {
       opacity: 0;
-      transform: translateY(12px);
+      transform: translateY(14px);
     }
   }
 
-  /* ——— Cartões (padrão do catálogo das landings) ——— */
+  /* ——— Cartões ——— */
   .grid {
     list-style: none;
     display: grid;
@@ -269,45 +296,72 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
   @media (min-width: 1024px) {
     .grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
     }
   }
 
   .card {
-    position: relative;
     display: flex;
     flex-direction: column;
     border: 1px solid var(--c-line);
     border-radius: var(--r-lg);
     background: var(--c-surface);
     overflow: hidden;
+    cursor: pointer;
     transition:
-      box-shadow 0.25s var(--ease-out),
-      border-color 0.25s var(--ease-out),
-      transform 0.25s var(--ease-out);
+      box-shadow var(--dur-2) var(--ease-out),
+      border-color var(--dur-2) var(--ease-out),
+      transform var(--dur-2) var(--ease-out);
   }
 
   .card:hover {
     border-color: var(--c-line-2);
-    box-shadow: var(--shadow-1);
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-4px);
   }
 
+  .card:active {
+    transform: translateY(-2px);
+    transition-duration: 0.08s;
+  }
+
+  /* Foto: fundo branco do produto se funde a um estúdio claro, com sombra de piso. */
   .card-photo {
-    display: block;
+    position: relative;
     aspect-ratio: 4 / 3;
-    background: #fff;
+    background: radial-gradient(70% 60% at 50% 42%, #fff 40%, var(--c-paper) 100%);
     border-bottom: 1px solid var(--c-line);
     overflow: hidden;
   }
 
+  .card-photo::after {
+    content: '';
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    bottom: 13%;
+    height: 10%;
+    background: radial-gradient(closest-side, rgb(27 24 32 / 0.16), transparent);
+    transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+  }
+
   .card-photo :global(img) {
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transition: transform 0.5s var(--ease-out);
+    mix-blend-mode: multiply;
+    transition: transform 0.6s var(--ease-out);
   }
 
   .card:hover .card-photo :global(img) {
-    transform: scale(1.04);
+    transform: translateY(-4px) scale(1.04);
+  }
+
+  .card:hover .card-photo::after {
+    opacity: 0.7;
+    transform: scaleX(0.92);
   }
 
   .card-body {
@@ -326,12 +380,12 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
 
   .card-title a {
     text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size var(--dur-2) var(--ease-out);
   }
 
-  .card-title a:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
+  .card:hover .card-title a {
+    background-size: 100% 1px;
   }
 
   .rating {
@@ -350,7 +404,7 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     flex-wrap: wrap;
     align-items: baseline;
     gap: 0.1rem 0.45rem;
-    margin-top: 0.2rem;
+    margin: 0.2rem 0 0.9rem;
     font-family: var(--f-display);
     font-size: 1.3rem;
     font-weight: 600;
@@ -367,24 +421,28 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     margin-top: auto;
   }
 
-  .price {
-    margin-bottom: 0.9rem;
+  .card:hover .card-btn {
+    background: var(--c-indigo-800);
   }
 
-  .card-btn:hover :global(.btn-arrow) {
+  .card:hover .card-btn :global(.btn-arrow) {
     transform: translateX(3px);
   }
 
   .line-foot {
     display: flex;
     justify-content: center;
-    margin-top: clamp(2rem, 1.5rem + 1.5vw, 3rem);
+    margin-top: clamp(2.25rem, 1.5rem + 2vw, 3.5rem);
   }
 
   /* Celular: cartões horizontais, compactos (mesma adaptação da landing de servidores). */
   @media (max-width: 639px) {
     .card {
       flex-direction: row;
+    }
+
+    .card:hover {
+      transform: none;
     }
 
     .card-photo {
@@ -395,6 +453,10 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
       border-right: 1px solid var(--c-line);
       display: grid;
       place-items: center;
+    }
+
+    .card-photo::after {
+      bottom: 22%;
     }
 
     .card-body {
@@ -409,9 +471,6 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
 
     .price {
       font-size: 1.05rem;
-    }
-
-    .price {
       margin-bottom: 0.5rem;
     }
 
