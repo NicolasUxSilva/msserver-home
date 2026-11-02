@@ -118,23 +118,3 @@ Nada de conteúdo, link ou funcionalidade foi removido. Mudanças de apresentaç
   socioambientais, formando um bloco de selos.
 - **WhatsApp flutuante:** mostra o rótulo "WhatsApp" (texto do plugin Click to Chat) no hover
   e dá um pulso discreto ao aparecer.
-
-## Etapa 03 (auditoria e evolução de UI/UX)
-
-Conteúdo, ordem das seções, materiais, links e funcionalidades continuam os mesmos (testes de
-preservação contra a home original seguem passando). Mudanças de apresentação:
-
-- **Nossa linha:** no desktop, título, abas e "Ver todos" ficam numa coluna lateral fixa
-  durante a rolagem pela grade (2 colunas). As abas mostram a contagem de modelos (06),
-  calculada dos dados; cada cartão ganhou o índice (01–06). No celular, os 6 cartões deslizam
-  na horizontal com indicador de posição; todos continuam no HTML.
-- **Soluções e postagens no celular:** mesmo padrão de carrossel com indicador.
-- **Postagens no desktop:** composição editorial; o título da seção encabeça a coluna dos dois
-  posts secundários e o post mais recente ocupa a coluna da esquerda.
-- **Header:** recolhe ao rolar para baixo e volta ao rolar para cima; nunca recolhe com menu,
-  busca, submenu aberto ou foco dentro dele.
-- **Submenu Soluções:** ícones nos itens (apresentação) e véu leve sobre a página enquanto um
-  submenu do desktop está aberto. A ordem dos itens é a do WordPress (testada).
-- **Vídeo:** continua com reprodução automática e sem som, como na home original. O formato
-  "só carrega ao clicar", comum em outros sites, foi descartado porque mudaria esse
-  comportamento.

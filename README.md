@@ -53,12 +53,12 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-42 testes (desktop 1440 px e celular 390 px): preservação de links e textos contra a home
+36 testes (desktop 1440 px e celular 390 px): preservação de links e textos contra a home
 original (`tests/fixtures/original-home.json`), ordem das seções, SEO, imagens, console,
-rolagem horizontal, abas, slider, busca, WhatsApp, vídeo, cartões clicáveis, ordem dos submenus, header que recolhe, coluna lateral fixa, carrosséis do celular, submenus, menu móvel, acessibilidade
+rolagem horizontal, abas, slider, busca, WhatsApp, vídeo, cartões clicáveis, submenus, menu móvel, acessibilidade
 (axe) e redução de movimento. Chamadas externas são bloqueadas durante os testes.
 
-Capturas de QA: `node scripts/qa-screenshots.mjs http://localhost:4330/ 360,390,768,1024,1440,1920`.
+Capturas de QA: `node scripts/qa-screenshots.mjs http://localhost:4330/ 390,768,1024,1440`.
 
 ## Publicação
 

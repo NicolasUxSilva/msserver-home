@@ -27,8 +27,7 @@ export const LINKS = {
   search: `${U}/`,
 } as const;
 
-// `icon` (Lucide) é só apresentação: ajuda a varrer o submenu com os olhos.
-export type NavLink = { label: string; href?: string; icon?: string; children?: NavLink[] };
+export type NavLink = { label: string; href?: string; children?: NavLink[] };
 
 /** Menu principal (ElementsKit "menu-menu"): mesmos itens, nomes, ordem e destinos. */
 export const NAV: NavLink[] = [
@@ -68,10 +67,10 @@ export const NAV: NavLink[] = [
           { label: 'Servidores Dedicados', href: `${U}/servidores-dedicados/` },
         ],
       },
-      { label: 'Aplicativo de Gestão', icon: 'smartphone', href: `${U}/aplicativo-ms-server/` },
-      { label: 'Extensão de Garantia', icon: 'shield-check', href: `${U}/extencao-de-garantia` },
-      { label: 'Backup em Nuvem', icon: 'database-backup', href: `${U}/backup-em-nuvem/` },
-      { label: 'Consultoria', icon: 'messages-square', href: `${U}/consultoria-em-implantacao-de-servidores/` },
+      { label: 'Aplicativo de Gestão', href: `${U}/aplicativo-ms-server/` },
+      { label: 'Extensão de Garantia', href: `${U}/extencao-de-garantia` },
+      { label: 'Backup em Nuvem', href: `${U}/backup-em-nuvem/` },
+      { label: 'Consultoria', href: `${U}/consultoria-em-implantacao-de-servidores/` },
     ],
   },
   { label: 'Orçamento', href: `${U}/orcamento/` },
