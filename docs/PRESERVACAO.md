@@ -129,22 +129,24 @@ segue a etapa 02.
 - **Celular:** os 6 cartões de cada aba deslizam na horizontal (rolagem nativa com encaixe).
   Todos continuam no HTML.
 
-## Hero interativa (substitui o slider)
+## Hero de fundo inteiro (substitui o slider)
 
-Os 3 banners do slider passaram a ser 3 temas de uma mesma hero (`src/components/Hero.astro`,
+Os 3 banners do slider passaram a ser 3 temas de uma mesma seção (`src/components/Hero.astro`,
 que substitui `HeroSlider.astro`). Textos, imagens (versão larga e versão vertical do celular)
 e destinos de cada banner continuam os mesmos.
 
-- **Seletor:** "Servidores", "App" e "Data Center", as palavras em destaque desenhadas nos
-  próprios banners. É o único texto novo, usado só como rótulo do seletor.
-- **Mensagem à esquerda, arte à direita:** título, descrição, destaque e botão do tema ativo; a
-  arte do banner fica numa moldura escura e também leva ao destino do tema (no WordPress o banner
-  inteiro era um link). No celular, a arte vem abaixo da mensagem.
-- **Troca:** a nova arte entra com um recorte da direita para a esquerda e a mensagem sobe em
-  cascata. Todas as mensagens ocupam o mesmo espaço, então a troca não desloca a página.
-- **Interação:** clique ou setas do teclado no seletor; deslizar o dedo sobre a arte no celular;
-  leve inclinação e profundidade seguindo o mouse no desktop.
-- **Troca automática:** a cada 7 s (no WordPress eram 5 s, mas havia menos texto para ler), com
-  um fio de progresso no tema ativo. Para de vez quando a pessoa escolhe um tema, pausa com o
-  mouse ou o foco na hero, quando ela sai da tela, pelo botão de pausa e nunca roda com
-  "reduzir movimento".
+- **Fundo inteiro:** a arte do banner cobre a seção de ponta a ponta, com o texto por cima, como
+  nos banners do WordPress. Texto à direita no desktop (a arte fica na metade esquerda) e no topo
+  no celular e no tablet em pé (que usam o banner vertical). No celular, a faixa de cima do
+  banner vertical, com o logotipo desenhado, sai do enquadramento para não ficar atrás do título.
+- **Troca automática a cada 7 s, sem botão de play/pause nem setas:** a arte nova surge por
+  esmaecimento lento (nada desliza), com uma aproximação muito lenta enquanto o tema está
+  ativo, e a mensagem entra em cascata. A troca não desloca a página.
+- **Índice na base da seção:** "Servidores", "App" e "Data Center", as palavras em destaque
+  desenhadas nos próprios banners (único texto novo, usado só como rótulo). A linha do tema
+  ativo marca o tempo até o próximo; clicar ou usar as setas do teclado escolhe o tema e
+  reinicia o tempo. No celular, deslizar o dedo também troca.
+- **Pausas automáticas:** com o mouse ou o foco sobre a seção, quando ela sai da tela e com
+  "reduzir movimento" ativado (nesse caso não troca sozinha).
+- **Clique na arte:** no desktop leva ao destino do tema (no WordPress o banner inteiro era um
+  link); no celular, o botão é o link, como no slider móvel do WordPress.

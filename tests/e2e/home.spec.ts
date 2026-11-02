@@ -303,15 +303,38 @@ test.describe('hero interativa', () => {
     await expect(page.locator('#hero-p-servidores')).toBeHidden();
   });
 
-  test('troca sozinha a cada 7 s e para com o botão de pausa', async ({ page }) => {
+  test('troca sozinha a cada 7 s, sem botão de pausa, e segue depois de uma escolha', async ({ page }) => {
     await page.goto('/');
+    await expect(page.locator('[data-hero] button', { hasText: /pausa|retomar/i })).toHaveCount(0);
     await page.mouse.move(0, 0);
     await expect(active(page)).toHaveAttribute('id', 'hero-p-app', { timeout: 9000 });
-    await page.getByRole('button', { name: 'Pausar a troca automática' }).click();
+    // Escolher um tema reinicia o tempo; com o mouse fora da hero, a troca continua.
+    await page.getByRole('tab', { name: 'Servidores' }).click();
     await page.mouse.move(0, 0);
+    await expect(active(page)).toHaveAttribute('id', 'hero-p-servidores');
+    await expect(active(page)).toHaveAttribute('id', 'hero-p-app', { timeout: 9000 });
+  });
+
+  test('pausa enquanto o mouse está sobre a hero', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'mouse só no desktop');
+    await page.goto('/');
+    await page.locator('[data-hero]').hover({ position: { x: 300, y: 200 } });
     await page.waitForTimeout(8000);
-    await expect(active(page)).toHaveAttribute('id', 'hero-p-app');
-    await expect(page.getByRole('button', { name: 'Retomar a troca automática' })).toBeVisible();
+    await expect(active(page)).toHaveAttribute('id', 'hero-p-servidores');
+  });
+
+  test('a arte cobre a seção inteira, com o texto por cima', async ({ page }) => {
+    await page.goto('/');
+    const hero = (await page.locator('[data-hero]').boundingBox())!;
+    const art = (await page.locator('[data-hero-art][data-active] img').boundingBox())!;
+    expect(art.x).toBeLessThanOrEqual(hero.x);
+    expect(art.width).toBeGreaterThanOrEqual(hero.width);
+    expect(art.y).toBeLessThanOrEqual(hero.y);
+    expect(art.y + art.height).toBeGreaterThanOrEqual(hero.y + hero.height - 1);
+    expect(hero.width).toBe(page.viewportSize()!.width);
+    const title = (await active(page).locator('.hero-title').first().boundingBox())!;
+    expect(title.y).toBeGreaterThan(hero.y);
+    expect(title.y + title.height).toBeLessThan(hero.y + hero.height);
   });
 
   test('a troca não desloca o restante da página', async ({ page }) => {
