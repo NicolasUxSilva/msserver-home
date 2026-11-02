@@ -23,7 +23,8 @@ const panels = await Promise.all(
   <div class="container">
     <p class="eyebrow band-eyebrow" data-reveal><b>02</b> Soluções</p>
     <div class="band-grid">
-      <ul class="acc" data-acc>
+      <div class="acc-wrap">
+      <ul class="acc" data-acc data-rail>
         {
           panels.map((p, i) => {
             const Tag = p.href ? 'a' : 'div';
@@ -55,6 +56,11 @@ const panels = await Promise.all(
           })
         }
       </ul>
+      <div class="rail-meter acc-meter" aria-hidden="true">
+        <span class="rail-count"><b data-rail-pos>01</b> / {String(panels.length).padStart(2, '0')}</span>
+        <span class="rail-track"><i data-rail-bar></i></span>
+      </div>
+      </div>
 
       {/* Cartão claro: a colagem original do app foi desenhada para fundo branco. */}
       <div class="app" id="appmobile" data-reveal style="--reveal-i:2">
@@ -98,8 +104,17 @@ const panels = await Promise.all(
     padding-block: var(--section-y) clamp(3rem, 2rem + 3vw, 5rem);
   }
 
+  /* Sem título próprio na home original, o rótulo da faixa vira uma régua que atravessa a
+     composição e ancora acordeão e app numa mesma linha de base. */
   .band-eyebrow {
+    display: flex;
     margin-bottom: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  }
+
+  .band-eyebrow::after {
+    flex: 1;
+    width: auto;
+    background: linear-gradient(90deg, currentColor, transparent);
   }
 
   .band-grid {
@@ -434,13 +449,63 @@ const panels = await Promise.all(
     }
   }
 
+  .acc-wrap {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .acc-wrap > .acc {
+    flex: 1;
+  }
+
+  /* Celular: as três soluções deslizam na horizontal, como a linha de servidores. */
   @media (max-width: 639px) {
+    .acc-wrap {
+      margin-inline: calc(var(--gutter) * -1);
+    }
+
+    .acc {
+      flex-direction: row;
+      gap: 0.75rem;
+      padding: 0 var(--gutter) 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--gutter);
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+    }
+
+    .acc::-webkit-scrollbar {
+      display: none;
+    }
+
+    .acc-item,
+    .acc-item[data-open] {
+      flex: 0 0 84%;
+      scroll-snap-align: start;
+    }
+
     .acc-panel {
       grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+      height: 100%;
     }
 
     .acc-media {
       aspect-ratio: 16 / 9;
+    }
+
+    .acc-body {
+      align-content: start;
+    }
+
+    .acc-more {
+      margin-top: auto;
+    }
+
+    .acc-meter {
+      display: flex;
     }
 
     .acc-body {

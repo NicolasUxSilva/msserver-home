@@ -183,3 +183,67 @@ a:focus-visible > .ext-arrow {
 .dark-surface .eyebrow b {
   color: var(--c-orange);
 }
+
+/* ——— Indicador de carrossel (celular): posição e progresso da rolagem horizontal ———
+   Cada componente decide em que largura o carrossel e o indicador aparecem. */
+.rail-meter {
+  display: none;
+  align-items: center;
+  gap: 0.9rem;
+  padding-inline: var(--gutter);
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--c-ink-3);
+}
+
+.rail-count b {
+  font-weight: 500;
+  color: var(--c-ink);
+}
+
+.rail-track {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c-line-2);
+  overflow: hidden;
+}
+
+.rail-track i {
+  position: absolute;
+  inset: 0;
+  background: var(--c-orange);
+  transform-origin: left;
+  transform: scaleX(0.2);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.dark-surface .rail-meter {
+  color: var(--c-on-dark-3);
+}
+
+.dark-surface .rail-count b {
+  color: var(--c-on-dark);
+}
+
+.dark-surface .rail-track {
+  background: var(--c-line-dark-2);
+}
+
+/* Véu sob o header enquanto um submenu do desktop está aberto (não bloqueia cliques). */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: rgb(14 13 34 / 0.14);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-2) var(--ease-out);
+}
+
+html.nav-dim body::after {
+  opacity: 1;
+}

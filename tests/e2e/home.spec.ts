@@ -287,3 +287,72 @@ test('vídeo mostra a miniatura do próprio vídeo enquanto o player carrega', a
   const html = await page.content();
   expect(html).toContain('https://i.ytimg.com/vi/1MQYjMeyX6w/maxresdefault.jpg');
 });
+
+test('header recolhe ao rolar para baixo e volta ao rolar para cima', async ({ page }) => {
+  await page.goto('/');
+  const header = page.locator('[data-header]');
+  await page.evaluate(async () => {
+    for (let y = 0; y <= 1600; y += 200) {
+      window.scrollTo(0, y);
+      await new Promise((r) => setTimeout(r, 60));
+    }
+  });
+  await expect(header).toHaveClass(/is-hidden/);
+  await page.evaluate(async () => {
+    for (let y = 1600; y >= 1200; y -= 100) {
+      window.scrollTo(0, y);
+      await new Promise((r) => setTimeout(r, 60));
+    }
+  });
+  await expect(header).not.toHaveClass(/is-hidden/);
+  // Com foco dentro do header ele nunca fica escondido.
+  await page.locator('[data-header] a').first().focus();
+  await expect(header).not.toHaveClass(/is-hidden/);
+});
+
+test.describe('desktop: linha de servidores', () => {
+  test.skip(({ isMobile }) => isMobile, 'somente desktop');
+
+  test('coluna lateral fixa e abas verticais com setas', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('[data-tabs]')).toHaveAttribute('aria-orientation', 'vertical');
+    await page.getByRole('tab', { name: /Rack/ }).focus();
+    await page.keyboard.press('ArrowDown');
+    await expect(page.getByRole('tab', { name: /Torre/ })).toBeFocused();
+    await expect(page.locator('#torre-tab')).toBeVisible();
+    // A coluna com as abas acompanha a rolagem pela grade.
+    const panels = page.locator('.line-panels');
+    const top = await panels.evaluate((el) => el.getBoundingClientRect().top + scrollY);
+    await page.evaluate((y) => window.scrollTo(0, y + 600), top);
+    await expect(page.locator('[data-tabs]')).toBeInViewport();
+  });
+});
+
+test.describe('celular: carrosséis', () => {
+  test.skip(({ isMobile }) => !isMobile, 'somente celular');
+
+  test('servidores e soluções deslizam com indicador de posição', async ({ page }) => {
+    await page.goto('/');
+    const rail = page.locator('#rack-tab [data-rail]');
+    await rail.scrollIntoViewIfNeeded();
+    const pos = page.locator('#rack-tab [data-rail-pos]');
+    await expect(pos).toHaveText('01');
+    await rail.evaluate((el) => el.scrollTo({ left: el.scrollWidth }));
+    await expect(pos).toHaveText('06');
+    const acc = page.locator('.acc[data-rail]');
+    await acc.scrollIntoViewIfNeeded();
+    await acc.evaluate((el) => el.scrollTo({ left: el.scrollWidth }));
+    await expect(page.locator('.acc-wrap [data-rail-pos]')).toHaveText('03');
+    // Nenhum cartão fica de fora: todos continuam no DOM e acessíveis.
+    await expect(page.locator('#rack-tab .card')).toHaveCount(6);
+  });
+});
+
+test('submenus mantêm a ordem exata do menu do WordPress', async ({ page }) => {
+  await page.goto('/');
+  const labels = (id: string) => page.locator(`#${id} a`).allInnerTexts();
+  const servidores = (await labels('sub-0')).map((t) => t.trim());
+  expect(servidores).toEqual(['Ver todos', 'Dell', 'HP', 'IBM', 'Componentes', 'Baterias', 'Dissipadores', 'Fans', 'Fontes', 'Gavetas', 'Placas de Rede']);
+  const solucoes = (await labels('sub-3')).map((t) => t.trim());
+  expect(solucoes).toEqual(['Soluções Cloud', 'Nuvem Privada', 'Servidores Dedicados', 'Aplicativo de Gestão', 'Extensão de Garantia', 'Backup em Nuvem', 'Consultoria']);
+});

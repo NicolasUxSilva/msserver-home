@@ -8,92 +8,112 @@ type Product = { id: number; name: string; url: string; image: string | null; im
 const products = data.products as unknown as Record<string, Product>;
 const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/products/*.jpg', { eager: true });
 const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <section class="section line" id="nossa-linha" aria-labelledby="line-title">
-  <div class="container">
-    <div class="line-head" data-reveal>
-      <div>
+  <div class="container line-layout">
+    {/* Desktop: coluna lateral fixa durante a rolagem. Título e abas continuam ao alcance
+        enquanto a grade de servidores passa ao lado. */}
+    <div class="line-aside">
+      <div class="line-head" data-reveal>
         <p class="eyebrow"><b>01</b> Servidores</p>
         <h2 id="line-title">{LINE.title}</h2>
       </div>
+
       <div class="tabs" role="tablist" aria-label="Formato dos servidores" data-tabs>
         <span class="tabs-ink" aria-hidden="true" data-tabs-ink></span>
         {
           data.tabs.map((t, i) => (
             <button class="tab" type="button" role="tab" id={t.id} aria-controls={`${t.id}-tab`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tab>
-              {t.label}
+              <span class="tab-label">{t.label}</span>
+              <span class="tab-count" aria-hidden="true">{pad(t.products.length)}</span>
             </button>
           ))
         }
       </div>
+
+      <div class="line-foot">
+        <a class="btn btn--outline btn--lg" href={LINE.viewAll.href}>
+          {LINE.viewAll.label}
+          <Icon name="arrow-right" class="btn-arrow" />
+        </a>
+      </div>
     </div>
 
-    {
-      data.tabs.map((t, i) => (
-        <div class="tab-panel" id={`${t.id}-tab`} role="tabpanel" aria-labelledby={t.id} tabindex="0" hidden={i !== 0} data-tab-panel>
-          <ul class="grid">
-            {t.products.map((id, j) => {
-              const p = products[String(id)];
-              const photo = p.image ? photos[`../assets/products/${p.image}`]?.default : undefined;
-              return (
-                <li class="card has-card-link" data-reveal style={`--reveal-i:${j % 3}`}>
-                  {/* O cartão inteiro leva à página do produto (link do título esticado). */}
-                  <div class="card-photo" aria-hidden="true">
-                    {photo && <Image src={photo} alt="" widths={[320, 480, 640, 800]} sizes="(min-width: 1100px) 380px, (min-width: 640px) 45vw, 92vw" loading={i === 0 && j < 3 ? 'eager' : 'lazy'} />}
-                  </div>
-                  <div class="card-body">
-                    <h3 class="card-title">
-                      <a class="card-link" href={p.url}>{p.name}</a>
-                    </h3>
-                    <p class="rating" role="img" aria-label={`Rated ${p.rating} out of 5`}>
-                      {[0, 1, 2, 3, 4].map((k) => (
-                        <Icon name="star" size={14} class={k < Math.round(p.rating) ? 'star is-on' : 'star'} />
-                      ))}
-                    </p>
-                    <p class="price">
-                      {p.min === p.max ? (
-                        <span>{brl(p.min)}</span>
-                      ) : (
-                        <Fragment>
+    <div class="line-panels">
+      {
+        data.tabs.map((t, i) => (
+          <div class="tab-panel" id={`${t.id}-tab`} role="tabpanel" aria-labelledby={t.id} tabindex="0" hidden={i !== 0} data-tab-panel>
+            {/* Celular: os cartões deslizam na horizontal (rolagem nativa com encaixe). */}
+            <ul class="grid" data-rail>
+              {t.products.map((id, j) => {
+                const p = products[String(id)];
+                const photo = p.image ? photos[`../assets/products/${p.image}`]?.default : undefined;
+                return (
+                  <li class="card has-card-link" data-reveal style={`--reveal-i:${j % 2}`}>
+                    {/* O cartão inteiro leva à página do produto (link do título esticado). */}
+                    <div class="card-photo" aria-hidden="true">
+                      {photo && <Image src={photo} alt="" widths={[320, 480, 640, 800]} sizes="(min-width: 1100px) 410px, (min-width: 640px) 45vw, 80vw" loading={i === 0 && j < 2 ? 'eager' : 'lazy'} />}
+                      <span class="card-index">{pad(j + 1)}</span>
+                    </div>
+                    <div class="card-body">
+                      <h3 class="card-title">
+                        <a class="card-link" href={p.url}>{p.name}</a>
+                      </h3>
+                      <p class="rating" role="img" aria-label={`Rated ${p.rating} out of 5`}>
+                        {[0, 1, 2, 3, 4].map((k) => (
+                          <Icon name="star" size={14} class={k < Math.round(p.rating) ? 'star is-on' : 'star'} />
+                        ))}
+                      </p>
+                      <p class="price">
+                        {p.min === p.max ? (
                           <span>{brl(p.min)}</span>
-                          <span class="price-sep">–</span>
-                          <span>{brl(p.max)}</span>
-                        </Fragment>
-                      )}
-                    </p>
-                    <a class="btn btn--dark btn--sm card-btn card-raise" href={p.url} aria-label={`${p.button}: ${p.name}`}>
-                      {p.button}
-                      <Icon name="arrow-right" size={16} class="btn-arrow" />
-                    </a>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      ))
-    }
-
-    <div class="line-foot">
-      <a class="btn btn--outline btn--lg" href={LINE.viewAll.href}>
-        {LINE.viewAll.label}
-        <Icon name="arrow-right" class="btn-arrow" />
-      </a>
+                        ) : (
+                          <Fragment>
+                            <span>{brl(p.min)}</span>
+                            <span class="price-sep">–</span>
+                            <span>{brl(p.max)}</span>
+                          </Fragment>
+                        )}
+                      </p>
+                      <a class="btn btn--dark btn--sm card-btn card-raise" href={p.url} aria-label={`${p.button}: ${p.name}`}>
+                        {p.button}
+                        <Icon name="arrow-right" size={16} class="btn-arrow" />
+                      </a>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+            <div class="rail-meter" aria-hidden="true">
+              <span class="rail-count"><b data-rail-pos>01</b> / {pad(t.products.length)}</span>
+              <span class="rail-track"><i data-rail-bar></i></span>
+            </div>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
 
 <script>
   // Abas acessíveis (padrão WAI-ARIA): clique, setas, Home/End. O conteúdo das três abas
-  // fica no HTML, como no WordPress.
+  // fica no HTML, como no WordPress. A orientação acompanha o layout (vertical no desktop).
   const list = document.querySelector<HTMLElement>('[data-tabs]');
   if (list) {
     const tabs = [...list.querySelectorAll<HTMLButtonElement>('[data-tab]')];
     const ink = list.querySelector<HTMLElement>('[data-tabs-ink]')!;
+    const vertical = matchMedia('(min-width: 1100px)');
+    const current = () => tabs.find((t) => t.getAttribute('aria-selected') === 'true') ?? tabs[0];
     const moveInk = (tab: HTMLElement) => {
       ink.style.width = `${tab.offsetWidth}px`;
-      ink.style.transform = `translateX(${tab.offsetLeft}px)`;
+      ink.style.height = `${tab.offsetHeight}px`;
+      ink.style.transform = `translate(${tab.offsetLeft}px, ${tab.offsetTop}px)`;
+    };
+    const syncOrientation = () => {
+      list.setAttribute('aria-orientation', vertical.matches ? 'vertical' : 'horizontal');
+      moveInk(current());
     };
     const select = (tab: HTMLButtonElement, focus = false) => {
       for (const t of tabs) {
@@ -107,18 +127,24 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
           void panel.offsetWidth;
           panel.classList.add('is-entering');
           panel.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-in'));
+          panel.querySelector<HTMLElement>('[data-rail]')?.scrollTo({ left: 0 });
         }
       }
       moveInk(tab);
       if (focus) tab.focus();
+      // Com a coluna fixa, a grade pode estar rolada: volta ao início da nova aba.
+      const panels = document.querySelector<HTMLElement>('.line-panels');
+      if (vertical.matches && panels && panels.getBoundingClientRect().top < 0) {
+        panels.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      }
     };
     tabs.forEach((t, i) => {
       t.addEventListener('click', () => select(t));
       t.addEventListener('keydown', (e) => {
         const k = e.key;
         let n = -1;
-        if (k === 'ArrowRight') n = (i + 1) % tabs.length;
-        else if (k === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+        if (k === 'ArrowRight' || k === 'ArrowDown') n = (i + 1) % tabs.length;
+        else if (k === 'ArrowLeft' || k === 'ArrowUp') n = (i - 1 + tabs.length) % tabs.length;
         else if (k === 'Home') n = 0;
         else if (k === 'End') n = tabs.length - 1;
         if (n >= 0) {
@@ -127,48 +153,103 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
         }
       });
     });
-    const current = () => tabs.find((t) => t.getAttribute('aria-selected') === 'true') ?? tabs[0];
     list.classList.add('has-ink');
-    moveInk(current());
+    syncOrientation();
+    vertical.addEventListener('change', syncOrientation);
     new ResizeObserver(() => moveInk(current())).observe(list);
     document.fonts?.ready.then(() => moveInk(current()));
   }
+
 </script>
 
 <style>
   .line {
-    padding-top: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
+    padding-top: clamp(3rem, 2rem + 3vw, 4.5rem);
   }
 
   /* Luz suave atrás da grade: os cartões brancos ganham relevo sobre o papel. */
   .line::before {
     content: '';
     position: absolute;
-    inset: 18% 0 0;
-    background: radial-gradient(60% 55% at 50% 45%, rgb(255 255 255 / 0.75), transparent 75%);
+    inset: 10% 0 0;
+    background: radial-gradient(55% 55% at 62% 45%, rgb(255 255 255 / 0.8), transparent 75%);
     pointer-events: none;
   }
 
-  .line > .container {
+  .line-layout {
     position: relative;
+    display: grid;
+    gap: 0;
+  }
+
+  /* Abaixo do desktop a coluna lateral "se desfaz": título, abas, grade e botão viram uma
+     sequência simples (ordem: cabeçalho, abas, grade, "Ver todos"). */
+  .line-aside {
+    display: contents;
   }
 
   .line-head {
-    display: grid;
-    gap: 1.5rem 3rem;
-    margin-bottom: clamp(2rem, 1.25rem + 2.5vw, 3.25rem);
+    order: 1;
+    margin-bottom: 1.5rem;
   }
 
-  @media (min-width: 900px) {
-    .line-head {
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: end;
-    }
+  .tabs {
+    order: 2;
+  }
+
+  .line-panels {
+    order: 3;
+    margin-top: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+  }
+
+  .line-foot {
+    order: 4;
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(2rem, 1.5rem + 1.5vw, 3rem);
   }
 
   .line-head h2 {
     margin-top: 1.1rem;
     font-size: var(--t-h2);
+  }
+
+  @media (min-width: 1100px) {
+    .line-layout {
+      grid-template-columns: minmax(0, 0.36fr) minmax(0, 1fr);
+      gap: clamp(3rem, 1rem + 4vw, 5.5rem);
+      align-items: start;
+    }
+
+    .line-aside {
+      display: block;
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+      transition: top 0.4s var(--ease-out);
+      padding-top: 0.25rem;
+    }
+
+    .line-head {
+      margin-bottom: 2rem;
+    }
+
+    .line-panels {
+      margin-top: 0;
+    }
+
+    .line-foot {
+      justify-content: flex-start;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--c-line);
+    }
+  }
+
+  /* Com o header recolhido, a coluna sobe junto e aproveita o espaço. */
+  @media (min-width: 1100px) {
+    :global(html.header-hidden) .line-aside {
+      top: 2rem;
+    }
   }
 
   /* ——— Abas ——— */
@@ -186,10 +267,19 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     box-shadow: var(--shadow-1);
   }
 
+  @media (min-width: 1100px) {
+    .tabs {
+      display: grid;
+      grid-auto-flow: row;
+      grid-auto-columns: auto;
+      width: 100%;
+      padding: 6px;
+    }
+  }
+
   .tabs-ink {
     position: absolute;
-    top: 5px;
-    bottom: 5px;
+    top: 0;
     left: 0;
     border-radius: 10px;
     background: var(--c-indigo-950);
@@ -197,7 +287,8 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     opacity: 0;
     transition:
       transform 0.45s var(--ease-out),
-      width 0.45s var(--ease-out);
+      width 0.45s var(--ease-out),
+      height 0.45s var(--ease-out);
   }
 
   .tabs:global(.has-ink) .tabs-ink {
@@ -207,8 +298,12 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
   .tab {
     position: relative;
     z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
     min-height: 44px;
-    padding: 0 1.35rem;
+    padding: 0 1.2rem;
     border: 0;
     border-radius: 10px;
     background: transparent;
@@ -221,17 +316,39 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
       background-color var(--dur-1) var(--ease-out);
   }
 
+  .tab-count {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--c-ink-3);
+    transition: color 0.3s var(--ease-out);
+  }
+
+  @media (min-width: 1100px) {
+    .tab {
+      justify-content: space-between;
+      min-height: 52px;
+      padding: 0 1.1rem;
+      font-size: 1rem;
+    }
+  }
+
   .tab:hover:not([aria-selected='true']) {
     color: var(--c-ink);
     background: var(--c-paper);
   }
 
   .tab:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
   }
 
   .tab[aria-selected='true'] {
     color: var(--c-on-dark);
+  }
+
+  .tab[aria-selected='true'] .tab-count {
+    color: var(--c-orange);
   }
 
   .tab:focus-visible {
@@ -249,7 +366,8 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     }
 
     .tab {
-      padding: 0 0.75rem;
+      gap: 0.4rem;
+      padding: 0 0.6rem;
       font-size: 0.9rem;
     }
   }
@@ -264,12 +382,8 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
       animation: card-in 0.55s var(--ease-out) both;
     }
 
-    .tab-panel:global(.is-entering) .card:nth-child(3n + 2) {
-      animation-delay: 0.06s;
-    }
-
-    .tab-panel:global(.is-entering) .card:nth-child(3n) {
-      animation-delay: 0.12s;
+    .tab-panel:global(.is-entering) .card:nth-child(2n) {
+      animation-delay: 0.07s;
     }
   }
 
@@ -280,7 +394,7 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     }
   }
 
-  /* ——— Cartões ——— */
+  /* ——— Grade e cartões ——— */
   .grid {
     list-style: none;
     display: grid;
@@ -290,13 +404,13 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
   @media (min-width: 640px) {
     .grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 900px) and (max-width: 1099px) {
     .grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.25rem;
     }
   }
 
@@ -328,7 +442,7 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
   /* Foto: fundo branco do produto se funde a um estúdio claro, com sombra de piso. */
   .card-photo {
     position: relative;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 10;
     background: radial-gradient(70% 60% at 50% 42%, #fff 40%, var(--c-paper) 100%);
     border-bottom: 1px solid var(--c-line);
     overflow: hidden;
@@ -339,8 +453,8 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     position: absolute;
     left: 18%;
     right: 18%;
-    bottom: 13%;
-    height: 10%;
+    bottom: 12%;
+    height: 11%;
     background: radial-gradient(closest-side, rgb(27 24 32 / 0.16), transparent);
     transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
   }
@@ -362,6 +476,23 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
   .card:hover .card-photo::after {
     opacity: 0.7;
     transform: scaleX(0.92);
+  }
+
+  /* Índice do item na aba: mesma linguagem numerada dos rótulos editoriais. */
+  .card-index {
+    position: absolute;
+    top: 0.85rem;
+    left: 0.9rem;
+    z-index: 2;
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--c-ink-3);
+    transition: color var(--dur-2) var(--ease-out);
+  }
+
+  .card:hover .card-index {
+    color: var(--c-orange-text);
   }
 
   .card-body {
@@ -429,53 +560,52 @@ const brl = (v: number) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigi
     transform: translateX(3px);
   }
 
-  .line-foot {
-    display: flex;
-    justify-content: center;
-    margin-top: clamp(2.25rem, 1.5rem + 2vw, 3.5rem);
-  }
-
-  /* Celular: cartões horizontais, compactos (mesma adaptação da landing de servidores). */
+  /* ——— Celular: carrossel horizontal com encaixe e indicador ——— */
   @media (max-width: 639px) {
+    .line-panels {
+      margin-inline: calc(var(--gutter) * -1);
+    }
+
+    .grid {
+      grid-auto-flow: column;
+      grid-auto-columns: 78%;
+      grid-template-columns: none;
+      gap: 0.75rem;
+      padding: 0.25rem var(--gutter) 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--gutter);
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+    }
+
+    .grid::-webkit-scrollbar {
+      display: none;
+    }
+
     .card {
-      flex-direction: row;
+      scroll-snap-align: start;
     }
 
     .card:hover {
       transform: none;
     }
 
-    .card-photo {
-      flex: none;
-      width: 38%;
-      aspect-ratio: auto;
-      border-bottom: 0;
-      border-right: 1px solid var(--c-line);
-      display: grid;
-      place-items: center;
-    }
-
-    .card-photo::after {
-      bottom: 22%;
-    }
-
     .card-body {
-      min-width: 0;
-      padding: 0.95rem 1rem 1rem;
-      gap: 0.35rem;
+      padding: 1rem 1.1rem 1.15rem;
     }
 
     .card-title {
-      font-size: 1rem;
+      font-size: 1.05rem;
     }
 
     .price {
-      font-size: 1.05rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
     }
 
-    .card-btn {
-      white-space: normal;
+    .rail-meter {
+      display: flex;
     }
 
     .line-foot .btn {

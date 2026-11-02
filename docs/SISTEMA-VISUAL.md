@@ -48,6 +48,7 @@ compartilhadas, cartões clicáveis). Ela não altera nenhum token do `global.cs
 | `.ext-arrow` | Seta ↗ que aparece no hover de links externos |
 | `.dark-surface` + `__bg`, `__hatch`, `.glow--indigo/--orange` | Superfície índigo com hachura e brilhos (console e CTA final das landings) |
 | `data-reveal="zoom"` | Variação de entrada para mídia |
+| `[data-rail]` + `.rail-meter` (`data-rail-pos`, `data-rail-bar`) | Carrossel nativo do celular (rolagem com encaixe) com indicador "01 / 06" e barra de progresso; `initRails()` em `page.ts` |
 
 ## Ritmo de superfícies da home
 
@@ -69,6 +70,22 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 | Grade de logos com linhas | Clientes | Cases, Sobre |
 | Rodapé claro com rótulos mono | `Footer.astro` | Todas as páginas |
 | Botão flutuante de WhatsApp | `pages/index.astro` | Todas as páginas |
+
+## Padrões de navegação (etapa 03)
+
+- **Header que recolhe:** some ao rolar para baixo (depois de 320 px) e volta ao menor gesto
+  para cima. Nunca recolhe com menu, busca ou submenu abertos, nem com foco dentro dele. A
+  classe `html.header-hidden` permite que elementos fixos (como a coluna lateral) sigam junto.
+- **Coluna lateral fixa (desktop):** título e controles de uma seção longa ficam ao alcance
+  enquanto o conteúdo passa ao lado (`.line-aside` em `ProductLine.astro`). Abaixo de 1100 px a
+  coluna "se desfaz" com `display: contents` e os itens viram uma sequência simples.
+- **Carrossel no celular em vez de pilha longa:** listas de itens equivalentes (servidores,
+  soluções) deslizam na horizontal com o próximo item aparecendo na borda; nada é escondido.
+
+- **Composição editorial com subgrid:** quando um título de seção deixaria uma faixa vazia ao
+  lado, ele passa a encabeçar uma das colunas do conteúdo (`LatestPosts.astro`).
+- **Submenus:** itens com ícone em bloco (`icon` em `NAV`, `config/site.ts`); ordem sempre a do
+  menu de origem; véu `html.nav-dim` enquanto um painel do desktop está aberto.
 
 ## Breakpoints
 

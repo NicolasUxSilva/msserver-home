@@ -291,7 +291,8 @@ const slides = await Promise.all(
     scroll-snap-stop: always;
     aspect-ratio: 1713 / 918;
     min-height: 480px;
-    max-height: calc(100svh - var(--header-h) - 3rem);
+    /* Deixa a próxima seção despontar na primeira dobra: sinal de continuidade. */
+    max-height: calc(100svh - var(--header-h) - 10rem);
     width: 100%;
     color: var(--c-on-dark);
     overflow: hidden;

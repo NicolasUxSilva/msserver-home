@@ -9,6 +9,7 @@ export function initPage() {
   initReveal();
   initTracking();
   initFloatingWhatsApp();
+  initRails();
 }
 
 const desktop = matchMedia('(min-width: 1180px)');
@@ -21,6 +22,40 @@ function initHeader() {
   sentinel.style.cssText = 'position:absolute;top:0;height:8px;width:1px;';
   document.body.prepend(sentinel);
   new IntersectionObserver(([entry]) => header.classList.toggle('is-scrolled', !entry.isIntersecting)).observe(sentinel);
+
+  // Recolhe ao rolar para baixo (mais área para o conteúdo) e volta ao menor gesto para cima.
+  // Nunca recolhe com menu, busca ou submenu abertos, nem com o foco dentro do header.
+  let lastY = scrollY;
+  let ticking = false;
+  const root = document.documentElement;
+  const setHidden = (hidden: boolean) => {
+    header.classList.toggle('is-hidden', hidden);
+    root.classList.toggle('header-hidden', hidden);
+  };
+  const busy = () =>
+    root.classList.contains('menu-open') ||
+    header.contains(document.activeElement) ||
+    !!header.querySelector('[data-sub-panel]:not([hidden]), [data-search-panel]:not([hidden])');
+  const update = () => {
+    ticking = false;
+    const y = scrollY;
+    const dy = y - lastY;
+    if (y < 320 || busy()) setHidden(false);
+    else if (dy > 8) setHidden(true);
+    else if (dy < -4) setHidden(false);
+    if (Math.abs(dy) > 4) lastY = y;
+  };
+  addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    },
+    { passive: true },
+  );
+  header.addEventListener('focusin', () => setHidden(false));
 }
 
 /** Abre/fecha um submenu e sincroniza todos os botões que o controlam. */
@@ -28,6 +63,8 @@ function setSub(panel: HTMLElement, open: boolean) {
   panel.hidden = !open;
   document.querySelectorAll<HTMLElement>(`[aria-controls="${panel.id}"]`).forEach((b) => b.setAttribute('aria-expanded', String(open)));
   panel.closest('[data-nav-item]')?.classList.toggle('is-open', open);
+  // Com um submenu do desktop aberto, a página escurece levemente e o painel ganha foco visual.
+  document.documentElement.classList.toggle('nav-dim', !!document.querySelector('.nav-desktop [data-sub-panel]:not([hidden])'));
 }
 
 function closeDesktopSubs(except?: HTMLElement) {
@@ -169,6 +206,8 @@ function initReveal() {
     }
   };
   addEventListener('scroll', () => !pending && (pending = true) && requestAnimationFrame(sweep), { passive: true });
+  // O que já aparece na primeira dobra (mesmo rente à borda inferior) entra logo no carregamento.
+  requestAnimationFrame(sweep);
 }
 
 function initTracking() {
@@ -184,4 +223,25 @@ function initFloatingWhatsApp() {
   const fab = document.querySelector<HTMLElement>('[data-wa-fab]');
   if (!fab) return;
   requestAnimationFrame(() => setTimeout(() => fab.classList.add('is-visible'), 400));
+}
+
+/** Carrosséis do celular ([data-rail]): o indicador vizinho mostra posição e progresso. */
+function initRails() {
+  document.querySelectorAll<HTMLElement>('[data-rail]').forEach((rail) => {
+    const scope = rail.parentElement!;
+    const pos = scope.querySelector<HTMLElement>('[data-rail-pos]');
+    const bar = scope.querySelector<HTMLElement>('[data-rail-bar]');
+    if (!pos || !bar) return;
+    const items = rail.children.length;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const max = rail.scrollWidth - rail.clientWidth;
+      const i = max > 0 ? Math.round((rail.scrollLeft / max) * (items - 1)) : 0;
+      bar.style.transform = `scaleX(${(i + 1) / items})`;
+      pos.textContent = String(i + 1).padStart(2, '0');
+    };
+    rail.addEventListener('scroll', () => (raf ||= requestAnimationFrame(update)), { passive: true });
+    update();
+  });
 }
