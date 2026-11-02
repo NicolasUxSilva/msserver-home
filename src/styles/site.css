@@ -183,3 +183,39 @@ a:focus-visible > .ext-arrow {
 .dark-surface .eyebrow b {
   color: var(--c-orange);
 }
+
+/* ——— Indicador de carrossel (celular): posição e progresso da rolagem horizontal ———
+   Cada componente decide em que largura o carrossel e o indicador aparecem. */
+.rail-meter {
+  display: none;
+  align-items: center;
+  gap: 0.9rem;
+  padding-inline: var(--gutter);
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--c-ink-3);
+}
+
+.rail-count b {
+  font-weight: 500;
+  color: var(--c-ink);
+}
+
+.rail-track {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c-line-2);
+  overflow: hidden;
+}
+
+.rail-track i {
+  position: absolute;
+  inset: 0;
+  background: var(--c-orange);
+  transform-origin: left;
+  transform: scaleX(0.2);
+  transition: transform 0.3s var(--ease-out);
+}

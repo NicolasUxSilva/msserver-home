@@ -118,3 +118,14 @@ Nada de conteúdo, link ou funcionalidade foi removido. Mudanças de apresentaç
   socioambientais, formando um bloco de selos.
 - **WhatsApp flutuante:** mostra o rótulo "WhatsApp" (texto do plugin Click to Chat) no hover
   e dá um pulso discreto ao aparecer.
+
+## Seção de servidores (trazida da etapa 03)
+
+Da etapa 03 foi mantida apenas a apresentação da seção "Nossa linha". O restante da página
+segue a etapa 02.
+
+- **Desktop:** título, abas e "Ver todos" ficam numa coluna lateral fixa durante a rolagem pela
+  grade de 2 colunas. As abas ficam na vertical e mostram a contagem de modelos (06), calculada
+  dos dados; cada cartão ganhou o índice (01–06).
+- **Celular:** os 6 cartões de cada aba deslizam na horizontal (rolagem nativa com encaixe), com
+  indicador "01 / 06". Todos continuam no HTML.

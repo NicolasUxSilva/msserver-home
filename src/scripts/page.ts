@@ -9,6 +9,7 @@ export function initPage() {
   initReveal();
   initTracking();
   initFloatingWhatsApp();
+  initRails();
 }
 
 const desktop = matchMedia('(min-width: 1180px)');
@@ -184,4 +185,25 @@ function initFloatingWhatsApp() {
   const fab = document.querySelector<HTMLElement>('[data-wa-fab]');
   if (!fab) return;
   requestAnimationFrame(() => setTimeout(() => fab.classList.add('is-visible'), 400));
+}
+
+/** Carrosséis do celular ([data-rail]): o indicador vizinho mostra posição e progresso. */
+function initRails() {
+  document.querySelectorAll<HTMLElement>('[data-rail]').forEach((rail) => {
+    const scope = rail.parentElement!;
+    const pos = scope.querySelector<HTMLElement>('[data-rail-pos]');
+    const bar = scope.querySelector<HTMLElement>('[data-rail-bar]');
+    if (!pos || !bar) return;
+    const items = rail.children.length;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const max = rail.scrollWidth - rail.clientWidth;
+      const i = max > 0 ? Math.round((rail.scrollLeft / max) * (items - 1)) : 0;
+      bar.style.transform = `scaleX(${(i + 1) / items})`;
+      pos.textContent = String(i + 1).padStart(2, '0');
+    };
+    rail.addEventListener('scroll', () => (raf ||= requestAnimationFrame(update)), { passive: true });
+    update();
+  });
 }

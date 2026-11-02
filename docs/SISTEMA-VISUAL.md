@@ -70,6 +70,15 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 | Rodapé claro com rótulos mono | `Footer.astro` | Todas as páginas |
 | Botão flutuante de WhatsApp | `pages/index.astro` | Todas as páginas |
 
+## Padrões da seção de servidores
+
+- **Coluna lateral fixa (desktop):** título e controles de uma seção longa ficam ao alcance
+  enquanto o conteúdo passa ao lado (`.line-aside` em `ProductLine.astro`). Abaixo de 1100 px a
+  coluna "se desfaz" com `display: contents` e os itens viram uma sequência simples.
+- **Carrossel no celular:** `[data-rail]` + `.rail-meter` (`data-rail-pos`, `data-rail-bar`),
+  com `initRails()` em `src/scripts/page.ts` e estilos do indicador em `site.css`. Reutilizável
+  em outras listas de itens equivalentes.
+
 ## Breakpoints
 
 Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo), 1360
