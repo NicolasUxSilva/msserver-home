@@ -60,8 +60,9 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 
 | Padrão | Onde | Reaproveitar em |
 | --- | --- | --- |
+| Hero com seletor de temas (mensagem + arte em moldura, recorte na troca, profundidade com o mouse) | `Hero.astro` | Heros de páginas internas com mais de um destaque |
 | Header translúcido fixo, borda ao rolar, submenus em painel, menu móvel em tela cheia | `Header.astro` | Todas as páginas (mesmo `NAV` de `config/site.ts`) |
-| "Palco" escuro arredondado com padrão e brilho (console das landings) | Slider, app, vídeo | Heros de páginas internas, destaques |
+| "Palco" escuro arredondado com padrão e brilho (console das landings) | Hero, app, vídeo | Heros de páginas internas, destaques |
 | Cartão de produto (foto em fundo branco 4:3, título, preço em Sora, botão escuro) | `ProductLine.astro` | Categorias, busca, relacionados |
 | Abas segmentadas com indicador deslizante | `ProductLine.astro` | Filtros simples |
 | Cartão de post | `LatestPosts.astro` | Blog, cases |
@@ -81,7 +82,7 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 ## Breakpoints
 
 Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo), 1360
-(busca aberta no header). O slider troca para os banners verticais abaixo de 768 px, mesmo ponto
+(busca aberta no header). A hero troca para os banners verticais abaixo de 768 px, mesmo ponto
 do Elementor.
 
 ## Movimento
@@ -93,5 +94,6 @@ do Elementor.
   mais devagar; os brilhos do capítulo escuro derivam em velocidade própria; a moldura do vídeo
   se aproxima ao entrar.
 - Hover: 0,18–0,25 s; botões sobem 1 px; setas deslizam 3 px; fotos ampliam 3–4 %.
-- Slider: troca a cada 5 s, barra de progresso, pausa com mouse/foco/fora da tela e botão de pausa.
+- Hero: troca de tema a cada 7 s com fio de progresso; recorte de 0,9 s na arte e cascata de 70 ms
+  na mensagem; pausa com mouse/foco/fora da tela e botão; para de vez após uma escolha.
 - Sem scroll hijacking; rolagem suave só sem "reduzir movimento".

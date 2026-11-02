@@ -1,0 +1,750 @@
+---
+import { getImage } from 'astro:assets';
+import Icon from './Icon.astro';
+import { SLIDES } from '../data/content';
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/hero/*.jpg', { eager: true });
+const img = (name: string) => files[`../assets/hero/${name}.jpg`].default;
+
+// Banners originais do WordPress: versão larga (tablet/desktop) e versão vertical (celular).
+const themes = await Promise.all(
+  SLIDES.map(async (s, i) => {
+    const d = img(`slide-${i + 1}-desktop`);
+    const m = img(`slide-${i + 1}-mobile`);
+    const [dWebp, mWebp, fallback] = await Promise.all([
+      getImage({ src: d, widths: [720, 1080, 1440, 1713].filter((w) => w <= d.width), format: 'webp', quality: 80 }),
+      getImage({ src: m, widths: [480, 720, 941].filter((w) => w <= m.width), format: 'webp', quality: 80 }),
+      getImage({ src: d, width: 1080, format: 'jpg', quality: 80 }),
+    ]);
+    return { ...s, dSet: dWebp.srcSet.attribute, mSet: mWebp.srcSet.attribute, fallback: fallback.src, w: d.width, h: d.height };
+  }),
+);
+---
+
+{/* Hero interativa: os três banners viram três temas da mesma hero. O seletor troca a
+    mensagem e a arte; não há trilho de slides. */}
+<section class="hero" id="inicio" aria-label="Destaques da MSSERVER" data-hero data-theme={themes[0].key}>
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <div class="hero-switch">
+        <div class="hero-tabs" role="tablist" aria-label="Destaques da MSSERVER" data-hero-tabs>
+          <span class="hero-ink" aria-hidden="true" data-hero-ink><i class="hero-progress"></i></span>
+          {
+            themes.map((t, i) => (
+              <button class="hero-tab" type="button" role="tab" id={`hero-t-${t.key}`} aria-controls={`hero-p-${t.key}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-hero-tab>
+                {t.label}
+              </button>
+            ))
+          }
+        </div>
+        <button class="hero-pause" type="button" aria-label="Pausar a troca automática" data-hero-pause>
+          <Icon name="pause" size={15} class="i-pause" />
+          <Icon name="play" size={15} class="i-play" />
+        </button>
+      </div>
+
+      {/* Todas as mensagens ocupam a mesma célula da grade: a área tem a altura da maior e a
+          troca não empurra nada (sem deslocamento de layout). */}
+      <div class="hero-panels">
+        {
+          themes.map((t, i) => (
+            <div class="hero-panel" role="tabpanel" id={`hero-p-${t.key}`} aria-labelledby={`hero-t-${t.key}`} data-hero-panel data-active={i === 0 ? '' : undefined}>
+              {t.desktop.heading === t.mobile.heading ? (
+                i === 0 ? <h1 class="hero-title">{t.desktop.heading}</h1> : <p class="hero-title">{t.desktop.heading}</p>
+              ) : (
+                <Fragment>
+                  <p class="hero-title only-d">{t.desktop.heading}</p>
+                  <p class="hero-title only-m">{t.mobile.heading}</p>
+                </Fragment>
+              )}
+              <p class="hero-desc only-d">{t.desktop.description}</p>
+              <p class="hero-desc only-m">{t.mobile.description}</p>
+              <p class="hero-hl only-d">{t.desktop.highlight}</p>
+              {t.mobile.highlight && <p class="hero-hl only-m">{t.mobile.highlight}</p>}
+              {t.desktop.keywords && <p class="hero-kw only-d">{t.desktop.keywords}</p>}
+              <div class="hero-actions">
+                <a class="btn btn--primary btn--lg only-d" href={t.desktop.href} target={t.desktop.newTab ? '_blank' : undefined} rel={t.desktop.newTab ? 'noopener' : undefined} data-track="hero_click" data-track-location={`hero-${t.key}`}>
+                  {t.desktop.button}
+                  <Icon name="arrow-right" class="btn-arrow" />
+                </a>
+                <a class="btn btn--primary btn--lg only-m" href={t.mobile.href} data-track="hero_click" data-track-location={`hero-${t.key}-mobile`}>
+                  {t.mobile.button}
+                  <Icon name="arrow-right" class="btn-arrow" />
+                </a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="hero-visual" data-hero-visual>
+      <div class="visual-glow" aria-hidden="true">
+        {themes.map((t) => <i class={`glow-${t.key}`} />)}
+      </div>
+      <div class="visual-frame">
+        {
+          themes.map((t, i) => (
+            // A arte também leva ao destino do banner (no WordPress o banner inteiro era um link).
+            <a class="visual-item" href={t.desktop.href} target={t.desktop.newTab ? '_blank' : undefined} rel={t.desktop.newTab ? 'noopener' : undefined} tabindex="-1" aria-hidden="true" data-hero-art data-active={i === 0 ? '' : undefined} data-track="hero_click" data-track-location={`hero-${t.key}-arte`}>
+              <picture>
+                <source media="(max-width: 767px)" srcset={t.mSet} sizes="92vw" type="image/webp" />
+                {/* A arte cobre a moldura pela altura: no desktop a imagem exibida é ~1,7× a largura da coluna. */}
+                <source srcset={t.dSet} sizes="(min-width: 1024px) 1100px, 96vw" type="image/webp" />
+                {/* As três artes carregam logo (as duas seguintes com prioridade baixa), para a troca não esperar a rede. */}
+                <img src={t.fallback} alt={t.alt} width={t.w} height={t.h} loading="eager" fetchpriority={i === 0 ? 'high' : 'low'} decoding="async" />
+              </picture>
+            </a>
+          ))
+        }
+        <span class="visual-sheen" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Seletor de temas (padrão WAI-ARIA de abas) com troca automática discreta: a cada 7 s
+  // enquanto ninguém interage; para de vez quando a pessoa escolhe um tema, pausa com o mouse
+  // ou o foco na hero e quando ela sai da tela, e nunca roda com redução de movimento.
+  const root = document.querySelector<HTMLElement>('[data-hero]');
+  if (root) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[data-hero-tab]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-hero-panel]')];
+    const arts = [...root.querySelectorAll<HTMLElement>('[data-hero-art]')];
+    const ink = root.querySelector<HTMLElement>('[data-hero-ink]')!;
+    const pauseBtn = root.querySelector<HTMLButtonElement>('[data-hero-pause]')!;
+    const visual = root.querySelector<HTMLElement>('[data-hero-visual]')!;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const fine = matchMedia('(hover: hover) and (pointer: fine)');
+    const DELAY = 7000;
+    let index = 0;
+    let stopped = reduce.matches;
+    let holding = false;
+    let visible = true;
+    let timer = 0;
+
+    const moveInk = () => {
+      const t = tabs[index];
+      ink.style.width = `${t.offsetWidth}px`;
+      ink.style.transform = `translateX(${t.offsetLeft}px)`;
+    };
+
+    const select = (i: number, focus = false) => {
+      index = (i + tabs.length) % tabs.length;
+      tabs.forEach((t, j) => {
+        const on = j === index;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        panels[j].toggleAttribute('data-active', on);
+        arts[j].toggleAttribute('data-active', on);
+      });
+      root.dataset.theme = tabs[index].id.replace('hero-t-', '');
+      moveInk();
+      if (focus) tabs[index].focus();
+      schedule();
+    };
+
+    const running = () => !stopped && !holding && visible;
+    const schedule = () => {
+      clearTimeout(timer);
+      root.classList.toggle('is-playing', running());
+      root.classList.remove('tick');
+      void root.offsetWidth;
+      root.classList.add('tick');
+      if (running()) timer = window.setTimeout(() => select(index + 1), DELAY);
+    };
+
+    const syncPause = () => {
+      pauseBtn.setAttribute('aria-label', stopped ? 'Retomar a troca automática' : 'Pausar a troca automática');
+      pauseBtn.classList.toggle('is-paused', stopped);
+    };
+
+    // Escolha explícita: a pessoa assume o controle e a troca automática para.
+    const choose = (i: number, focus = false) => {
+      stopped = true;
+      syncPause();
+      select(i, focus);
+    };
+
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => choose(i));
+      t.addEventListener('keydown', (e) => {
+        const map: Record<string, number> = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 };
+        if (e.key in map) {
+          e.preventDefault();
+          choose(map[e.key], true);
+        }
+      });
+    });
+
+    pauseBtn.addEventListener('click', () => {
+      stopped = !stopped;
+      syncPause();
+      schedule();
+    });
+
+    root.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') {
+        holding = true;
+        schedule();
+      }
+    });
+    root.addEventListener('pointerleave', () => {
+      holding = false;
+      schedule();
+    });
+    root.addEventListener('focusin', () => {
+      holding = true;
+      schedule();
+    });
+    root.addEventListener('focusout', (e) => {
+      if (!root.contains(e.relatedTarget as Node)) {
+        holding = false;
+        schedule();
+      }
+    });
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      schedule();
+    }).observe(root);
+
+    // Profundidade com o mouse: a arte e o brilho se deslocam em sentidos opostos.
+    let raf = 0;
+    visual.addEventListener('pointermove', (e) => {
+      if (!fine.matches || reduce.matches || raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const r = visual.getBoundingClientRect();
+        visual.style.setProperty('--mx', (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
+        visual.style.setProperty('--my', (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
+      });
+    });
+    visual.addEventListener('pointerleave', () => {
+      visual.style.setProperty('--mx', '0');
+      visual.style.setProperty('--my', '0');
+    });
+
+    // Celular: deslizar o dedo sobre a arte troca o tema.
+    let x0 = 0;
+    let y0 = 0;
+    visual.addEventListener('touchstart', (e) => ((x0 = e.touches[0].clientX), (y0 = e.touches[0].clientY)), { passive: true });
+    visual.addEventListener(
+      'touchend',
+      (e) => {
+        const dx = e.changedTouches[0].clientX - x0;
+        const dy = e.changedTouches[0].clientY - y0;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) choose(index + (dx < 0 ? 1 : -1));
+      },
+      { passive: true },
+    );
+
+    new ResizeObserver(moveInk).observe(root.querySelector('[data-hero-tabs]')!);
+    document.fonts?.ready.then(moveInk);
+    root.classList.add('is-ready');
+    syncPause();
+    select(0);
+  }
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(2rem, 1rem + 3vw, 4rem) clamp(0.5rem, 0.25rem + 1vw, 1.5rem);
+    overflow-x: clip;
+    view-timeline: --hero block;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0 0 -200px;
+    background-image:
+      linear-gradient(to right, rgb(27 24 32 / 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(27 24 32 / 0.055) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 65% at 70% 40%, #000 20%, transparent 72%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 65% at 70% 40%, #000 20%, transparent 72%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    display: grid;
+    gap: clamp(2rem, 1rem + 3vw, 3rem);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-inner {
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: clamp(2.5rem, 1rem + 4vw, 5rem);
+    }
+  }
+
+  /* ——— Seletor de temas ——— */
+  .hero-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  }
+
+  .hero-tabs {
+    position: relative;
+    display: inline-grid;
+    grid-auto-flow: column;
+    padding: 5px;
+    border: 1px solid var(--c-line);
+    border-radius: 14px;
+    background: rgb(255 255 255 / 0.75);
+    backdrop-filter: blur(6px);
+    box-shadow: var(--shadow-1);
+  }
+
+  .hero-ink {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 0;
+    border-radius: 10px;
+    background: var(--c-indigo-950);
+    box-shadow: 0 6px 14px -8px rgb(14 13 34 / 0.6);
+    overflow: hidden;
+    transition:
+      transform 0.5s var(--ease-out),
+      width 0.5s var(--ease-out);
+  }
+
+  /* Tempo até o próximo tema: um fio laranja que corre na base do tema ativo. */
+  .hero-progress {
+    position: absolute;
+    inset: auto 10px 4px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--c-orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.is-playing.tick) .hero-progress {
+      opacity: 1;
+      animation: hero-progress 7s linear both;
+    }
+  }
+
+  @keyframes hero-progress {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .hero-tab {
+    position: relative;
+    z-index: 1;
+    min-height: 42px;
+    padding: 0 1.1rem;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--c-ink-2);
+    font-size: 0.92rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition:
+      color 0.3s var(--ease-out),
+      background-color var(--dur-1) var(--ease-out);
+  }
+
+  .hero-tab:hover:not([aria-selected='true']) {
+    color: var(--c-ink);
+    background: var(--c-paper);
+  }
+
+  .hero-tab:active {
+    transform: scale(0.97);
+  }
+
+  .hero-tab[aria-selected='true'] {
+    color: var(--c-on-dark);
+  }
+
+  .hero-tab:focus-visible {
+    outline-offset: 2px;
+  }
+
+  /* Sem JS a tinta não se posiciona: a aba ativa usa fundo próprio. */
+  .hero:not(:global(.is-ready)) .hero-tab[aria-selected='true'] {
+    background: var(--c-indigo-950);
+  }
+
+  .hero-pause {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--c-line-2);
+    border-radius: 10px;
+    background: var(--c-surface);
+    color: var(--c-ink-2);
+    transition:
+      border-color var(--dur-1) var(--ease-out),
+      color var(--dur-1) var(--ease-out);
+  }
+
+  .hero-pause:hover {
+    border-color: var(--c-ink-3);
+    color: var(--c-ink);
+  }
+
+  .hero-pause :global(.i-play),
+  .hero-pause:global(.is-paused) :global(.i-pause) {
+    display: none;
+  }
+
+  .hero-pause:global(.is-paused) :global(.i-play) {
+    display: block;
+  }
+
+  /* ——— Mensagens ——— */
+  .hero-panels {
+    display: grid;
+  }
+
+  .hero-panel {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.1rem;
+    visibility: hidden;
+    transition: visibility 0s linear 0.45s;
+  }
+
+  .hero-panel[data-active] {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  /* Quem sai sobe e some; quem entra vem de baixo, em cascata curta. */
+  .hero-panel > * {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition:
+      opacity 0.3s var(--ease-out),
+      transform 0.4s var(--ease-out);
+  }
+
+  .hero-panel[data-active] > * {
+    opacity: 1;
+    transform: none;
+    animation: hero-in 0.7s var(--ease-out) both;
+  }
+
+  .hero-panel[data-active] > :nth-child(2) {
+    animation-delay: 0.07s;
+  }
+  .hero-panel[data-active] > :nth-child(3) {
+    animation-delay: 0.13s;
+  }
+  .hero-panel[data-active] > :nth-child(n + 4) {
+    animation-delay: 0.19s;
+  }
+
+  @keyframes hero-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+
+  .hero-title {
+    margin: 0;
+    max-width: 15ch;
+    font-family: var(--f-display);
+    font-size: var(--t-hero);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.03;
+    text-wrap: balance;
+  }
+
+  .hero-desc {
+    max-width: 48ch;
+    color: var(--c-ink-2);
+    font-size: var(--t-lead);
+    line-height: 1.6;
+  }
+
+  .hero-hl {
+    max-width: 44ch;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--c-orange);
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  .hero-kw {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--c-ink-3);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.6rem;
+  }
+
+  .only-m {
+    display: none;
+  }
+
+  /* ——— Arte ——— */
+  .hero-visual {
+    --mx: 0;
+    --my: 0;
+    position: relative;
+    perspective: 1400px;
+  }
+
+  /* Brilho atrás da moldura, na cor de cada tema. */
+  .visual-glow {
+    position: absolute;
+    inset: 6% -4% -10% 6%;
+    filter: blur(44px);
+    transform: translate(calc(var(--mx) * 14px), calc(var(--my) * 12px));
+    transition: transform 0.6s var(--ease-out);
+    pointer-events: none;
+  }
+
+  .visual-glow i {
+    position: absolute;
+    inset: 0;
+    border-radius: 40%;
+    opacity: 0;
+    transition: opacity 0.9s var(--ease-out);
+  }
+
+  .glow-servidores {
+    background: radial-gradient(60% 60% at 40% 55%, rgb(61 58 134 / 0.55), transparent 70%), radial-gradient(40% 40% at 80% 85%, rgb(249 131 5 / 0.2), transparent 70%);
+  }
+
+  .glow-app {
+    background: radial-gradient(60% 60% at 45% 50%, rgb(78 179 244 / 0.42), transparent 70%), radial-gradient(40% 40% at 85% 80%, rgb(61 58 134 / 0.35), transparent 70%);
+  }
+
+  .glow-nuvem {
+    background: radial-gradient(60% 60% at 45% 55%, rgb(61 58 134 / 0.5), transparent 70%), radial-gradient(45% 45% at 80% 85%, rgb(249 131 5 / 0.32), transparent 70%);
+  }
+
+  .hero[data-theme='servidores'] .glow-servidores,
+  .hero[data-theme='app'] .glow-app,
+  .hero[data-theme='nuvem'] .glow-nuvem {
+    opacity: 1;
+  }
+
+  /* Moldura no padrão do console das landings, com leve inclinação seguindo o mouse. */
+  .visual-frame {
+    position: relative;
+    aspect-ratio: 7 / 6;
+    border-radius: var(--r-xl);
+    background: var(--c-indigo-950);
+    box-shadow:
+      0 0 0 1px rgb(14 13 34 / 0.06),
+      var(--shadow-2);
+    overflow: hidden;
+    isolation: isolate;
+    transform: rotateY(calc(var(--mx) * 3deg)) rotateX(calc(var(--my) * -3deg));
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .visual-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.09);
+    pointer-events: none;
+  }
+
+  /* Troca da arte: a nova entra por cima com um recorte que corre da direita para a esquerda;
+     a anterior fica inteira por baixo até ser coberta, e só então é escondida. */
+  .visual-item {
+    position: absolute;
+    inset: 0;
+    display: block;
+    visibility: hidden;
+    clip-path: inset(0 0 0 100%);
+    transition:
+      clip-path 0s linear 0.95s,
+      visibility 0s linear 0.95s;
+  }
+
+  .visual-item[data-active] {
+    z-index: 1;
+    visibility: visible;
+    clip-path: inset(0 0 0 0);
+    transition:
+      clip-path 0.9s var(--ease-in-out),
+      visibility 0s;
+  }
+
+  .visual-item img {
+    position: absolute;
+    inset: -3%;
+    width: 106%;
+    height: 106%;
+    max-width: none;
+    object-fit: cover;
+    object-position: left center;
+    transform: translate(calc(var(--mx) * -10px), calc(var(--my) * -8px)) scale(1.06);
+    transition: transform 1.2s var(--ease-out);
+  }
+
+  .visual-item[data-active] img {
+    transform: translate(calc(var(--mx) * -10px), calc(var(--my) * -8px)) scale(1);
+  }
+
+  /* Reflexo diagonal que acompanha a inclinação: dá corpo de tela à moldura. */
+  .visual-sheen {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(115deg, transparent 35%, rgb(255 255 255 / 0.07) 48%, transparent 60%);
+    transform: translateX(calc(var(--mx) * 8%));
+    transition: transform 0.6s var(--ease-out);
+    pointer-events: none;
+  }
+
+  /* Com o mouse sobre a arte, ela reage: a arte também é link para o destino do tema. */
+  .visual-item img {
+    transition:
+      transform 1.2s var(--ease-out),
+      filter var(--dur-2) var(--ease-out);
+  }
+
+  .visual-item:hover img {
+    filter: brightness(1.08);
+  }
+
+  /* ——— Profundidade ao rolar (CSS ligado ao scroll, sem JS) ——— */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-visual {
+        animation: visual-depth linear both;
+        animation-timeline: --hero;
+        animation-range: exit 0% exit 100%;
+      }
+    }
+  }
+
+  @keyframes visual-depth {
+    to {
+      transform: translateY(8%) scale(0.96);
+    }
+  }
+
+  /* ——— Tablet: arte em faixa larga abaixo da mensagem ——— */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .visual-frame {
+      aspect-ratio: 16 / 9;
+    }
+
+    .hero-title {
+      max-width: 18ch;
+    }
+  }
+
+  /* ——— Celular: banner vertical recortado na arte ——— */
+  @media (max-width: 767px) {
+    .hero {
+      padding-top: 1.25rem;
+    }
+
+    .only-d {
+      display: none;
+    }
+
+    .only-m {
+      display: block;
+    }
+
+    a.only-m {
+      display: inline-flex;
+    }
+
+    .hero-switch {
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-tabs {
+      flex: 1;
+      grid-auto-columns: 1fr;
+    }
+
+    .hero-tab {
+      padding: 0 0.6rem;
+      font-size: 0.88rem;
+    }
+
+    .hero-panel {
+      gap: 0.85rem;
+    }
+
+    .hero-title {
+      font-size: clamp(1.9rem, 1.2rem + 3.6vw, 2.5rem);
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+    }
+
+    .hero-hl {
+      font-size: 0.95rem;
+    }
+
+    .hero-actions .btn {
+      width: 100%;
+    }
+
+    .visual-frame {
+      aspect-ratio: 1 / 1;
+      border-radius: var(--r-lg);
+      touch-action: pan-y;
+    }
+
+    .visual-item {
+      pointer-events: none;
+    }
+
+    .visual-item img {
+      object-position: center bottom;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-panel > *,
+    .visual-item,
+    .visual-item img,
+    .visual-frame,
+    .visual-glow,
+    .hero-ink {
+      transition: none !important;
+      animation: none !important;
+    }
+
+    .hero-panel > * {
+      transform: none !important;
+    }
+
+    .hero-panel[data-active] > * {
+      opacity: 1;
+    }
+  }
+</style>

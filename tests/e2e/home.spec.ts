@@ -80,7 +80,7 @@ test('imagens e fontes carregam, sem erros no console', async ({ page }) => {
   await page.goto('/');
   await scrollAll(page);
   await page.waitForLoadState('networkidle');
-  // Força o carregamento das imagens dos slides e das abas ocultas.
+  // Força o carregamento das imagens das abas ocultas.
   await page.evaluate(() => document.querySelectorAll('img[loading="lazy"]').forEach((i) => ((i as HTMLImageElement).loading = 'eager')));
   await page.waitForLoadState('networkidle');
   // Imagens do próprio site (a miniatura do YouTube é externa e fica bloqueada nos testes).
@@ -118,29 +118,6 @@ test('abas da linha de servidores (clique e teclado)', async ({ page }) => {
   await expect(page.getByRole('tab', { name: 'Escala Nuvem' })).toBeFocused();
   await expect(panel('escala-nuvem')).toBeVisible();
   await expect(panel('escala-nuvem').locator('li')).toHaveCount(6);
-});
-
-test('slider: navegação, pausa e destinos', async ({ page, isMobile }) => {
-  await page.goto('/');
-  const active = () => page.locator('[data-slide][data-active]');
-  await expect(active()).toHaveAttribute('id', 'slide-servidores');
-  await page.getByRole('button', { name: 'Pausar a troca automática' }).click();
-  await page.getByRole('button', { name: 'Próximo slide' }).click();
-  await expect(active()).toHaveAttribute('id', 'slide-app');
-  const link = active().getByRole('link', { name: 'Baixar o app' });
-  await expect(link).toHaveAttribute('href', isMobile ? '#appmobile' : 'https://msserver.com.br/aplicativo-ms-server/');
-  await page.getByRole('button', { name: /^Ir para o slide 03/ }).click();
-  await expect(active()).toHaveAttribute('id', 'slide-nuvem');
-  await expect(active().getByRole('link', { name: isMobile ? 'Obter suporte' : 'Nuvem' })).toHaveAttribute(
-    'href',
-    isMobile ? 'https://msserver.com.br/obter-suporte' : 'https://msserver.com.br/solucoes-cloud-msserver/',
-  );
-});
-
-test('slider avança sozinho a cada 5 s', async ({ page }) => {
-  await page.goto('/');
-  await page.mouse.move(0, 0);
-  await expect(page.locator('[data-slide][data-active]')).toHaveAttribute('id', 'slide-app', { timeout: 8000 });
 });
 
 test('busca de produtos envia para a busca do WooCommerce', async ({ page, isMobile }) => {
@@ -229,14 +206,6 @@ test.describe('celular', () => {
     await page.keyboard.press('Escape');
     await expect(menu).toBeHidden();
   });
-
-  test('âncora do slide do app leva à seção do app', async ({ page }) => {
-    await page.goto('/');
-    await page.getByRole('button', { name: 'Pausar a troca automática' }).click();
-    await page.getByRole('button', { name: /^Ir para o slide 02/ }).click();
-    await page.locator('[data-slide][data-active]').getByRole('link', { name: 'Baixar o app' }).click();
-    await expect(page.locator('#appmobile')).toBeInViewport();
-  });
 });
 
 const settle = (page: Page) =>
@@ -252,16 +221,6 @@ test('acessibilidade (axe, WCAG 2.1 AA)', async ({ page }) => {
   await settle(page);
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
   expect(results.violations.map((v) => `${v.id}: ${v.nodes.length} (${v.nodes[0]?.target})`)).toEqual([]);
-});
-
-test('redução de movimento: slider parado e conteúdo visível', async ({ browser }) => {
-  const ctx = await browser.newContext({ reducedMotion: 'reduce' });
-  const page = await ctx.newPage();
-  await page.goto('/');
-  await page.waitForTimeout(6000);
-  await expect(page.locator('[data-slide][data-active]')).toHaveAttribute('id', 'slide-servidores');
-  await expect(page.locator('h1')).toBeVisible();
-  await ctx.close();
 });
 
 test('cartões inteiros clicáveis levam ao mesmo destino do título', async ({ page }) => {
@@ -320,4 +279,83 @@ test.describe('celular: carrossel de servidores', () => {
     // Nenhum cartão fica de fora: todos continuam no DOM e acessíveis.
     await expect(page.locator('#rack-tab .card')).toHaveCount(6);
   });
+});
+
+test.describe('hero interativa', () => {
+  const active = (page: Page) => page.locator('[data-hero-panel][data-active]');
+
+  test('seletor troca mensagem, arte e destinos (clique e teclado)', async ({ page, isMobile }) => {
+    await page.goto('/');
+    await expect(active(page)).toHaveAttribute('id', 'hero-p-servidores');
+    await expect(page.locator('h1')).toHaveText('Servidores usados e semi-novos');
+    await page.getByRole('tab', { name: 'App' }).click();
+    await expect(active(page)).toHaveAttribute('id', 'hero-p-app');
+    await expect(page.locator('[data-hero-art][data-active]')).toHaveAttribute('href', 'https://msserver.com.br/aplicativo-ms-server/');
+    await expect(active(page).getByRole('link', { name: 'Baixar o app' })).toHaveAttribute('href', isMobile ? '#appmobile' : 'https://msserver.com.br/aplicativo-ms-server/');
+    await page.getByRole('tab', { name: 'App' }).press('ArrowRight');
+    await expect(page.getByRole('tab', { name: 'Data Center' })).toBeFocused();
+    await expect(active(page)).toHaveAttribute('id', 'hero-p-nuvem');
+    await expect(active(page).getByRole('link', { name: isMobile ? 'Obter suporte' : 'Nuvem' })).toHaveAttribute(
+      'href',
+      isMobile ? 'https://msserver.com.br/obter-suporte' : 'https://msserver.com.br/solucoes-cloud-msserver/',
+    );
+    // Só a mensagem ativa fica visível e acessível.
+    await expect(page.locator('#hero-p-servidores')).toBeHidden();
+  });
+
+  test('troca sozinha a cada 7 s e para com o botão de pausa', async ({ page }) => {
+    await page.goto('/');
+    await page.mouse.move(0, 0);
+    await expect(active(page)).toHaveAttribute('id', 'hero-p-app', { timeout: 9000 });
+    await page.getByRole('button', { name: 'Pausar a troca automática' }).click();
+    await page.mouse.move(0, 0);
+    await page.waitForTimeout(8000);
+    await expect(active(page)).toHaveAttribute('id', 'hero-p-app');
+    await expect(page.getByRole('button', { name: 'Retomar a troca automática' })).toBeVisible();
+  });
+
+  test('a troca não desloca o restante da página', async ({ page }) => {
+    await page.goto('/');
+    const next = page.locator('#nossa-linha');
+    const y0 = await next.evaluate((el) => el.getBoundingClientRect().top + scrollY);
+    for (const name of ['App', 'Data Center', 'Servidores']) {
+      await page.getByRole('tab', { name }).click();
+      await page.waitForTimeout(300);
+      expect(await next.evaluate((el) => el.getBoundingClientRect().top + scrollY)).toBe(y0);
+    }
+  });
+});
+
+test.describe('hero no celular', () => {
+  test.skip(({ isMobile }) => !isMobile, 'somente celular');
+
+  test('deslizar sobre a arte troca o tema', async ({ page }) => {
+    await page.goto('/');
+    const art = page.locator('[data-hero-visual]');
+    await art.scrollIntoViewIfNeeded();
+    await art.evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      const mk = (x: number) => new Touch({ identifier: 1, target: el, clientX: x, clientY: r.top + r.height / 2 });
+      el.dispatchEvent(new TouchEvent('touchstart', { touches: [mk(r.right - 30)], changedTouches: [mk(r.right - 30)], bubbles: true }));
+      el.dispatchEvent(new TouchEvent('touchend', { touches: [], changedTouches: [mk(r.left + 30)], bubbles: true }));
+    });
+    await expect(page.locator('[data-hero-panel][data-active]')).toHaveAttribute('id', 'hero-p-app');
+  });
+
+  test('"Baixar o app" leva à seção do app', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('tab', { name: 'App' }).click();
+    await page.locator('[data-hero-panel][data-active]').getByRole('link', { name: 'Baixar o app' }).click();
+    await expect(page.locator('#appmobile')).toBeInViewport();
+  });
+});
+
+test('redução de movimento: hero parada e conteúdo visível', async ({ browser }) => {
+  const ctx = await browser.newContext({ reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  await page.goto('/');
+  await page.waitForTimeout(8000);
+  await expect(page.locator('[data-hero-panel][data-active]')).toHaveAttribute('id', 'hero-p-servidores');
+  await expect(page.locator('h1')).toBeVisible();
+  await ctx.close();
 });

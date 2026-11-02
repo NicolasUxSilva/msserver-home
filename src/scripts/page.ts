@@ -169,6 +169,8 @@ function initReveal() {
     }
   };
   addEventListener('scroll', () => !pending && (pending = true) && requestAnimationFrame(sweep), { passive: true });
+  // O que já aparece na primeira dobra (mesmo rente à borda inferior) entra logo no carregamento.
+  requestAnimationFrame(sweep);
 }
 
 function initTracking() {

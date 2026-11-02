@@ -6,6 +6,8 @@ import { LINKS } from '../config/site';
 
 export type Slide = {
   key: string;
+  /** Rótulo do seletor da hero: a palavra em destaque desenhada no próprio banner. */
+  label: string;
   /** Slider do desktop/tablet (widget 551d510): o slide inteiro é um link. */
   desktop: { heading: string; description: string; highlight: string; keywords?: string; button: string; href: string; newTab?: boolean };
   /** Slider do celular (widget 30e1739): o botão é o link. */
@@ -16,6 +18,7 @@ export type Slide = {
 export const SLIDES: Slide[] = [
   {
     key: 'servidores',
+    label: 'Servidores',
     desktop: {
       heading: 'Servidores usados e semi-novos',
       description: 'Venda, Locação e Manutenção de Servidores Usados e Seminovos, Servidor Dell servidor Hp e ibm.',
@@ -34,6 +37,7 @@ export const SLIDES: Slide[] = [
   },
   {
     key: 'app',
+    label: 'App',
     desktop: {
       heading: 'O unico com app gratuito para gestão de servidores',
       description: 'Acompanhamento em tempo real do seu servidor.',
@@ -54,6 +58,7 @@ export const SLIDES: Slide[] = [
   },
   {
     key: 'nuvem',
+    label: 'Data Center',
     desktop: {
       heading: 'Nuvem privada suporte e monitoramento 24h',
       description: 'Fornecimento de servidores e peças para empresas e datacenters em todo o brasil,',
