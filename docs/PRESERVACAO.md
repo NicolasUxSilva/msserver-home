@@ -154,3 +154,17 @@ e destinos de cada banner continuam os mesmos.
   "reduzir movimento" ativado (nesse caso não troca sozinha).
 - **Clique na arte:** no desktop leva ao destino do tema (no WordPress o banner inteiro era um
   link); no celular, o botão é o link, como no slider móvel do WordPress.
+
+## Menu móvel (painel do topo)
+
+- **Correção:** o menu não abria nos celulares. O painel ficava dentro do `<header>`, que usa
+  desfoque (`backdrop-filter`); nos navegadores dos celulares isso faz o painel fixo se
+  posicionar dentro do header, com altura zero. Agora ele é um elemento próprio da página
+  (fora do header). O teste do menu simula esse comportamento para o defeito não voltar.
+- **Formato:** painel que desce do topo e cobre metade da tela (em telas muito baixas, o mínimo
+  que cabe o menu); a outra metade fica escurecida e tocar nela fecha. Logo da MSSERVER
+  centralizada no topo do painel, com ✕ à direita; itens centralizados em duas colunas.
+- **Submenus:** Servidores, Componentes, Soluções e Servidores em Nuvem abrem em camadas dentro
+  do painel, com "Voltar". Itens, nomes, ordem e destinos são os do menu do WordPress.
+- **Rolagem preservada:** abrir e fechar o menu (ou a busca, ou um submenu do desktop com Esc)
+  não move mais a página; antes, ao devolver o foco ao botão do header, a página voltava ao topo.

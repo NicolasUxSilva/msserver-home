@@ -191,20 +191,68 @@ test.describe('desktop', () => {
 test.describe('celular', () => {
   test.skip(({ isMobile }) => !isMobile, 'somente celular');
 
-  test('menu móvel com todos os níveis', async ({ page }) => {
+  test('menu móvel: painel do topo com metade da tela, logo centralizada e todos os níveis', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('button', { name: 'Abrir menu' }).click();
+    // Simula o Safari/Chrome dos celulares: o desfoque do header vira bloco de contenção para
+    // elementos fixos. Com o menu dentro do header, ele abria com altura zero.
+    await page.addStyleTag({ content: '[data-header]{filter: drop-shadow(0 0 0 transparent) !important}' });
+    await page.evaluate(() => window.scrollTo(0, 500));
+    const toggle = (await page.getByRole('button', { name: 'Abrir menu' }).boundingBox())!;
+    await page.mouse.click(toggle.x + toggle.width / 2, toggle.y + toggle.height / 2);
     const menu = page.locator('#menu-movel');
-    await expect(menu).toBeVisible();
+    const sheet = menu.getByRole('dialog', { name: 'Menu' });
+    await expect(sheet).toBeVisible();
+    await expect(menu).toHaveClass(/is-open/);
+    await page.waitForTimeout(600);
+    // Metade da altura da tela (ou o mínimo que cabe o menu em telas muito baixas).
+    const vp = page.viewportSize()!;
+    const box = (await sheet.boundingBox())!;
+    expect(box.y).toBe(0);
+    expect(box.height).toBeGreaterThanOrEqual(vp.height * 0.5 - 1);
+    expect(box.height).toBeLessThanOrEqual(Math.max(vp.height * 0.5, 320) + 1);
+    // Logo centralizada.
+    const logo = (await menu.locator('.m-brand').boundingBox())!;
+    expect(Math.abs(logo.x + logo.width / 2 - vp.width / 2)).toBeLessThan(2);
+    // Itens centralizados nas células.
+    const cell = (await menu.locator('#m-v-root .m-cell').nth(2).boundingBox())!;
+    const link = (await menu.getByRole('link', { name: 'Sobre nós' }).boundingBox())!;
+    expect(Math.abs(cell.x + cell.width / 2 - (link.x + link.width / 2))).toBeLessThan(2);
+
+    // Submenus em camadas, com "Voltar".
     await menu.getByRole('button', { name: 'Abrir submenu de Servidores' }).click();
+    await expect(menu.getByRole('link', { name: 'Ver todos' })).toBeVisible();
     await menu.getByRole('button', { name: 'Abrir submenu de Componentes' }).click();
     await expect(menu.getByRole('link', { name: 'Gavetas' })).toBeVisible();
+    await expect(menu.getByRole('link', { name: 'Gavetas' })).toHaveAttribute('href', 'https://msserver.com.br/categoria-produto/gavetas/');
+    await menu.locator('#m-v-root-0-4').getByRole('button', { name: 'Voltar' }).click();
+    await menu.locator('#m-v-root-0').getByRole('button', { name: 'Voltar' }).click();
     await menu.getByRole('button', { name: 'Soluções', exact: true }).click();
     await menu.getByRole('button', { name: 'Servidores em Nuvem', exact: true }).click();
     await expect(menu.getByRole('link', { name: 'Nuvem Privada' })).toBeVisible();
+    await menu.locator('#m-v-root-3-0').getByRole('button', { name: 'Voltar' }).click();
+    await menu.locator('#m-v-root-3').getByRole('button', { name: 'Voltar' }).click();
     await expect(menu.getByRole('link', { name: 'Cases de sucesso' })).toHaveAttribute('href', 'https://msserver.com.br/cases-de-sucesso/');
+
+    // Esc fecha e a página continua no mesmo ponto.
     await page.keyboard.press('Escape');
     await expect(menu).toBeHidden();
+    expect(await page.evaluate(() => window.scrollY)).toBe(500);
+  });
+
+  test('menu móvel fecha tocando fora do painel e pelo ✕', async ({ page }) => {
+    await page.goto('/');
+    const menu = page.locator('#menu-movel');
+    await page.getByRole('button', { name: 'Abrir menu' }).click();
+    await expect(menu.getByRole('dialog')).toBeVisible();
+    await page.waitForTimeout(600);
+    const vp = page.viewportSize()!;
+    await page.mouse.click(vp.width / 2, vp.height - 30);
+    await expect(menu).toBeHidden();
+    await page.getByRole('button', { name: 'Abrir menu' }).click();
+    await expect(menu.getByRole('dialog')).toBeVisible();
+    await menu.getByRole('button', { name: 'Fechar menu' }).click();
+    await expect(menu).toBeHidden();
+    await expect(page.getByRole('button', { name: 'Abrir menu' })).toBeFocused();
   });
 });
 

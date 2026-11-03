@@ -76,38 +76,98 @@ function initSubmenus() {
     const open = document.querySelector<HTMLElement>('.nav-desktop [data-sub-panel]:not([hidden])');
     if (!open) return;
     setSub(open, false);
-    open.closest('[data-nav-item]')?.querySelector<HTMLElement>('[data-sub-toggle]')?.focus();
+    open.closest('[data-nav-item]')?.querySelector<HTMLElement>('[data-sub-toggle]')?.focus({ preventScroll: true });
   });
 }
 
 function initMobileMenu() {
   const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const menu = document.getElementById('menu-movel');
-  if (!toggle || !menu) return;
+  const sheet = menu?.querySelector<HTMLElement>('[role="dialog"]');
+  if (!toggle || !menu || !sheet) return;
+  const views = [...menu.querySelectorAll<HTMLElement>('[data-m-view]')];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  let closeTimer = 0;
+
+  const focusables = () =>
+    [...sheet.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')].filter((el) => !el.closest('[hidden]'));
+
+  // Troca a camada visível do painel (raiz ou um submenu) e põe o foco no primeiro item dela.
+  const showView = (id: string, dir: 'none' | 'fwd' | 'back', focus = true) => {
+    for (const v of views) {
+      const on = v.dataset.mView === id;
+      v.hidden = !on;
+      if (on) {
+        v.dataset.dir = 'stop';
+        void v.offsetWidth;
+        v.dataset.dir = dir;
+      }
+    }
+    if (focus) menu.querySelector<HTMLElement>(`#${id} .m-grid a, #${id} .m-grid button`)?.focus({ preventScroll: true });
+  };
+
+  const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
 
   const setOpen = (open: boolean) => {
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
-    menu.hidden = !open;
     document.documentElement.classList.toggle('menu-open', open);
+    clearTimeout(closeTimer);
     if (open) {
       closeSearch();
-      menu.querySelector<HTMLElement>('a, button')?.focus();
+      showView('m-v-root', 'none', false);
+      menu.hidden = false;
+      // Dois quadros: o painel é exibido fora da tela e só então desce (a transição acontece).
+      requestAnimationFrame(() => requestAnimationFrame(() => menu.classList.add('is-open')));
+      setTimeout(() => focusables()[0]?.focus({ preventScroll: true }), reduce.matches ? 0 : 80);
+    } else {
+      menu.classList.remove('is-open');
+      closeTimer = window.setTimeout(() => (menu.hidden = true), reduce.matches ? 0 : 450);
     }
   };
 
-  toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  // O foco volta ao botão do menu sem rolar a página (o header é fixo e, com a rolagem
+  // suave, o navegador levaria a página de volta ao topo).
+  const close = () => {
+    setOpen(false);
+    toggle.focus({ preventScroll: true });
+  };
+
+  toggle.addEventListener('click', () => setOpen(!isOpen()));
   menu.addEventListener('click', (e) => {
-    const a = (e.target as HTMLElement).closest('a');
-    if (a && a.getAttribute('href')?.startsWith('#')) setOpen(false);
+    const t = e.target as HTMLElement;
+    const opener = t.closest<HTMLElement>('[data-m-open]');
+    const back = t.closest<HTMLElement>('[data-m-back]');
+    if (t.closest('[data-m-close]')) close();
+    else if (opener) showView(opener.dataset.mOpen!, 'fwd');
+    else if (back) {
+      const from = back.closest<HTMLElement>('[data-m-view]')!.id;
+      showView(back.dataset.mBack!, 'back', false);
+      // Volta o foco para o item que abriu a camada.
+      menu.querySelector<HTMLElement>(`[data-m-open="${from}"]`)?.focus({ preventScroll: true });
+    } else if (t.closest('a')?.getAttribute('href')?.startsWith('#')) setOpen(false);
   });
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-      setOpen(false);
-      toggle.focus();
+    if (!isOpen()) return;
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      close();
+    } else if (e.key === 'Tab') {
+      // Mantém o foco dentro do painel enquanto ele está aberto.
+      const list = focusables();
+      const first = list[0];
+      const last = list[list.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus({ preventScroll: true });
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus({ preventScroll: true });
+      }
     }
   });
-  desktop.addEventListener('change', (e) => e.matches && setOpen(false));
+  desktop.addEventListener('change', (e) => e.matches && isOpen() && setOpen(false));
 }
 
 let closeSearch = () => {};
@@ -131,7 +191,7 @@ function initSearchToggle() {
   panel.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       set(false);
-      btn.focus();
+      btn.focus({ preventScroll: true });
     }
   });
 }

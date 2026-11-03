@@ -61,7 +61,7 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 | Padrão | Onde | Reaproveitar em |
 | --- | --- | --- |
 | Hero de tela cheia com temas alternados (arte em cover, esmaecimento lento, 3 pontos indicadores, profundidade com o mouse e ao rolar) | `Hero.astro` | Heros de páginas internas com mais de um destaque |
-| Header translúcido fixo, borda ao rolar, submenus em painel, menu móvel em tela cheia | `Header.astro` | Todas as páginas (mesmo `NAV` de `config/site.ts`) |
+| Header translúcido fixo, borda ao rolar, submenus em painel; menu móvel em painel do topo (meia tela, logo centralizada, submenus em camadas, fora do `<header>`) | `Header.astro` | Todas as páginas (mesmo `NAV` de `config/site.ts`) |
 | "Palco" escuro arredondado com padrão e brilho (console das landings) | Hero, app, vídeo | Heros de páginas internas, destaques |
 | Cartão de produto (foto em fundo branco 4:3, título, preço em Sora, botão escuro) | `ProductLine.astro` | Categorias, busca, relacionados |
 | Abas segmentadas com indicador deslizante | `ProductLine.astro` | Filtros simples |
