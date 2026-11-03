@@ -34,7 +34,8 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
         <a class="media-item" href={t.desktop.href} target={t.desktop.newTab ? '_blank' : undefined} rel={t.desktop.newTab ? 'noopener' : undefined} tabindex="-1" aria-hidden="true" data-hero-art data-active={i === 0 ? '' : undefined} data-track="hero_click" data-track-location={`hero-${t.key}-arte`}>
           <picture>
             <source media={PORTRAIT} srcset={t.mSet} sizes="100vw" type="image/webp" />
-            <source srcset={t.dSet} sizes="100vw" type="image/webp" />
+            {/* Com cover, a área pode ser mais larga que a tela (altura × 1,87): o navegador escolhe o arquivo por ela. */}
+            <source srcset={t.dSet} sizes="max(100vw, calc(187vh - 135px))" type="image/webp" />
             {/* As três artes carregam logo (as duas seguintes com prioridade baixa), para a troca não esperar a rede. */}
             <img src={t.fallback} alt={t.alt} width={t.w} height={t.h} loading="eager" fetchpriority={i === 0 ? 'high' : 'low'} decoding="async" />
           </picture>
@@ -79,15 +80,12 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
       }
     </div>
 
-    {/* Índice da seção: as três áreas da MSSERVER. A linha do tema ativo marca o tempo até o próximo. */}
-    <div class="hero-index" role="tablist" aria-label="Destaques da MSSERVER" data-hero-tabs>
+    {/* Três pontos centralizados indicam o tema exibido; também servem para escolher um. */}
+    <div class="hero-dots" role="tablist" aria-label="Destaques da MSSERVER" data-hero-tabs>
       {
         themes.map((t, i) => (
-          <button class="hero-tab" type="button" role="tab" id={`hero-t-${t.key}`} aria-controls={`hero-p-${t.key}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-hero-tab>
-            <span class="tab-line" aria-hidden="true">
-              <i />
-            </span>
-            <span class="tab-label">{t.label}</span>
+          <button class="hero-dot" type="button" role="tab" id={`hero-t-${t.key}`} aria-label={t.label} aria-controls={`hero-p-${t.key}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-hero-tab>
+            <i />
           </button>
         ))
       }
@@ -115,11 +113,6 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     const running = () => !reduce.matches && !holding && visible;
     const schedule = () => {
       clearTimeout(timer);
-      root.classList.toggle('is-playing', running());
-      // Reinicia a linha de tempo do tema ativo.
-      root.classList.remove('tick');
-      void root.offsetWidth;
-      root.classList.add('tick');
       if (running()) timer = window.setTimeout(() => select(index + 1), DELAY);
     };
 
@@ -213,9 +206,10 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
   .hero {
     position: relative;
     display: flex;
-    /* Proporção natural dos banners (1713 × 918), limitada à altura útil da tela: a arte não é
-       cortada nas laterais e a seção seguinte desponta na primeira dobra. */
-    height: clamp(520px, 53.5vw, calc(100svh - var(--header-h) - 3rem));
+    /* Altura de uma hero comum: a tela inteira abaixo do header. A arte preenche a área com
+       recorte proporcional (object-fit: cover), sem deformar. */
+    height: calc(100svh - var(--header-h));
+    min-height: 540px;
     background: var(--c-indigo-950);
     color: var(--c-on-dark);
     overflow: hidden;
@@ -228,9 +222,9 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     --mx: 0;
     --my: 0;
     position: absolute;
-    inset: -14px;
+    inset: -8px;
     z-index: -2;
-    transform: translate(calc(var(--mx) * -10px), calc(var(--my) * -8px));
+    transform: translate(calc(var(--mx) * -6px), calc(var(--my) * -5px));
     transition: transform 0.8s var(--ease-out);
   }
 
@@ -266,19 +260,21 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     height: 100%;
     max-width: none;
     object-fit: cover;
-    object-position: left center;
+    /* A arte fica na metade esquerda dos banners: em telas mais estreitas que o banner, o corte
+       sai mais da direita (área vazia, onde fica o texto) do que da esquerda. */
+    object-position: 30% center;
   }
 
   /* Aproximação muito lenta enquanto o tema está ativo: a seção não fica estática. */
   @media (prefers-reduced-motion: no-preference) {
     .media-item[data-active] img {
-      animation: settle 9s var(--ease-out) both;
+      animation: settle 8s var(--ease-out) both;
     }
   }
 
   @keyframes settle {
     from {
-      transform: scale(1.07);
+      transform: scale(1.03);
     }
   }
 
@@ -289,7 +285,7 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     z-index: -1;
     background:
       linear-gradient(90deg, transparent 38%, rgb(14 13 34 / 0.5) 54%, rgb(14 13 34 / 0.8) 100%),
-      linear-gradient(0deg, rgb(14 13 34 / 0.85), rgb(14 13 34 / 0.35) 14%, transparent 30%);
+      linear-gradient(0deg, rgb(14 13 34 / 0.55), transparent 18%);
     pointer-events: none;
   }
 
@@ -327,7 +323,7 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
   }
 
   .hero-panel a,
-  .hero-index {
+  .hero-dots {
     pointer-events: auto;
   }
 
@@ -415,102 +411,49 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     display: none;
   }
 
-  /* ——— Índice dos temas, na base da seção ——— */
-  .hero-index {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1rem, 0.5rem + 2vw, 2.5rem);
-    padding-bottom: clamp(1.25rem, 0.8rem + 1.2vw, 2rem);
+  /* ——— Pontos indicadores, centralizados na base ——— */
+  .hero-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.35rem;
+    padding-bottom: clamp(1rem, 0.6rem + 1vw, 1.75rem);
   }
 
-  .hero-tab {
+  /* Área de toque de 28 px; o ponto visível tem 8 px. */
+  .hero-dot {
     display: grid;
-    gap: 0.85rem;
-    padding: 0.6rem 0 0.25rem;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
     border: 0;
+    border-radius: 50%;
     background: none;
-    color: var(--c-on-dark-3);
-    font-size: 0.95rem;
-    font-weight: 600;
-    text-align: left;
-    transition: color var(--dur-2) var(--ease-out);
   }
 
-  .hero-tab:hover {
-    color: var(--c-on-dark-2);
-  }
-
-  .hero-tab[aria-selected='true'] {
-    color: var(--c-on-dark);
-  }
-
-  .hero-tab:focus-visible {
-    outline-color: var(--c-orange);
-    outline-offset: 4px;
-  }
-
-  .tab-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-  }
-
-  /* Losango da marca: acende no tema ativo. */
-  .tab-label::before {
-    content: '';
-    width: 7px;
-    height: 7px;
-    border-radius: 1px;
-    background: currentColor;
-    opacity: 0.4;
-    transform: rotate(45deg) scale(0.8);
+  .hero-dot i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.45);
+    box-shadow: 0 1px 4px rgb(14 13 34 / 0.4);
     transition:
       background-color var(--dur-2) var(--ease-out),
-      opacity var(--dur-2) var(--ease-out),
       transform var(--dur-2) var(--ease-out);
   }
 
-  .hero-tab[aria-selected='true'] .tab-label::before {
+  .hero-dot:hover i {
+    background: rgb(255 255 255 / 0.8);
+  }
+
+  .hero-dot[aria-selected='true'] i {
     background: var(--c-orange);
-    opacity: 1;
-    transform: rotate(45deg) scale(1);
+    transform: scale(1.15);
   }
 
-  .tab-line {
-    position: relative;
-    height: 2px;
-    border-radius: 2px;
-    background: rgb(255 255 255 / 0.2);
-    overflow: hidden;
-    transition: background-color var(--dur-2) var(--ease-out);
-  }
-
-  .hero-tab:hover .tab-line {
-    background: rgb(255 255 255 / 0.35);
-  }
-
-  .tab-line i {
-    position: absolute;
-    inset: 0;
-    background: var(--c-orange);
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-
-  .hero-tab[aria-selected='true'] .tab-line i {
-    transform: scaleX(1);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    :global(.is-playing.tick) .hero-tab[aria-selected='true'] .tab-line i {
-      animation: line 7s linear both;
-    }
-  }
-
-  @keyframes line {
-    from {
-      transform: scaleX(0);
-    }
+  .hero-dot:focus-visible {
+    outline-color: var(--c-orange);
+    outline-offset: 0;
   }
 
   /* ——— Profundidade ao rolar (CSS ligado ao scroll, sem JS) ———
@@ -559,14 +502,27 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     }
   }
 
-  /* ——— Celular e tablet em pé: banner vertical, texto no topo, arte embaixo ——— */
-  @media (max-width: 767px), (max-width: 1023px) and (orientation: portrait) {
-    .hero {
-      /* Proporção natural do banner vertical (941 × 1671), limitada à altura útil da tela. */
-      height: min(178vw, calc(100svh - var(--header-h) - 2.5rem));
-      min-height: 560px;
+  /* Telas em paisagem mais "quadradas" que o banner (ex.: 1024 × 768): o recorte lateral é
+     grande. A arte fica ancorada mais à esquerda (sem cortar o logotipo desenhado) e o texto
+     ocupa uma coluna mais estreita à direita. */
+  @media (min-width: 768px) and (max-aspect-ratio: 8 / 5) {
+    .media-item img {
+      object-position: 6% center;
     }
 
+    .hero-panels {
+      width: min(42vw, 500px);
+    }
+
+    .hero-scrim {
+      background:
+        linear-gradient(90deg, transparent 30%, rgb(14 13 34 / 0.62) 50%, rgb(14 13 34 / 0.88) 100%),
+        linear-gradient(0deg, rgb(14 13 34 / 0.55), transparent 18%);
+    }
+  }
+
+  /* ——— Celular e tablet em pé: banner vertical, texto no topo, arte embaixo ——— */
+  @media (max-width: 767px), (max-width: 1023px) and (orientation: portrait) {
     /* A arte fica ancorada na base e a faixa de cima, onde o banner vertical traz o logotipo
        desenhado, sai do enquadramento: o título não disputa espaço com ele. */
     .media-item img {
@@ -583,7 +539,7 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     .hero-scrim {
       background:
         linear-gradient(180deg, rgb(14 13 34 / 0.75) 0%, rgb(14 13 34 / 0.45) 30%, transparent 55%),
-        linear-gradient(0deg, rgb(14 13 34 / 0.85), transparent 20%);
+        linear-gradient(0deg, rgb(14 13 34 / 0.55), transparent 14%);
     }
 
     .hero-panels {
@@ -610,15 +566,8 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
       font-size: 0.92rem;
     }
 
-    /* Deixa livre o canto do botão flutuante de WhatsApp. */
-    .hero-index {
+    .hero-dots {
       margin-top: auto;
-      gap: 0.9rem;
-      padding-right: 64px;
-    }
-
-    .hero-tab {
-      font-size: 0.85rem;
     }
   }
 
@@ -633,12 +582,6 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
 
     a.only-m {
       display: inline-flex;
-    }
-  }
-
-  @media (max-width: 379px) {
-    .tab-label::before {
-      display: none;
     }
   }
 

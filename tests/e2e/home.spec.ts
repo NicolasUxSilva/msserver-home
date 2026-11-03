@@ -323,9 +323,31 @@ test.describe('hero interativa', () => {
     await expect(active(page)).toHaveAttribute('id', 'hero-p-servidores');
   });
 
+  test('3 pontos centralizados indicam o tema, sem barra de status', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('[data-hero-tabs] [role="tab"]')).toHaveCount(3);
+    // Os pontos não têm texto visível (o nome do tema fica só no rótulo acessível).
+    expect((await page.locator('[data-hero-tabs]').innerText()).trim()).toBe('');
+    // O grupo de pontos (do primeiro ao último) é pequeno e fica no centro da tela.
+    const first = (await page.locator('[data-hero-tabs] [role="tab"]').first().boundingBox())!;
+    const last = (await page.locator('[data-hero-tabs] [role="tab"]').last().boundingBox())!;
+    const span = last.x + last.width - first.x;
+    expect(Math.abs(first.x + span / 2 - page.viewportSize()!.width / 2)).toBeLessThan(2);
+    expect(span).toBeLessThan(120);
+    expect(first.height).toBeLessThanOrEqual(28);
+    await expect(page.getByRole('tab', { name: 'Servidores' })).toHaveAttribute('aria-selected', 'true');
+    await page.getByRole('tab', { name: 'Data Center' }).click();
+    await expect(page.getByRole('tab', { name: 'Data Center' })).toHaveAttribute('aria-selected', 'true');
+  });
+
   test('a arte cobre a seção inteira, com o texto por cima', async ({ page }) => {
     await page.goto('/');
     const hero = (await page.locator('[data-hero]').boundingBox())!;
+    // Altura de uma hero comum: a tela inteira abaixo do header.
+    const header = (await page.locator('[data-header]').boundingBox())!;
+    expect(Math.abs(hero.height - (page.viewportSize()!.height - header.height))).toBeLessThan(2);
+    // Imagem preenchida por recorte proporcional, nunca deformada.
+    await expect(page.locator('[data-hero-art][data-active] img')).toHaveCSS('object-fit', 'cover');
     const art = (await page.locator('[data-hero-art][data-active] img').boundingBox())!;
     expect(art.x).toBeLessThanOrEqual(hero.x);
     expect(art.width).toBeGreaterThanOrEqual(hero.width);

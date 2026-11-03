@@ -60,7 +60,7 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 
 | Padrão | Onde | Reaproveitar em |
 | --- | --- | --- |
-| Hero de fundo inteiro com temas alternados (esmaecimento lento, índice na base com linha de tempo, profundidade com o mouse e ao rolar) | `Hero.astro` | Heros de páginas internas com mais de um destaque |
+| Hero de tela cheia com temas alternados (arte em cover, esmaecimento lento, 3 pontos indicadores, profundidade com o mouse e ao rolar) | `Hero.astro` | Heros de páginas internas com mais de um destaque |
 | Header translúcido fixo, borda ao rolar, submenus em painel, menu móvel em tela cheia | `Header.astro` | Todas as páginas (mesmo `NAV` de `config/site.ts`) |
 | "Palco" escuro arredondado com padrão e brilho (console das landings) | Hero, app, vídeo | Heros de páginas internas, destaques |
 | Cartão de produto (foto em fundo branco 4:3, título, preço em Sora, botão escuro) | `ProductLine.astro` | Categorias, busca, relacionados |
@@ -94,7 +94,7 @@ do Elementor.
   mais devagar; os brilhos do capítulo escuro derivam em velocidade própria; a moldura do vídeo
   se aproxima ao entrar.
 - Hover: 0,18–0,25 s; botões sobem 1 px; setas deslizam 3 px; fotos ampliam 3–4 %.
-- Hero: troca de tema a cada 7 s com linha de tempo no índice; esmaecimento de 1,2 s na arte,
-  aproximação lenta (9 s) do tema ativo e cascata curta na mensagem; pausa com mouse/foco e fora
+- Hero: troca de tema a cada 7 s, indicada por 3 pontos; esmaecimento de 1,2 s na arte,
+  aproximação leve (8 s, 3%) do tema ativo e cascata curta na mensagem; pausa com mouse/foco e fora
   da tela; sem troca automática com "reduzir movimento".
 - Sem scroll hijacking; rolagem suave só sem "reduzir movimento".

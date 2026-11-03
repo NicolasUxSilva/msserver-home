@@ -135,17 +135,21 @@ Os 3 banners do slider passaram a ser 3 temas de uma mesma seção (`src/compone
 que substitui `HeroSlider.astro`). Textos, imagens (versão larga e versão vertical do celular)
 e destinos de cada banner continuam os mesmos.
 
-- **Fundo inteiro:** a arte do banner cobre a seção de ponta a ponta, com o texto por cima, como
-  nos banners do WordPress. Texto à direita no desktop (a arte fica na metade esquerda) e no topo
-  no celular e no tablet em pé (que usam o banner vertical). No celular, a faixa de cima do
-  banner vertical, com o logotipo desenhado, sai do enquadramento para não ficar atrás do título.
+- **Fundo inteiro, altura de hero comum:** a seção ocupa a tela inteira abaixo do header e a arte
+  do banner a preenche de ponta a ponta com recorte proporcional (`object-fit: cover`), sem
+  deformar, com o texto por cima, como nos banners do WordPress. Texto à direita no desktop (a
+  arte fica na metade esquerda) e no topo no celular e no tablet em pé (que usam o banner
+  vertical). No celular, a faixa de cima do banner vertical, com o logotipo desenhado, sai do
+  enquadramento para não ficar atrás do título.
 - **Troca automática a cada 7 s, sem botão de play/pause nem setas:** a arte nova surge por
-  esmaecimento lento (nada desliza), com uma aproximação muito lenta enquanto o tema está
-  ativo, e a mensagem entra em cascata. A troca não desloca a página.
-- **Índice na base da seção:** "Servidores", "App" e "Data Center", as palavras em destaque
-  desenhadas nos próprios banners (único texto novo, usado só como rótulo). A linha do tema
-  ativo marca o tempo até o próximo; clicar ou usar as setas do teclado escolhe o tema e
-  reinicia o tempo. No celular, deslizar o dedo também troca.
+  esmaecimento lento (nada desliza), com uma aproximação muito leve enquanto o tema está ativo,
+  e a mensagem entra em cascata. A troca não desloca a página.
+- **3 pontos centralizados na base:** indicam o tema exibido (o ativo em laranja) e permitem
+  escolher um; setas do teclado também funcionam. Os nomes "Servidores", "App" e "Data Center"
+  ficam só como rótulo acessível dos pontos. No celular, deslizar o dedo também troca.
+- **Resolução:** os banners originais têm 1713 px (largos) e 941 px (verticais) de largura. Em
+  telas muito grandes ou de alta densidade eles são ampliados um pouco; não há versão maior no
+  WordPress.
 - **Pausas automáticas:** com o mouse ou o foco sobre a seção, quando ela sai da tela e com
   "reduzir movimento" ativado (nesse caso não troca sozinha).
 - **Clique na arte:** no desktop leva ao destino do tema (no WordPress o banner inteiro era um
