@@ -103,7 +103,7 @@ function initMobileMenu() {
         v.dataset.dir = dir;
       }
     }
-    if (focus) menu.querySelector<HTMLElement>(`#${id} .m-grid a, #${id} .m-grid button`)?.focus({ preventScroll: true });
+    if (focus) menu.querySelector<HTMLElement>(`#${id} .m-open, #${id} .m-grid a`)?.focus({ preventScroll: true });
   };
 
   const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';

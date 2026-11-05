@@ -191,7 +191,7 @@ test.describe('desktop', () => {
 test.describe('celular', () => {
   test.skip(({ isMobile }) => !isMobile, 'somente celular');
 
-  test('menu móvel: painel do topo com metade da tela, logo centralizada e todos os níveis', async ({ page }) => {
+  test('menu móvel: meia tela, logo centralizada, itens de abrir lado a lado e todos os níveis', async ({ page }) => {
     await page.goto('/');
     // Simula o Safari/Chrome dos celulares: o desfoque do header vira bloco de contenção para
     // elementos fixos. Com o menu dentro do header, ele abria com altura zero.
@@ -213,15 +213,28 @@ test.describe('celular', () => {
     // Logo centralizada.
     const logo = (await menu.locator('.m-brand').boundingBox())!;
     expect(Math.abs(logo.x + logo.width / 2 - vp.width / 2)).toBeLessThan(2);
-    // Itens centralizados nas células.
-    const cell = (await menu.locator('#m-v-root .m-cell').nth(2).boundingBox())!;
+    // Itens que abrem submenu (Servidores, Soluções) lado a lado, acima dos links.
+    const servidores = (await menu.getByRole('button', { name: 'Servidores', exact: true }).boundingBox())!;
+    const solucoes = (await menu.getByRole('button', { name: 'Soluções', exact: true }).boundingBox())!;
+    expect(Math.abs(servidores.y - solucoes.y)).toBeLessThan(1);
+    expect(Math.abs(servidores.width - solucoes.width)).toBeLessThan(1);
+    const links = menu.locator('#m-v-root .m-cell');
+    await expect(links).toHaveCount(6);
+    const firstLink = (await links.first().boundingBox())!;
+    expect(firstLink.y).toBeGreaterThan(servidores.y + servidores.height);
+    // Links nas mesmas duas colunas dos botões, com o texto centralizado na célula.
+    expect(Math.abs(firstLink.x - servidores.x)).toBeLessThan(2);
+    const cell = (await menu.locator('.m-cell', { has: page.getByRole('link', { name: 'Sobre nós' }) }).boundingBox())!;
     const link = (await menu.getByRole('link', { name: 'Sobre nós' }).boundingBox())!;
+    expect(Math.abs(cell.x - solucoes.x)).toBeLessThan(2);
     expect(Math.abs(cell.x + cell.width / 2 - (link.x + link.width / 2))).toBeLessThan(2);
 
-    // Submenus em camadas, com "Voltar".
-    await menu.getByRole('button', { name: 'Abrir submenu de Servidores' }).click();
+    // Submenus em camadas, com "Voltar". O título da camada leva à página do item, quando existe.
+    await menu.getByRole('button', { name: 'Servidores', exact: true }).click();
     await expect(menu.getByRole('link', { name: 'Ver todos' })).toBeVisible();
-    await menu.getByRole('button', { name: 'Abrir submenu de Componentes' }).click();
+    await expect(menu.locator('#m-v-root-0 .m-title')).toHaveAttribute('href', 'https://msserver.com.br/servidores');
+    await menu.getByRole('button', { name: 'Componentes', exact: true }).click();
+    await expect(menu.locator('#m-v-root-0-4 .m-title')).toHaveAttribute('href', 'https://msserver.com.br/categoria-produto/componentes/');
     await expect(menu.getByRole('link', { name: 'Gavetas' })).toBeVisible();
     await expect(menu.getByRole('link', { name: 'Gavetas' })).toHaveAttribute('href', 'https://msserver.com.br/categoria-produto/gavetas/');
     await menu.locator('#m-v-root-0-4').getByRole('button', { name: 'Voltar' }).click();

@@ -8,16 +8,23 @@ import { LINKS, NAV, type NavLink } from '../config/site';
 const isCurrent = (href?: string) => href === LINKS.home;
 
 // Camadas do menu móvel: a raiz e uma camada para cada item com submenu (em qualquer nível).
+// Em cada camada, os itens que abrem submenu vêm primeiro, lado a lado; os links vêm abaixo.
+// Quando o item que abre tem página própria (Servidores, Componentes), o título da camada
+// aberta leva a ela.
 type MItem = { label: string; href?: string; sub?: string };
-type MView = { id: string; title: string; parent?: string; items: MItem[] };
+type MView = { id: string; title: string; href?: string; parent?: string; openers: MItem[]; links: MItem[] };
 const views: MView[] = [];
-const addView = (id: string, title: string, items: NavLink[], parent?: string) => {
-  const view: MView = { id, title, parent, items: [] };
+const addView = (id: string, title: string, items: NavLink[], parent?: string, href?: string) => {
+  const view: MView = { id, title, href, parent, openers: [], links: [] };
   views.push(view);
   items.forEach((it, k) => {
-    const sub = it.children ? `${id}-${k}` : undefined;
-    view.items.push({ label: it.label, href: it.href, sub });
-    if (it.children && sub) addView(sub, it.label, it.children, id);
+    if (it.children) {
+      const sub = `${id}-${k}`;
+      view.openers.push({ label: it.label, href: it.href, sub });
+      addView(sub, it.label, it.children, id, it.href);
+    } else {
+      view.links.push({ label: it.label, href: it.href });
+    }
   });
 };
 addView('m-v-root', 'Menu', NAV);
@@ -150,27 +157,32 @@ addView('m-v-root', 'Menu', NAV);
                   <Icon name="chevron-left" size={18} />
                   Voltar
                 </button>
-                <p class="m-title">{v.title}</p>
+                {v.href ? (
+                  <a class="m-title m-title--link" href={v.href}>
+                    {v.title}
+                    <Icon name="arrow-right" size={13} />
+                  </a>
+                ) : (
+                  <p class="m-title">{v.title}</p>
+                )}
+              </div>
+            )}
+            {v.openers.length > 0 && (
+              <div class:list={['m-openers', v.openers.length === 1 && 'm-openers--one']}>
+                {v.openers.map((it) => (
+                  <button class="m-open" type="button" data-m-open={it.sub}>
+                    <span>{it.label}</span>
+                    <Icon name="chevron-right" size={16} class="m-chev" />
+                  </button>
+                ))}
               </div>
             )}
             <ul class="m-grid">
-              {v.items.map((it) => (
+              {v.links.map((it) => (
                 <li class="m-cell">
-                  {it.href ? (
-                    <a class="m-link" href={it.href} aria-current={isCurrent(it.href) ? 'page' : undefined}>
-                      {it.label}
-                    </a>
-                  ) : (
-                    <button class="m-link m-link--btn" type="button" data-m-open={it.sub}>
-                      {it.label}
-                      <Icon name="chevron-right" size={16} class="m-chev" />
-                    </button>
-                  )}
-                  {it.href && it.sub && (
-                    <button class="m-more" type="button" aria-label={`Abrir submenu de ${it.label}`} data-m-open={it.sub}>
-                      <Icon name="chevron-right" size={16} />
-                    </button>
-                  )}
+                  <a class="m-link" href={it.href} aria-current={isCurrent(it.href) ? 'page' : undefined}>
+                    {it.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -763,27 +775,28 @@ addView('m-v-root', 'Menu', NAV);
       animation: view-back 0.32s var(--ease-out) both;
     }
 
+    .m-menu:global(.is-open) .m-view[data-dir='none'] .m-open,
     .m-menu:global(.is-open) .m-view[data-dir='none'] .m-cell {
       animation: cell-in 0.4s var(--ease-out) both;
     }
 
-    .m-view[data-dir='none'] .m-cell:nth-child(2) {
+    .m-view[data-dir='none'] .m-open:nth-child(2) {
       animation-delay: 0.04s;
     }
-    .m-view[data-dir='none'] .m-cell:nth-child(3) {
+    .m-view[data-dir='none'] .m-cell:nth-child(1) {
       animation-delay: 0.08s;
     }
-    .m-view[data-dir='none'] .m-cell:nth-child(4) {
-      animation-delay: 0.12s;
+    .m-view[data-dir='none'] .m-cell:nth-child(2) {
+      animation-delay: 0.1s;
     }
-    .m-view[data-dir='none'] .m-cell:nth-child(5) {
+    .m-view[data-dir='none'] .m-cell:nth-child(3) {
+      animation-delay: 0.14s;
+    }
+    .m-view[data-dir='none'] .m-cell:nth-child(4) {
       animation-delay: 0.16s;
     }
-    .m-view[data-dir='none'] .m-cell:nth-child(6) {
+    .m-view[data-dir='none'] .m-cell:nth-child(n + 5) {
       animation-delay: 0.2s;
-    }
-    .m-view[data-dir='none'] .m-cell:nth-child(n + 7) {
-      animation-delay: 0.24s;
     }
   }
 
@@ -844,6 +857,63 @@ addView('m-v-root', 'Menu', NAV);
     text-align: center;
   }
 
+  .m-title--link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 40px;
+    text-decoration: none;
+  }
+
+  .m-title--link:active {
+    color: var(--c-ink);
+  }
+
+  /* Itens que abrem submenu: botões de mesma largura, lado a lado, acima dos links. */
+  .m-openers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  .m-openers--one {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .m-open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    min-height: 50px;
+    padding: 0 0.75rem;
+    border: 1px solid var(--c-line-2);
+    border-radius: 14px;
+    background: var(--c-surface);
+    color: var(--c-ink);
+    font-family: var(--f-display);
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    transition:
+      background-color var(--dur-1) var(--ease-out),
+      border-color var(--dur-1) var(--ease-out),
+      transform var(--dur-1) var(--ease-out);
+  }
+
+  .m-open:active {
+    background: var(--c-paper-2);
+    transform: scale(0.98);
+  }
+
+  .m-open :global(.m-chev) {
+    flex: none;
+    color: var(--c-orange-text);
+  }
+
   /* Itens centralizados em duas colunas. */
   .m-grid {
     list-style: none;
@@ -862,13 +932,12 @@ addView('m-v-root', 'Menu', NAV);
     align-items: center;
     justify-content: center;
     gap: 0.15rem;
-    min-height: 46px;
+    min-height: 44px;
     border-radius: 14px;
     transition: background-color var(--dur-1) var(--ease-out);
   }
 
-  .m-cell:has(.m-link:active),
-  .m-cell:has(.m-more:active) {
+  .m-cell:has(.m-link:active) {
     background: var(--c-paper-2);
   }
 
@@ -894,28 +963,40 @@ addView('m-v-root', 'Menu', NAV);
     color: var(--c-orange-text);
   }
 
-  .m-link :global(.m-chev),
-  .m-more {
-    flex: none;
-    color: var(--c-ink-3);
-  }
-
-  .m-more {
-    display: grid;
-    place-items: center;
-    width: 32px;
-    height: 32px;
-    border: 1px solid var(--c-line-2);
-    border-radius: 9px;
-    background: var(--c-surface);
-  }
-
-  .m-more:active {
-    transform: scale(0.94);
-  }
-
   @media (max-width: 359px) {
+    .m-link,
+    .m-open {
+      font-size: 1rem;
+    }
+  }
+
+  /* Telas baixas (ex.: iPhone SE): o mesmo menu, mais compacto, para caber na meia tela. */
+  @media (max-height: 640px) {
+    .m-top {
+      height: 60px;
+    }
+
+    .m-view {
+      gap: 0.45rem;
+      padding-block: 0.6rem 0.75rem;
+    }
+
+    .m-openers {
+      gap: 0.5rem;
+      padding-bottom: 0.45rem;
+    }
+
+    .m-open {
+      min-height: 44px;
+      font-size: 1rem;
+    }
+
+    .m-cell {
+      min-height: 38px;
+    }
+
     .m-link {
+      padding-block: 0.4rem;
       font-size: 1rem;
     }
   }

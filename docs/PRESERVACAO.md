@@ -164,7 +164,13 @@ e destinos de cada banner continuam os mesmos.
 - **Formato:** painel que desce do topo e cobre metade da tela (em telas muito baixas, o mínimo
   que cabe o menu); a outra metade fica escurecida e tocar nela fecha. Logo da MSSERVER
   centralizada no topo do painel, com ✕ à direita; itens centralizados em duas colunas.
-- **Submenus:** Servidores, Componentes, Soluções e Servidores em Nuvem abrem em camadas dentro
-  do painel, com "Voltar". Itens, nomes, ordem e destinos são os do menu do WordPress.
+- **Organização:** em cada camada, os itens que abrem submenu vêm primeiro, como botões de mesma
+  largura lado a lado (Servidores e Soluções; dentro deles, Componentes e Servidores em Nuvem), e
+  os links vêm abaixo, nas mesmas duas colunas. É a única mudança de ordem em relação ao
+  WordPress, e só no menu do celular.
+- **Submenus:** abrem em camadas dentro do painel, com "Voltar". Os nomes e destinos são os do
+  menu do WordPress. Servidores e Componentes, que no WordPress eram ao mesmo tempo link e
+  submenu, viraram botões de abrir; os destinos continuam no título da camada aberta (que leva à
+  página do item) e, em Servidores, também em "Ver todos".
 - **Rolagem preservada:** abrir e fechar o menu (ou a busca, ou um submenu do desktop com Esc)
   não move mais a página; antes, ao devolver o foco ao botão do header, a página voltava ao topo.
