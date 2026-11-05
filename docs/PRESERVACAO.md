@@ -174,3 +174,13 @@ e destinos de cada banner continuam os mesmos.
   página do item) e, em Servidores, também em "Ver todos".
 - **Rolagem preservada:** abrir e fechar o menu (ou a busca, ou um submenu do desktop com Esc)
   não move mais a página; antes, ao devolver o foco ao botão do header, a página voltava ao topo.
+
+## Soluções e postagens no celular
+
+- **Soluções:** o acordeão do desktop também no celular, na horizontal. As três soluções ficam
+  sempre na tela: a aberta ocupa a maior parte e as outras viram faixas estreitas que mostram o
+  título desenhado na própria imagem (como as faixas recolhidas do desktop). Tocar numa faixa
+  abre a solução (sem seguir o link); deslizar para o lado abre a vizinha; tocar na solução
+  aberta segue o link. No tablet (768–1099 px) os painéis continuam empilhados.
+- **Postagens:** no celular, as três postagens deslizam na horizontal, como a linha de
+  servidores; todas continuam no HTML.

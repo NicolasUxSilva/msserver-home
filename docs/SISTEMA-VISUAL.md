@@ -76,8 +76,12 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 - **Coluna lateral fixa (desktop):** título e controles de uma seção longa ficam ao alcance
   enquanto o conteúdo passa ao lado (`.line-aside` em `ProductLine.astro`). Abaixo de 1100 px a
   coluna "se desfaz" com `display: contents` e os itens viram uma sequência simples.
-- **Carrossel no celular:** a lista (`[data-rail]`) rola na horizontal com encaixe nativo
-  (`scroll-snap`), o próximo cartão aparecendo na borda; só CSS, sem indicador.
+- **Carrossel no celular:** a lista rola na horizontal com encaixe nativo (`scroll-snap`), o
+  próximo cartão aparecendo na borda; só CSS, sem indicador. Usado em servidores e postagens.
+- **Acordeão no celular:** quando os itens precisam ficar todos visíveis (soluções), o acordeão
+  do desktop continua na horizontal: aberto largo, os outros em faixas. O toque numa faixa a
+  abre; o estado é lido no `pointerdown`, porque o navegador foca o link (e o foco abre o
+  painel) antes do clique.
 
 ## Breakpoints
 

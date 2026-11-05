@@ -465,3 +465,64 @@ test('redução de movimento: hero parada e conteúdo visível', async ({ browse
   await expect(page.locator('h1')).toBeVisible();
   await ctx.close();
 });
+
+test.describe('celular: soluções e postagens', () => {
+  test.skip(({ isMobile }) => !isMobile, 'somente celular');
+
+  test('soluções: acordeão horizontal com as três sempre na tela', async ({ page }) => {
+    await page.route('https://msserver.com.br/**', (r) => r.fulfill({ body: 'ok', contentType: 'text/html' }));
+    await page.goto('/');
+    const items = page.locator('[data-acc-item]');
+    await page.locator('[data-acc]').evaluate((el) => el.scrollIntoView({ block: 'center' }));
+    // Espera a entrada animada dos painéis terminar.
+    await expect.poll(() => items.last().evaluate((el) => getComputedStyle(el).opacity)).toBe('1');
+    await page.waitForTimeout(300);
+    const vw = page.viewportSize()!.width;
+    const inside = async () => {
+      for (let i = 0; i < 3; i++) {
+        const b = (await items.nth(i).boundingBox())!;
+        expect(b.x).toBeGreaterThanOrEqual(0);
+        expect(b.x + b.width).toBeLessThanOrEqual(vw);
+      }
+    };
+    await expect(items.nth(0)).toHaveAttribute('data-open', '');
+    await inside();
+    // Toque real (o click() do Playwright simula um mouse, que abre o painel ao passar por cima).
+    const tap = async (i: number, dx: number) => {
+      const b = (await items.nth(i).boundingBox())!;
+      await page.touchscreen.tap(b.x + dx, b.y + b.height / 2);
+    };
+    // Tocar numa faixa recolhida abre a solução, sem seguir o link.
+    await tap(1, 20);
+    await expect(items.nth(1)).toHaveAttribute('data-open', '');
+    await expect(page).toHaveURL(/localhost/);
+    await page.waitForTimeout(800);
+    await inside();
+    // Deslizar para a esquerda abre a próxima.
+    await page.locator('[data-acc]').evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      const mk = (x: number) => new Touch({ identifier: 1, target: el, clientX: x, clientY: r.top + 200 });
+      el.dispatchEvent(new TouchEvent('touchstart', { touches: [mk(r.right - 40)], changedTouches: [mk(r.right - 40)], bubbles: true }));
+      el.dispatchEvent(new TouchEvent('touchend', { touches: [], changedTouches: [mk(r.left + 40)], bubbles: true }));
+    });
+    await expect(items.nth(2)).toHaveAttribute('data-open', '');
+    // Com a solução aberta, o toque segue o link.
+    await tap(1, 20);
+    await expect(items.nth(1)).toHaveAttribute('data-open', '');
+    await expect(page).toHaveURL(/localhost/);
+    await page.waitForTimeout(800);
+    await tap(1, 60);
+    await expect(page).toHaveURL('https://msserver.com.br/solucoes-cloud/');
+  });
+
+  test('postagens deslizam na horizontal', async ({ page }) => {
+    await page.goto('/');
+    const rail = page.locator('.post-grid');
+    await rail.scrollIntoViewIfNeeded();
+    expect(await rail.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
+    await rail.evaluate((el) => el.scrollTo({ left: el.scrollWidth }));
+    await expect(page.locator('.post').last()).toBeInViewport();
+    await expect(page.locator('.post')).toHaveCount(3);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
+  });
+});
