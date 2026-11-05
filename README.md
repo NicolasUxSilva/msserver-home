@@ -1,4 +1,4 @@
-# Home MSSERVER · reformulação visual (etapa 01)
+# Site MSSERVER · reformulação visual (home e "Sobre nós")
 
 Home institucional de [msserver.com.br](https://msserver.com.br/) reconstruída na identidade
 visual das landings de servidores físicos e de Cloud, **com a mesma estrutura, os mesmos
@@ -37,7 +37,8 @@ npm run build
 | --- | --- |
 | Produtos das abas e últimas postagens | `npm run sync` → `src/data/products.json`, `src/data/posts.json` |
 | Logo, banners, imagens das seções, logos de clientes | `npm run assets` (baixa de msserver.com.br) e `node scripts/client-logos.mjs` (versão monocromática dos logos) |
-| Textos | `src/data/content.ts` |
+| Textos | `src/data/content.ts` (home) e `src/data/sobre.ts` ("Sobre nós") |
+| Fotos, ícones e fundos da página "Sobre nós" | `node scripts/prepare-sobre-assets.mjs` (baixa de msserver.com.br) |
 | Menu, links, contatos, WhatsApp, vídeo, rastreamento | `src/config/site.ts` |
 | Metadados JSON-LD (cópia do All in One SEO) | `src/data/schema.json` |
 
@@ -53,10 +54,15 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-49 testes (desktop 1440 px e celular 390 px): preservação de links e textos contra a home
+68 testes (desktop 1440 px e celular 390 px). Home (`tests/e2e/home.spec.ts`, 49): preservação de links e textos contra a home
 original (`tests/fixtures/original-home.json`), ordem das seções, SEO, imagens, console,
 rolagem horizontal, abas, hero de tela cheia (arte cobrindo a seção sem deformar, 3 pontos indicadores, teclado, troca automática, pausa com o mouse, deslize no celular, sem deslocamento de layout), busca, WhatsApp, vídeo, cartões clicáveis, coluna lateral fixa e carrosséis de servidores e postagens, acordeão de soluções no celular, submenus, menu móvel (meia tela, camadas, fechar tocando fora, sem mover a página), acessibilidade
 (axe) e redução de movimento. Chamadas externas são bloqueadas durante os testes.
+
+"Sobre nós" (`tests/e2e/sobre.spec.ts`, 19): textos, títulos, ordem dos blocos, imagens e fundos,
+destino do botão contra a página original (`tests/fixtures/original-sobre.json`), SEO, menu com a
+página atual, carrossel de depoimentos (setas, pontos, volta ao início, troca automática, parada
+após interação, redução de movimento), composição das colunas e acessibilidade (axe).
 
 Capturas de QA: `node scripts/qa-screenshots.mjs http://localhost:4330/ 390,768,1024,1440`.
 

@@ -5,15 +5,19 @@ import soraUrl from '@fontsource-variable/sora/files/sora-latin-wght-normal.woff
 import interUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import monoUrl from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url';
 import { SITE, TRACKING } from '../config/site';
-import schema from '../data/schema.json';
+import homeSchema from '../data/schema.json';
 
 interface Props {
   title?: string;
   description?: string;
   canonical?: string;
+  /** og:type da página (o All in One SEO usa "website" na home e "article" nas páginas). */
+  ogType?: string;
+  /** Dados estruturados (JSON-LD) da página; padrão: os da home. */
+  schema?: unknown;
 }
 
-const { title = SITE.title, description = SITE.description, canonical = SITE.canonical } = Astro.props;
+const { title = SITE.title, description = SITE.description, canonical = SITE.canonical, ogType = 'website', schema = homeSchema } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
 
@@ -46,7 +50,7 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
 
     <meta property="og:locale" content={SITE.locale} />
     <meta property="og:site_name" content={SITE.ogSiteName} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />

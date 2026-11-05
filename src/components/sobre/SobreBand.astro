@@ -1,0 +1,73 @@
+---
+import { getImage } from 'astro:assets';
+import bg from '../../assets/sobre/bg/quem-somos.png';
+import { SOBRE } from '../../data/sobre';
+
+// Fundo original da faixa "QUEM SOMOS" (seção 6f8c929), usado como textura.
+const texture = await getImage({ src: bg, width: 1680, format: 'webp', quality: 82 });
+---
+
+<section class="band dark-surface on-dark" id="quem-somos" aria-labelledby="quem-somos-title">
+  <div class="dark-surface__bg" aria-hidden="true">
+    <div class="band-texture" style={`background-image:url(${texture.src})`}></div>
+    <div class="glow glow--indigo band-glow-a"></div>
+    <div class="glow glow--orange band-glow-b"></div>
+  </div>
+  <div class="container band-inner">
+    <span class="band-mark" aria-hidden="true"></span>
+    <h1 id="quem-somos-title" data-reveal>{SOBRE.title}</h1>
+  </div>
+</section>
+
+<style>
+  .band {
+    /* Espaço extra embaixo: o retrato da seção seguinte sobe sobre a borda da faixa. */
+    padding-block: clamp(3.5rem, 2.5rem + 4vw, 6rem) clamp(6.5rem, 4rem + 8vw, 10.5rem);
+    overflow: hidden;
+  }
+
+  .band-texture {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.9;
+  }
+
+  .band-glow-a {
+    top: -60%;
+    left: 30%;
+    width: 50%;
+    height: 160%;
+  }
+
+  .band-glow-b {
+    bottom: -80%;
+    right: -10%;
+    width: 45%;
+    height: 140%;
+    opacity: 0.8;
+  }
+
+  .band-inner {
+    display: grid;
+    justify-items: center;
+    gap: 1.1rem;
+    text-align: center;
+  }
+
+  /* Losango da marca, como no marcador da hero das landings. */
+  .band-mark {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    background: var(--c-orange);
+    transform: rotate(45deg);
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 1.5rem + 3.2vw, 4rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+</style>

@@ -1,0 +1,118 @@
+---
+// Botão flutuante de WhatsApp (plugin Click to Chat do WordPress: mesmo número e mensagem).
+// Mesmo botão da home; a home ainda o declara em pages/index.astro e pode passar a usar este
+// componente numa próxima etapa.
+import Icon from './Icon.astro';
+import { whatsappUrl } from '../config/site';
+---
+
+<a class="wa-fab" href={whatsappUrl()} target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp" data-wa-fab data-track="contact_whatsapp_click" data-track-location="flutuante">
+  <span class="wa-fab-icon"><Icon name="whatsapp" size={28} /></span>
+  <span class="wa-fab-label" aria-hidden="true">WhatsApp</span>
+</a>
+
+<style>
+  /* ——— WhatsApp flutuante ——— */
+  .wa-fab {
+    position: fixed;
+    right: clamp(1rem, 0.6rem + 1.5vw, 1.75rem);
+    bottom: calc(clamp(1rem, 0.6rem + 1.5vw, 1.75rem) + env(safe-area-inset-bottom));
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    height: 58px;
+    padding: 0 15px;
+    border-radius: 999px;
+    background: #1faa53;
+    color: #fff;
+    text-decoration: none;
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.12) inset,
+      0 14px 32px -12px rgb(14 60 30 / 0.6);
+    transition:
+      opacity 0.35s var(--ease-out),
+      transform 0.35s var(--ease-out),
+      background-color var(--dur-1),
+      box-shadow var(--dur-2) var(--ease-out);
+  }
+
+  .wa-fab-icon {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+  }
+
+  /* O rótulo abre no hover/foco e deixa claro o que o botão faz. */
+  .wa-fab-label {
+    max-width: 0;
+    overflow: hidden;
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition:
+      max-width 0.4s var(--ease-out),
+      margin 0.4s var(--ease-out),
+      opacity 0.25s var(--ease-out);
+  }
+
+  .wa-fab:hover .wa-fab-label,
+  .wa-fab:focus-visible .wa-fab-label {
+    max-width: 120px;
+    margin: 0 0.35rem 0 0.6rem;
+    opacity: 1;
+  }
+
+  :global(.js) .wa-fab:not(:global(.is-visible)) {
+    opacity: 0;
+    transform: translateY(16px) scale(0.9);
+  }
+
+  .wa-fab:hover {
+    background: #189548;
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.12) inset,
+      0 18px 36px -12px rgb(14 60 30 / 0.65);
+  }
+
+  .wa-fab:active {
+    transform: translateY(0) scale(0.97);
+  }
+
+  .wa-fab:focus-visible {
+    outline-color: var(--c-indigo-600);
+  }
+
+  /* Um único pulso ao aparecer, para ser notado; depois fica quieto. */
+  @media (prefers-reduced-motion: no-preference) {
+    .wa-fab:global(.is-visible)::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      animation: wa-pulse 1.6s var(--ease-out) 0.4s 2 both;
+      pointer-events: none;
+    }
+  }
+
+  @keyframes wa-pulse {
+    from {
+      box-shadow: 0 0 0 0 rgb(31 170 83 / 0.45);
+    }
+    to {
+      box-shadow: 0 0 0 16px rgb(31 170 83 / 0);
+    }
+  }
+
+  :global(html.menu-open) .wa-fab {
+    display: none;
+  }
+
+  @media (hover: none) {
+    .wa-fab-label {
+      display: none;
+    }
+  }
+</style>

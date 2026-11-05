@@ -1,0 +1,375 @@
+---
+import { getImage } from 'astro:assets';
+import Icon from '../Icon.astro';
+import bg from '../../assets/sobre/bg/depoimentos.png';
+import { SOBRE } from '../../data/sobre';
+
+// Fundo original da faixa "O QUE OS CLIENTES DIZEM" (seção 5cc1668), usado como textura.
+const texture = await getImage({ src: bg, width: 1680, format: 'webp', quality: 82 });
+const { title, items } = SOBRE.depoimentos;
+---
+
+{/* Mesmo carrossel do WordPress (widget 0090bc4): 4 depoimentos na mesma ordem, 3 por vez no
+    desktop, setas, pontos, troca automática a cada 5 s, volta ao início depois do último e pausa
+    com o mouse; depois que a pessoa usa os controles, a troca automática para. */}
+<section class="reviews dark-surface on-dark" id="depoimentos" aria-labelledby="depoimentos-title" aria-roledescription="carrossel" data-reviews>
+  <div class="dark-surface__bg" aria-hidden="true">
+    <div class="reviews-texture" style={`background-image:url(${texture.src})`}></div>
+    <div class="glow glow--orange reviews-glow"></div>
+  </div>
+  <div class="container">
+    <h2 id="depoimentos-title" class="reviews-title" data-reveal>{title}</h2>
+
+    {/* Trilho focável: dá para rolar pelo teclado (setas) mesmo sem elementos focáveis dentro. */}
+    <div class="rv-track" tabindex="0" aria-label="Depoimentos de clientes" data-rv-track>
+      {
+        items.map((t, i) => (
+          <div class="rv-card" role="group" aria-roledescription="depoimento" aria-label={`${i + 1} de ${items.length}`} data-rv-item>
+            <Icon name="quote" size={26} class="rv-mark" />
+            <blockquote class="rv-quote">
+              <p>{t.quote}</p>
+            </blockquote>
+            <p class="rv-who">
+              <strong>{t.name}</strong>
+              <span>{t.company}</span>
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="rv-controls">
+      <button class="rv-arrow" type="button" aria-label="Depoimento anterior" data-rv-prev>
+        <Icon name="chevron-left" size={20} />
+      </button>
+      <div class="rv-dots" role="group" aria-label="Escolher depoimento">
+        {items.map((_, i) => (
+          <button class="rv-dot" type="button" aria-label={`Ir para o depoimento ${i + 1}`} aria-current={i === 0 ? 'true' : undefined} data-rv-dot={i}>
+            <i />
+          </button>
+        ))}
+      </div>
+      <button class="rv-arrow" type="button" aria-label="Próximo depoimento" data-rv-next>
+        <Icon name="chevron-right" size={20} />
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-reviews]');
+  const track = root?.querySelector<HTMLElement>('[data-rv-track]');
+  if (root && track) {
+    const cards = [...track.querySelectorAll<HTMLElement>('[data-rv-item]')];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-rv-dot]')];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const DELAY = 5000;
+    let index = 0;
+    let positions = 1;
+    let holding = false;
+    let visible = false;
+    let interacted = false;
+    let timer = 0;
+    // Enquanto a rolagem é comandada pelas setas, pontos ou troca automática, a posição do
+    // trilho não é relida (evita marcar o ponto errado no meio da animação).
+    let steering = false;
+
+    // Distância entre o início de dois cartões vizinhos.
+    const step = () => (cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth);
+    // Quantas posições existem: com 3 por vez e 4 depoimentos, são 2 no desktop; no celular, 4.
+    const measure = () => {
+      const perView = Math.max(1, Math.round(track.clientWidth / step()));
+      positions = Math.max(1, cards.length - perView + 1);
+      dots.forEach((d, i) => (d.hidden = i >= positions));
+      if (index >= positions) index = positions - 1;
+      paint();
+    };
+
+    const paint = () => {
+      dots.forEach((d, i) => (i === index ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current')));
+    };
+
+    const go = (i: number) => {
+      index = ((i % positions) + positions) % positions;
+      steering = Math.abs(track.scrollLeft - index * step()) > 1;
+      track.scrollTo({ left: index * step(), behavior: reduce.matches ? 'auto' : 'smooth' });
+      paint();
+      schedule();
+    };
+
+    const running = () => !reduce.matches && !holding && visible && !interacted;
+    const schedule = () => {
+      clearTimeout(timer);
+      if (running()) timer = window.setTimeout(() => go(index + 1), DELAY);
+    };
+
+    // Depois que a pessoa usa o carrossel, ele não troca mais sozinho (como no WordPress).
+    const takeOver = () => {
+      interacted = true;
+      schedule();
+    };
+
+    root.querySelector('[data-rv-prev]')?.addEventListener('click', () => (takeOver(), go(index - 1)));
+    root.querySelector('[data-rv-next]')?.addEventListener('click', () => (takeOver(), go(index + 1)));
+    dots.forEach((d, i) => d.addEventListener('click', () => (takeOver(), go(i))));
+    track.addEventListener('pointerdown', () => ((steering = false), takeOver()), { passive: true });
+    track.addEventListener('keydown', (e) => e.key.startsWith('Arrow') && ((steering = false), takeOver()));
+    track.addEventListener('wheel', (e) => Math.abs(e.deltaX) > Math.abs(e.deltaY) && takeOver(), { passive: true });
+
+    let scrollTimer = 0;
+    track.addEventListener(
+      'scroll',
+      () => {
+        clearTimeout(scrollTimer);
+        scrollTimer = window.setTimeout(() => {
+          if (steering) {
+            steering = false;
+            return;
+          }
+          const i = Math.min(positions - 1, Math.round(track.scrollLeft / step()));
+          if (i !== index) {
+            index = i;
+            paint();
+            schedule();
+          }
+        }, 90);
+      },
+      { passive: true },
+    );
+
+    root.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') {
+        holding = true;
+        schedule();
+      }
+    });
+    root.addEventListener('pointerleave', () => {
+      holding = false;
+      schedule();
+    });
+    root.addEventListener('focusin', () => {
+      holding = true;
+      schedule();
+    });
+    root.addEventListener('focusout', (e) => {
+      if (!root.contains(e.relatedTarget as Node)) {
+        holding = false;
+        schedule();
+      }
+    });
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      schedule();
+    }).observe(root);
+    new ResizeObserver(() => {
+      measure();
+      track.scrollTo({ left: index * step() });
+    }).observe(track);
+
+    measure();
+  }
+</script>
+
+<style>
+  .reviews {
+    padding-block: var(--section-y);
+    overflow: hidden;
+  }
+
+  .reviews-texture {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.85;
+  }
+
+  .reviews-glow {
+    left: 20%;
+    bottom: -50%;
+    width: 60%;
+    height: 90%;
+  }
+
+  .reviews-title {
+    display: grid;
+    justify-items: center;
+    gap: 0.9rem;
+    margin-bottom: clamp(2rem, 1.25rem + 2.5vw, 3.25rem);
+    font-size: var(--t-h2);
+    text-align: center;
+  }
+
+  .reviews-title::before {
+    content: '';
+    width: 2.5rem;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--c-orange);
+  }
+
+  /* ——— Trilho (rolagem nativa com encaixe; arrastar e deslizar funcionam sem JS) ——— */
+  .rv-track {
+    --gap: 1rem;
+    --per-view: 3;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - var(--gap) * (var(--per-view) - 1)) / var(--per-view));
+    gap: var(--gap);
+    padding-bottom: 0.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .rv-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 1023px) {
+    .rv-track {
+      --per-view: 2;
+    }
+  }
+
+  /* Celular: um depoimento por vez, com o próximo aparecendo na borda. */
+  @media (max-width: 639px) {
+    .rv-track {
+      grid-auto-columns: 86%;
+      margin-inline: calc(var(--gutter) * -1);
+      padding-inline: var(--gutter);
+      scroll-padding-inline: var(--gutter);
+    }
+  }
+
+  .rv-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    color: var(--c-ink);
+    box-shadow: 0 30px 60px -36px rgb(0 0 0 / 0.65);
+    scroll-snap-align: start;
+  }
+
+  .rv-card :global(.rv-mark) {
+    color: var(--c-orange);
+    fill: rgb(249 131 5 / 0.15);
+  }
+
+  .rv-quote {
+    flex: 1;
+    margin: 0;
+  }
+
+  .rv-quote p {
+    color: var(--c-ink-2);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .rv-who {
+    display: grid;
+    gap: 0.15rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--c-line);
+  }
+
+  .rv-who strong {
+    font-family: var(--f-display);
+    font-size: 1.02rem;
+    font-weight: 600;
+  }
+
+  .rv-who span {
+    color: var(--c-ink-3);
+    font-size: 0.9rem;
+  }
+
+  /* ——— Controles: setas e pontos ——— */
+  .rv-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  }
+
+  .rv-arrow {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--c-line-dark-2);
+    border-radius: 12px;
+    background: rgb(255 255 255 / 0.04);
+    color: var(--c-on-dark);
+    transition:
+      background-color var(--dur-1) var(--ease-out),
+      border-color var(--dur-1) var(--ease-out),
+      transform var(--dur-1) var(--ease-out);
+  }
+
+  .rv-arrow:hover {
+    border-color: rgb(255 255 255 / 0.45);
+    background: rgb(255 255 255 / 0.1);
+    transform: translateY(-1px);
+  }
+
+  .rv-arrow:active {
+    transform: scale(0.94);
+  }
+
+  .rv-dots {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .rv-dot {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+  }
+
+  .rv-dot[hidden] {
+    display: none;
+  }
+
+  .rv-dot i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.3);
+    transition:
+      background-color var(--dur-2) var(--ease-out),
+      transform var(--dur-2) var(--ease-out);
+  }
+
+  .rv-dot:hover i {
+    background: rgb(255 255 255 / 0.7);
+  }
+
+  .rv-dot[aria-current] i {
+    background: var(--c-orange);
+    transform: scale(1.15);
+  }
+
+  .rv-arrow:focus-visible,
+  .rv-dot:focus-visible,
+  .rv-track:focus-visible {
+    outline-color: var(--c-orange);
+  }
+
+  .rv-track:focus-visible {
+    outline-offset: 6px;
+    border-radius: var(--r-lg);
+  }
+</style>

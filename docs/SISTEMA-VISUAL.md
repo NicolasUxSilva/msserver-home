@@ -83,6 +83,20 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
   abre; o estado é lido no `pointerdown`, porque o navegador foca o link (e o foco abre o
   painel) antes do clique.
 
+## Padrões de páginas internas ("Sobre nós")
+
+- **Faixa de título:** superfície escura com o fundo original da página como textura, losango
+  laranja e H1 centralizado; o primeiro elemento da seção seguinte sobe sobre a borda da faixa.
+- **Título de bloco:** traço laranja de 2,5 rem acima de cada H2 (`.block-title`, `.specs-title`).
+- **Duas colunas editoriais:** colunas 0,82fr / 1,18fr; a da direita distribui os blocos
+  (`justify-content: space-between`) para terminar na mesma linha da esquerda.
+- **Grade de cartões informativos sem link:** linhas finas compartilhadas e alternância leve de
+  fundo, sem efeito de hover (não são clicáveis).
+- **Carrossel de depoimentos:** trilho nativo com encaixe, focável, setas e pontos abaixo,
+  troca automática com pausa e parada após interação.
+- `Header` recebe `current` (página atual no menu) e `Base` recebe `ogType` e `schema`; os
+  padrões são os da home.
+
 ## Breakpoints
 
 Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo), 1360

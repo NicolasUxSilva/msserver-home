@@ -1,0 +1,27 @@
+---
+// Página "Sobre nós" da MSSERVER: mesma estrutura, textos, fotos, links e funcionalidades da
+// página do WordPress (https://msserver.com.br/sobre/), na identidade visual da home e das landings.
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppFab from '../../components/WhatsAppFab.astro';
+import SobreBand from '../../components/sobre/SobreBand.astro';
+import SobreHistoria from '../../components/sobre/SobreHistoria.astro';
+import Especialidades from '../../components/sobre/Especialidades.astro';
+import Depoimentos from '../../components/sobre/Depoimentos.astro';
+import { LINKS } from '../../config/site';
+import { SOBRE_SEO } from '../../data/sobre';
+import schema from '../../data/sobre-schema.json';
+---
+
+<Base title={SOBRE_SEO.title} description={SOBRE_SEO.description} canonical={SOBRE_SEO.canonical} ogType="article" schema={schema}>
+  <Header current={LINKS.about} />
+  <main id="conteudo">
+    <SobreBand />
+    <SobreHistoria />
+    <Especialidades />
+    <Depoimentos />
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Base>

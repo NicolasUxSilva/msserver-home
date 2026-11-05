@@ -5,7 +5,12 @@ import Icon from './Icon.astro';
 import { LINKS, NAV, type NavLink } from '../config/site';
 
 // Itens com submenu: "Servidores" (link + submenu) e "Soluções" (apenas submenu, como no WordPress).
-const isCurrent = (href?: string) => href === LINKS.home;
+interface Props {
+  /** Endereço da página atual, para marcar o item do menu (padrão: a home). */
+  current?: string;
+}
+const { current = LINKS.home } = Astro.props;
+const isCurrent = (href?: string) => href === current;
 
 // Camadas do menu móvel: a raiz e uma camada para cada item com submenu (em qualquer nível).
 // Em cada camada, os itens que abrem submenu vêm primeiro, lado a lado; os links vêm abaixo.

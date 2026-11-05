@@ -1,0 +1,160 @@
+---
+import { Image } from 'astro:assets';
+import { SOBRE } from '../../data/sobre';
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/sobre/icons/*.png', { eager: true });
+const { title, items } = SOBRE.especialidades;
+---
+
+{/* Mesmos 8 cartões e mesma ordem do WordPress (seções e99c9c8 e 691f0b7: duas fileiras de 4).
+    Os cartões não têm link na página original; por isso não reagem ao mouse. */}
+<section class="section specs" id="especialidades" aria-labelledby="especialidades-title">
+  <div class="container">
+    <h2 id="especialidades-title" class="specs-title" data-reveal>{title}</h2>
+    <ul class="specs-grid">
+      {
+        items.map((it, i) => (
+          <li class="spec" data-reveal style={`--reveal-i:${i % 4}`}>
+            <span class="spec-icon">
+              <Image src={files[`../../assets/sobre/icons/${it.icon}.png`].default} alt="" width={64} height={64} densities={[1, 2, 3]} loading="lazy" />
+            </span>
+            <div class="spec-body">
+              <h3 class="spec-title">{it.title}</h3>
+              <p class="spec-text">{it.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .specs {
+    background: var(--c-surface);
+    border-top: 1px solid var(--c-line);
+  }
+
+  .specs-title {
+    display: grid;
+    justify-items: center;
+    gap: 0.9rem;
+    margin-bottom: clamp(2rem, 1.25rem + 2.5vw, 3.25rem);
+    font-size: var(--t-h2);
+    text-align: center;
+  }
+
+  .specs-title::before {
+    content: '';
+    width: 2.5rem;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--c-orange);
+  }
+
+  /* Grade com linhas finas compartilhadas, no padrão da grade de clientes da home. */
+  .specs-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    border-top: 1px solid var(--c-line);
+    border-left: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .specs-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .specs-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .spec {
+    display: grid;
+    align-content: start;
+    gap: 1.25rem;
+    padding: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    border-right: 1px solid var(--c-line);
+    border-bottom: 1px solid var(--c-line);
+    background: var(--c-paper);
+  }
+
+  /* Alternância leve de fundo, como os cartões claros e cinzentos do original. */
+  @media (min-width: 1100px) {
+    .spec:nth-child(8n + 2),
+    .spec:nth-child(8n + 4),
+    .spec:nth-child(8n + 5),
+    .spec:nth-child(8n + 7) {
+      background: var(--c-surface);
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 1099px) {
+    .spec:nth-child(4n + 2),
+    .spec:nth-child(4n + 3) {
+      background: var(--c-surface);
+    }
+  }
+
+  /* Ícones originais (já trazem o círculo laranja da arte), sem moldura extra. */
+  .spec-icon {
+    display: block;
+    width: 64px;
+    height: 64px;
+  }
+
+  .spec-icon :global(img) {
+    width: 64px;
+    height: 64px;
+  }
+
+  .spec-body {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .spec-title {
+    font-size: 1.12rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+
+  .spec-text {
+    color: var(--c-ink-2);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Celular: ícone ao lado do texto, para a lista de 8 ficar compacta. */
+  @media (max-width: 639px) {
+    .spec {
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1.25rem 1.1rem;
+    }
+
+    .spec:nth-child(even) {
+      background: var(--c-surface);
+    }
+
+    .spec-icon,
+    .spec-icon :global(img) {
+      width: 52px;
+      height: 52px;
+    }
+
+    .spec-title {
+      font-size: 1.02rem;
+    }
+
+    .spec-text {
+      font-size: 0.92rem;
+    }
+  }
+</style>

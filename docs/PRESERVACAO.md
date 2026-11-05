@@ -184,3 +184,60 @@ e destinos de cada banner continuam os mesmos.
   aberta segue o link. No tablet (768–1099 px) os painéis continuam empilhados.
 - **Postagens:** no celular, as três postagens deslizam na horizontal, como a linha de
   servidores; todas continuam no HTML.
+
+# Página "Sobre nós" (`/sobre/`)
+
+Referência: HTML publicado em `https://msserver.com.br/sobre/` (página 480 do WordPress),
+capturado em 05/11/2026. Textos, títulos, links e imagens usados nos testes estão em
+`tests/fixtures/original-sobre.json`.
+
+## Estrutura (mesma ordem da página original)
+
+| # | WordPress | Nesta versão | Componente |
+| --- | --- | --- | --- |
+| 1 | Faixa "QUEM SOMOS" (fundo próprio) | Faixa escura com o mesmo fundo, título centralizado | `sobre/SobreBand.astro` |
+| 2 | Duas colunas: retrato, PROPÓSITO, foto do evento / VISÃO E MISSÃO, foto da equipe, FOCO NO ATENDIMENTO, botão | Mesmas colunas e mesma ordem; no celular, a coluna da esquerda inteira antes da direita | `sobre/SobreHistoria.astro` |
+| 3 | "ESPECIALIDADES" + 8 cartões (2 fileiras de 4) | Mesmos 8 cartões e ícones, na mesma ordem | `sobre/Especialidades.astro` |
+| 4 | "O QUE OS CLIENTES DIZEM" (fundo próprio) + carrossel de 4 depoimentos | Mesmo fundo, mesmos depoimentos e mesma ordem | `sobre/Depoimentos.astro` |
+| — | Header, rodapé e WhatsApp flutuante | Os mesmos da home; no menu, "Sobre nós" marcado como página atual | `Header.astro`, `Footer.astro`, `WhatsAppFab.astro` |
+
+## Textos
+
+Palavras, pontuação e erros de digitação mantidos ("precisamoss", "oumigração", "mas ágil",
+"Servidores fisicos", "tecnologico" etc.). Como na home, a única mudança é tipográfica: o que
+estava em CAIXA ALTA passou para caixa de frase.
+
+| Original | Exibido |
+| --- | --- |
+| QUEM SOMOS | Quem somos |
+| PROPÓSITO / VISÃO E MISSÃO / FOCO NO ATENDIMENTO | Propósito / Visão e missão / Foco no atendimento |
+| CONTE CONOSCO | Conte conosco |
+| ESPECIALIDADES | Especialidades |
+| SERVIDORES FISICOS, SERVIDORES EM NUVEM PRIVADA, CIBERSEGURANÇA, EXTENSÃO DE GARANTIA, MONITORAMENTO, SUPORTE E MANUTENÇÃO, RECOMPRA, ROTINAS DE BACKUP | Servidores fisicos, Servidores em nuvem privada, Cibersegurança, Extensão de garantia, Monitoramento, Suporte e manutenção, Recompra, Rotinas de backup |
+| O QUE OS CLIENTES DIZEM | O que os clientes dizem |
+
+## Imagens
+
+Os mesmos arquivos da página (`node scripts/prepare-sobre-assets.mjs`), na maior resolução
+publicada: retrato (1709 × 2560), foto do evento (1071 × 827), foto da equipe (2048 × 1367), os 8
+ícones das especialidades (200 × 200) e os 2 fundos das faixas. Nenhum foi substituído ou gerado.
+A foto do evento aparece inteira (o texto do painel fica na base); o retrato é enquadrado em 4:5
+(quadrado no tablet) com o rosto preservado.
+
+## Funcionalidades
+
+- **Botão "Conte conosco":** mesmo destino (WhatsApp com a mensagem original), mesma aba.
+- **Carrossel de depoimentos:** 3 por vez no desktop (2 no tablet, 1 no celular), setas, pontos,
+  troca automática a cada 5 s, volta ao início depois do último, pausa com o mouse ou o foco e,
+  depois que a pessoa usa os controles, deixa de trocar sozinho (como no Elementor). Os pontos
+  mostram as posições possíveis do carrossel (2 no desktop com 3 por vez; 4 no celular). Com
+  "reduzir movimento", não troca sozinho.
+
+## Correções técnicas (sem mudar conteúdo)
+
+- **H1:** a página original não tem H1 (todos os títulos são H2); "Quem somos" passou a ser o H1.
+- **Texto alternativo:** as fotos não tinham `alt`; agora descrevem o que mostram. Os ícones
+  continuam decorativos (o título do cartão diz o que é).
+- **Idioma e Open Graph:** `lang="pt-BR"` e `og:locale` `pt_BR`; `og:type` `article`, como no
+  All in One SEO. Title, description, canonical e JSON-LD são os da página publicada.
+- **Textos justificados** passaram a alinhados à esquerda (legibilidade).

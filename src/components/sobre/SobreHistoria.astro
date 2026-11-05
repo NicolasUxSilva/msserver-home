@@ -1,0 +1,219 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import retrato from '../../assets/sobre/photos/retrato.jpg';
+import evento from '../../assets/sobre/photos/evento.jpg';
+import equipe from '../../assets/sobre/photos/equipe.jpg';
+import { SOBRE } from '../../data/sobre';
+
+const { proposito, visao, atendimento, photos } = SOBRE;
+---
+
+{/* Mesma estrutura da página do WordPress (seção b923907): duas colunas.
+    Esquerda: retrato, Propósito, foto do evento. Direita: Visão e missão, foto da equipe,
+    Foco no atendimento e botão. No celular, a esquerda vem inteira antes da direita. */}
+<section class="story" aria-label="Propósito, visão e missão e atendimento">
+  <div class="story-grid-bg" aria-hidden="true"></div>
+  <div class="container story-grid">
+    <div class="col col--left">
+      <figure class="photo photo--portrait" data-reveal="zoom">
+        <Image src={retrato} alt={photos.retrato} widths={[480, 720, 960, 1200]} sizes="(min-width: 1024px) 480px, 92vw" loading="eager" />
+      </figure>
+
+      <div class="block" data-reveal>
+        <h2 class="block-title">{proposito.title}</h2>
+        <p class="block-text">{proposito.text}</p>
+      </div>
+
+      <figure class="photo photo--event" data-reveal="zoom">
+        <Image src={evento} alt={photos.evento} widths={[480, 720, 1071]} sizes="(min-width: 1024px) 480px, 92vw" loading="lazy" />
+      </figure>
+    </div>
+
+    <div class="col col--right">
+      <div class="block" data-reveal>
+        <h2 class="block-title">{visao.title}</h2>
+        {visao.paragraphs.map((t) => <p class="block-text">{t}</p>)}
+      </div>
+
+      <figure class="photo photo--team" data-reveal="zoom">
+        <Image src={equipe} alt={photos.equipe} widths={[640, 960, 1400, 2048]} sizes="(min-width: 1024px) 680px, 92vw" loading="lazy" />
+      </figure>
+
+      <div class="block block--cta" data-reveal>
+        <h2 class="block-title">{atendimento.title}</h2>
+        <p class="block-text">{atendimento.text}</p>
+        <a class="btn btn--primary btn--lg block-btn" href={atendimento.button.href} data-track="contact_whatsapp_click" data-track-location="sobre-atendimento">
+          <Icon name="whatsapp" size={18} />
+          {atendimento.button.label}
+          <Icon name="arrow-right" class="btn-arrow" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story {
+    position: relative;
+    padding-bottom: var(--section-y);
+  }
+
+  /* Grade técnica das landings, se dissolvendo abaixo da faixa escura. */
+  .story-grid-bg {
+    position: absolute;
+    inset: 0 0 40%;
+    background-image:
+      linear-gradient(to right, rgb(27 24 32 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(27 24 32 / 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 75% 10%, #000 20%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 75% 10%, #000 20%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .story-grid {
+    position: relative;
+    display: grid;
+    gap: clamp(2.5rem, 1.5rem + 3vw, 3.5rem);
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 1.5rem + 3vw, 3.5rem);
+    min-width: 0;
+  }
+
+  /* O retrato sobe sobre a borda da faixa "Quem somos", ligando as duas seções. */
+  .col--left {
+    margin-top: clamp(-9rem, -3rem - 6vw, -4.5rem);
+  }
+
+  @media (min-width: 1024px) {
+    .story-grid {
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      column-gap: clamp(3rem, 1rem + 4vw, 5.5rem);
+      align-items: stretch;
+    }
+
+    /* A coluna da direita começa abaixo da faixa e distribui seus três blocos para terminar
+       na mesma linha da coluna da esquerda: bordas compartilhadas, sem vazio no fim. */
+    .col--right {
+      justify-content: space-between;
+      padding-top: clamp(2.5rem, 1rem + 2vw, 3.5rem);
+    }
+  }
+
+  /* ——— Fotos ——— */
+  .photo {
+    position: relative;
+    margin: 0;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    background: var(--c-indigo-900);
+    box-shadow:
+      0 0 0 1px rgb(14 13 34 / 0.06),
+      var(--shadow-2);
+  }
+
+  /* Fio de luz na borda interna, como nas molduras da home. */
+  .photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12);
+    pointer-events: none;
+  }
+
+  .photo :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo--portrait {
+    aspect-ratio: 4 / 5;
+  }
+
+  .photo--portrait :global(img) {
+    object-position: 50% 18%;
+  }
+
+  /* A foto do evento traz o texto do painel na base: aparece inteira, sem recorte. */
+  .photo--event {
+    aspect-ratio: 1071 / 827;
+  }
+
+  .photo--team {
+    aspect-ratio: 3 / 2;
+  }
+
+  /* ——— Textos ——— */
+  .block {
+    display: grid;
+    justify-items: start;
+    gap: 1.1rem;
+  }
+
+  /* Traço laranja antes de cada título: o mesmo acento das landings. */
+  .block-title {
+    display: grid;
+    gap: 0.9rem;
+    font-size: clamp(1.75rem, 1.25rem + 1.6vw, 2.5rem);
+    letter-spacing: -0.03em;
+  }
+
+  .block-title::before {
+    content: '';
+    width: 2.5rem;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--c-orange);
+  }
+
+  .block-text {
+    max-width: 62ch;
+    color: var(--c-ink-2);
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem);
+    line-height: 1.7;
+  }
+
+  .block-btn {
+    margin-top: 0.6rem;
+  }
+
+  .block-btn:hover :global(.btn-arrow) {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 1023px) {
+    .story-grid {
+      max-width: 680px;
+      margin-inline: auto;
+    }
+  }
+
+  /* Tablet (coluna única e larga): retrato quadrado, para não ocupar a tela inteira. */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .photo--portrait {
+      aspect-ratio: 1 / 1;
+    }
+
+    .photo--portrait :global(img) {
+      object-position: 50% 22%;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .photo {
+      border-radius: var(--r-lg);
+    }
+
+    .block-btn {
+      width: 100%;
+    }
+  }
+</style>
