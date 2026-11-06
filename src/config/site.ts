@@ -15,10 +15,22 @@ export const SITE = {
 
 const U = SITE.origin;
 
+/**
+ * Páginas já reconstruídas neste projeto: os links entre elas são internos (caminho na raiz do
+ * site, respeitando o BASE_PATH do build), para que a Home e "Sobre nós" novas levem uma à outra
+ * em qualquer ambiente. As páginas ainda não reformuladas continuam apontando para o WordPress
+ * em msserver.com.br até serem reconstruídas. Ao reconstruir outra página, acrescente-a aqui.
+ */
+const BASE = (import.meta.env?.BASE_URL ?? '/').replace(/\/$/, '');
+export const ROUTES = {
+  home: `${BASE}/`,
+  about: `${BASE}/sobre/`,
+} as const;
+
 export const LINKS = {
-  home: `${U}/`,
+  home: ROUTES.home,
   servers: `${U}/servidores`,
-  about: `${U}/sobre/`,
+  about: ROUTES.about,
   quote: `${U}/orcamento/`,
   blog: `${U}/blog/`,
   support: `${U}/obter-suporte/`,
@@ -53,8 +65,8 @@ export const NAV: NavLink[] = [
       },
     ],
   },
-  { label: 'Início', href: `${U}/` },
-  { label: 'Sobre nós', href: `${U}/sobre/` },
+  { label: 'Início', href: LINKS.home },
+  { label: 'Sobre nós', href: LINKS.about },
   {
     // No WordPress, "Soluções" e "Servidores em Nuvem" apenas abrem submenus (href="#").
     label: 'Soluções',
@@ -79,10 +91,11 @@ export const NAV: NavLink[] = [
   { label: 'Cases de sucesso', href: `${U}/cases-de-sucesso/` },
 ];
 
-/** Menu do rodapé ("MENU"), com os destinos exatos do WordPress. */
+/** Menu do rodapé ("MENU"), com os destinos do WordPress; Início e Quem somos levam às páginas
+ *  reconstruídas (ROUTES). */
 export const FOOTER_MENU = [
-  { label: 'Início', href: `${U}/` },
-  { label: 'Quem somos', href: `${U}/sobre` },
+  { label: 'Início', href: LINKS.home },
+  { label: 'Quem somos', href: LINKS.about },
   { label: 'Orçamento', href: `${U}/orcamento` },
   { label: 'Blog', href: `${U}/blog` },
   { label: 'Servidores', href: `${U}/servidores` },

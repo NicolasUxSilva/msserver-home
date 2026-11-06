@@ -49,9 +49,10 @@ test.describe('sobre nós: preservação da página original', () => {
 
   test('ordem dos blocos dentro das colunas e das seções', async ({ page }) => {
     await page.goto('/sobre/');
+    // Imagens adiadas (loading="lazy") podem ainda não ter currentSrc; nesse caso vale o src.
     const order = await page.evaluate(() =>
       [...document.querySelectorAll('main h2, main figure img, main .block-btn, main .spec-title, main .rv-who strong')].map((el) =>
-        el.tagName === 'IMG' ? 'img:' + (el as HTMLImageElement).currentSrc.split('/').pop()!.split('.')[0].split('_')[0] : (el.textContent ?? '').trim(),
+        el.tagName === 'IMG' ? 'img:' + ((el as HTMLImageElement).currentSrc || (el as HTMLImageElement).src).split('/').pop()!.split('.')[0].split('_')[0] : (el.textContent ?? '').trim(),
       ),
     );
     expect(order).toEqual([

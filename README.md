@@ -77,7 +77,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-41 testes, executados em desktop 1440 px e celular 390 px (82 execuções; alguns só se aplicam a
+48 testes, executados em desktop 1440 px e celular 390 px (96 execuções; alguns só se aplicam a
 um dos dois). Home (`tests/e2e/home.spec.ts`, 30): preservação de links e textos contra a home
 original (`tests/fixtures/original-home.json`), ordem das seções, SEO, imagens, console,
 rolagem horizontal, abas, hero de tela cheia (arte cobrindo a seção sem deformar, 3 pontos indicadores, teclado, troca automática, pausa com o mouse, deslize no celular, sem deslocamento de layout), busca, WhatsApp, vídeo, cartões clicáveis, coluna lateral fixa e carrosséis de servidores e postagens, acordeão de soluções no celular, submenus, menu móvel (meia tela, camadas, fechar tocando fora, sem mover a página), acessibilidade
@@ -89,6 +89,11 @@ página atual, ausência dos depoimentos antigos, avaliações do Google iguais 
 sincronizado (ou seção oculta sem avaliações), carrossel de avaliações (setas, pontos, volta ao
 início, troca automática, parada após interação, redução de movimento; só roda quando há
 avaliações), composição das colunas e acessibilidade (axe).
+
+Navegação (`tests/e2e/navegacao.spec.ts`, 7): clique em "Sobre nós" no menu (desktop e menu
+móvel) e em "Quem somos" no rodapé leva a `/sobre/` reconstruída; logo, "Início" do menu e do
+rodapé levam de volta à Home reconstruída; nenhum link aponta para as versões antigas dessas
+duas páginas no WordPress, e os itens ainda não reformulados mantêm os destinos do WordPress.
 
 Capturas de QA: `node scripts/qa-screenshots.mjs http://localhost:4330/ 390,768,1024,1440`.
 
@@ -102,7 +107,20 @@ Variáveis (ver `.env.example`):
 - `GOOGLE_PLACES_API_KEY` e `GOOGLE_PLACE_ID`: avaliações do Google em "Sobre nós" (só no build;
   ver "Avaliações do Google").
 
-A home atual é servida pelo WordPress. Para colocar esta versão no ar é preciso decidir como
-ela substitui a página inicial (por exemplo, servir o `dist/` na raiz e manter o WordPress nas
-demais rotas, ou portar o HTML/CSS para um template do tema). Essa etapa não foi feita: nenhuma
-alteração foi aplicada ao WordPress ou à produção.
+### Reformulação gradual: rotas e links
+
+| Rota | Origem |
+| --- | --- |
+| `/` | Home reconstruída (`src/pages/index.astro`) |
+| `/sobre/` | "Sobre nós" reconstruída (`src/pages/sobre/index.astro`) |
+| Demais páginas (servidores, soluções, orçamento, blog, suporte, cases, landings, produtos) | WordPress em `https://msserver.com.br` |
+
+Os links entre páginas já reconstruídas são internos (`ROUTES` em `src/config/site.ts`, com o
+`BASE_PATH` do build); os demais continuam absolutos para o WordPress. Ao reconstruir outra
+página, crie a rota em `src/pages/` e acrescente-a em `ROUTES`, para que menu e rodapé passem a
+apontar para ela. `canonical`, Open Graph e JSON-LD continuam com as URLs de produção.
+
+A home atual é servida pelo WordPress. Para colocar esta versão no ar é preciso que o servidor
+entregue `/` e `/sobre/` a partir do `dist/` e mantenha o WordPress nas demais rotas (ou que o
+HTML/CSS seja portado para templates do tema). Essa etapa não foi feita: o repositório não tem
+deploy automático e nenhuma alteração foi aplicada ao WordPress ou à produção.

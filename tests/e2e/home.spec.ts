@@ -28,8 +28,12 @@ test.describe('preservação da home original', () => {
     const equivalent: Record<string, string> = {
       // Âncora para a seção do app nesta mesma página.
       'https://msserver.com.br/#appmobile': '#appmobile',
-      // Logo do menu lateral do WordPress (mesma página inicial).
-      'https://msserver.com.br': 'https://msserver.com.br/',
+      // Páginas já reconstruídas neste projeto: Início e "Sobre nós" levam às rotas internas
+      // (ver ROUTES em src/config/site.ts); as demais seguem no WordPress.
+      'https://msserver.com.br': '/',
+      'https://msserver.com.br/': '/',
+      'https://msserver.com.br/sobre': '/sobre/',
+      'https://msserver.com.br/sobre/': '/sobre/',
     };
     const missing = original.hrefs.filter((h) => !hrefs.has(equivalent[h] ?? h));
     expect(missing).toEqual([]);

@@ -54,6 +54,11 @@ não faz parte desta etapa (sugestões para a MSSERVER decidir):
 
 ## Correções técnicas feitas (sem mudar conteúdo)
 
+- **Links para páginas reconstruídas:** "Início" (menu e rodapé), as logos e "Sobre nós" / "Quem
+  somos" apontavam para `https://msserver.com.br/` e `https://msserver.com.br/sobre(/)`, isto é,
+  para as versões antigas no WordPress. Agora levam às rotas deste projeto (`/` e `/sobre/`), para
+  que a Home e a "Sobre nós" reconstruídas se liguem uma à outra. Os demais itens mantêm os
+  destinos do WordPress. (06/11/2026)
 - **Data dos posts:** o WordPress exibe "31 de **October** de 2026" (locale em inglês). Aqui a
   mesma data aparece como "31 de outubro de 2026".
 - **Idioma do documento:** `lang="en-US"` → `lang="pt-BR"`; `og:locale` `en_US` → `pt_BR`.

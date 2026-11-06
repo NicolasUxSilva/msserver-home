@@ -102,6 +102,8 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
   abaixo, troca automática com pausa e parada após interação. Cartão: aspas e estrelas no topo,
   texto original, autor com link e mês; nota geral e link do Google Maps sob o título. Dados só
   do arquivo gerado no build; sem dados, a seção não é renderizada.
+- Links entre páginas reconstruídas: use `LINKS`/`ROUTES` de `config/site.ts` (rotas internas);
+  nunca o endereço do WordPress para uma página que já existe neste projeto.
 - `Header` recebe `current` (página atual no menu) e `Base` recebe `ogType` e `schema`; os
   padrões são os da home.
 
