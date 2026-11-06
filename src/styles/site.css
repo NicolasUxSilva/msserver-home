@@ -183,3 +183,24 @@ a:focus-visible > .ext-arrow {
 .dark-surface .eyebrow b {
   color: var(--c-orange);
 }
+
+/* ——— Identificadores de seção ("01 Servidores —") ———
+   Mesma família dos textos do site (Inter), no lugar da monoespaçada herdada do global.css.
+   Continuam em caixa alta, com número, traço e tamanho visual equivalentes. */
+.eyebrow {
+  font-family: var(--f-text);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.eyebrow b {
+  font-weight: 700;
+}
+
+/* Azul profundo dos banners escuros da home (medido nas artes da hero), para faixas de título
+   das páginas internas. */
+:root {
+  --c-navy-950: #010c20;
+  --c-navy-900: #03183a;
+  --c-navy-glow: rgb(46 110 210);
+}

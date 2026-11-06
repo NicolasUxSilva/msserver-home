@@ -36,11 +36,20 @@ test.describe('preservação da home original', () => {
     expect(await page.locator('a[href="#"], a[href="#/"]').count()).toBe(0);
   });
 
+  // Textos do banner do aplicativo, substituídos pela copy comercial (plataforma/SaaS) a pedido
+  // da MSSERVER em 06/11/2026 (ver docs/PRESERVACAO.md).
+  const REPLACED = new Set([
+    'O UNICO COM APP GRATUITO PARA GESTÃO DE SERVIDORES',
+    'Acompanhamento em tempo real do seu servidor. RECURSOS E SERVIÇOS PARA MITIGAR INDISPONIBILIDADES. Servidores Dell, Servidores HP, Servidores Ibm',
+    'GERENCIE SEUS SERVIDORES COM O APP DA MSSERVER',
+    'Acompanhamento em tempo real do seu servidor. Recursos e Serviços para mitigar indisponibilidades.',
+  ]);
+
   test('todos os textos da home do WordPress continuam presentes', async ({ page }) => {
     await page.goto('/');
     const body = norm((await page.locator('body').textContent()) ?? '');
     const missing: string[] = [];
-    for (const t of original.texts) {
+    for (const t of original.texts.filter((t) => !REPLACED.has(t))) {
       // Textos combinados de um mesmo bloco são verificados frase a frase.
       for (const part of t.split(/(?<=[.,?!])\s+(?=[A-ZÀ-Ú])/)) {
         const p = norm(part).replace(/\s*»$/, ' »');
@@ -48,6 +57,8 @@ test.describe('preservação da home original', () => {
       }
     }
     expect(missing).toEqual([]);
+    // Os textos substituídos não aparecem mais (nem como antigos, nem como atuais).
+    for (const t of REPLACED) expect(body).not.toContain(norm(t));
   });
 
   test('ordem das seções preservada', async ({ page }) => {
@@ -352,7 +363,7 @@ test.describe('hero interativa', () => {
     await page.getByRole('tab', { name: 'App' }).click();
     await expect(active(page)).toHaveAttribute('id', 'hero-p-app');
     await expect(page.locator('[data-hero-art][data-active]')).toHaveAttribute('href', 'https://msserver.com.br/aplicativo-ms-server/');
-    await expect(active(page).getByRole('link', { name: 'Baixar o app' })).toHaveAttribute('href', isMobile ? '#appmobile' : 'https://msserver.com.br/aplicativo-ms-server/');
+    await expect(active(page).getByRole('link', { name: 'Conhecer a plataforma' })).toHaveAttribute('href', isMobile ? '#appmobile' : 'https://msserver.com.br/aplicativo-ms-server/');
     await page.getByRole('tab', { name: 'App' }).press('ArrowRight');
     await expect(page.getByRole('tab', { name: 'Data Center' })).toBeFocused();
     await expect(active(page)).toHaveAttribute('id', 'hero-p-nuvem');
@@ -448,10 +459,10 @@ test.describe('hero no celular', () => {
     await expect(page.locator('[data-hero-panel][data-active]')).toHaveAttribute('id', 'hero-p-app');
   });
 
-  test('"Baixar o app" leva à seção do app', async ({ page }) => {
+  test('"Conhecer a plataforma" leva à seção do app', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('tab', { name: 'App' }).click();
-    await page.locator('[data-hero-panel][data-active]').getByRole('link', { name: 'Baixar o app' }).click();
+    await page.locator('[data-hero-panel][data-active]').getByRole('link', { name: 'Conhecer a plataforma' }).click();
     await expect(page.locator('#appmobile')).toBeInViewport();
   });
 });

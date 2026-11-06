@@ -38,20 +38,24 @@ export const SLIDES: Slide[] = [
   {
     key: 'app',
     label: 'App',
+    // Copy comercial do aplicativo como plataforma (SaaS), revisada a pedido da MSSERVER em
+    // 06/11/2026. Só recursos publicados em /aplicativo-ms-server/ e na home: monitoramento em
+    // tempo real, suporte, backups em nuvem, upgrades, extensão de garantia; gratuito, iOS e
+    // Android. Destinos dos botões mantidos. Texto anterior em docs/PRESERVACAO.md.
     desktop: {
-      heading: 'O unico com app gratuito para gestão de servidores',
-      description: 'Acompanhamento em tempo real do seu servidor.',
-      highlight: 'Recursos e serviços para mitigar indisponibilidades.',
-      keywords: 'Servidores Dell, Servidores HP, Servidores Ibm',
-      button: 'Baixar o app',
+      heading: 'Controle total dos seus servidores em uma só plataforma',
+      description: 'Monitore em tempo real, acione o suporte, faça backups em nuvem, solicite upgrades e estenda a garantia, tudo pelo app da MSSERVER.',
+      highlight: 'Gratuita, para iPhone e Android, com as ferramentas para garantir a continuidade dos seus serviços.',
+      keywords: 'Monitoramento · Suporte · Backups · Upgrades · Extensão de garantia',
+      button: 'Conhecer a plataforma',
       href: LINKS.app,
       newTab: true,
     },
     mobile: {
-      heading: 'Gerencie seus servidores com o app da MSSERVER',
-      description: 'Acompanhamento em tempo real do seu servidor. Recursos e Serviços para mitigar indisponibilidades.',
-      button: 'Baixar o app',
-      // Na home do WordPress: https://msserver.com.br/#appmobile (âncora da seção do app nesta página).
+      heading: 'Controle total dos seus servidores em uma só plataforma',
+      description: 'Monitore em tempo real, acione o suporte, faça backups e estenda a garantia pelo app gratuito da MSSERVER.',
+      button: 'Conhecer a plataforma',
+      // Mesmo destino de antes: a seção do app nesta página, com os links das lojas.
       href: '#appmobile',
     },
     alt: 'Celulares exibindo o aplicativo da MSSERVER',

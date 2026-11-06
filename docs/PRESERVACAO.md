@@ -125,7 +125,8 @@ Da etapa 03 foi mantida apenas a apresentação da seção "Nossa linha". O rest
 segue a etapa 02.
 
 - **Desktop:** título, abas e "Ver todos" ficam numa coluna lateral fixa durante a rolagem pela
-  grade de 2 colunas. As abas ficam na vertical; cada cartão ganhou o índice (01–06).
+  grade de cartões: 3 colunas × 2 fileiras a partir de 1180 px (2 colunas entre 1100 e 1179 px).
+  As abas ficam na vertical; cada cartão ganhou o índice (01–06).
 - **Celular:** os 6 cartões de cada aba deslizam na horizontal (rolagem nativa com encaixe).
   Todos continuam no HTML.
 
@@ -185,6 +186,32 @@ e destinos de cada banner continuam os mesmos.
 - **Postagens:** no celular, as três postagens deslizam na horizontal, como a linha de
   servidores; todas continuam no HTML.
 
+## Ajustes finais (06/11/2026)
+
+- **"Nossa linha":** a partir de 1180 px, os 6 produtos de cada aba ficam em 3 colunas × 2
+  fileiras. A coluna lateral (título, abas, "Ver todos") ficou mais estreita e os cartões,
+  proporcionalmente menores (foto, nome, nota, faixa de preço numa linha e botão mantidos).
+  Produtos, abas e informações não mudaram; tablet e celular seguem como antes.
+- **Rótulos de seção** ("01 Servidores —", "02 Soluções —", "03 Blog —") e o título "Alguns
+  clientes": passaram da fonte mono para a Inter, a mesma dos textos da home. Caixa alta,
+  números, traço, posição e tamanho foram mantidos.
+- **Banner do app (2º tema da hero):** copy reescrita a pedido da MSSERVER para apresentar o app
+  como plataforma (SaaS). Usa só o que o site já publica em `/aplicativo-ms-server/` e na home:
+  monitoramento em tempo real, suporte, backups em nuvem, upgrades e extensão de garantia; app
+  gratuito para iPhone e Android. Nada de planos, preços ou recursos novos. Layout, imagens,
+  cores, destinos dos botões e o rótulo "App" do seletor não mudaram.
+
+| | Antes | Agora |
+| --- | --- | --- |
+| Título (desktop) | O unico com app gratuito para gestão de servidores | Controle total dos seus servidores em uma só plataforma |
+| Descrição (desktop) | Acompanhamento em tempo real do seu servidor. | Monitore em tempo real, acione o suporte, faça backups em nuvem, solicite upgrades e estenda a garantia, tudo pelo app da MSSERVER. |
+| Destaque (desktop) | Recursos e serviços para mitigar indisponibilidades. | Gratuita, para iPhone e Android, com as ferramentas para garantir a continuidade dos seus serviços. |
+| Palavras-chave (desktop) | Servidores Dell, Servidores HP, Servidores Ibm | Monitoramento · Suporte · Backups · Upgrades · Extensão de garantia |
+| Título (celular) | Gerencie seus servidores com o app da MSSERVER | Controle total dos seus servidores em uma só plataforma |
+| Descrição (celular) | Acompanhamento em tempo real do seu servidor. Recursos e Serviços para mitigar indisponibilidades. | Monitore em tempo real, acione o suporte, faça backups e estenda a garantia pelo app gratuito da MSSERVER. |
+| Botão (desktop e celular) | Baixar o app | Conhecer a plataforma |
+| Destino do botão | `/aplicativo-ms-server/` (nova aba) no desktop; `#appmobile` no celular | Os mesmos |
+
 # Página "Sobre nós" (`/sobre/`)
 
 Referência: HTML publicado em `https://msserver.com.br/sobre/` (página 480 do WordPress),
@@ -198,7 +225,7 @@ capturado em 05/11/2026. Textos, títulos, links e imagens usados nos testes est
 | 1 | Faixa "QUEM SOMOS" (fundo próprio) | Faixa escura com o mesmo fundo, título centralizado | `sobre/SobreBand.astro` |
 | 2 | Duas colunas: retrato, PROPÓSITO, foto do evento / VISÃO E MISSÃO, foto da equipe, FOCO NO ATENDIMENTO, botão | Mesmas colunas e mesma ordem; no celular, a coluna da esquerda inteira antes da direita | `sobre/SobreHistoria.astro` |
 | 3 | "ESPECIALIDADES" + 8 cartões (2 fileiras de 4) | Mesmos 8 cartões e ícones, na mesma ordem | `sobre/Especialidades.astro` |
-| 4 | "O QUE OS CLIENTES DIZEM" (fundo próprio) + carrossel de 4 depoimentos | Mesmo fundo, mesmos depoimentos e mesma ordem | `sobre/Depoimentos.astro` |
+| 4 | "O QUE OS CLIENTES DIZEM" (fundo próprio) + carrossel de 4 depoimentos | Mesmo título, fundo e carrossel, agora com as avaliações públicas do Google; oculta enquanto não houver avaliações sincronizadas (ver "Ajustes finais") | `sobre/Depoimentos.astro` |
 | — | Header, rodapé e WhatsApp flutuante | Os mesmos da home; no menu, "Sobre nós" marcado como página atual | `Header.astro`, `Footer.astro`, `WhatsAppFab.astro` |
 
 ## Textos
@@ -227,11 +254,31 @@ A foto do evento aparece inteira (o texto do painel fica na base); o retrato é 
 ## Funcionalidades
 
 - **Botão "Conte conosco":** mesmo destino (WhatsApp com a mensagem original), mesma aba.
-- **Carrossel de depoimentos:** 3 por vez no desktop (2 no tablet, 1 no celular), setas, pontos,
+- **Carrossel de avaliações:** 3 por vez no desktop (2 no tablet, 1 no celular), setas, pontos,
   troca automática a cada 5 s, volta ao início depois do último, pausa com o mouse ou o foco e,
   depois que a pessoa usa os controles, deixa de trocar sozinho (como no Elementor). Os pontos
-  mostram as posições possíveis do carrossel (2 no desktop com 3 por vez; 4 no celular). Com
-  "reduzir movimento", não troca sozinho.
+  mostram as posições possíveis do carrossel (com 5 avaliações: 3 no desktop, 5 no celular); se
+  todas cabem de uma vez, setas e pontos somem. Com "reduzir movimento", não troca sozinho.
+
+## Ajustes finais (06/11/2026)
+
+- **Depoimentos → avaliações do Google:** a pedido da MSSERVER, os 4 depoimentos fixos do
+  WordPress saíram da página e do código, para não serem exibidos como atuais. A seção passa a
+  mostrar só avaliações públicas do Perfil da Empresa no Google, lidas pela API oficial no build
+  (`scripts/sync-google-reviews.mjs` → `src/data/google-reviews.json`; ver o README). Cada
+  cartão mantém o padrão anterior (aspas, texto, nome) e mostra a nota em estrelas, o texto
+  original, o nome público do autor (com link para o perfil dele no Google, quando houver) e o
+  mês da avaliação; acima do carrossel, a nota geral e o link "Ver no Google Maps". Sem
+  credenciais da API no ambiente desta etapa, o arquivo está vazio e a seção não aparece.
+  Depoimentos retirados, para registro: Fernando (Perfilados Nardi), Sara (RD Concretos),
+  Jessica (Senior Engenharia) e Pedro Hermano (Attri); textos em
+  `tests/fixtures/original-sobre.json`.
+- **Especialidades:** hover discreto em cada cartão (só com mouse): leve elevação, fundo e
+  borda que se destacam, filete laranja no topo e ícone que sobe um pouco. Sem mudar conteúdo,
+  tamanhos ou cursor (os cartões continuam sem link). Desligado com "reduzir movimento".
+- **Faixa "Quem somos":** só o fundo mudou, para o azul profundo dos banners escuros da home
+  (`--c-navy-950` → `--c-navy-900`, com a textura original em luminosidade e uma luz azul no
+  topo). Texto, losango, tamanho e o retrato sobre a borda continuam iguais.
 
 ## Correções técnicas (sem mudar conteúdo)
 

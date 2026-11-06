@@ -3,58 +3,118 @@ import { getImage } from 'astro:assets';
 import Icon from '../Icon.astro';
 import bg from '../../assets/sobre/bg/depoimentos.png';
 import { SOBRE } from '../../data/sobre';
+import googleData from '../../data/google-reviews.json';
 
-// Fundo original da faixa "O QUE OS CLIENTES DIZEM" (seção 5cc1668), usado como textura.
-const texture = await getImage({ src: bg, width: 1680, format: 'webp', quality: 82 });
-const { title, items } = SOBRE.depoimentos;
+// Avaliações públicas do Perfil da Empresa da MSSERVER no Google, gravadas no build por
+// scripts/sync-google-reviews.mjs (API oficial Google Places). Nada é inventado nem editado:
+// texto original, nome público do autor, nota e data como o Google entrega. Sem avaliações
+// sincronizadas, a seção não aparece.
+type Review = {
+  text: string;
+  language: string | null;
+  rating: number;
+  author: string;
+  authorUri: string | null;
+  publishTime: string | null;
+  googleMapsUri: string | null;
+};
+type GoogleReviews = {
+  place: { name: string | null; rating: number | null; total: number | null; url: string | null } | null;
+  reviews: Review[];
+};
+const { place, reviews } = googleData as unknown as GoogleReviews;
+const { title } = SOBRE.depoimentos;
+
+const texture = reviews.length ? await getImage({ src: bg, width: 1680, format: 'webp', quality: 82 }) : null;
+const monthYear = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric', timeZone: 'America/Sao_Paulo' });
+const decimal = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const integer = new Intl.NumberFormat('pt-BR');
+const date = (iso: string | null) => (iso ? monthYear.format(new Date(iso)) : null);
 ---
 
-{/* Mesmo carrossel do WordPress (widget 0090bc4): 4 depoimentos na mesma ordem, 3 por vez no
-    desktop, setas, pontos, troca automática a cada 5 s, volta ao início depois do último e pausa
-    com o mouse; depois que a pessoa usa os controles, a troca automática para. */}
-<section class="reviews dark-surface on-dark" id="depoimentos" aria-labelledby="depoimentos-title" aria-roledescription="carrossel" data-reviews>
-  <div class="dark-surface__bg" aria-hidden="true">
-    <div class="reviews-texture" style={`background-image:url(${texture.src})`}></div>
-    <div class="glow glow--orange reviews-glow"></div>
-  </div>
-  <div class="container">
-    <h2 id="depoimentos-title" class="reviews-title" data-reveal>{title}</h2>
-
-    {/* Trilho focável: dá para rolar pelo teclado (setas) mesmo sem elementos focáveis dentro. */}
-    <div class="rv-track" tabindex="0" aria-label="Depoimentos de clientes" data-rv-track>
-      {
-        items.map((t, i) => (
-          <div class="rv-card" role="group" aria-roledescription="depoimento" aria-label={`${i + 1} de ${items.length}`} data-rv-item>
-            <Icon name="quote" size={26} class="rv-mark" />
-            <blockquote class="rv-quote">
-              <p>{t.quote}</p>
-            </blockquote>
-            <p class="rv-who">
-              <strong>{t.name}</strong>
-              <span>{t.company}</span>
-            </p>
-          </div>
-        ))
-      }
-    </div>
-
-    <div class="rv-controls">
-      <button class="rv-arrow" type="button" aria-label="Depoimento anterior" data-rv-prev>
-        <Icon name="chevron-left" size={20} />
-      </button>
-      <div class="rv-dots" role="group" aria-label="Escolher depoimento">
-        {items.map((_, i) => (
-          <button class="rv-dot" type="button" aria-label={`Ir para o depoimento ${i + 1}`} aria-current={i === 0 ? 'true' : undefined} data-rv-dot={i}>
-            <i />
-          </button>
-        ))}
+{/* Mesmo carrossel de antes: 3 por vez no desktop, setas, pontos, troca automática a cada 5 s,
+    volta ao início depois do último e pausa com o mouse; depois que a pessoa usa os controles,
+    a troca automática para. */}
+{
+  reviews.length > 0 && (
+    <section class="reviews dark-surface on-dark" id="depoimentos" aria-labelledby="depoimentos-title" aria-roledescription="carrossel" data-reviews>
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="reviews-texture" style={`background-image:url(${texture!.src})`} />
+        <div class="glow glow--orange reviews-glow" />
       </div>
-      <button class="rv-arrow" type="button" aria-label="Próximo depoimento" data-rv-next>
-        <Icon name="chevron-right" size={20} />
-      </button>
-    </div>
-  </div>
-</section>
+      <div class="container">
+        <div class="reviews-head" data-reveal>
+          <h2 id="depoimentos-title" class="reviews-title">{title}</h2>
+          {place && (
+            <p class="reviews-source">
+              {place.rating !== null && (
+                <span class="reviews-score">
+                  <Icon name="star" size={16} class="rv-star is-on" />
+                  <b>{decimal.format(place.rating)}</b>
+                  {place.total !== null && <span>de 5 · {integer.format(place.total)} avaliações no Google</span>}
+                </span>
+              )}
+              {place.url && (
+                <a class="reviews-all u-link" href={place.url} target="_blank" rel="noopener noreferrer">
+                  Ver no Google Maps <Icon name="arrow-up-right" size={15} class="ext-arrow" />
+                </a>
+              )}
+            </p>
+          )}
+        </div>
+
+        {/* Trilho focável: dá para rolar pelo teclado (setas) mesmo sem elementos focáveis dentro. */}
+        <div class="rv-track" tabindex="0" aria-label="Avaliações de clientes no Google" data-rv-track>
+          {reviews.map((r, i) => (
+            <div class="rv-card" role="group" aria-roledescription="avaliação" aria-label={`${i + 1} de ${reviews.length}`} data-rv-item>
+              <div class="rv-top">
+                <Icon name="quote" size={26} class="rv-mark" />
+                <span class="rv-stars" role="img" aria-label={`Nota ${r.rating} de 5`}>
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <Icon name="star" size={16} class={`rv-star${n <= Math.round(r.rating) ? ' is-on' : ''}`} />
+                  ))}
+                </span>
+              </div>
+              <blockquote class="rv-quote" lang={r.language ?? undefined}>
+                <p>{r.text}</p>
+              </blockquote>
+              <p class="rv-who">
+                <strong>
+                  {r.authorUri ? (
+                    <a class="u-link" href={r.authorUri} target="_blank" rel="noopener noreferrer nofollow">
+                      {r.author}
+                    </a>
+                  ) : (
+                    r.author
+                  )}
+                </strong>
+                <span>
+                  Avaliação no Google{r.publishTime && <> · <time datetime={r.publishTime}>{date(r.publishTime)}</time></>}
+                </span>
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div class="rv-controls" data-rv-controls>
+          <button class="rv-arrow" type="button" aria-label="Avaliação anterior" data-rv-prev>
+            <Icon name="chevron-left" size={20} />
+          </button>
+          <div class="rv-dots" role="group" aria-label="Escolher avaliação">
+            {reviews.map((_, i) => (
+              <button class="rv-dot" type="button" aria-label={`Ir para a avaliação ${i + 1}`} aria-current={i === 0 ? 'true' : undefined} data-rv-dot={i}>
+                <i />
+              </button>
+            ))}
+          </div>
+          <button class="rv-arrow" type="button" aria-label="Próxima avaliação" data-rv-next>
+            <Icon name="chevron-right" size={20} />
+          </button>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 <script>
   const root = document.querySelector<HTMLElement>('[data-reviews]');
@@ -76,11 +136,14 @@ const { title, items } = SOBRE.depoimentos;
 
     // Distância entre o início de dois cartões vizinhos.
     const step = () => (cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth);
-    // Quantas posições existem: com 3 por vez e 4 depoimentos, são 2 no desktop; no celular, 4.
+    const controls = root.querySelector<HTMLElement>('[data-rv-controls]');
+    // Quantas posições existem: com 3 por vez e 5 avaliações, são 3 no desktop; no celular, 5.
+    // Se todas cabem de uma vez, os controles somem.
     const measure = () => {
       const perView = Math.max(1, Math.round(track.clientWidth / step()));
       positions = Math.max(1, cards.length - perView + 1);
       dots.forEach((d, i) => (d.hidden = i >= positions));
+      if (controls) controls.hidden = positions < 2;
       if (index >= positions) index = positions - 1;
       paint();
     };
@@ -97,7 +160,7 @@ const { title, items } = SOBRE.depoimentos;
       schedule();
     };
 
-    const running = () => !reduce.matches && !holding && visible && !interacted;
+    const running = () => positions > 1 && !reduce.matches && !holding && visible && !interacted;
     const schedule = () => {
       clearTimeout(timer);
       if (running()) timer = window.setTimeout(() => go(index + 1), DELAY);
@@ -191,13 +254,19 @@ const { title, items } = SOBRE.depoimentos;
     height: 90%;
   }
 
+  .reviews-head {
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 1.25rem + 2.5vw, 3.25rem);
+    text-align: center;
+  }
+
   .reviews-title {
     display: grid;
     justify-items: center;
     gap: 0.9rem;
-    margin-bottom: clamp(2rem, 1.25rem + 2.5vw, 3.25rem);
     font-size: var(--t-h2);
-    text-align: center;
   }
 
   .reviews-title::before {
@@ -206,6 +275,41 @@ const { title, items } = SOBRE.depoimentos;
     height: 3px;
     border-radius: 3px;
     background: var(--c-orange);
+  }
+
+  /* Fonte e nota geral, como o Google publica, com o link para o perfil. */
+  .reviews-source {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem 1.25rem;
+    color: var(--c-on-dark-2);
+    font-size: 0.92rem;
+  }
+
+  .reviews-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .reviews-score b {
+    color: var(--c-on-dark);
+    font-family: var(--f-display);
+    font-weight: 600;
+  }
+
+  .reviews-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: var(--c-on-dark);
+    font-weight: 500;
+  }
+
+  .reviews-source :global(.rv-star.is-on) {
+    color: var(--c-orange);
   }
 
   /* ——— Trilho (rolagem nativa com encaixe; arrastar e deslizar funcionam sem JS) ——— */
@@ -255,6 +359,28 @@ const { title, items } = SOBRE.depoimentos;
     scroll-snap-align: start;
   }
 
+  .rv-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .rv-stars {
+    display: inline-flex;
+    gap: 0.15rem;
+    color: var(--c-line-2);
+  }
+
+  .rv-card :global(.rv-star.is-on),
+  .reviews-source :global(.rv-star.is-on) {
+    fill: currentColor;
+  }
+
+  .rv-stars :global(.rv-star.is-on) {
+    color: var(--c-orange);
+  }
+
   .rv-card :global(.rv-mark) {
     color: var(--c-orange);
     fill: rgb(249 131 5 / 0.15);
@@ -284,9 +410,17 @@ const { title, items } = SOBRE.depoimentos;
     font-weight: 600;
   }
 
+  .rv-who a {
+    color: inherit;
+  }
+
   .rv-who span {
     color: var(--c-ink-3);
     font-size: 0.9rem;
+  }
+
+  .rv-who time {
+    white-space: nowrap;
   }
 
   /* ——— Controles: setas e pontos ——— */
@@ -339,6 +473,7 @@ const { title, items } = SOBRE.depoimentos;
     background: none;
   }
 
+  .rv-controls[hidden],
   .rv-dot[hidden] {
     display: none;
   }

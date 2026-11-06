@@ -1,11 +1,22 @@
 import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import original from '../fixtures/original-sobre.json' with { type: 'json' };
+import google from '../../src/data/google-reviews.json' with { type: 'json' };
 
 // Nada sai para serviços externos durante os testes.
 test.beforeEach(async ({ page }) => {
   await page.route(/youtube\.com|ytimg|googletag|facebook|clarity|cloudfront|wa\.me/, (r) => r.abort());
 });
+
+// "O que os clientes dizem": os 4 depoimentos fixos do WordPress saíram da página; a seção mostra só
+// as avaliações do Google sincronizadas no build e fica oculta enquanto não houver nenhuma.
+const data = google as unknown as { place: { url: string | null } | null; reviews: { text: string; author: string; rating: number }[] };
+const reviews = data.reviews;
+const hasReviews = reviews.length > 0;
+const cut = original.texts.indexOf('O QUE OS CLIENTES DIZEM');
+const oldTestimonials = original.texts.slice(cut + 1);
+const keptTexts = original.texts.slice(0, hasReviews ? cut + 1 : cut);
+const keptHeadings = hasReviews ? original.headings : original.headings.filter((h) => h !== 'O QUE OS CLIENTES DIZEM');
 
 const norm = (s: string) => s.toLocaleLowerCase('pt-BR').replace(/\s+/g, ' ').trim();
 const scrollAll = (page: Page) =>
@@ -26,14 +37,14 @@ test.describe('sobre nós: preservação da página original', () => {
   test('todos os textos da página do WordPress estão presentes', async ({ page }) => {
     await page.goto('/sobre/');
     const body = norm((await page.locator('main').textContent()) ?? '');
-    const missing = original.texts.filter((t) => !body.includes(norm(t)));
+    const missing = keptTexts.filter((t) => !body.includes(norm(t)));
     expect(missing).toEqual([]);
   });
 
   test('títulos na mesma ordem da página original', async ({ page }) => {
     await page.goto('/sobre/');
     const headings = (await page.locator('main h1, main h2').allTextContents()).map(norm);
-    expect(headings).toEqual(original.headings.map(norm));
+    expect(headings).toEqual(keptHeadings.map(norm));
   });
 
   test('ordem dos blocos dentro das colunas e das seções', async ({ page }) => {
@@ -47,7 +58,7 @@ test.describe('sobre nós: preservação da página original', () => {
       'img:retrato', 'Propósito', 'img:evento', 'Visão e missão', 'img:equipe', 'Foco no atendimento', 'Conte conosco',
       'Especialidades', 'Servidores fisicos', 'Servidores em nuvem privada', 'Cibersegurança', 'Extensão de garantia',
       'Monitoramento', 'Suporte e manutenção', 'Recompra', 'Rotinas de backup',
-      'O que os clientes dizem', 'Fernando', 'Sara', 'Jessica', 'Pedro Hermano',
+      ...(hasReviews ? ['O que os clientes dizem', ...reviews.map((r) => r.author)] : []),
     ]);
   });
 
@@ -57,7 +68,7 @@ test.describe('sobre nós: preservação da página original', () => {
     await expect(page.getByRole('link', { name: 'Conte conosco' })).toHaveAttribute('href', original.hrefs[0]);
   });
 
-  test('as 11 imagens e os 2 fundos originais carregam', async ({ page }) => {
+  test('as 11 imagens e os fundos originais carregam', async ({ page }) => {
     const failed: string[] = [];
     page.on('response', (r) => r.url().startsWith('http://localhost') && r.status() >= 400 && failed.push(`${r.status()} ${r.url()}`));
     await page.goto('/sobre/');
@@ -70,7 +81,7 @@ test.describe('sobre nós: preservação da página original', () => {
     await expect(imgs).toHaveCount(original.images.length);
     const broken = await page.evaluate(() => [...document.querySelectorAll<HTMLImageElement>('main img')].filter((i) => !i.complete || i.naturalWidth === 0).map((i) => i.src));
     expect(broken).toEqual([]);
-    for (const sel of ['.band-texture', '.reviews-texture']) {
+    for (const sel of ['.band-texture', ...(hasReviews ? ['.reviews-texture'] : [])]) {
       const bg = await page.locator(sel).evaluate((el) => getComputedStyle(el).backgroundImage);
       expect(bg).toMatch(/url\(/);
       const url = bg.match(/url\("?(.*?)"?\)/)![1];
@@ -101,43 +112,73 @@ test('sobre nós: SEO, header e console', async ({ page, isMobile }) => {
   expect(errors).toEqual([]);
 });
 
-test('sobre nós: carrossel de depoimentos (setas, pontos, volta ao início, troca automática)', async ({ page, isMobile }) => {
+test('sobre nós: depoimentos antigos saíram; só aparecem avaliações reais do Google', async ({ page }) => {
   await page.goto('/sobre/');
-  const track = page.locator('[data-rv-track]');
-  await track.scrollIntoViewIfNeeded();
-  await page.mouse.move(0, 0);
-  const dots = page.locator('[data-rv-dot]:not([hidden])');
-  // Com 4 depoimentos: 3 por vez no desktop (2 posições), 1 por vez no celular (4 posições).
-  await expect(dots).toHaveCount(isMobile ? 4 : 2);
-  await expect(dots.first()).toHaveAttribute('aria-current', 'true');
-  // Troca automática (5 s), enquanto ninguém mexe no carrossel.
-  await expect(dots.nth(1)).toHaveAttribute('aria-current', 'true', { timeout: 10000 });
-  // Setas: avançar no último volta ao primeiro; voltar no primeiro vai ao último.
-  const next = page.getByRole('button', { name: 'Próximo depoimento' });
-  const prev = page.getByRole('button', { name: 'Depoimento anterior' });
-  const last = isMobile ? 3 : 1;
-  await page.getByRole('button', { name: `Ir para o depoimento ${last + 1}` }).click();
-  await expect(dots.nth(last)).toHaveAttribute('aria-current', 'true');
-  await next.click();
-  await expect(dots.first()).toHaveAttribute('aria-current', 'true');
-  await prev.click();
-  await expect(dots.nth(last)).toHaveAttribute('aria-current', 'true');
-  // O trilho acompanha: o depoimento correspondente fica visível.
-  await expect(page.locator('[data-rv-item]').last()).toBeInViewport();
-  // Depois de usar os controles, a troca automática para (como no WordPress).
-  await page.mouse.move(0, 0);
-  await page.waitForTimeout(6000);
-  await expect(dots.nth(last)).toHaveAttribute('aria-current', 'true');
+  // Texto visível (innerText): o script do carrossel fica dentro do <main> e não conta.
+  const body = norm(await page.locator('main').innerText());
+  expect(oldTestimonials.filter((t) => body.includes(norm(t)))).toEqual([]);
+  const section = page.locator('#depoimentos');
+  if (!hasReviews) {
+    // Sem avaliações sincronizadas, a seção não aparece (nada de depoimentos de exemplo).
+    await expect(section).toHaveCount(0);
+    await expect(page.locator('[data-rv-item]')).toHaveCount(0);
+    return;
+  }
+  const cards = section.locator('[data-rv-item]');
+  await expect(cards).toHaveCount(reviews.length);
+  for (const [i, r] of reviews.entries()) {
+    const card = cards.nth(i);
+    await expect(card.locator('.rv-quote')).toHaveText(r.text);
+    await expect(card.locator('.rv-who strong')).toHaveText(r.author);
+    await expect(card.getByRole('img', { name: `Nota ${r.rating} de 5` })).toHaveCount(1);
+  }
+  // Atribuição ao Google, com o link para o perfil.
+  await expect(section.getByRole('link', { name: 'Ver no Google Maps' })).toHaveAttribute('href', data.place!.url!);
 });
 
-test('sobre nós: carrossel não troca sozinho com redução de movimento', async ({ browser }) => {
-  const ctx = await browser.newContext({ reducedMotion: 'reduce' });
-  const page = await ctx.newPage();
-  await page.goto('/sobre/');
-  await page.locator('[data-rv-track]').scrollIntoViewIfNeeded();
-  await page.waitForTimeout(6500);
-  await expect(page.locator('[data-rv-dot]').first()).toHaveAttribute('aria-current', 'true');
-  await ctx.close();
+test.describe('sobre nós: carrossel de avaliações', () => {
+  test.skip(!hasReviews, 'sem avaliações do Google sincronizadas: a seção fica oculta');
+
+  test('setas, pontos, volta ao início e troca automática', async ({ page, isMobile }) => {
+    await page.goto('/sobre/');
+    const track = page.locator('[data-rv-track]');
+    await track.scrollIntoViewIfNeeded();
+    await page.mouse.move(0, 0);
+    const dots = page.locator('[data-rv-dot]:not([hidden])');
+    // 3 por vez no desktop, 1 por vez no celular.
+    const positions = Math.max(1, reviews.length - (isMobile ? 1 : 3) + 1);
+    test.skip(positions < 2, 'todas as avaliações cabem de uma vez: sem controles');
+    await expect(dots).toHaveCount(positions);
+    await expect(dots.first()).toHaveAttribute('aria-current', 'true');
+    // Troca automática (5 s), enquanto ninguém mexe no carrossel.
+    await expect(dots.nth(1)).toHaveAttribute('aria-current', 'true', { timeout: 10000 });
+    // Setas: avançar no último volta ao primeiro; voltar no primeiro vai ao último.
+    const next = page.getByRole('button', { name: 'Próxima avaliação' });
+    const prev = page.getByRole('button', { name: 'Avaliação anterior' });
+    const last = positions - 1;
+    await page.getByRole('button', { name: `Ir para a avaliação ${last + 1}` }).click();
+    await expect(dots.nth(last)).toHaveAttribute('aria-current', 'true');
+    await next.click();
+    await expect(dots.first()).toHaveAttribute('aria-current', 'true');
+    await prev.click();
+    await expect(dots.nth(last)).toHaveAttribute('aria-current', 'true');
+    // O trilho acompanha: a avaliação correspondente fica visível.
+    await expect(page.locator('[data-rv-item]').last()).toBeInViewport();
+    // Depois de usar os controles, a troca automática para.
+    await page.mouse.move(0, 0);
+    await page.waitForTimeout(6000);
+    await expect(dots.nth(last)).toHaveAttribute('aria-current', 'true');
+  });
+
+  test('não troca sozinho com redução de movimento', async ({ browser }) => {
+    const ctx = await browser.newContext({ reducedMotion: 'reduce' });
+    const page = await ctx.newPage();
+    await page.goto('/sobre/');
+    await page.locator('[data-rv-track]').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(6500);
+    await expect(page.locator('[data-rv-dot]').first()).toHaveAttribute('aria-current', 'true');
+    await ctx.close();
+  });
 });
 
 test.describe('sobre nós: composição', () => {

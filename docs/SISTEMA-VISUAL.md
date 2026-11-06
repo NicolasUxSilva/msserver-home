@@ -29,7 +29,9 @@ compartilhadas, cartões clicáveis). Ela não altera nenhum token do `global.cs
 - Layout: `.container`, `.section`, `.section--dark`, `.section--surface`, `.section--tint`,
   `.section-head(--split)`.
 - Rótulo editorial: `.eyebrow` com número em `<b>` (`<p class="eyebrow"><b>01</b> Servidores</p>`).
-  Na home, os rótulos usam nomes que já existem no menu do site.
+  Na home, os rótulos usam nomes que já existem no menu do site. No site, o rótulo usa a Inter
+  (`site.css`), em caixa alta com espaçamento de 0,12em; a mono fica para dados (índices dos
+  cartões, palavras-chave da hero, rótulos do rodapé).
 - Botões: `.btn` + `--primary` (laranja), `--dark`, `--outline`, `--outline-dark`, `--text`;
   tamanhos `--sm`, `--lg`; seta `.btn-arrow` que desliza no hover.
 - `.link`, `.chip`, `.icon-tile`, `.sr-only`, `.skip-link`.
@@ -48,6 +50,8 @@ compartilhadas, cartões clicáveis). Ela não altera nenhum token do `global.cs
 | `.ext-arrow` | Seta ↗ que aparece no hover de links externos |
 | `.dark-surface` + `__bg`, `__hatch`, `.glow--indigo/--orange` | Superfície índigo com hachura e brilhos (console e CTA final das landings) |
 | `data-reveal="zoom"` | Variação de entrada para mídia |
+| `--c-navy-950`, `--c-navy-900`, `--c-navy-glow` | Azul profundo dos banners escuros da home, para faixas de título das páginas internas |
+| `.eyebrow` (Inter 500, `b` 700) | Rótulos de seção na mesma família dos textos |
 
 ## Ritmo de superfícies da home
 
@@ -85,21 +89,25 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 
 ## Padrões de páginas internas ("Sobre nós")
 
-- **Faixa de título:** superfície escura com o fundo original da página como textura, losango
+- **Faixa de título:** gradiente `--c-navy-950` → `--c-navy-900` (o azul dos banners da home),
+  com o fundo original da página como textura em luminosidade e uma luz azul no topo; losango
   laranja e H1 centralizado; o primeiro elemento da seção seguinte sobe sobre a borda da faixa.
 - **Título de bloco:** traço laranja de 2,5 rem acima de cada H2 (`.block-title`, `.specs-title`).
 - **Duas colunas editoriais:** colunas 0,82fr / 1,18fr; a da direita distribui os blocos
   (`justify-content: space-between`) para terminar na mesma linha da esquerda.
 - **Grade de cartões informativos sem link:** linhas finas compartilhadas e alternância leve de
-  fundo, sem efeito de hover (não são clicáveis).
-- **Carrossel de depoimentos:** trilho nativo com encaixe, focável, setas e pontos abaixo,
-  troca automática com pausa e parada após interação.
+  fundo. Hover só visual (mouse): o cartão sobe 3 px, ganha fundo branco, borda, cantos e sombra,
+  um filete laranja no topo e o ícone se ergue; o cursor não muda, porque não são clicáveis.
+- **Carrossel de avaliações (Google):** trilho nativo com encaixe, focável, setas e pontos
+  abaixo, troca automática com pausa e parada após interação. Cartão: aspas e estrelas no topo,
+  texto original, autor com link e mês; nota geral e link do Google Maps sob o título. Dados só
+  do arquivo gerado no build; sem dados, a seção não é renderizada.
 - `Header` recebe `current` (página atual no menu) e `Base` recebe `ogType` e `schema`; os
   padrões são os da home.
 
 ## Breakpoints
 
-Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo), 1360
+Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo; a partir de 1180, grade de 3 colunas em "Nossa linha"), 1360
 (busca aberta no header). A hero troca para os banners verticais abaixo de 768 px, mesmo ponto
 do Elementor.
 

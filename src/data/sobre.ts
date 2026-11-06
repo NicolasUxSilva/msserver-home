@@ -55,13 +55,9 @@ export const SOBRE = {
 
   depoimentos: {
     title: 'O que os clientes dizem',
-    // Ordem do carrossel do WordPress (widget 0090bc4).
-    items: [
-      { quote: 'Nós da perfilados Nardi sempre que precisamoss adquirimos os equipamentos com a MSServer, temos um excelente atendimento sempre nos é ofertado nada mais do que precisamos, gerando economia para nossa empresa, sem contar o pós venda mas ágil que o das próprias fabricantes.', name: 'Fernando', company: 'Perfilados Nardi' },
-      { quote: 'A MSServer fez o serviço de implantação de servidores, o que surpreendeu foi a agilidade em realizar essa implantação, facilitou muito nossa rotina por aqui além de garantir a alta disponibilidade de nossa operação.', name: 'Sara', company: 'RD Concretos' },
-      { quote: 'A MSServer presta serviço de consultoria e suporte para nós faz em média 2 anos, desde então nosso processo melhorou muito com as implantações de servidores e incidentes atendidos de forma rápida e eficaz.', name: 'Jessica', company: 'Senior Engenharia' },
-      { quote: 'A MSServer nos ajudou na migração de todas as aplicações da empresa para a nuvem após a pandemia, conseguimos manter nossa operação ativa e ainda reduzir custos com equipamentos e operacional da nossa empresa.', name: 'Pedro Hermano', company: 'Attri' },
-    ],
+    // Os depoimentos desta seção vêm só das avaliações públicas do Perfil da Empresa no Google
+    // (src/data/google-reviews.json, gerado por scripts/sync-google-reviews.mjs). Os 4
+    // depoimentos fixos do WordPress foram retirados em 06/11/2026; ver docs/PRESERVACAO.md.
   },
 } as const;
 

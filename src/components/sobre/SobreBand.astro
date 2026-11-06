@@ -10,8 +10,7 @@ const texture = await getImage({ src: bg, width: 1680, format: 'webp', quality: 
 <section class="band dark-surface on-dark" id="quem-somos" aria-labelledby="quem-somos-title">
   <div class="dark-surface__bg" aria-hidden="true">
     <div class="band-texture" style={`background-image:url(${texture.src})`}></div>
-    <div class="glow glow--indigo band-glow-a"></div>
-    <div class="glow glow--orange band-glow-b"></div>
+    <div class="band-light"></div>
   </div>
   <div class="container band-inner">
     <span class="band-mark" aria-hidden="true"></span>
@@ -20,33 +19,30 @@ const texture = await getImage({ src: bg, width: 1680, format: 'webp', quality: 
 </section>
 
 <style>
+  /* Fundo no azul profundo dos banners da home, com a luz vinda de cima como nas artes. */
   .band {
+    background: linear-gradient(180deg, var(--c-navy-950) 0%, var(--c-navy-900) 100%);
     /* Espaço extra embaixo: o retrato da seção seguinte sobe sobre a borda da faixa. */
     padding-block: clamp(3.5rem, 2.5rem + 4vw, 6rem) clamp(6.5rem, 4rem + 8vw, 10.5rem);
     overflow: hidden;
   }
 
+  /* Hachuras do fundo original, só com a luminosidade (o tom roxo da arte não aparece). */
   .band-texture {
     position: absolute;
     inset: 0;
     background-position: center;
     background-size: cover;
-    opacity: 0.9;
+    mix-blend-mode: luminosity;
+    opacity: 0.4;
   }
 
-  .band-glow-a {
-    top: -60%;
-    left: 30%;
-    width: 50%;
-    height: 160%;
-  }
-
-  .band-glow-b {
-    bottom: -80%;
-    right: -10%;
-    width: 45%;
-    height: 140%;
-    opacity: 0.8;
+  .band-light {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(40% 70% at 50% 0%, rgb(46 110 210 / 0.38), transparent 70%),
+      radial-gradient(30% 50% at 50% 100%, rgb(46 110 210 / 0.12), transparent 70%);
   }
 
   .band-inner {

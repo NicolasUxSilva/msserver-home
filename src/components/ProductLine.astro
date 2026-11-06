@@ -239,6 +239,23 @@ const pad = (n: number) => String(n).padStart(2, '0');
     }
   }
 
+  /* Desktop largo: coluna lateral mais estreita e grade de 3 colunas (2 fileiras de 3),
+     com os seis modelos visíveis numa composição mais horizontal. */
+  @media (min-width: 1180px) {
+    .line-layout {
+      grid-template-columns: minmax(0, 0.25fr) minmax(0, 1fr);
+      gap: clamp(2rem, 0.5rem + 2.5vw, 3.5rem);
+    }
+
+    .line-head h2 {
+      font-size: clamp(2rem, 1rem + 1.5vw, 2.5rem);
+    }
+
+    .tab {
+      padding: 0 0.95rem;
+    }
+  }
+
   /* ——— Abas ——— */
   .tabs {
     position: relative;
@@ -361,6 +378,21 @@ const pad = (n: number) => String(n).padStart(2, '0');
     }
   }
 
+  /* Na grade de 3, a troca de aba também entra coluna a coluna. */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 1180px) {
+    .tab-panel:global(.is-entering) .card:nth-child(n) {
+      animation-delay: 0s;
+    }
+
+    .tab-panel:global(.is-entering) .card:nth-child(3n + 2) {
+      animation-delay: 0.06s;
+    }
+
+    .tab-panel:global(.is-entering) .card:nth-child(3n) {
+      animation-delay: 0.12s;
+    }
+  }
+
   @keyframes card-in {
     from {
       opacity: 0;
@@ -385,6 +417,24 @@ const pad = (n: number) => String(n).padStart(2, '0');
   @media (min-width: 900px) and (max-width: 1099px) {
     .grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1180px) {
+    .grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    /* Entrada escalonada por coluna (0, 1, 2) na grade de 3. */
+    .grid > .card:nth-child(3n + 1) {
+      --reveal-i: 0 !important;
+    }
+    .grid > .card:nth-child(3n + 2) {
+      --reveal-i: 1 !important;
+    }
+    .grid > .card:nth-child(3n) {
+      --reveal-i: 2 !important;
     }
   }
 
@@ -532,6 +582,31 @@ const pad = (n: number) => String(n).padStart(2, '0');
 
   .card:hover .card-btn :global(.btn-arrow) {
     transform: translateX(3px);
+  }
+
+  /* Grade de 3 (desktop largo): cartões proporcionalmente menores, mantendo foto, nome, nota,
+     preço e botão. Fica depois das regras-base do cartão para prevalecer sobre elas. */
+  @media (min-width: 1180px) {
+    .card-body {
+      gap: 0.4rem;
+      padding: 1rem 1.1rem 1.15rem;
+    }
+
+    .card-title {
+      font-size: 1.02rem;
+    }
+
+    .price {
+      margin-bottom: 0.75rem;
+      /* A faixa "de – até" cabe numa linha em todas as larguras da grade de 3. */
+      font-size: clamp(1rem, 0.55rem + 0.6vw, 1.1rem);
+      letter-spacing: -0.035em;
+    }
+
+    .card-index {
+      top: 0.7rem;
+      left: 0.8rem;
+    }
   }
 
   /* ——— Celular: carrossel horizontal com encaixe e indicador ——— */

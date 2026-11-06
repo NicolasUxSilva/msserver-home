@@ -6,11 +6,13 @@
   "description": "Home institucional da MSSERVER com a identidade visual das landings",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node --env-file-if-exists=.env scripts/sync-google-reviews.mjs --optional",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "test:e2e": "playwright test",
     "sync": "node scripts/sync-content.mjs",
+    "sync:reviews": "node --env-file-if-exists=.env scripts/sync-google-reviews.mjs",
     "assets": "node scripts/prepare-assets.mjs"
   },
   "engines": {
