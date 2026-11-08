@@ -631,20 +631,15 @@ const portraitFor = (key: string) => (key === 'locacao' ? '(max-width: 767px), (
     --loc-free: calc(var(--loc-x0) + 1052 * var(--loc-s) + clamp(1.5rem, 3vw, 3rem));
     --loc-right: max(100cqw - var(--loc-edge), min(var(--loc-free) + max(26rem, 22cqw), 100cqw - var(--gutter)));
     --loc-col: calc(var(--loc-right) - var(--loc-free));
-    /* O bloco de texto termina na linha da base dos servidores (y 785), sem descer além da área
-       das mensagens (acima dos pontos). */
-    --loc-base: calc(var(--loc-y0) + 785 * var(--loc-s));
-    --loc-cell-bottom: calc(100cqh - 28px - clamp(1rem, 0.6rem + 1vw, 1.75rem) - 1.5rem);
-    --loc-cell-top: clamp(2rem, 1rem + 3vw, 4rem);
   }
 
+  /* Na vertical, o bloco fica centrado na mesma linha das mensagens dos outros banners (a área
+     das mensagens centraliza todas); só a coluna muda, para ficar à direita dos servidores. */
   .hero-panel[data-key='locacao'] {
     justify-self: end;
     justify-self: unsafe end;
-    align-self: end;
     width: var(--loc-col);
     margin-right: calc(100cqw - var(--loc-edge) - var(--loc-right));
-    translate: 0 calc(-1 * max(0px, var(--loc-cell-bottom) - var(--loc-base)));
   }
 
   .hero-panel[data-key='locacao'] .hero-title {
@@ -660,19 +655,12 @@ const portraitFor = (key: string) => (key === 'locacao' ? '(max-width: 767px), (
   /* Paisagem mais "quadrada" que o banner (tablets deitados, monitores 4:3) ou muito baixa
      (celular deitado, em que a hero tem a altura mínima): com cover, sobraria pouco espaço à
      direita dos servidores. A arte aparece inteira na largura, ancorada no topo, e o piso continua
-     abaixo dela na mesma cor; o texto vai para a direita, acima dos pontos. */
+     abaixo dela na mesma cor; o texto vai para a direita. */
   @media (min-width: 768px) and (max-aspect-ratio: 8 / 5) and (orientation: landscape), (min-width: 768px) and (max-height: 500px) and (orientation: landscape) {
     .hero {
       --loc-s: calc((100cqw + 16px) / 1714);
       --loc-x0: -8px;
       --loc-y0: -8px;
-    }
-
-    /* Aqui a arte é mais baixa que a hero: o bloco fica centrado entre a rede de pontos (y 360) e
-       os pontos indicadores. */
-    .hero-panel[data-key='locacao'] {
-      align-self: center;
-      translate: 0 calc((var(--loc-y0) + 360 * var(--loc-s) - var(--loc-cell-top)) / 2);
     }
 
     .media-item[data-key='locacao'] {
@@ -719,7 +707,6 @@ const portraitFor = (key: string) => (key === 'locacao' ? '(max-width: 767px), (
       align-self: start;
       width: auto;
       margin-right: 0;
-      translate: none;
       gap: clamp(0.55rem, var(--m-avail) * 0.035, 0.8rem);
     }
 

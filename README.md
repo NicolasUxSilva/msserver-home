@@ -78,8 +78,8 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-51 testes, executados em desktop 1440 px e celular 390 px (102 execuções; alguns só se aplicam a
-um dos dois). Home (`tests/e2e/home.spec.ts`, 33): preservação de links e textos contra a home
+52 testes, executados em desktop 1440 px e celular 390 px (104 execuções; alguns só se aplicam a
+um dos dois). Home (`tests/e2e/home.spec.ts`, 34): preservação de links e textos contra a home
 original (`tests/fixtures/original-home.json`), ordem das seções, SEO, imagens, console,
 rolagem horizontal, abas, hero de tela cheia (arte cobrindo a seção sem deformar, um ponto indicador por banner, banner de locação com a arte certa em cada tela, texto sem cobrir a arte e botão para o orçamento, teclado, troca automática, pausa com o mouse, deslize no celular, sem deslocamento de layout), busca, WhatsApp, vídeo, cartões clicáveis, coluna lateral fixa e carrosséis de servidores e postagens, acordeão de soluções no celular, submenus, menu móvel (meia tela, camadas, fechar tocando fora, sem mover a página), acessibilidade
 (axe) e redução de movimento. Chamadas externas são bloqueadas durante os testes.

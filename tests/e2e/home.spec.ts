@@ -492,6 +492,31 @@ test.describe('banner de locação para IA', () => {
     expect(['cover', 'contain']).toContain(fit);
   });
 
+  test('o texto fica na mesma altura dos outros banners', async ({ page, isMobile }) => {
+    await page.goto('/');
+    const measure = async (key: string) => {
+      await page.locator(`#hero-t-${key}`).click();
+      await expect(page.locator('[data-hero-panel][data-active]')).toHaveAttribute('id', `hero-p-${key}`);
+      return page.locator(`#hero-p-${key}`).evaluate((panel) => {
+        const hero = panel.closest('[data-hero]')!.getBoundingClientRect();
+        const boxes = [...panel.children]
+          .filter((e) => getComputedStyle(e).display !== 'none')
+          .map((e) => e.getBoundingClientRect())
+          .filter((r) => r.height > 0);
+        const top = Math.min(...boxes.map((r) => r.top)) - hero.top;
+        const bottom = Math.max(...boxes.map((r) => r.bottom)) - hero.top;
+        return { top, center: (top + bottom) / 2 };
+      });
+    };
+    const others = [await measure('servidores'), await measure('app'), await measure('nuvem')];
+    const loc = await measure('locacao');
+    // Desktop: mensagens centradas na mesma linha. Celular: todas começam no mesmo ponto do topo.
+    for (const o of others) {
+      if (isMobile) expect(Math.abs(loc.top - o.top)).toBeLessThan(2);
+      else expect(Math.abs(loc.center - o.center)).toBeLessThan(2);
+    }
+  });
+
   test('o texto não cobre a palavra "LOCAÇÃO" nem os servidores', async ({ page }) => {
     await open(page);
     await page.waitForTimeout(1500);

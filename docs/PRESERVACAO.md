@@ -181,7 +181,9 @@ pontos, que passou de 3 para 4).
   troque o `href` do slide `locacao` em `src/data/content.ts`.
 - **Composição:** a arte larga deste banner ocupa mais da largura que as outras (servidores até
   ~61%), então o texto não usa a coluna fixa dos outros banners: é posicionado a partir do
-  enquadramento real da arte, à direita dos servidores, com a base alinhada à dos equipamentos.
+  enquadramento real da arte, à direita dos servidores. Na vertical, o texto fica na mesma
+  altura das mensagens dos outros banners (centrado na mesma linha no desktop; no mesmo ponto do
+  topo no celular).
   Em paisagem mais "quadrada" (tablets deitados, 16:10, celular deitado) a arte aparece inteira
   na largura e o piso continua abaixo dela na mesma cor. Em telas em pé, a arte vertical é
   enquadrada pelo logotipo (que fica fora do quadro, como nos outros banners) e o texto ocupa a

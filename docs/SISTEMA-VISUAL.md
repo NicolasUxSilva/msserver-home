@@ -65,7 +65,7 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 | Padrão | Onde | Reaproveitar em |
 | --- | --- | --- |
 | Hero de tela cheia com temas alternados (arte em cover, esmaecimento lento, um ponto indicador por tema, profundidade com o mouse e ao rolar) | `Hero.astro` | Heros de páginas internas com mais de um destaque |
-| Texto posicionado pela arte (banner de locação): a coluna e a altura do texto são calculadas a partir do enquadramento real da imagem (`container-type: size` na hero, unidades `cqw`/`cqh`), e o escurecimento acompanha a troca de tema (`@property --scrim-a/-b`) | `Hero.astro` | Banners cuja arte não deixa a metade direita livre |
+| Texto posicionado pela arte (banner de locação): a coluna do texto é calculada a partir do enquadramento real da imagem, e na vertical ele segue a mesma linha das mensagens dos outros temas (`container-type: size` na hero, unidades `cqw`/`cqh`), e o escurecimento acompanha a troca de tema (`@property --scrim-a/-b`) | `Hero.astro` | Banners cuja arte não deixa a metade direita livre |
 | Header translúcido fixo, borda ao rolar, submenus em painel; menu móvel em painel do topo (meia tela, logo centralizada, itens de abrir lado a lado acima dos links, submenus em camadas, fora do `<header>`) | `Header.astro` | Todas as páginas (mesmo `NAV` de `config/site.ts`) |
 | "Palco" escuro arredondado com padrão e brilho (console das landings) | Hero, app, vídeo | Heros de páginas internas, destaques |
 | Cartão de produto (foto em fundo branco 4:3, título, preço em Sora, botão escuro) | `ProductLine.astro` | Categorias, busca, relacionados |
