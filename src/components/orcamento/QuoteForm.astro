@@ -1,0 +1,1040 @@
+---
+// Solicitação de orçamento: o formulário de 5 etapas do Elementor Pro reconstruído na identidade
+// do site. Mesmos campos (nomes, ids, tipos), mesmos textos e mesmo envio; a lógica fica em
+// src/scripts/quote-form.ts.
+import Icon from '../Icon.astro';
+import { QUOTE } from '../../data/orcamento';
+import { CONTACT, whatsappUrl } from '../../config/site';
+
+const steps = QUOTE.steps;
+const total = steps.length;
+const pad = (n: number) => String(n).padStart(2, '0');
+const email = CONTACT.emails[1];
+const phone = CONTACT.phones[1];
+const wa = whatsappUrl(QUOTE.help.whatsappText);
+---
+
+<section class="quote dark-surface on-dark" aria-labelledby="orcamento-title" data-quote>
+  <div class="dark-surface__bg" aria-hidden="true">
+    <div class="dark-surface__hatch"></div>
+    <div class="quote-light"></div>
+  </div>
+
+  <div class="container quote-grid">
+    {/* Identificação, contexto e progresso (no desktop, a linha do tempo das etapas). */}
+    <div class="quote-aside">
+      <span class="quote-mark" aria-hidden="true"></span>
+      <h1 id="orcamento-title" class="quote-title">{QUOTE.title}</h1>
+      <p class="quote-lead">{QUOTE.lead}</p>
+
+      <ol class="timeline" aria-label="Etapas da solicitação">
+        {
+          steps.map((s, i) => (
+            <li class="tl-item" data-tl-item data-state={i === 0 ? 'current' : 'upcoming'}>
+              <button class="tl-btn" type="button" data-tl-go={i} aria-current={i === 0 ? 'step' : undefined} disabled>
+                <span class="tl-dot" aria-hidden="true">
+                  <span class="tl-num">{pad(i + 1)}</span>
+                  <Icon name="check" size={16} strokeWidth={2.5} class="tl-check" />
+                </span>
+                <span class="tl-text">
+                  <span class="tl-label">{s.label}</span>
+                  <span class="tl-value" data-tl-value />
+                  <span class="sr-only" data-tl-status>
+                    {i === 0 ? ', etapa atual' : ', pendente'}
+                  </span>
+                </span>
+              </button>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <div class="quote-card" data-quote-card>
+      <form class="quote-form" method="post" action={QUOTE.endpoint} novalidate aria-labelledby="orcamento-title" data-quote-form>
+        {/* Mesmos campos ocultos do widget do Elementor (o form_id é ajustado no envio). */}
+        <input type="hidden" name="post_id" value={QUOTE.hidden.post_id} />
+        <input type="hidden" name="form_id" value={QUOTE.formIds.desktop} />
+        <input type="hidden" name="referer_title" value={QUOTE.hidden.referer_title} />
+        <input type="hidden" name="queried_id" value={QUOTE.hidden.queried_id} />
+        <noscript><input type="hidden" name="action" value={QUOTE.action} /></noscript>
+
+        <div class="card-head">
+          <div class="card-meta">
+            <p class="card-count">
+              Etapa <b data-count>1</b> de {total}
+            </p>
+            <p class="card-required">{QUOTE.requiredNote}</p>
+          </div>
+          <div
+            class="card-bar"
+            role="progressbar"
+            aria-label="Progresso da solicitação"
+            aria-valuemin="0"
+            aria-valuemax={total}
+            aria-valuenow="0"
+            aria-valuetext={`Etapa 1 de ${total}: ${steps[0].label}. Nenhuma etapa concluída.`}
+            data-bar
+          >
+            {steps.map((_, i) => <span class="seg" data-seg data-state={i === 0 ? 'current' : 'upcoming'} />)}
+          </div>
+          <p class="card-next" data-next-label>A seguir: {steps[1].label}</p>
+        </div>
+
+        <div class="form-alert" role="alert" tabindex="-1" hidden data-alert>
+          <Icon name="circle-alert" size={20} class="form-alert-icon" />
+          <div>
+            <p class="form-alert-title">{QUOTE.status.errorTitle}</p>
+            <p class="form-alert-text" data-alert-text></p>
+            <p class="form-alert-help">
+              {QUOTE.status.fallbackContact}{' '}
+              <a href={`mailto:${email}`}>{email}</a>.
+              <a class="form-alert-wa" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="orcamento-erro">
+                <Icon name="whatsapp" size={16} /> WhatsApp
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div class="steps" data-steps>
+          {
+            steps.map((s, i) => (
+              <fieldset class="step" data-step={i} data-active={i === 0 ? '' : undefined}>
+                <legend class="step-title">{s.label}</legend>
+                <div class={`step-fields${s.fields.length > 1 ? ' step-fields--pair' : ''}`}>
+                  {s.fields.map((f) => (
+                    <div class="field" data-field={f.id}>
+                      <label class="field-label" for={`form-field-${f.id}`}>
+                        {f.label}
+                      </label>
+                      <div class="field-control">
+                        {f.control === 'textarea' ? (
+                          <textarea
+                            id={`form-field-${f.id}`}
+                            name={f.name}
+                            rows="4"
+                            required
+                            placeholder={f.placeholder}
+                            autocapitalize={f.autocapitalize}
+                            aria-describedby={`form-field-${f.id}-error`}
+                          />
+                        ) : (
+                          <input
+                            id={`form-field-${f.id}`}
+                            name={f.name}
+                            type={f.type}
+                            required
+                            placeholder={f.placeholder}
+                            autocomplete={f.autocomplete}
+                            inputmode={f.inputmode}
+                            autocapitalize={f.autocapitalize}
+                            spellcheck={f.type === 'email' || f.type === 'tel' ? 'false' : undefined}
+                            enterkeyhint={i === total - 1 ? 'send' : 'next'}
+                            aria-describedby={`form-field-${f.id}-error`}
+                          />
+                        )}
+                        <Icon name="check" size={18} strokeWidth={2.5} class="field-ok" />
+                      </div>
+                      <p class="field-error" id={`form-field-${f.id}-error`} hidden data-error>
+                        <Icon name="circle-alert" size={16} />
+                        <span data-error-text />
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </fieldset>
+            ))
+          }
+        </div>
+
+        <div class="actions" data-actions>
+          <button class="btn btn--outline btn-prev" type="button" hidden data-prev>
+            <Icon name="arrow-left" size={18} class="btn-back" />
+            {QUOTE.buttons.previous}
+          </button>
+          <p class="actions-hint" aria-hidden="true">ou pressione <kbd>Enter ↵</kbd></p>
+          <button class="btn btn--primary btn--lg btn-next" type="button" data-next>
+            {QUOTE.buttons.next}
+            <Icon name="arrow-right" class="btn-arrow" />
+          </button>
+          <button class="btn btn--primary btn--lg btn-submit" type="submit" hidden data-submit>
+            <span class="btn-label" data-submit-label>{QUOTE.buttons.submit}</span>
+            <Icon name="send" size={18} class="btn-send" />
+            <Icon name="loader-circle" size={18} class="btn-spin" />
+          </button>
+        </div>
+
+        <p class="sr-only" aria-live="polite" data-live></p>
+      </form>
+
+      {/* Confirmação: só aparece quando o servidor confirma o recebimento. */}
+      <div class="quote-success" tabindex="-1" hidden data-success>
+        <span class="success-icon" aria-hidden="true">
+          <Icon name="check" size={28} strokeWidth={2.5} />
+        </span>
+        <h2 class="success-title">{QUOTE.status.successTitle}</h2>
+        {/* Classes do aviso de sucesso do Elementor: gatilhos já configurados no GTM continuam valendo. */}
+        <p class="success-message elementor-message elementor-message-success" role="status" data-success-message></p>
+        <div class="success-summary">
+          <p class="success-summary-title">{QUOTE.status.summaryTitle}</p>
+          <dl data-success-summary></dl>
+        </div>
+        <div class="success-actions">
+          <button class="btn btn--outline" type="button" data-again>
+            <Icon name="rotate-ccw" size={18} />
+            {QUOTE.status.again}
+          </button>
+          <a class="btn btn--dark" href={import.meta.env.BASE_URL}>
+            {QUOTE.status.home}
+            <Icon name="arrow-right" class="btn-arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {/* Alternativa para quem prefere conversar (mesmos contatos do rodapé). */}
+    <div class="quote-help">
+      <p class="quote-help-title">{QUOTE.help.title}</p>
+      <ul class="quote-help-list">
+        <li>
+          <a href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="orcamento">
+            <Icon name="whatsapp" size={16} /> WhatsApp {phone.display}
+          </a>
+        </li>
+        <li>
+          <a href={`mailto:${email}`}>
+            <Icon name="mail" size={16} /> {email}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initQuoteForm } from '../../scripts/quote-form';
+  document.querySelectorAll<HTMLElement>('[data-quote]').forEach(initQuoteForm);
+</script>
+
+<style>
+  /* ——— Seção: superfície escura dos banners da home, luz azul vinda do alto ——— */
+  .quote {
+    background: linear-gradient(165deg, var(--c-navy-950) 0%, #04122d 55%, var(--c-navy-900) 100%);
+    padding-block: clamp(2rem, 1.2rem + 3vw, 4.5rem) clamp(2.5rem, 1.5rem + 4vw, 5rem);
+    overflow: hidden;
+  }
+
+  .quote-light {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(42% 60% at 14% 0%, rgb(46 110 210 / 0.34), transparent 72%),
+      radial-gradient(38% 50% at 78% 100%, rgb(46 110 210 / 0.16), transparent 70%),
+      radial-gradient(26% 32% at 92% 12%, rgb(249 131 5 / 0.07), transparent 70%);
+  }
+
+  .quote-grid {
+    display: grid;
+    gap: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+    align-items: start;
+  }
+
+  /* ——— Identificação e contexto ——— */
+  .quote-aside {
+    display: grid;
+    justify-items: start;
+    gap: 0.9rem;
+  }
+
+  .quote-mark {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    background: var(--c-orange);
+    transform: rotate(45deg);
+  }
+
+  .quote-title {
+    font-size: clamp(2.3rem, 1.35rem + 3.4vw, 4.25rem);
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+  .quote-lead {
+    max-width: 34ch;
+    color: var(--c-on-dark-2);
+    font-size: var(--t-lead);
+    line-height: 1.55;
+  }
+
+  /* ——— Linha do tempo das etapas (desktop) ——— */
+  .timeline {
+    display: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tl-item {
+    --dot: 38px;
+    position: relative;
+  }
+
+  /* Trilho entre as etapas e o preenchimento laranja que avança com as etapas concluídas. */
+  .tl-item:not(:last-child)::before,
+  .tl-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: calc(var(--dot) / 2 + 0.35rem - 1px);
+    top: calc(var(--dot) + 0.35rem + 4px);
+    bottom: -0.05rem;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--c-line-dark-2);
+  }
+
+  .tl-item:not(:last-child)::after {
+    background: var(--c-orange);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform var(--dur-2) var(--ease-out);
+  }
+
+  .tl-item[data-state='done']:not(:last-child)::after {
+    transform: scaleY(1);
+  }
+
+  .tl-btn {
+    display: grid;
+    grid-template-columns: var(--dot) minmax(0, 1fr);
+    align-items: start;
+    gap: 1rem;
+    width: 100%;
+    min-height: calc(var(--dot) + 1.6rem);
+    padding: 0.35rem 0.6rem 1.25rem 0.35rem;
+    border: 0;
+    border-radius: 14px;
+    background: none;
+    color: inherit;
+    text-align: left;
+    transition: background-color var(--dur-1) var(--ease-out);
+  }
+
+  .tl-btn:disabled {
+    cursor: default;
+  }
+
+  .tl-btn:not(:disabled):hover {
+    background: rgb(255 255 255 / 0.05);
+  }
+
+  .tl-btn:focus-visible {
+    outline-color: var(--c-orange);
+  }
+
+  .tl-dot {
+    display: grid;
+    place-items: center;
+    width: var(--dot);
+    height: var(--dot);
+    border: 1.5px solid var(--c-line-dark-2);
+    border-radius: 50%;
+    background: var(--c-navy-950);
+    color: var(--c-on-dark-3);
+    font-family: var(--f-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    transition:
+      background-color var(--dur-2) var(--ease-out),
+      border-color var(--dur-2) var(--ease-out),
+      color var(--dur-2) var(--ease-out),
+      box-shadow var(--dur-2) var(--ease-out);
+  }
+
+  .tl-dot > :global(*) {
+    grid-area: 1 / 1;
+  }
+
+  .tl-dot :global(.tl-check) {
+    opacity: 0;
+    transform: scale(0.6);
+    transition:
+      opacity var(--dur-2) var(--ease-out),
+      transform var(--dur-2) var(--ease-out);
+  }
+
+  .tl-text {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+    padding-top: 0.45rem;
+  }
+
+  .tl-label {
+    color: var(--c-on-dark-3);
+    font-size: 1.02rem;
+    font-weight: 500;
+    line-height: 1.3;
+    transition: color var(--dur-2) var(--ease-out);
+  }
+
+  .tl-value {
+    overflow: hidden;
+    color: var(--c-on-dark-3);
+    font-size: 0.86rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tl-value:empty {
+    display: none;
+  }
+
+  .tl-item[data-state='current'] .tl-dot {
+    border-color: var(--c-orange);
+    background: var(--c-orange);
+    color: var(--c-ink);
+    box-shadow: 0 0 0 6px rgb(249 131 5 / 0.16);
+  }
+
+  .tl-item[data-state='current'] .tl-label {
+    color: var(--c-on-dark);
+    font-weight: 600;
+  }
+
+  .tl-item[data-state='done'] .tl-dot {
+    border-color: rgb(249 131 5 / 0.55);
+    background: rgb(249 131 5 / 0.12);
+    color: var(--c-orange);
+  }
+
+  .tl-item[data-state='done'] .tl-num {
+    opacity: 0;
+  }
+
+  .tl-item[data-state='done'] :global(.tl-check) {
+    opacity: 1;
+    transform: none;
+  }
+
+  .tl-item[data-state='done'] .tl-label {
+    color: var(--c-on-dark-2);
+  }
+
+  /* ——— Cartão do formulário ——— */
+  .quote-card {
+    position: relative;
+    min-width: 0;
+    padding: clamp(1.25rem, 0.8rem + 2.2vw, 2.75rem);
+    border-radius: var(--r-xl);
+    background: var(--c-surface);
+    color: var(--c-ink);
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.06),
+      0 50px 90px -50px rgb(0 0 0 / 0.75);
+  }
+
+  .card-head {
+    display: grid;
+    gap: 0.7rem;
+    margin-bottom: clamp(1.4rem, 1rem + 1.2vw, 2.1rem);
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+  }
+
+  .card-count {
+    color: var(--c-ink-3);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .card-count b {
+    color: var(--c-orange-text);
+  }
+
+  .card-required {
+    color: var(--c-ink-3);
+    font-size: 0.82rem;
+  }
+
+  .card-bar {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .seg {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--c-line);
+    transition: background-color var(--dur-2) var(--ease-out);
+  }
+
+  .seg[data-state='current'] {
+    background: linear-gradient(90deg, var(--c-orange) 0 45%, rgb(249 131 5 / 0.28) 45%);
+  }
+
+  .seg[data-state='done'] {
+    background: var(--c-orange);
+  }
+
+  .card-next {
+    color: var(--c-ink-3);
+    font-size: 0.86rem;
+  }
+
+  /* ——— Aviso de falha no envio ——— */
+  .form-alert {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgb(180 47 37 / 0.25);
+    border-left: 3px solid var(--c-danger);
+    border-radius: var(--r-sm);
+    background: var(--c-danger-bg);
+    color: var(--c-ink);
+  }
+
+  .form-alert[hidden] {
+    display: none;
+  }
+
+  .form-alert:focus {
+    outline: none;
+  }
+
+  .form-alert :global(.form-alert-icon) {
+    margin-top: 0.1rem;
+    color: var(--c-danger);
+  }
+
+  .form-alert-title {
+    font-weight: 700;
+  }
+
+  .form-alert-text,
+  .form-alert-help {
+    margin-top: 0.3rem;
+    color: var(--c-ink-2);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .form-alert-help a {
+    color: var(--c-ink);
+    font-weight: 600;
+  }
+
+  .form-alert-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-left: 0.35rem;
+  }
+
+  /* ——— Etapas: só a ativa aparece; cada uma com a própria altura (os botões ficam logo abaixo
+     do campo) ——— */
+  .step {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  :global(html.js) .step:not([data-active]) {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .steps[data-dir] .step[data-active] {
+      animation: step-in 0.32s var(--ease-out) both;
+    }
+
+    .steps[data-dir='prev'] .step[data-active] {
+      animation-name: step-back;
+    }
+  }
+
+  @keyframes step-in {
+    from {
+      opacity: 0;
+      transform: translateX(18px);
+    }
+  }
+
+  @keyframes step-back {
+    from {
+      opacity: 0;
+      transform: translateX(-18px);
+    }
+  }
+
+  .step-title {
+    float: left;
+    width: 100%;
+    margin-bottom: 1.35rem;
+    padding: 0;
+    font-family: var(--f-display);
+    font-size: clamp(1.55rem, 1.25rem + 1.1vw, 2.15rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+
+  .step-fields {
+    display: grid;
+    clear: both;
+    gap: 1.25rem;
+  }
+
+  /* ——— Campos ——— */
+  .field {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+
+  .field-label {
+    color: var(--c-ink);
+    font-size: 0.98rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .field-control {
+    position: relative;
+  }
+
+  .field-control input,
+  .field-control textarea {
+    display: block;
+    width: 100%;
+    min-height: 56px;
+    padding: 0 2.9rem 0 1rem;
+    border: 1.5px solid var(--c-line-2);
+    border-radius: 12px;
+    background: var(--c-surface);
+    color: var(--c-ink);
+    font-size: 1.05rem;
+    line-height: 1.4;
+    transition:
+      border-color var(--dur-1) var(--ease-out),
+      box-shadow var(--dur-1) var(--ease-out),
+      background-color var(--dur-1) var(--ease-out);
+  }
+
+  .field-control textarea {
+    min-height: 136px;
+    padding: 0.85rem 2.9rem 0.85rem 1rem;
+    line-height: 1.55;
+    resize: vertical;
+  }
+
+  .field-control input::placeholder,
+  .field-control textarea::placeholder {
+    color: var(--c-ink-3);
+    opacity: 1;
+  }
+
+  .field-control input:hover,
+  .field-control textarea:hover {
+    border-color: var(--c-ink-3);
+  }
+
+  .field-control input:focus,
+  .field-control textarea:focus {
+    border-color: var(--c-indigo-600);
+    outline: none;
+    box-shadow: 0 0 0 4px rgb(61 58 134 / 0.16);
+  }
+
+  /* Preenchido e válido: borda firme e marca de confirmação. */
+  .field.is-valid input,
+  .field.is-valid textarea {
+    border-color: rgb(21 122 76 / 0.55);
+  }
+
+  .field-control :global(.field-ok) {
+    position: absolute;
+    top: 19px;
+    right: 1rem;
+    color: var(--c-success);
+    opacity: 0;
+    transform: scale(0.6);
+    transition:
+      opacity var(--dur-1) var(--ease-out),
+      transform var(--dur-2) var(--ease-out);
+    pointer-events: none;
+  }
+
+  .field.is-valid :global(.field-ok) {
+    opacity: 1;
+    transform: none;
+  }
+
+  .field.is-invalid input,
+  .field.is-invalid textarea {
+    border-color: var(--c-danger);
+    background: #fffafa;
+  }
+
+  .field.is-invalid input:focus,
+  .field.is-invalid textarea:focus {
+    box-shadow: 0 0 0 4px rgb(180 47 37 / 0.14);
+  }
+
+  .field-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    color: var(--c-danger);
+    font-size: 0.88rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .field-error[hidden] {
+    display: none;
+  }
+
+  .field-error :global(svg) {
+    flex: none;
+    margin-top: 0.1rem;
+  }
+
+  /* ——— Navegação entre etapas ——— */
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem);
+    padding-top: clamp(1.25rem, 1rem + 0.8vw, 1.6rem);
+    border-top: 1px solid var(--c-line);
+  }
+
+  .actions [hidden] {
+    display: none;
+  }
+
+  .btn-prev {
+    min-height: 52px;
+  }
+
+  .btn-prev :global(.btn-back) {
+    transition: transform var(--dur-2) var(--ease-out);
+  }
+
+  .btn-prev:hover :global(.btn-back) {
+    transform: translateX(-3px);
+  }
+
+  .actions-hint {
+    display: none;
+    color: var(--c-ink-3);
+    font-size: 0.82rem;
+  }
+
+  .actions-hint kbd {
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--c-line-2);
+    border-radius: 6px;
+    background: var(--c-paper);
+    font-family: var(--f-mono);
+    font-size: 0.75rem;
+  }
+
+  .btn-next,
+  .btn-submit {
+    margin-left: auto;
+  }
+
+  .btn-submit :global(.btn-spin) {
+    display: none;
+  }
+
+  .btn-submit[aria-busy='true'] {
+    cursor: progress;
+    opacity: 0.85;
+  }
+
+  .btn-submit[aria-busy='true'] :global(.btn-send) {
+    display: none;
+  }
+
+  .btn-submit[aria-busy='true'] :global(.btn-spin) {
+    display: block;
+    animation: spin 0.9s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ——— Confirmação ——— */
+  .quote-success {
+    display: grid;
+    justify-items: start;
+    gap: 1rem;
+  }
+
+  .quote-success[hidden] {
+    display: none;
+  }
+
+  .quote-success:focus {
+    outline: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .quote-success:not([hidden]) {
+      animation: step-in 0.4s var(--ease-out) both;
+    }
+  }
+
+  .success-icon {
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--c-success-bg);
+    color: var(--c-success);
+    box-shadow: 0 0 0 8px rgb(21 122 76 / 0.06);
+  }
+
+  .success-title {
+    font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.2rem);
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+
+  .success-message {
+    color: var(--c-ink-2);
+    font-size: 1.05rem;
+    line-height: 1.55;
+  }
+
+  .success-summary {
+    width: 100%;
+    margin-top: 0.4rem;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-md);
+    background: var(--c-paper);
+  }
+
+  .success-summary-title {
+    margin-bottom: 0.6rem;
+    color: var(--c-ink-3);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .success-summary :global(dl) {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+  }
+
+  .success-summary :global(dl > div) {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .success-summary :global(dt) {
+    color: var(--c-ink-3);
+    font-size: 0.82rem;
+  }
+
+  .success-summary :global(dd) {
+    margin: 0;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+
+  .success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.4rem;
+  }
+
+  /* ——— Alternativa de contato ——— */
+  .quote-help {
+    display: grid;
+    gap: 0.55rem;
+    color: var(--c-on-dark-3);
+    font-size: 0.9rem;
+  }
+
+  .quote-help-title {
+    color: var(--c-on-dark-2);
+    font-weight: 600;
+  }
+
+  .quote-help-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .quote-help-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 44px;
+    color: var(--c-on-dark);
+    text-decoration: none;
+  }
+
+  .quote-help-list a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .quote-help-list a:focus-visible {
+    outline-color: var(--c-orange);
+  }
+
+  /* ——— Telas a partir de 640 px: email e telefone lado a lado ——— */
+  @media (min-width: 640px) {
+    .step-fields--pair {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* Com mouse/trackpad, a dica do Enter ao lado do botão de avançar (não na etapa com área de
+     texto, em que o Enter quebra a linha, nem na última, em que o botão de envio ocupa o espaço). */
+  @media (hover: hover) and (pointer: fine) and (min-width: 640px) {
+    .actions:not([data-hint='off']) .actions-hint {
+      display: block;
+      margin-left: auto;
+    }
+
+    .actions:not([data-hint='off']) .btn-next {
+      margin-left: 0;
+    }
+  }
+
+  /* ——— Desktop: contexto e linha do tempo à esquerda, formulário à direita ——— */
+  @media (min-width: 1024px) {
+    .quote {
+      display: grid;
+      align-content: center;
+      min-height: calc(100svh - var(--header-h));
+    }
+
+    .quote-grid {
+      grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+      grid-template-areas:
+        'aside card'
+        'help card';
+      grid-template-rows: auto 1fr;
+      column-gap: clamp(3rem, 1rem + 5vw, 6.5rem);
+      row-gap: 2rem;
+      align-items: start;
+    }
+
+    .quote-aside {
+      grid-area: aside;
+      gap: 1.1rem;
+    }
+
+    /* Alinhado ao topo do título: quando uma etapa é mais alta, o cartão cresce para baixo, sem
+       deslocar o restante. */
+    .quote-card {
+      grid-area: card;
+    }
+
+    .quote-help {
+      grid-area: help;
+      align-self: end;
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--c-line-dark);
+    }
+
+    .timeline {
+      display: grid;
+      margin-top: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+      width: 100%;
+    }
+
+    .card-next {
+      display: none;
+    }
+  }
+
+  /* ——— Celular: contexto compacto, progresso no cartão, botões logo abaixo do campo ——— */
+  @media (max-width: 1023px) {
+    .quote-help {
+      justify-items: start;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .quote-lead {
+      font-size: 1rem;
+    }
+
+    .actions {
+      flex-wrap: nowrap;
+    }
+
+    .btn-prev {
+      flex: none;
+      padding-inline: 1rem;
+    }
+
+    .btn-next,
+    .btn-submit {
+      flex: 1;
+      justify-content: center;
+      min-width: 0;
+      padding-inline: 1rem;
+    }
+
+    .btn-submit .btn-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .success-actions,
+    .success-actions .btn {
+      width: 100%;
+    }
+  }
+
+  /* Sem JavaScript: todas as perguntas visíveis, com o botão de envio. */
+  :global(html:not(.js)) .step {
+    margin-bottom: 1.5rem;
+  }
+
+  :global(html:not(.js)) .btn-next,
+  :global(html:not(.js)) .card-head {
+    display: none;
+  }
+
+  :global(html:not(.js)) .actions .btn-submit[hidden] {
+    display: inline-flex;
+  }
+</style>

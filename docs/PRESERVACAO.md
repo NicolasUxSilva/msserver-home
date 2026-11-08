@@ -326,3 +326,90 @@ A foto do evento aparece inteira (o texto do painel fica na base); o retrato é 
 - **Idioma e Open Graph:** `lang="pt-BR"` e `og:locale` `pt_BR`; `og:type` `article`, como no
   All in One SEO. Title, description, canonical e JSON-LD são os da página publicada.
 - **Textos justificados** passaram a alinhados à esquerda (legibilidade).
+
+# Página "Orçamento" (`/orcamento/`)
+
+Referência: HTML publicado em `https://msserver.com.br/orcamento/` (página 509 do WordPress,
+Elementor Pro 3.32), capturado em 08/11/2026 pelo endereço `http://` (o certificado HTTPS do site
+estava vencido). Etapas, campos, textos, campos ocultos e endpoint usados nos testes estão em
+`tests/fixtures/original-orcamento.json`, gerado automaticamente a partir desse HTML.
+
+## O que a página original tinha
+
+- Título "ORÇAMENTO" sobre uma imagem de fundo com camada roxa e, abaixo, o formulário de várias
+  etapas do Elementor Pro, em duas cópias com as mesmas perguntas: o widget `3c9067f` (desktop e
+  tablet) e o `65ca7d8` (celular, com os nomes das etapas vazios).
+- Indicador de etapas com número e nome; botões "Próximo" e "Anterior" (a primeira etapa só tem
+  "Próximo"; a última tem "Anterior" e "Enviar").
+- "Próximo" valida os campos da etapa (validação do navegador); "Anterior" volta sem validar; os
+  dados ficam nos campos enquanto a pessoa navega.
+- Envio por AJAX para `https://msserver.com.br/wp-admin/admin-ajax.php` com os campos do
+  formulário mais `action=elementor_pro_forms_send_form` e `referrer` (endereço da página). Na
+  resposta: sucesso mostra a mensagem do servidor e limpa o formulário (e redireciona, se houver
+  `redirect_url`); erro marca os campos devolvidos pelo servidor e mostra a mensagem geral.
+- Sem reCAPTCHA nem campo-armadilha. Rastreamento da página: GTM, Google Ads, Meta Pixel, Clarity
+  e o script do RD Station, os mesmos da home.
+
+## Etapas e campos (todos obrigatórios, como no original)
+
+| Etapa | Campo (`name`) | Rótulo | Texto de exemplo | Controle |
+| --- | --- | --- | --- | --- |
+| 1 Dados Pessoais | `form_fields[name]` | Nome e Sobrenome | Digite seu nome e Sobrenome | texto |
+| 2 Dados da Empresa | `form_fields[field_ba71415]` | Razão Social | Digite a razão social da sua empresa | texto |
+| 3 Email e Telefone | `form_fields[field_f66ed12]` | Email | Digite seu email | email |
+| 3 Email e Telefone | `form_fields[field_2e1002c]` | Telefone | Digite seu telefone | telefone |
+| 4 Aplicação | `form_fields[field_1d74bd8]` | Nos dê uma breve descrição da aplicação de uso do seu servidor ou configuração desejada. | Digite aqui... | área de texto (era texto de uma linha) |
+| 5 Serviço especializado | `form_fields[field_9919f95]` | Necessita de mão de obra especializada para o projeto? | Digite aqui... | texto |
+
+Campos ocultos mantidos: `post_id=509`, `form_id`, `referer_title=Orçamento - MSSERVER`,
+`queried_id=509`. O envio usa `form_id=3c9067f` em telas acima de 767 px e `65ca7d8` até 767 px
+(o mesmo ponto em que o Elementor alterna os dois widgets), porque as ações do servidor (email,
+integrações) são configuradas em cada widget. O pedido foi comparado com o do formulário original,
+preenchido com os mesmos dados no desktop e no celular, com os dois envios interceptados no
+navegador: mesmas 12 partes, na mesma ordem e com os mesmos valores.
+
+## Textos
+
+| Original | Exibido |
+| --- | --- |
+| ORÇAMENTO | Orçamento |
+| Próximo / Anterior | Próximo / Anterior |
+| Enviar | Enviar solicitação de orçamento (deixa claro o que o botão envia) |
+| Nomes das etapas, rótulos e textos de exemplo | Iguais (tabela acima) |
+| — | "Cinco passos rápidos para a equipe comercial da MSSERVER entender o seu projeto." (contexto curto, novo) |
+| — | "Todos os campos são obrigatórios." (todos já eram) |
+| Mensagens padrão do navegador ("Preencha este campo") | Mensagens em português por campo (ex.: "Informe seu nome e sobrenome.") |
+| "Only numbers and phone characters (#, -, *, etc) are accepted." (título do campo de telefone) | "Use apenas números e caracteres de telefone, como ( ) - + # *." |
+| Mensagem de sucesso | A mesma que o servidor devolver (configurada no Elementor), sob o título "Solicitação de orçamento enviada" |
+
+Novos, sem mudar o que é pedido: resumo do que foi enviado na confirmação; bloco "Prefere falar
+com a equipe?" com o WhatsApp (mesma mensagem do botão "Conte conosco" de "Sobre nós") e o email
+comercial do rodapé; aviso de falha com os mesmos contatos.
+
+## Correções técnicas (sem mudar o que é coletado)
+
+- **Telefone:** o `pattern` do campo no Elementor (`[0-9()#&+*-=.]+`) é inválido para os
+  navegadores atuais, que o ignoram; a regra só valia no servidor, que recusa espaços. Aqui a
+  mesma regra é conferida antes do envio, e os espaços digitados são retirados no envio
+  ("(11) 98599-1837" chega como "(11)98599-1837").
+- **Espaços:** espaços no início/fim e repetidos são retirados dos demais campos (o servidor do
+  WordPress também os remove em campos de texto).
+- **Aplicação:** área de texto em vez de campo de uma linha; quebras de linha são enviadas como
+  espaço, como o servidor já faria.
+- **Rascunho:** as respostas ficam guardadas na sessão do navegador enquanto a pessoa preenche
+  (sobrevivem a recarregar a página) e são apagadas depois de um envio confirmado.
+- **Envio duplicado:** o botão fica bloqueado enquanto o envio está em andamento.
+- **Falha de rede ou resposta inesperada:** aviso com o motivo, dados preservados e novo envio
+  pelo mesmo botão (no original aparecia só o código do erro do jQuery).
+- **Fora do domínio do site:** o pedido leva o cabeçalho `X-Requested-With` (o mesmo do jQuery do
+  Elementor); em outra origem, isso exige uma autorização de CORS que o WordPress não dá, então o
+  pedido não sai e nada chega ao servidor sem confirmação.
+- **Compatibilidade de rastreamento:** a mensagem de sucesso mantém as classes
+  `elementor-message elementor-message-success`, caso o GTM use a visibilidade dela como gatilho;
+  o `dataLayer` recebe `quote_step`, `quote_submit`, `quote_submit_success` e `quote_submit_error`
+  (sem dados pessoais). O `<form>` continua disparando o evento de envio só na última etapa, como
+  no original (relevante se o script do RD Station estiver configurado para capturar formulários;
+  isso não é visível no código da página e deve ser conferido no RD Station).
+- **Links:** "Orçamento" no menu e no rodapé, e o banner de locação da home, passaram a levar à
+  página nova (`/orcamento/`), como as outras páginas reconstruídas. Home e "Sobre nós" não
+  mudaram em nada além desses endereços.

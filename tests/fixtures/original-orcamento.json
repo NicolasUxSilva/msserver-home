@@ -1,0 +1,110 @@
+{
+  "source": "http://msserver.com.br/orcamento/ (página 509 do WordPress, Elementor Pro 3.32), capturada em 08/11/2026",
+  "title": "Orçamento - MSSERVER",
+  "description": "ORÇAMENTO",
+  "canonical": "https://msserver.com.br/orcamento/",
+  "heading": "ORÇAMENTO",
+  "endpoint": "https://msserver.com.br/wp-admin/admin-ajax.php",
+  "action": "elementor_pro_forms_send_form",
+  "formIds": {
+    "desktop": "3c9067f",
+    "mobile": "65ca7d8"
+  },
+  "hidden": {
+    "post_id": "509",
+    "referer_title": "Orçamento - MSSERVER",
+    "queried_id": "509"
+  },
+  "buttons": {
+    "next": "Próximo",
+    "previous": "Anterior",
+    "submit": "Enviar"
+  },
+  "steps": [
+    {
+      "label": "Dados Pessoais",
+      "fields": [
+        {
+          "name": "form_fields[name]",
+          "id": "form-field-name",
+          "type": "text",
+          "label": "Nome e Sobrenome",
+          "placeholder": "Digite seu nome e Sobrenome",
+          "required": true,
+          "pattern": null,
+          "title": null
+        }
+      ]
+    },
+    {
+      "label": "Dados da Empresa",
+      "fields": [
+        {
+          "name": "form_fields[field_ba71415]",
+          "id": "form-field-field_ba71415",
+          "type": "text",
+          "label": "Razão Social",
+          "placeholder": "Digite a razão social da sua empresa",
+          "required": true,
+          "pattern": null,
+          "title": null
+        }
+      ]
+    },
+    {
+      "label": "Email e Telefone",
+      "fields": [
+        {
+          "name": "form_fields[field_f66ed12]",
+          "id": "form-field-field_f66ed12",
+          "type": "email",
+          "label": "Email",
+          "placeholder": "Digite seu email",
+          "required": true,
+          "pattern": null,
+          "title": null
+        },
+        {
+          "name": "form_fields[field_2e1002c]",
+          "id": "form-field-field_2e1002c",
+          "type": "tel",
+          "label": "Telefone",
+          "placeholder": "Digite seu telefone",
+          "required": true,
+          "pattern": "[0-9()#&+*-=.]+",
+          "title": "Only numbers and phone characters (#, -, *, etc) are accepted."
+        }
+      ]
+    },
+    {
+      "label": "Aplicação",
+      "fields": [
+        {
+          "name": "form_fields[field_1d74bd8]",
+          "id": "form-field-field_1d74bd8",
+          "type": "text",
+          "label": "Nos dê uma breve descrição da aplicação de uso do seu servidor ou configuração desejada.",
+          "placeholder": "Digite aqui...",
+          "required": true,
+          "pattern": null,
+          "title": null
+        }
+      ]
+    },
+    {
+      "label": "Serviço especializado",
+      "fields": [
+        {
+          "name": "form_fields[field_9919f95]",
+          "id": "form-field-field_9919f95",
+          "type": "text",
+          "label": "Necessita de mão de obra especializada para o projeto?",
+          "placeholder": "Digite aqui...",
+          "required": true,
+          "pattern": null,
+          "title": null
+        }
+      ]
+    }
+  ]
+}

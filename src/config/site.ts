@@ -17,21 +17,22 @@ const U = SITE.origin;
 
 /**
  * Páginas já reconstruídas neste projeto: os links entre elas são internos (caminho na raiz do
- * site, respeitando o BASE_PATH do build), para que a Home e "Sobre nós" novas levem uma à outra
- * em qualquer ambiente. As páginas ainda não reformuladas continuam apontando para o WordPress
+ * site, respeitando o BASE_PATH do build), para que as páginas novas (Home, "Sobre nós" e
+ * Orçamento) levem umas às outras em qualquer ambiente. As páginas ainda não reformuladas continuam apontando para o WordPress
  * em msserver.com.br até serem reconstruídas. Ao reconstruir outra página, acrescente-a aqui.
  */
 const BASE = (import.meta.env?.BASE_URL ?? '/').replace(/\/$/, '');
 export const ROUTES = {
   home: `${BASE}/`,
   about: `${BASE}/sobre/`,
+  quote: `${BASE}/orcamento/`,
 } as const;
 
 export const LINKS = {
   home: ROUTES.home,
   servers: `${U}/servidores`,
   about: ROUTES.about,
-  quote: `${U}/orcamento/`,
+  quote: ROUTES.quote,
   blog: `${U}/blog/`,
   support: `${U}/obter-suporte/`,
   cases: `${U}/cases-de-sucesso/`,
@@ -85,18 +86,18 @@ export const NAV: NavLink[] = [
       { label: 'Consultoria', href: `${U}/consultoria-em-implantacao-de-servidores/` },
     ],
   },
-  { label: 'Orçamento', href: `${U}/orcamento/` },
+  { label: 'Orçamento', href: LINKS.quote },
   { label: 'Blog', href: `${U}/blog/` },
   { label: 'Suporte', href: `${U}/obter-suporte/` },
   { label: 'Cases de sucesso', href: `${U}/cases-de-sucesso/` },
 ];
 
-/** Menu do rodapé ("MENU"), com os destinos do WordPress; Início e Quem somos levam às páginas
- *  reconstruídas (ROUTES). */
+/** Menu do rodapé ("MENU"), com os destinos do WordPress; Início, Quem somos e Orçamento levam às
+ *  páginas reconstruídas (ROUTES). */
 export const FOOTER_MENU = [
   { label: 'Início', href: LINKS.home },
   { label: 'Quem somos', href: LINKS.about },
-  { label: 'Orçamento', href: `${U}/orcamento` },
+  { label: 'Orçamento', href: LINKS.quote },
   { label: 'Blog', href: `${U}/blog` },
   { label: 'Servidores', href: `${U}/servidores` },
   { label: 'Obter Suporte', href: `${U}/obter-suporte` },

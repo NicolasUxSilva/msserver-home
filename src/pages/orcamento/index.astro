@@ -1,0 +1,22 @@
+---
+// Página "Orçamento" da MSSERVER: o formulário de 5 etapas da página do WordPress
+// (https://msserver.com.br/orcamento/) reconstruído na identidade visual da home e de "Sobre nós",
+// com os mesmos campos, textos e envio.
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppFab from '../../components/WhatsAppFab.astro';
+import QuoteForm from '../../components/orcamento/QuoteForm.astro';
+import { LINKS } from '../../config/site';
+import { ORCAMENTO_SEO } from '../../data/orcamento';
+import schema from '../../data/orcamento-schema.json';
+---
+
+<Base title={ORCAMENTO_SEO.title} description={ORCAMENTO_SEO.description} canonical={ORCAMENTO_SEO.canonical} ogType="article" schema={schema}>
+  <Header current={LINKS.quote} />
+  <main id="conteudo">
+    <QuoteForm />
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Base>

@@ -108,6 +108,30 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 - `Header` recebe `current` (página atual no menu) e `Base` recebe `ogType` e `schema`; os
   padrões são os da home.
 
+## Padrões de formulário (Orçamento)
+
+- **Composição:** superfície escura dos banners da home (azul-marinho com luz azul vinda do alto)
+  e o formulário num cartão branco, protagonista. Desktop: contexto (losango laranja, título,
+  frase curta), linha do tempo das etapas e contatos à esquerda; cartão à direita, alinhado ao
+  topo do título (cresce para baixo quando a etapa é mais alta). Celular e tablet: contexto
+  compacto, cartão, contatos abaixo.
+- **Progresso:** linha do tempo vertical (desktop) com número, nome, estado (concluída ✓ com o
+  resumo do que foi preenchido, atual em laranja, pendente) e trilho que se preenche; etapas já
+  feitas são clicáveis. No cartão, "Etapa X de 5", barra de 5 segmentos (`role="progressbar"`) e,
+  no celular, "A seguir: …". Uma etapa só conta como concluída com os campos válidos.
+- **Campos:** rótulo acima (Inter 600), campo de 56 px, borda 1,5 px `--c-line-2`, foco com
+  borda `--c-indigo-600` e halo, válido com ✓ verde, inválido com borda e mensagem
+  `--c-danger` ligada por `aria-describedby`. Etapa como `<fieldset>`/`<legend>`; etapas inativas
+  com `inert`.
+- **Ações:** "Anterior" `.btn--outline` à esquerda, "Próximo"/"Enviar" `.btn--primary .btn--lg` à
+  direita (no celular, lado a lado com o principal ocupando o resto da linha). Enter avança; dica
+  "ou pressione Enter" só com mouse e quando vale.
+- **Estados:** carregando (botão bloqueado, ícone girando, `aria-busy`), confirmação (ícone de
+  sucesso, mensagem do servidor, resumo, "Enviar outra solicitação"), falha (`role="alert"`,
+  motivo, dados preservados, contatos).
+- O WhatsApp flutuante sai da frente quando cobriria os botões do formulário ou enquanto se digita
+  numa tela de toque.
+
 ## Breakpoints
 
 Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo; a partir de 1180, grade de 3 colunas em "Nossa linha"), 1360

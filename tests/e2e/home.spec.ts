@@ -28,12 +28,14 @@ test.describe('preservação da home original', () => {
     const equivalent: Record<string, string> = {
       // Âncora para a seção do app nesta mesma página.
       'https://msserver.com.br/#appmobile': '#appmobile',
-      // Páginas já reconstruídas neste projeto: Início e "Sobre nós" levam às rotas internas
+      // Páginas já reconstruídas neste projeto: Início, "Sobre nós" e Orçamento levam às rotas internas
       // (ver ROUTES em src/config/site.ts); as demais seguem no WordPress.
       'https://msserver.com.br': '/',
       'https://msserver.com.br/': '/',
       'https://msserver.com.br/sobre': '/sobre/',
       'https://msserver.com.br/sobre/': '/sobre/',
+      'https://msserver.com.br/orcamento': '/orcamento/',
+      'https://msserver.com.br/orcamento/': '/orcamento/',
     };
     const missing = original.hrefs.filter((h) => !hrefs.has(equivalent[h] ?? h));
     expect(missing).toEqual([]);
@@ -477,8 +479,8 @@ test.describe('banner de locação para IA', () => {
       'Tenha acesso a servidores equipados com GPUs de alto desempenho para inteligência artificial, sem precisar investir na aquisição dos equipamentos.',
     );
     const cta = panel.getByRole('link', { name: 'Conheça a locação' });
-    await expect(cta).toHaveAttribute('href', 'https://msserver.com.br/orcamento/');
-    await expect(page.locator('[data-hero-art][data-active]')).toHaveAttribute('href', 'https://msserver.com.br/orcamento/');
+    await expect(cta).toHaveAttribute('href', '/orcamento/');
+    await expect(page.locator('[data-hero-art][data-active]')).toHaveAttribute('href', '/orcamento/');
     await expect(page.locator('[data-hero]')).not.toContainText(/haas/i);
   });
 

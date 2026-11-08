@@ -78,16 +78,42 @@ test.describe('Sobre nós → Home', () => {
   });
 });
 
+test.describe('Orçamento', () => {
+  test('menu e rodapé da Home levam à página nova', async ({ page, isMobile }) => {
+    await page.goto('/');
+    if (isMobile) {
+      await openMobileMenu(page);
+      await page.locator('#menu-movel').getByRole('link', { name: 'Orçamento' }).click();
+    } else {
+      await page.getByRole('navigation', { name: 'Menu principal' }).getByRole('link', { name: 'Orçamento' }).click();
+    }
+    await expect(page).toHaveURL(/\/orcamento\/$/);
+    await expect(page.locator('[data-quote-form]')).toBeVisible();
+    await page.goto('/sobre/');
+    await page.locator('footer').getByRole('link', { name: 'Orçamento' }).click();
+    await expect(page).toHaveURL(/\/orcamento\/$/);
+  });
+
+  test('banner de locação leva à página nova; a logo volta à Home', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('tab', { name: 'Locação para IA' }).click();
+    await page.locator('#hero-p-locacao .hero-actions a:visible').click();
+    await expect(page).toHaveURL(/\/orcamento\/$/);
+    await page.locator('header .brand').click();
+    await expectNewHome(page);
+  });
+});
+
 test('páginas reconstruídas não apontam para as versões antigas; as demais seguem no WordPress', async ({ page }) => {
-  for (const path of ['/', '/sobre/']) {
+  for (const path of ['/', '/sobre/', '/orcamento/']) {
     await page.goto(path);
     const hrefs = await page.locator('a[href]').evaluateAll((as) => as.map((a) => a.getAttribute('href')!));
-    // Nenhum link para a Home ou a "Sobre nós" antigas do WordPress.
-    expect(hrefs.filter((h) => /^https:\/\/msserver\.com\.br\/?$|^https:\/\/msserver\.com\.br\/sobre\/?$/.test(h))).toEqual([]);
+    // Nenhum link para a Home, a "Sobre nós" ou o Orçamento antigos do WordPress.
+    expect(hrefs.filter((h) => /^https:\/\/msserver\.com\.br(\/|\/sobre\/?|\/orcamento\/?)?$/.test(h))).toEqual([]);
+    await expect(page.locator('nav[aria-label="Menu principal"] a.nav-link', { hasText: /^Orçamento$/ })).toHaveAttribute('href', '/orcamento/');
     // Páginas ainda não reformuladas: mesmos destinos no WordPress (o menu do desktop fica no
     // HTML também no celular, só oculto; por isso o seletor CSS).
     for (const [name, href] of [
-      ['Orçamento', 'https://msserver.com.br/orcamento/'],
       ['Blog', 'https://msserver.com.br/blog/'],
       ['Suporte', 'https://msserver.com.br/obter-suporte/'],
       ['Cases de sucesso', 'https://msserver.com.br/cases-de-sucesso/'],
