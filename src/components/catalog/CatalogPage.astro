@@ -1,6 +1,7 @@
 ---
-// Página do catálogo (geral ou de fabricante): um único componente para /servidores/ e para as
-// categorias Dell, HP e IBM, com a mesma estrutura e os mesmos controles. A página gerada traz a
+// Página do catálogo: um único componente para /servidores/, para as categorias de fabricante (Dell,
+// HP, IBM) e para as de componentes (Componentes, Baterias, Dissipadores, Fans, Fontes, Gavetas,
+// Placas de Rede), com a mesma estrutura e os mesmos controles. A página gerada traz a
 // listagem na ordem padrão, já paginada (como no WordPress); busca, filtros, ordenação e troca de
 // página funcionam no navegador sobre os mesmos cards (src/scripts/catalog.ts).
 import '../../styles/catalog.css';
@@ -11,7 +12,7 @@ import WhatsAppFab from '../WhatsAppFab.astro';
 import Icon from '../Icon.astro';
 import ProductCard from './ProductCard.astro';
 import { LINKS, ROUTES } from '../../config/site';
-import { BLOG, LISTINGS, LISTING_KEYS, SCHEMAS, filtersFor, orderOf, pagesOf, product, searchIndex, totalOf, type ListingKey } from '../../data/catalog';
+import { BLOG, LISTINGS, NAV_GROUPS, SCHEMAS, filtersFor, orderOf, pagesOf, product, searchIndex, sharedCategories, totalOf, trailOf, type ListingKey } from '../../data/catalog';
 import { ORDER_OPTIONS, pageItems, resultCount, stateUrl } from '../../lib/catalog-shared';
 
 interface Props {
@@ -27,7 +28,7 @@ const pages = pagesOf(key);
 const start = (page - 1) * L.perPage;
 const visible = ids.slice(start, start + L.perPage);
 const filters = filtersFor(key);
-const category = key === 'servidores' ? undefined : key;
+const shared = sharedCategories(key);
 const pageUrl = (n: number) => stateUrl(L.path, { page: n, orderby: L.defaultOrder, busca: '', tipo: '' }, L.defaultOrder);
 
 // Dados para o navegador: só o necessário para ordenar, buscar e filtrar os cards da página.
@@ -42,23 +43,29 @@ const config = {
   searchAll: 'https://msserver.com.br/?post_type=product&s=',
 };
 
+// Trilha como no menu do site: Início › Servidores › Componentes › Baterias (› Página 2).
 const crumbs = [
   { label: 'Início', href: ROUTES.home },
-  ...(key === 'servidores' ? [{ label: 'Servidores', href: page > 1 ? L.path : undefined }] : [{ label: 'Servidores', href: ROUTES.servers }, { label: L.title, href: page > 1 ? L.path : undefined }]),
+  ...trailOf(key).map((c) => ({ label: c.label, href: c.key !== key || page > 1 ? c.href : undefined })),
   ...(page > 1 ? [{ label: `Página ${page}`, href: undefined }] : []),
 ];
+// No celular, a palavra em contorno fica mais sutil quando passaria com força por trás da trilha:
+// palavras longas (COMPONENTES, DISSIPADORES) e trilhas de 3 níveis (Servidores › Componentes › Fans).
+const quietWordmark = L.wordmark.length > 10 || trailOf(key).length >= 3;
 const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${L.title}`;
 ---
 
 <Base title={L.seoTitle} description="" canonical={L.canonical} ogType="website" schema={SCHEMAS[key]}>
   <Header current={LINKS.servers} />
   <main id="conteudo" class="catalog" data-catalog>
-    {/* Abertura: identificação, contagem e navegação entre fabricantes. */}
+    {/* Abertura: identificação, contagem e navegação entre as categorias do catálogo. */}
     <section class="cat-hero dark-surface on-dark" aria-labelledby="catalogo-title">
       <div class="dark-surface__bg" aria-hidden="true">
         <div class="dark-surface__hatch"></div>
         <div class="cat-light"></div>
-        <span class="cat-wordmark" data-length={L.wordmark.length > 4 ? 'long' : 'short'}>{L.wordmark}</span>
+        <span class="cat-wordmark" data-length={L.wordmark.length > 10 ? 'xl' : L.wordmark.length > 4 ? 'long' : 'short'} data-quiet={quietWordmark ? '' : undefined}>
+          {L.wordmark}
+        </span>
       </div>
       <div class="container cat-hero-inner">
         <nav class="cat-crumbs" aria-label="Você está em">
@@ -72,22 +79,39 @@ const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${
             <b>{total}</b> {total === 1 ? 'produto' : 'produtos'}
           </p>
         </div>
-        <nav class="cat-brands" aria-label="Fabricantes">
-          <ul>
-            {
-              LISTING_KEYS.map((k) => (
-                <li>
-                  <a class="cat-brand" href={LISTINGS[k].path} aria-current={k === key ? 'page' : undefined}>
-                    {LISTINGS[k].navLabel}
-                    <span class="cat-brand-count" aria-label={`${totalOf(k)} produtos`}>
-                      {totalOf(k)}
-                    </span>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
+        {/* Navegação entre as listagens, nos dois grupos do menu do site: Servidores (todos e
+            fabricantes) e Componentes. No celular, uma linha que desliza, já na categoria atual. */}
+        <nav class="cat-brands" aria-label="Categorias do catálogo" data-cat-nav>
+          {
+            NAV_GROUPS.map((g) => (
+              <div class="cat-brands-row">
+                <span class="cat-brands-label" aria-hidden="true">
+                  {g.label}
+                </span>
+                <ul aria-label={g.label}>
+                  {g.items.map((k) => (
+                    <li>
+                      <a class="cat-brand" href={LISTINGS[k].path} aria-current={k === key ? 'page' : undefined}>
+                        {LISTINGS[k].navLabel}
+                        <span class="cat-brand-count" aria-label={`${totalOf(k)} produtos`}>
+                          {totalOf(k)}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
         </nav>
+        <script is:inline>
+          // Antes da primeira pintura: na linha deslizante (celular), a categoria atual fica à vista.
+          (function (nav) {
+            var cur = nav && nav.querySelector('[aria-current="page"]');
+            if (!cur || nav.scrollWidth <= nav.clientWidth) return;
+            nav.scrollLeft += cur.getBoundingClientRect().left - nav.getBoundingClientRect().left - (nav.clientWidth - cur.offsetWidth) / 2;
+          })(document.currentScript.previousElementSibling);
+        </script>
       </div>
     </section>
 
@@ -146,7 +170,7 @@ const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${
         <p class="sr-only" aria-live="polite" data-cat-live></p>
 
         <ul class="cat-grid" aria-labelledby="resultados" data-cat-grid>
-          {ids.map((id, i) => <ProductCard product={product(id)} listingCategory={category} hidden={!visible.includes(id)} priority={i >= start && i < start + 4} />)}
+          {ids.map((id, i) => <ProductCard product={product(id)} sharedCategories={shared} hidden={!visible.includes(id)} priority={i >= start && i < start + 4} />)}
         </ul>
 
         <div class="cat-empty" hidden data-cat-empty>

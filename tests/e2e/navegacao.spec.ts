@@ -105,11 +105,13 @@ test.describe('Orçamento', () => {
 });
 
 test('páginas reconstruídas não apontam para as versões antigas; as demais seguem no WordPress', async ({ page }) => {
-  for (const path of ['/', '/sobre/', '/orcamento/']) {
+  for (const path of ['/', '/sobre/', '/orcamento/', '/servidores/', '/categoria-produto/fans/']) {
     await page.goto(path);
     const hrefs = await page.locator('a[href]').evaluateAll((as) => as.map((a) => a.getAttribute('href')!));
     // Nenhum link para a Home, a "Sobre nós" ou o Orçamento antigos do WordPress.
     expect(hrefs.filter((h) => /^https:\/\/msserver\.com\.br(\/|\/sobre\/?|\/orcamento\/?)?$/.test(h))).toEqual([]);
+    // Nem para o catálogo antigo: /servidores/ e as 10 categorias (fabricantes e componentes).
+    expect(hrefs.filter((h) => /^https:\/\/msserver\.com\.br\/(servidores\/?$|categoria-produto\/)/.test(h))).toEqual([]);
     await expect(page.locator('nav[aria-label="Menu principal"] a.nav-link', { hasText: /^Orçamento$/ })).toHaveAttribute('href', '/orcamento/');
     // Páginas ainda não reformuladas: mesmos destinos no WordPress (o menu do desktop fica no
     // HTML também no celular, só oculto; por isso o seletor CSS).

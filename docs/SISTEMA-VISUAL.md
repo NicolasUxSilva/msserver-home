@@ -134,18 +134,29 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 
 ## Padrões do catálogo
 
-- **Um componente para as 4 listagens** (`CatalogPage.astro`) e uma folha (`styles/catalog.css`,
-  prefixos `cat-` e `pc-`). Regras compartilhadas entre a página gerada e o navegador em
+- **Um componente para as 11 listagens** (catálogo geral, Dell, HP, IBM e as 7 categorias de
+  componentes: `CatalogPage.astro`) e uma folha (`styles/catalog.css`, prefixos `cat-` e `pc-`). Regras compartilhadas entre a página gerada e o navegador em
   `lib/catalog-shared.ts` (contagem, paginação, endereços, busca sem acentos).
 - **Abertura compacta:** azul-marinho com luz azul e hachura, breadcrumb, título com o losango
-  laranja, contagem e a palavra da listagem em contorno com brilho azul (como "SERVIDORES" e
-  "LOCAÇÃO" nas artes da hero), no alto à direita. Fabricantes em pílulas (contagem em mono; a
-  atual em branco com a contagem em laranja), à direita do título no desktop.
-- **Ferramentas** num cartão branco sobre a borda da abertura: busca (com limpar), "Ordenar por" e
-  as categorias em chips (pressionado em tinta escura; contagem que acompanha a busca; sem
-  produtos, indisponível). No celular, os chips deslizam numa linha.
+  laranja e a contagem ao lado, e a palavra da listagem em contorno com brilho azul (como
+  "SERVIDORES" e "LOCAÇÃO" nas artes da hero), no alto à direita. No celular, palavras com mais de
+  10 letras (COMPONENTES, DISSIPADORES, PLACAS DE REDE) ficam menores e mais sutis, para não
+  disputar com a trilha.
+- **Navegação entre as listagens** em pílulas (contagem em mono; a atual em branco com a contagem
+  em laranja), nos dois grupos do menu do site: Servidores (Todos, Dell, HP, IBM) e Componentes
+  (7). Uma linha por grupo abaixo do título; o nome do grupo à esquerda a partir de 1200 px; de
+  768 a 1099 px a linha de Componentes quebra (tudo à vista). No celular, uma só linha que desliza
+  até a borda, com um traço entre os grupos e a listagem atual centralizada antes da primeira
+  pintura.
+- **Ferramentas** num cartão branco sobre a borda da abertura: busca (com limpar; o texto de
+  exemplo termina em reticências em telas estreitas), "Ordenar por" e as categorias em chips
+  (pressionado em tinta escura; contagem que acompanha a busca; sem produtos, indisponível). Só
+  aparecem categorias que separam parte da lista; sem nenhuma, a linha de chips não existe. No
+  celular, os chips deslizam numa linha.
 - **Card de produto:** o de "Nossa linha" evoluído: foto em estúdio claro 4:3 com sombra de piso,
-  etiquetas (fabricante em índigo, tipo em branco), nome em Sora até 3 linhas, atributo de
+  etiquetas (fabricante em índigo, tipo em branco; não repetem uma categoria comum a todos os
+  produtos da página), nome completo em Sora (sem corte: nas peças, o código no fim do nome é o que
+  identifica o item), atributo de
   variação em caixa alta + valores, preço em Sora (faixa com "–" mais leve; "Sob consulta" sem
   preço) e botão escuro na largura do card; o cartão inteiro leva ao produto. Hover: sobe 4 px,
   sombra, foto se aproxima, nome sublinhado. Celular (< 600 px): foto à esquerda, texto à direita

@@ -1,4 +1,4 @@
-# Site MSSERVER · reformulação visual (home, "Sobre nós", Orçamento e catálogo de servidores)
+# Site MSSERVER · reformulação visual (home, "Sobre nós", Orçamento e catálogo)
 
 Home institucional de [msserver.com.br](https://msserver.com.br/) reconstruída na identidade
 visual das landings de servidores físicos e de Cloud, **com a mesma estrutura, os mesmos
@@ -40,14 +40,19 @@ npm run build
 | Logo, banners, imagens das seções, logos de clientes | `npm run assets` (baixa de msserver.com.br) e `node scripts/client-logos.mjs` (versão monocromática dos logos) |
 | Textos | `src/data/content.ts` (home) e `src/data/sobre.ts` ("Sobre nós") |
 | Fotos, ícones e fundos da página "Sobre nós" | `node scripts/prepare-sobre-assets.mjs` (baixa de msserver.com.br) |
-| Catálogo de servidores (`/servidores/` e categorias Dell, HP e IBM) | `npm run sync:catalog` → `src/data/catalog.json` e `src/assets/catalog/` (ver abaixo) |
+| Catálogo (`/servidores/`, categorias Dell, HP e IBM e categorias de componentes) | `npm run sync:catalog` → `src/data/catalog.json` e `src/assets/catalog/` (ver abaixo) |
 | Avaliações do Google ("O que os clientes dizem", em "Sobre nós") | `npm run sync:reviews` → `src/data/google-reviews.json` (ver abaixo) |
 | Menu, links, contatos, WhatsApp, vídeo, rastreamento | `src/config/site.ts` |
 | Metadados JSON-LD (cópia do All in One SEO) | `src/data/schema.json` |
 
 As IDs dos produtos de cada aba (Rack, Torre, Escala Nuvem) estão em `scripts/sync-content.mjs`.
 
-### Catálogo de servidores
+### Catálogo
+
+São 11 listagens no mesmo sistema: o catálogo geral (`/servidores/`), as categorias de fabricante
+(Dell, HP, IBM) e as de componentes (Componentes, Baterias, Dissipadores, Fans, Fontes, Gavetas,
+Placas de Rede), configuradas em `LISTINGS` (`src/data/catalog.ts`) e, para a sincronização, em
+`LISTINGS` de `scripts/sync-catalog.mjs`.
 
 `scripts/sync-catalog.mjs` lê o WooCommerce pela Store API pública e grava, sem nada digitado à
 mão: todos os produtos publicados (nome, link, tipo, categorias, preço ou faixa de preço,
@@ -59,13 +64,17 @@ Produtos, preços e imagens continuam sendo editados no WooCommerce; para reflet
 de novo e gere o site. Enquanto o HTTPS de msserver.com.br estiver fora do ar, use
 `WP_ORIGIN=http://msserver.com.br npm run sync:catalog`.
 
-As páginas (`src/pages/servidores/` e `src/pages/categoria-produto/[categoria]/`) usam um único
-componente (`src/components/catalog/CatalogPage.astro`). Cada página já vem gerada na ordem
+As páginas (`src/pages/servidores/` e `src/pages/categoria-produto/[categoria]/`, que gera as 10
+categorias) usam um único componente (`src/components/catalog/CatalogPage.astro`). Cada página já vem gerada na ordem
 padrão e paginada como no WordPress (12 por página em `/servidores/`, 16 nas categorias);
 busca, filtro por categoria, ordenação e troca de página funcionam no navegador
 (`src/scripts/catalog.ts`), com o estado na URL (`/page/N/`, `?orderby=`, `?tipo=`, `?busca=`).
 Os cards de produto levam às páginas do produto no WordPress (variações, carrinho e compra
-continuam lá).
+continuam lá). A navegação do catálogo segue os dois grupos do menu do site (Servidores: todos,
+Dell, HP, IBM; Componentes: Componentes e suas subcategorias). Os filtros de cada página são as
+categorias reais que separam parte dos produtos dela (em Fans, Baterias etc., todos os produtos
+têm as mesmas categorias, e a página não mostra filtros). Se o sincronismo acusar diferença entre
+a contagem publicada de uma categoria e a listagem, ele para sem gravar nada.
 
 ### Avaliações do Google
 
@@ -129,14 +138,17 @@ resposta inesperada, redirecionamento configurado no Elementor); layout no celul
 menu com a página atual, console e acessibilidade (axe) no início, com erros e na confirmação.
 O endpoint é sempre respondido pelo próprio teste: nenhum pedido chega ao servidor real.
 
-Catálogo (`tests/e2e/catalogo.spec.ts`, 15): contra o catálogo publicado no WordPress
-(`tests/fixtures/original-catalog.json`, capturado das 11 páginas originais): os 74 produtos, as
-mesmas páginas (mesmos produtos em cada uma, na mesma ordem), nomes, links, preços, textos e
-destinos dos botões, imagem destacada original de cada produto e as 6 ordenações iguais às do
-WordPress (`?orderby=`); busca (sem acentos, também nos atributos), filtro por categoria, estado
-na URL e no histórico, paginação que mantém busca e filtro, endereço antigo `?product-page=N`,
-navegação entre fabricantes mantendo a busca, SEO, menu, layout (4 colunas no desktop, card
-horizontal no celular, sem rolagem lateral), console e acessibilidade (axe) com e sem resultados.
+Catálogo (`tests/e2e/catalogo.spec.ts`, 28): contra o catálogo publicado no WordPress
+(`tests/fixtures/original-catalog.json`, capturado das 19 páginas originais das 11 listagens): os
+74 produtos, as mesmas páginas de cada listagem (mesmos produtos em cada uma, na mesma ordem),
+nomes, links, preços, textos e destinos dos botões, imagem destacada original de cada produto e as
+6 ordenações iguais às do WordPress (`?orderby=`) em todas as listagens; inventário completo de
+cada categoria de componentes, sem misturar categorias; busca (sem acentos, também nos atributos e
+por código de peça), filtros só com categorias reais, estado na URL e no histórico, paginação que
+mantém busca e filtro, endereço antigo `?product-page=N`, navegação entre as 11 listagens mantendo
+a busca, trilha, card que abre o produto, SEO, menu, layout (4 colunas no desktop, card horizontal
+no celular, nome completo, categoria atual à vista, sem rolagem lateral), console e
+acessibilidade (axe) com e sem resultados.
 
 Capturas de QA: `node scripts/qa-screenshots.mjs http://localhost:4330/ 390,768,1024,1440`.
 
@@ -177,7 +189,8 @@ configurado no Elementor, no WordPress. Para funcionar:
 | `/orcamento/` | Orçamento reconstruído (`src/pages/orcamento/index.astro`); o envio continua no WordPress |
 | `/servidores/` (e `/servidores/page/N/`) | Catálogo geral reconstruído; `?product-page=N` (endereço antigo) é convertido |
 | `/categoria-produto/dell/`, `/hp/`, `/ibm/` (e `/page/N/`) | Categorias de fabricante reconstruídas, nos mesmos endereços do WooCommerce |
-| Páginas de produto (`/servidor/…`), carrinho, checkout e categorias de componentes | WordPress (WooCommerce) |
+| `/categoria-produto/componentes/` (e `/page/2/`), `/baterias/`, `/dissipadores/`, `/fans/`, `/fontes/`, `/gavetas/`, `/placas-de-rede/` | Categorias de componentes reconstruídas, nos mesmos endereços do WooCommerce |
+| Páginas de produto (`/servidor/…`), carrinho e checkout | WordPress (WooCommerce) |
 | Demais páginas (soluções, blog, suporte, cases, landings) | WordPress em `https://msserver.com.br` |
 
 Os links entre páginas já reconstruídas são internos (`ROUTES` em `src/config/site.ts`, com o
@@ -186,7 +199,8 @@ página, crie a rota em `src/pages/` e acrescente-a em `ROUTES`, para que menu e
 apontar para ela. `canonical`, Open Graph e JSON-LD continuam com as URLs de produção.
 
 A home atual é servida pelo WordPress. Para colocar esta versão no ar é preciso que o servidor
-entregue `/`, `/sobre/`, `/orcamento/`, `/servidores/` e `/categoria-produto/{dell,hp,ibm}/`
+entregue `/`, `/sobre/`, `/orcamento/`, `/servidores/` e
+`/categoria-produto/{dell,hp,ibm,componentes,baterias,dissipadores,fans,fontes,gavetas,placas-de-rede}/`
 (com as páginas `/page/N/`) a partir do `dist/` e mantenha o WordPress nas demais rotas,
 incluindo as páginas de produto, o carrinho e `/wp-admin/admin-ajax.php` (ou que o HTML/CSS seja portado para templates do
 tema). Essa etapa não foi feita: o repositório não tem configuração de deploy (há um preview em

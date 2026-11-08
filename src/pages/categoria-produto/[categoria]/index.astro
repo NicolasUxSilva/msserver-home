@@ -1,11 +1,12 @@
 ---
-// Categorias de fabricante do WooCommerce: /categoria-produto/dell/, /hp/ e /ibm/ (16 por página,
-// na ordenação padrão da loja), no mesmo sistema do catálogo geral.
+// Categorias do WooCommerce no mesmo sistema do catálogo geral: as de fabricante (/categoria-produto/
+// dell/, /hp/, /ibm/) e as de componentes (/componentes/, /baterias/, /dissipadores/, /fans/,
+// /fontes/, /gavetas/, /placas-de-rede/), 16 por página, na ordenação padrão da loja.
 import CatalogPage from '../../../components/catalog/CatalogPage.astro';
-import type { ListingKey } from '../../../data/catalog';
+import { LISTING_KEYS, type ListingKey } from '../../../data/catalog';
 
 export function getStaticPaths() {
-  return ['dell', 'hp', 'ibm'].map((categoria) => ({ params: { categoria } }));
+  return LISTING_KEYS.filter((k) => k !== 'servidores').map((categoria) => ({ params: { categoria } }));
 }
 
 const listing = Astro.params.categoria as ListingKey;

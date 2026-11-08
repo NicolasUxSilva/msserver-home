@@ -1,10 +1,11 @@
 ---
-// Páginas seguintes das categorias, no mesmo endereço do WordPress (/categoria-produto/dell/page/2/).
+// Páginas seguintes das categorias, no mesmo endereço do WordPress (/categoria-produto/dell/page/2/,
+// /categoria-produto/componentes/page/2/).
 import CatalogPage from '../../../../components/catalog/CatalogPage.astro';
-import { pagesOf, type ListingKey } from '../../../../data/catalog';
+import { LISTING_KEYS, pagesOf, type ListingKey } from '../../../../data/catalog';
 
 export function getStaticPaths() {
-  return (['dell', 'hp', 'ibm'] as ListingKey[]).flatMap((categoria) => Array.from({ length: pagesOf(categoria) - 1 }, (_, i) => ({ params: { categoria, page: String(i + 2) } })));
+  return LISTING_KEYS.filter((k) => k !== 'servidores').flatMap((categoria) => Array.from({ length: pagesOf(categoria) - 1 }, (_, i) => ({ params: { categoria, page: String(i + 2) } })));
 }
 
 const listing = Astro.params.categoria as ListingKey;

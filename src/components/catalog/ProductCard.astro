@@ -8,22 +8,24 @@ import { BRANDS, categoryName, priceParts, sortedTerms, type Product } from '../
 
 interface Props {
   product: Product;
-  /** Categoria da página atual (o fabricante não se repete no card dentro da própria categoria). */
-  listingCategory?: string;
+  /** Categorias que todos os produtos da página têm (o fabricante dentro de Dell, "Fans" dentro de
+   *  Fans): a etiqueta não se repete em cada card. */
+  sharedCategories?: string[];
   hidden?: boolean;
   /** Prioridade de carregamento para os primeiros cards visíveis. */
   priority?: boolean;
 }
 
-const { product: p, listingCategory, hidden = false, priority = false } = Astro.props;
+const { product: p, sharedCategories = [], hidden = false, priority = false } = Astro.props;
 const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/catalog/*.jpg', { eager: true });
 const src = p.image ? files[`../../assets/catalog/${p.image}`]?.default : null;
 const img = src ? await getImage({ src, widths: [360, 540, 720], format: 'webp', quality: 82 }) : null;
 
-const brand = p.categories.find((c) => c in BRANDS && c !== listingCategory);
+const shown = (c: string) => c !== 'sem-categoria' && !sharedCategories.includes(c);
+const brand = p.categories.find((c) => c in BRANDS && shown(c));
 const tags = [
   ...(brand ? [{ text: BRANDS[brand], brand: true }] : []),
-  ...p.categories.filter((c) => !(c in BRANDS) && c !== 'sem-categoria').map((c) => ({ text: categoryName(c), brand: false })),
+  ...p.categories.filter((c) => !(c in BRANDS) && shown(c)).map((c) => ({ text: categoryName(c), brand: false })),
 ];
 const price = priceParts(p);
 const specs = p.attributes.filter((a) => a.variations && a.terms.length);

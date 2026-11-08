@@ -1,4 +1,5 @@
-// Sincroniza o catálogo de servidores (/servidores/ e categorias Dell, HP e IBM) a partir do
+// Sincroniza o catálogo (/servidores/, categorias Dell, HP e IBM e as categorias de componentes:
+// Componentes, Baterias, Dissipadores, Fans, Fontes, Gavetas e Placas de rede) a partir do
 // WooCommerce de msserver.com.br, pela Store API pública. Nada é digitado à mão: produtos, preços,
 // imagens, categorias, atributos, botões e a ordem de cada listagem vêm do próprio WooCommerce.
 //
@@ -26,9 +27,7 @@ const IMG_DIR = 'src/assets/catalog';
 // (mais recentes primeiro); as categorias, a ordenação padrão do WooCommerce.
 const LISTINGS = [
   { key: 'servidores', category: null, defaultOrder: 'date' },
-  { key: 'dell', category: 'dell', defaultOrder: 'menu_order' },
-  { key: 'hp', category: 'hp', defaultOrder: 'menu_order' },
-  { key: 'ibm', category: 'ibm', defaultOrder: 'menu_order' },
+  ...['dell', 'hp', 'ibm', 'componentes', 'baterias', 'dissipadores', 'fans', 'fontes', 'gavetas', 'placas-de-rede'].map((slug) => ({ key: slug, category: slug, defaultOrder: 'menu_order' })),
 ];
 // Ordenações do WooCommerce (valores de ?orderby=) e o equivalente na Store API.
 const ORDERS = {
@@ -116,6 +115,7 @@ for (const l of LISTINGS) {
   }
   const ids = new Set(orders.menu_order);
   for (const o of Object.values(orders)) if (o.length !== ids.size || o.some((id) => !ids.has(id))) throw new Error(`Ordenações diferentes em ${l.key}`);
+  if (cat && cat.count !== ids.size) throw new Error(`${l.key}: a categoria informa ${cat.count} produtos e a listagem trouxe ${ids.size}`);
   listings[l.key] = { category: cat ? { id: cat.id, slug: cat.slug, name: decode(cat.name), link: cat.link, count: cat.count } : null, defaultOrder: l.defaultOrder, total: ids.size, orders };
   console.log(`  ${l.key}: ${ids.size} produtos`);
 }

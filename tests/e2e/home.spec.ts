@@ -40,6 +40,9 @@ test.describe('preservação da home original', () => {
       'https://msserver.com.br/categoria-produto/dell/': '/categoria-produto/dell/',
       'https://msserver.com.br/categoria-produto/hp/': '/categoria-produto/hp/',
       'https://msserver.com.br/categoria-produto/ibm/': '/categoria-produto/ibm/',
+      ...Object.fromEntries(
+        ['componentes', 'baterias', 'dissipadores', 'fans', 'fontes', 'gavetas', 'placas-de-rede'].map((c) => [`https://msserver.com.br/categoria-produto/${c}/`, `/categoria-produto/${c}/`]),
+      ),
     };
     const missing = original.hrefs.filter((h) => !hrefs.has(equivalent[h] ?? h));
     expect(missing).toEqual([]);
@@ -185,7 +188,7 @@ test.describe('desktop', () => {
     const nav = page.getByRole('navigation', { name: 'Menu principal' });
     await nav.getByRole('link', { name: 'Servidores', exact: true }).hover();
     await expect(nav.getByRole('link', { name: 'Placas de Rede' })).toBeVisible();
-    await expect(nav.getByRole('link', { name: 'Componentes' })).toHaveAttribute('href', 'https://msserver.com.br/categoria-produto/componentes/');
+    await expect(nav.getByRole('link', { name: 'Componentes' })).toHaveAttribute('href', '/categoria-produto/componentes/');
     await page.mouse.move(700, 600);
     await expect(nav.getByRole('link', { name: 'Placas de Rede' })).toBeHidden();
 
@@ -255,9 +258,9 @@ test.describe('celular', () => {
     await expect(menu.getByRole('link', { name: 'Ver todos' })).toBeVisible();
     await expect(menu.locator('#m-v-root-0 .m-title')).toHaveAttribute('href', '/servidores/');
     await menu.getByRole('button', { name: 'Componentes', exact: true }).click();
-    await expect(menu.locator('#m-v-root-0-4 .m-title')).toHaveAttribute('href', 'https://msserver.com.br/categoria-produto/componentes/');
+    await expect(menu.locator('#m-v-root-0-4 .m-title')).toHaveAttribute('href', '/categoria-produto/componentes/');
     await expect(menu.getByRole('link', { name: 'Gavetas' })).toBeVisible();
-    await expect(menu.getByRole('link', { name: 'Gavetas' })).toHaveAttribute('href', 'https://msserver.com.br/categoria-produto/gavetas/');
+    await expect(menu.getByRole('link', { name: 'Gavetas' })).toHaveAttribute('href', '/categoria-produto/gavetas/');
     await menu.locator('#m-v-root-0-4').getByRole('button', { name: 'Voltar' }).click();
     await menu.locator('#m-v-root-0').getByRole('button', { name: 'Voltar' }).click();
     await menu.getByRole('button', { name: 'Soluções', exact: true }).click();

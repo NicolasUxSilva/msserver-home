@@ -3,7 +3,8 @@ import AxeBuilder from '@axe-core/playwright';
 import original from '../fixtures/original-catalog.json' with { type: 'json' };
 import catalog from '../../src/data/catalog.json' with { type: 'json' };
 
-// Catálogo de servidores: /servidores/ e categorias Dell, HP e IBM. A referência é o catálogo
+// Catálogo: /servidores/, categorias de fabricante (Dell, HP, IBM) e de componentes (Componentes,
+// Baterias, Dissipadores, Fans, Fontes, Gavetas, Placas de Rede). A referência é o catálogo
 // publicado no WordPress (tests/fixtures/original-catalog.json, capturado das páginas originais):
 // os mesmos produtos, na mesma ordem, nas mesmas páginas, com os mesmos nomes, links, preços,
 // botões e imagens. Nenhuma requisição sai para o site de produção durante os testes.
@@ -11,10 +12,16 @@ test.beforeEach(async ({ page }) => {
   await page.route(/msserver\.com\.br|youtube\.com|ytimg|googletag|facebook|clarity|cloudfront|wa\.me/, (r) => r.abort());
 });
 
-type Key = 'servidores' | 'dell' | 'hp' | 'ibm';
+const COMPONENTS = ['componentes', 'baterias', 'dissipadores', 'fans', 'fontes', 'gavetas', 'placas-de-rede'] as const;
+type Component = (typeof COMPONENTS)[number];
+type Key = 'servidores' | 'dell' | 'hp' | 'ibm' | Component;
 const LISTINGS = original.listings as unknown as Record<Key, (typeof original.listings)['dell'] & { orders: Record<string, number[]> }>;
-const PRODUCTS = catalog.products as unknown as Record<string, { url: string; imageSrc: string; button: { url: string; kind: string } }>;
-const PATH: Record<Key, string> = { servidores: '/servidores/', dell: '/categoria-produto/dell/', hp: '/categoria-produto/hp/', ibm: '/categoria-produto/ibm/' };
+const PRODUCTS = catalog.products as unknown as Record<string, { url: string; imageSrc: string; categories: string[]; button: { url: string; kind: string } }>;
+const PATH = Object.fromEntries(Object.keys(LISTINGS).map((k) => [k, k === 'servidores' ? '/servidores/' : `/categoria-produto/${k}/`])) as Record<Key, string>;
+const KEYS = Object.keys(PATH) as Key[];
+/** Título exibido: o publicado, com os fabricantes em caixa de marca (DELL → Dell). */
+const H1: Record<Key, string> = { servidores: 'Servidores', dell: 'Dell', hp: 'HP', ibm: 'IBM', componentes: 'Componentes', baterias: 'Baterias', dissipadores: 'Dissipadores', fans: 'Fans', fontes: 'Fontes', gavetas: 'Gavetas', 'placas-de-rede': 'Placas de Rede' };
+const NAV = 'Categorias do catálogo';
 const pageUrl = (key: Key, n: number) => `${PATH[key]}${n > 1 ? `page/${n}/` : ''}`;
 const visibleIds = (page: Page) => page.locator('.pc:not([hidden])').evaluateAll((els) => els.map((e) => Number((e as HTMLElement).dataset.product)));
 const squash = (s: string) => s.replace(/\s+/g, '');
@@ -70,7 +77,7 @@ test.describe('catálogo: preservação do WordPress', () => {
   }
 
   test('ordenações iguais às do WordPress (?orderby=), com paginação', async ({ page }) => {
-    for (const key of ['dell', 'hp', 'ibm', 'servidores'] as Key[]) {
+    for (const key of KEYS) {
       const L = LISTINGS[key];
       for (const [orderby, expected] of Object.entries(L.orders)) {
         const ids: number[] = [];
@@ -83,11 +90,30 @@ test.describe('catálogo: preservação do WordPress', () => {
     }
   });
 
+  test('componentes: inventário completo de cada categoria, sem misturar categorias', async ({ page }) => {
+    for (const key of COMPONENTS) {
+      const L = LISTINGS[key];
+      const seen: number[] = [];
+      for (let n = 1; n <= L.pages.length; n++) {
+        await page.goto(pageUrl(key, n));
+        seen.push(...(await visibleIds(page)));
+      }
+      // Mesmos produtos do WordPress, cada um uma vez, todos da categoria da página.
+      expect(seen, key).toEqual(L.pages.flat());
+      expect(new Set(seen).size).toBe(L.total);
+      for (const id of seen) expect(PRODUCTS[id].categories, `${key} ${id}`).toContain(key);
+      // A página traz só os cards desta categoria (nenhum de outra escondido na grade).
+      expect(await page.locator('.pc').count()).toBe(L.total);
+      await expect(page.locator('.cat-sub b')).toHaveText(String(L.total));
+    }
+  });
+
   test('imagens carregam e nenhum card fica sem foto', async ({ page }) => {
     const failed: string[] = [];
     page.on('response', (r) => r.url().startsWith('http://localhost') && r.status() >= 400 && failed.push(`${r.status()} ${r.url()}`));
-    for (let n = 1; n <= LISTINGS.servidores.pages.length; n++) {
-      await page.goto(pageUrl('servidores', n));
+    const all = [...LISTINGS.servidores.pages.map((_, i) => pageUrl('servidores', i + 1)), ...COMPONENTS.flatMap((k) => LISTINGS[k].pages.map((_, i) => pageUrl(k, i + 1)))];
+    for (const url of all) {
+      await page.goto(url);
       await page.evaluate(() => document.querySelectorAll<HTMLImageElement>('.pc:not([hidden]) img').forEach((i) => (i.loading = 'eager')));
       await expect.poll(() => page.locator('.pc:not([hidden]) img').evaluateAll((imgs) => imgs.every((i) => (i as HTMLImageElement).complete && (i as HTMLImageElement).naturalWidth > 0))).toBe(true);
     }
@@ -147,30 +173,128 @@ test.describe('catálogo: busca, filtros, ordenação e paginação', () => {
     expect(await visibleIds(page)).toEqual(LISTINGS.servidores.pages[2]);
   });
 
-  test('navegação entre fabricantes nas 4 páginas, mantendo a busca', async ({ page }) => {
-    for (const key of Object.keys(PATH) as Key[]) {
+  test('navegação entre as 11 listagens em todas as páginas, com a atual marcada e a busca mantida', async ({ page }) => {
+    for (const key of KEYS) {
       await page.goto(PATH[key]);
-      const nav = page.getByRole('navigation', { name: 'Fabricantes' });
+      const nav = page.getByRole('navigation', { name: NAV });
+      await expect(nav.locator('[aria-current="page"]')).toHaveCount(1);
       await expect(nav.locator('[aria-current="page"]')).toHaveAttribute('href', PATH[key]);
-      for (const k of Object.keys(PATH) as Key[]) await expect(nav.locator(`a[href="${PATH[k]}"]`)).toHaveCount(1);
+      // Dois grupos, como no menu do site: Servidores (todos e fabricantes) e Componentes.
+      await expect(nav.getByRole('list', { name: 'Servidores' }).getByRole('link')).toHaveCount(4);
+      await expect(nav.getByRole('list', { name: 'Componentes' }).getByRole('link')).toHaveCount(7);
+      for (const k of KEYS) await expect(nav.locator(`a[href="${PATH[k]}"]`)).toContainText(String(LISTINGS[k].total));
     }
     await page.goto('/servidores/');
     await page.fill('#cat-q', 'r640');
-    await page.getByRole('navigation', { name: 'Fabricantes' }).getByRole('link', { name: /^Dell/ }).click();
+    await page.getByRole('navigation', { name: NAV }).getByRole('link', { name: /^Dell/ }).click();
     await expect(page).toHaveURL(/\/categoria-produto\/dell\/\?busca=r640$/);
     await expect(page.locator('#cat-q')).toHaveValue('r640');
     expect((await visibleIds(page)).length).toBeGreaterThan(0);
+    // De um fabricante para uma categoria de componentes, e entre componentes, a busca segue junto.
+    await page.getByRole('navigation', { name: NAV }).getByRole('link', { name: /^Fans/ }).click();
+    await expect(page).toHaveURL(/\/categoria-produto\/fans\/\?busca=r640$/);
+    await expect.poll(() => visibleIds(page)).toEqual([7858]);
+    await page.getByRole('navigation', { name: NAV }).getByRole('link', { name: /^Dissipadores/ }).click();
+    await expect(page).toHaveURL(/\/categoria-produto\/dissipadores\/\?busca=r640$/);
+    await expect.poll(() => visibleIds(page)).toEqual([7850]);
+  });
+
+  test('trilha das categorias de componentes, como no menu do site', async ({ page }) => {
+    await page.goto('/categoria-produto/baterias/');
+    const trail = page.getByRole('navigation', { name: 'Você está em' });
+    await expect(trail.getByRole('listitem')).toHaveText(['Início', 'Servidores', 'Componentes', 'Baterias']);
+    await expect(trail.getByRole('link', { name: 'Componentes' })).toHaveAttribute('href', '/categoria-produto/componentes/');
+    await expect(trail.getByRole('link', { name: 'Servidores' })).toHaveAttribute('href', '/servidores/');
+    await expect(trail.locator('[aria-current="page"]')).toHaveText('Baterias');
+    await page.goto('/categoria-produto/componentes/page/2/');
+    await expect(trail.getByRole('listitem')).toHaveText(['Início', 'Servidores', 'Componentes', 'Página 2']);
+    await expect(trail.getByRole('link', { name: 'Componentes' })).toHaveAttribute('href', '/categoria-produto/componentes/');
+  });
+
+  test('componentes: filtros só com subcategorias reais; categorias de um tipo só ficam sem filtros', async ({ page }) => {
+    await page.goto('/categoria-produto/componentes/');
+    const chips = page.locator('[data-cat-tipo]');
+    await expect(chips).toHaveText([/^Todos\s*18$/, /^Dissipadores\s*5$/, /^Fans\s*5$/, /^Fontes\s*4$/, /^Gavetas\s*4$/]);
+    await page.locator('[data-cat-tipo="fans"]').click();
+    await expect(page).toHaveURL(/\/categoria-produto\/componentes\/\?tipo=fans$/);
+    // O filtro mostra exatamente os produtos da categoria Fans, na ordem padrão da loja.
+    expect(await visibleIds(page)).toEqual(LISTINGS.fans.pages.flat());
+    await expect(page.locator('[data-cat-count]')).toHaveText('Mostrando todos os 5 resultados');
+    await expect(page.locator('[data-cat-pages]')).toBeHidden();
+    // Em Fans, Baterias etc. todos os produtos têm as mesmas categorias: nenhum filtro que não filtra.
+    for (const key of COMPONENTS.filter((k) => k !== 'componentes')) {
+      await page.goto(PATH[key]);
+      await expect(page.locator('[data-cat-filters]')).toHaveCount(0);
+      await expect(page.locator('#cat-order option')).toHaveCount(6);
+    }
+  });
+
+  test('componentes: busca por código, sem resultados, ordenação por preço e paginação', async ({ page }) => {
+    // Código da peça no nome (part number).
+    await page.goto('/categoria-produto/fontes/');
+    await page.fill('#cat-q', '723595-101');
+    await expect(page).toHaveURL(/busca=723595-101$/);
+    expect(await visibleIds(page)).toEqual([7864]);
+    await page.fill('#cat-q', 'hp 750w');
+    await expect(page).toHaveURL(/busca=hp\+750w$/);
+    expect(await visibleIds(page)).toEqual([7866]);
+    await page.fill('#cat-q', 'r9999');
+    await expect(page.locator('[data-cat-empty]')).toBeVisible();
+    await expect(page.locator('[data-cat-empty-text]')).toHaveText('Nenhum produto desta categoria corresponde a “r9999”.');
+    await expect(page.locator('[data-cat-search-all]')).toHaveAttribute('href', 'https://msserver.com.br/?post_type=product&s=r9999');
+    await page.locator('[data-cat-reset]').click();
+    expect(await visibleIds(page)).toEqual(LISTINGS.fontes.pages.flat());
+    // Ordenação por preço nas baterias (preços publicados de R$ 350 a R$ 950).
+    await page.goto('/categoria-produto/baterias/');
+    await page.selectOption('#cat-order', 'price-desc');
+    await expect(page).toHaveURL(/\?orderby=price-desc$/);
+    expect(await visibleIds(page)).toEqual(LISTINGS.baterias.orders['price-desc']);
+    // Componentes: 18 produtos em 2 páginas de 16, trocadas no navegador.
+    await page.goto('/categoria-produto/componentes/');
+    await page.getByRole('navigation', { name: 'Paginação' }).getByRole('link', { name: 'Página 2' }).click();
+    await expect(page).toHaveURL(/\/categoria-produto\/componentes\/page\/2\/$/);
+    expect(await visibleIds(page)).toEqual(LISTINGS.componentes.pages[1]);
+    await expect(page.locator('[data-cat-count]')).toHaveText('Mostrando 17–18 de 18 resultados');
+    await page.goBack();
+    expect(await visibleIds(page)).toEqual(LISTINGS.componentes.pages[0]);
+  });
+
+  test('componentes: card abre o produto; "Orçamento" mantém o destino do WordPress', async ({ page }) => {
+    await page.goto('/categoria-produto/fans/');
+    // Clique sobre a foto (o link do nome cobre o card inteiro) leva à página do produto.
+    const card = page.locator('.pc[data-product="7854"]');
+    const media = (await card.locator('.pc-media').boundingBox())!;
+    const box = (await card.boundingBox())!;
+    const [req] = await Promise.all([page.waitForRequest(PRODUCTS['7854'].url), card.click({ position: { x: media.x - box.x + media.width / 2, y: media.y - box.y + media.height / 2 } })]);
+    expect(req.isNavigationRequest()).toBe(true);
+    await page.goto('/categoria-produto/placas-de-rede/');
+    const btn = page.locator('.pc[data-product="7828"] .pc-btn');
+    await expect(btn).toHaveText('Orçamento');
+    await expect(btn).toHaveAttribute('href', `${PRODUCTS['7828'].url}?add-to-cart=7828`);
+    await expect(btn).toHaveAttribute('rel', 'nofollow');
+    await expect(page.locator('.pc[data-product="7828"] .pc-price')).toHaveText('R$ 950,00');
+  });
+
+  test('cards de componentes: etiqueta só quando informa (sem repetir a categoria da página)', async ({ page }) => {
+    await page.goto('/categoria-produto/fans/');
+    await expect(page.locator('.pc-tags')).toHaveCount(0);
+    await page.goto('/categoria-produto/componentes/');
+    await expect(page.locator('.pc[data-product="7854"] .pc-tag')).toHaveText(['Fans']);
+    await expect(page.locator('.pc[data-product="7842"] .pc-tag')).toHaveText(['Dissipadores']);
+    // No catálogo geral, as etiquetas continuam como antes.
+    await page.goto('/servidores/page/6/');
+    await expect(page.locator('.pc[data-product="7854"] .pc-tag')).toHaveText(['Componentes', 'Fans']);
   });
 });
 
 test.describe('catálogo: página, telas e acessibilidade', () => {
   test('SEO e cabeçalho como no WordPress; menu marca Servidores', async ({ page, isMobile }) => {
-    for (const key of Object.keys(PATH) as Key[]) {
+    for (const key of KEYS) {
       await page.goto(PATH[key]);
       await expect(page).toHaveTitle(LISTINGS[key].title);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', LISTINGS[key].canonical);
       await expect(page.locator('meta[name="description"]')).toHaveCount(0);
-      await expect(page.locator('h1')).toHaveText(key === 'servidores' ? 'Servidores' : key === 'dell' ? 'Dell' : key.toUpperCase());
+      await expect(page.locator('h1')).toHaveText(H1[key]);
       const ld = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent())!);
       expect(ld['@graph'].some((n: { '@type': string }) => n['@type'] === 'CollectionPage')).toBe(true);
       if (!isMobile) await expect(page.getByRole('navigation', { name: 'Menu principal' }).getByRole('link', { name: 'Servidores', exact: true })).toHaveAttribute('aria-current', 'page');
@@ -180,9 +304,15 @@ test.describe('catálogo: página, telas e acessibilidade', () => {
   test('layout: colunas, cards legíveis e sem rolagem lateral', async ({ page, isMobile }) => {
     const errors: string[] = [];
     page.on('pageerror', (e) => errors.push(e.message));
-    for (const key of Object.keys(PATH) as Key[]) {
+    for (const key of KEYS) {
       await page.goto(PATH[key]);
       expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
+      // Nome completo de cada produto, sem corte (nas peças, o código no fim do nome identifica o item).
+      expect(await page.locator('.pc:not([hidden]) .pc-title').evaluateAll((ts) => ts.filter((t) => t.scrollHeight > t.clientHeight + 1).length)).toBe(0);
+      // A categoria atual fica à vista na navegação (no celular, a linha desliza até ela).
+      const cur = (await page.getByRole('navigation', { name: NAV }).locator('[aria-current="page"]').boundingBox())!;
+      expect(cur.x).toBeGreaterThanOrEqual(0);
+      expect(cur.x + cur.width).toBeLessThanOrEqual(page.viewportSize()!.width);
       const cols = await page.locator('[data-cat-grid]').evaluate((g) => getComputedStyle(g).gridTemplateColumns.split(' ').length);
       expect(cols).toBe(isMobile ? 1 : 4);
       const card = page.locator('.pc:not([hidden])').first();
@@ -209,6 +339,11 @@ test.describe('catálogo: página, telas e acessibilidade', () => {
     expect(await axe()).toEqual([]);
     await page.goto('/categoria-produto/ibm/?busca=inexistente');
     await expect(page.locator('[data-cat-empty]')).toBeVisible();
+    expect(await axe()).toEqual([]);
+    await page.goto('/categoria-produto/componentes/?tipo=fontes');
+    await page.waitForTimeout(500);
+    expect(await axe()).toEqual([]);
+    await page.goto('/categoria-produto/placas-de-rede/');
     expect(await axe()).toEqual([]);
   });
 });

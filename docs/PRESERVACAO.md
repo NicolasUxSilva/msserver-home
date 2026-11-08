@@ -482,5 +482,83 @@ site fora do ar) e a Store API do WooCommerce. O retrato usado nos testes, gerad
   `página-do-produto/?add-to-cart=ID` (o WooCommerce adiciona ao carrinho e mostra a página do
   produto), em vez do pedido AJAX feito de dentro da página do WordPress.
 - **Links:** "Servidores" (menu, submenu "Ver todos", rodapé, "Ver modelos" e "Ver todos" da
-  home) e Dell, HP e IBM no submenu passaram a levar ao catálogo novo. As categorias de
-  componentes e as páginas de produto seguem no WordPress.
+  home) e Dell, HP e IBM no submenu passaram a levar ao catálogo novo. As páginas de produto
+  seguem no WordPress. (As categorias de componentes foram reconstruídas depois; ver abaixo.)
+
+# Categorias de componentes (Componentes, Baterias, Dissipadores, Fans, Fontes, Gavetas, Placas de Rede)
+
+Continuação do catálogo: as 7 páginas usam o mesmo sistema (`CatalogPage.astro`, `catalog.css`,
+`catalog.ts`) e os mesmos dados (`catalog.json`, sincronizado do WooCommerce). Referência: as 8
+páginas publicadas (lidas pelo endereço `http://` em 08/11/2026, com o HTTPS fora do ar), as 40
+páginas de ordenação (`?orderby=`) e a Store API. O retrato está em
+`tests/fixtures/original-catalog.json`, junto das listagens anteriores (que não mudaram).
+
+## O que as páginas originais tinham
+
+Todas no mesmo template das categorias de fabricante (arquivo de categoria do WooCommerce,
+Elementor 4851): título da categoria, breadcrumb "Home / Fans", contagem e ordenação em inglês
+(6 opções), 16 produtos por página, a mesma barra lateral, sem descrição de categoria.
+
+| Página | Título publicado | Produtos | Páginas | Preços | Botão |
+| --- | --- | --- | --- | --- | --- |
+| `/categoria-produto/componentes/` | Componentes | 18 (dissipadores, fans, fontes, gavetas) | 2 (`/page/2/`) | nenhum publicado | "Orçamento" → página do produto |
+| `/categoria-produto/baterias/` | Baterias | 3 | 1 | R$ 350,00, R$ 430,00, R$ 950,00 | "Orçamento" → adiciona ao carrinho |
+| `/categoria-produto/dissipadores/` | Dissipadores | 5 | 1 | nenhum | "Orçamento" → página do produto |
+| `/categoria-produto/fans/` | Fans | 5 | 1 | nenhum | idem |
+| `/categoria-produto/fontes/` | Fontes | 4 | 1 | nenhum | idem |
+| `/categoria-produto/gavetas/` | Gavetas | 4 | 1 | nenhum | idem |
+| `/categoria-produto/placas-de-rede/` | Placas de Rede | 2 | 1 | R$ 350,00, R$ 950,00 | "Orçamento" → adiciona ao carrinho |
+
+- 23 produtos distintos: as 18 de Componentes estão também numa subcategoria (Dissipadores, Fans,
+  Fontes ou Gavetas); Baterias e Placas de Rede são categorias à parte no WooCommerce, mas ficam
+  sob "Componentes" no menu do site.
+- Produtos simples, sem variações, atributos, SKU, avaliações ou promoção; todos em estoque. Os
+  códigos das peças estão nos nomes (ex.: "723595-101", "0hr6c0"); a descrição longa só aparece
+  na página do produto.
+- Imagens destacadas de 300 × 300 px (duas maiores), já com fundo branco.
+
+## O que foi preservado
+
+- Os 23 produtos, com a contagem de cada categoria (18, 3, 5, 5, 4, 4, 2), as mesmas páginas
+  (Componentes: 16 + 2), a mesma ordem, os mesmos nomes completos, links, preços, textos e
+  destinos dos botões e a imagem destacada original de cada um.
+- As 6 ordenações de cada categoria, conferidas uma a uma contra o WordPress: 42 de 42 idênticas.
+- Título, canonical, Open Graph e JSON-LD (CollectionPage, BreadcrumbList) de cada página; sem meta
+  description, como no original. O título continua "Placas de Rede", como publicado e como no
+  menu do site.
+- A classificação do WooCommerce, sem ajustes: o "Fan Dell R520 05fx8x-5fx8x" (id 7856) não tem
+  nenhuma categoria no WooCommerce, por isso não aparece em Fans nem em Componentes (no WordPress
+  também não); continua no catálogo geral. Vale classificá-lo no WooCommerce.
+
+## O que mudou
+
+- **Textos traduzidos** como nas demais listagens; trilha como no menu do site: "Início /
+  Servidores / Componentes / Baterias".
+- **Navegação do catálogo em dois grupos**, os mesmos do menu do site, em todas as 11 listagens:
+  Servidores (Todos, Dell, HP, IBM) e Componentes (Componentes, Baterias, Dissipadores, Fans,
+  Fontes, Gavetas, Placas de Rede), com a contagem e a atual em destaque. No desktop, uma linha
+  por grupo (com o nome do grupo a partir de 1200 px); no celular, uma linha que desliza, já
+  posicionada na categoria atual. Trocar de categoria mantém a busca digitada.
+- **Filtros só quando filtram:** em Componentes, as 4 subcategorias (Dissipadores 5, Fans 5,
+  Fontes 4, Gavetas 4). Nas outras 6, todos os produtos têm as mesmas categorias; um filtro
+  "Fans" dentro de Fans não mudaria nada, então a página não mostra a linha de filtros. A busca e
+  as 6 ordenações funcionam em todas.
+- **Card:** o mesmo dos servidores. A etiqueta de categoria aparece só quando informa algo (em
+  Componentes, a subcategoria; em Fans, nenhuma, já que todos são fans e componentes). "Sob
+  consulta" no lugar do preço vazio, como no restante do catálogo.
+- **Imagens:** a imagem destacada inteira, enquadrada no fundo branco do card como as dos
+  servidores, sem corte nem distorção (peças largas, como fontes e gavetas, ocupam a largura;
+  peças altas, como a bateria H710, a altura).
+- **Menu:** Componentes e suas 6 subcategorias, no menu do desktop e no do celular de todas as
+  páginas reconstruídas, passaram a levar às páginas novas.
+
+## Efeitos nas listagens já entregues (`/servidores/`, Dell, HP, IBM)
+
+Conferido no HTML e na geometria de cada card, antes e depois: cards, ferramentas, paginação,
+bloco do blog, rodapé, `<head>` e a configuração do navegador continuam idênticos. Mudou:
+
+- a abertura, que ganhou a segunda linha de navegação (Componentes) e passou a mostrar a contagem
+  ao lado do título;
+- no celular, os 13 cards de componentes de `/servidores/page/5/` a `7/` mostram o nome completo
+  (antes, os mais longos eram cortados na 3ª linha, escondendo o código da peça);
+- os links de componentes no menu (agora internos).

@@ -18,8 +18,9 @@ const U = SITE.origin;
 /**
  * Páginas já reconstruídas neste projeto: os links entre elas são internos (caminho na raiz do
  * site, respeitando o BASE_PATH do build), para que as páginas novas (Home, "Sobre nós",
- * Orçamento e o catálogo de servidores) levem umas às outras em qualquer ambiente. As páginas ainda não reformuladas continuam apontando para o WordPress
- * em msserver.com.br até serem reconstruídas. Ao reconstruir outra página, acrescente-a aqui.
+ * Orçamento, o catálogo de servidores e as categorias de fabricante e de componentes) levem umas
+ * às outras em qualquer ambiente. As páginas ainda não reformuladas continuam apontando para o
+ * WordPress em msserver.com.br até serem reconstruídas. Ao reconstruir outra página, acrescente-a aqui.
  */
 const BASE = (import.meta.env?.BASE_URL ?? '/').replace(/\/$/, '');
 export const ROUTES = {
@@ -30,6 +31,13 @@ export const ROUTES = {
   dell: `${BASE}/categoria-produto/dell/`,
   hp: `${BASE}/categoria-produto/hp/`,
   ibm: `${BASE}/categoria-produto/ibm/`,
+  componentes: `${BASE}/categoria-produto/componentes/`,
+  baterias: `${BASE}/categoria-produto/baterias/`,
+  dissipadores: `${BASE}/categoria-produto/dissipadores/`,
+  fans: `${BASE}/categoria-produto/fans/`,
+  fontes: `${BASE}/categoria-produto/fontes/`,
+  gavetas: `${BASE}/categoria-produto/gavetas/`,
+  placasDeRede: `${BASE}/categoria-produto/placas-de-rede/`,
 } as const;
 
 export const LINKS = {
@@ -58,14 +66,14 @@ export const NAV: NavLink[] = [
       { label: 'IBM', href: ROUTES.ibm },
       {
         label: 'Componentes',
-        href: `${U}/categoria-produto/componentes/`,
+        href: ROUTES.componentes,
         children: [
-          { label: 'Baterias', href: `${U}/categoria-produto/baterias/` },
-          { label: 'Dissipadores', href: `${U}/categoria-produto/dissipadores/` },
-          { label: 'Fans', href: `${U}/categoria-produto/fans/` },
-          { label: 'Fontes', href: `${U}/categoria-produto/fontes/` },
-          { label: 'Gavetas', href: `${U}/categoria-produto/gavetas/` },
-          { label: 'Placas de Rede', href: `${U}/categoria-produto/placas-de-rede/` },
+          { label: 'Baterias', href: ROUTES.baterias },
+          { label: 'Dissipadores', href: ROUTES.dissipadores },
+          { label: 'Fans', href: ROUTES.fans },
+          { label: 'Fontes', href: ROUTES.fontes },
+          { label: 'Gavetas', href: ROUTES.gavetas },
+          { label: 'Placas de Rede', href: ROUTES.placasDeRede },
         ],
       },
     ],

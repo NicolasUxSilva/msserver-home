@@ -2490,6 +2490,1112 @@
      4978
     ]
    }
+  },
+  "componentes": {
+   "title": "Componentes - MSSERVER",
+   "canonical": "https://msserver.com.br/categoria-produto/componentes/",
+   "heading": "Componentes",
+   "perPage": 16,
+   "total": 18,
+   "resultCount": "Showing 1–16 of 18 results",
+   "pagination": "/categoria-produto/componentes/page/{n}/",
+   "pages": [
+    [
+     7862,
+     7846,
+     7850,
+     7848,
+     7842,
+     7844,
+     7852,
+     7854,
+     7858,
+     7860,
+     7864,
+     7868,
+     7870,
+     7866,
+     7872,
+     7874
+    ],
+    [
+     7878,
+     7876
+    ]
+   ],
+   "products": {
+    "7862": {
+     "id": 7862,
+     "name": "Cooler Fan Dell Emc Poweredge R740 R740xd N5t36 0n5t36",
+     "url": "https://msserver.com.br/servidor/cooler-fan-dell-emc-poweredge-r740-r740xd-n5t36-0n5t36/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Cooler-Fan-Dell-Emc-Poweredge-R740-R740xd-N5t36-0n5t36-300x300.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/cooler-fan-dell-emc-poweredge-r740-r740xd-n5t36-0n5t36/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7846": {
+     "id": 7846,
+     "name": "Dissipador Dell Poweredge R630 heatsink dell 0y8mc1",
+     "url": "https://msserver.com.br/servidor/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores"
+     ]
+    },
+    "7850": {
+     "id": 7850,
+     "name": "Dissipador Dell R640",
+     "url": "https://msserver.com.br/servidor/dissipador-dell-r640/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-0f8nv-00f8nv-0trjt7-trjt7.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-dell-r640/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores"
+     ]
+    },
+    "7848": {
+     "id": 7848,
+     "name": "Dissipador Dell R740 R740xd 00f8nv-0f8nv",
+     "url": "https://msserver.com.br/servidor/dissipador-dell-r740-r740xd-00f8nv-0f8nv/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-00f8nv-0f8nv-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-dell-r740-r740xd-00f8nv-0f8nv/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores",
+      "sem-categoria"
+     ]
+    },
+    "7842": {
+     "id": 7842,
+     "name": "Dissipador Heatsink DL380 G8",
+     "url": "https://msserver.com.br/servidor/dissipador-heatsink-dl380-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/DISSIPADOR-HP-DL-380-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-heatsink-dl380-g8/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores"
+     ]
+    },
+    "7844": {
+     "id": 7844,
+     "name": "Dissipador Servidor Heatsink Dell Powerdge R730",
+     "url": "https://msserver.com.br/servidor/dissipador-servidor-heatsink-dell-powerdge-r730/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Dissipador-Servidor-Heatsink-Dell-Powerdge-R730-1.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-servidor-heatsink-dell-powerdge-r730/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores",
+      "sem-categoria"
+     ]
+    },
+    "7852": {
+     "id": 7852,
+     "name": "Fan Dell poweredge R530 R530xd 03d7gy-3d7gy-0r27nj-r27nj",
+     "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7854": {
+     "id": 7854,
+     "name": "Fan Dell poweredge R620 R320 R630 gfc0412ds-hr6c0-0hr6c0",
+     "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7858": {
+     "id": 7858,
+     "name": "Fan Dell R640 0kg52t-0cy92p-kg52t-cy92p",
+     "url": "https://msserver.com.br/servidor/fan-dell-r640-0kg52t-0cy92p-kg52t-cy92p/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-r640-r740-0kg52t-0cy92p-kg52t-cy92p-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-dell-r640-0kg52t-0cy92p-kg52t-cy92p/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7860": {
+     "id": 7860,
+     "name": "Fan Hp DL360 g9 g10 pn-750688-001-775415-001",
+     "url": "https://msserver.com.br/servidor/fan-hp-dl360-g9-g10-pn-750688-001-775415-001/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-hp-dl360-g9-g10-pn-750688-001-775415-001.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-hp-dl360-g9-g10-pn-750688-001-775415-001/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7864": {
+     "id": 7864,
+     "name": "Fonte 500w Hp Dl360 Dl380 Ml350 G9 723595-101 Dps-500ab-13 A",
+     "url": "https://msserver.com.br/servidor/fonte-500w-hp-dl360-dl380-ml350-g9-723595-101-dps-500ab-13-a/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-500w-Hp-Dl360-Dl380-Ml350-G9-1.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-500w-hp-dl360-dl380-ml350-g9-723595-101-dps-500ab-13-a/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    },
+    "7868": {
+     "id": 7868,
+     "name": "Fonte Dell 495w T420 R620 R720 f495e-s0-03ghw3",
+     "url": "https://msserver.com.br/servidor/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    },
+    "7870": {
+     "id": 7870,
+     "name": "Fonte Servidor Dell Poweredge R630 730 730xd 530 640 0grtnk",
+     "url": "https://msserver.com.br/servidor/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    },
+    "7866": {
+     "id": 7866,
+     "name": "Fonte Servidor Hp Proliant Dl380 G6 G7 G8 750w",
+     "url": "https://msserver.com.br/servidor/fonte-servidor-hp-proliant-dl380-g6-g7-g8-750w/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-Servidor-Hp-Proliant-Dl380-G6-G7-G8-750w-3.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-servidor-hp-proliant-dl380-g6-g7-g8-750w/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    },
+    "7872": {
+     "id": 7872,
+     "name": "Gaveta Hd 3.5 P Servidor Dell Poweredge 0KG1CH F238F",
+     "url": "https://msserver.com.br/servidor/gaveta-hd-3-5-p-servidor-dell-poweredge-0kg1ch-f238f/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/gaveta-para-hd-dell-25-sassata-r310-t310-r320-t320-r610-t610-g176j.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gaveta-hd-3-5-p-servidor-dell-poweredge-0kg1ch-f238f/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    },
+    "7874": {
+     "id": 7874,
+     "name": "Gaveta Servidor Dell 2.5 G176j",
+     "url": "https://msserver.com.br/servidor/gaveta-servidor-dell-2-5-g176j/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Dell-2.5-G176j-R310-T310-R320-T320-R610-T610.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gaveta-servidor-dell-2-5-g176j/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    },
+    "7878": {
+     "id": 7878,
+     "name": "Gaveta Servidor Hp 2.5 G8 G9 Dl360 Dl380 Dl320 Ml350 Gen9",
+     "url": "https://msserver.com.br/servidor/gaveta-servidor-hp-2-5-g8-g9-dl360-dl380-dl320-ml350-gen9/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Hp-2.5-G8-G9-Dl360-Dl380-Dl320-Ml350-Gen9-300x300.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gaveta-servidor-hp-2-5-g8-g9-dl360-dl380-dl320-ml350-gen9/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    },
+    "7876": {
+     "id": 7876,
+     "name": "Gavetas para Servidor Hp Dl360 Dl380 3.5 g8 g9 651314-001",
+     "url": "https://msserver.com.br/servidor/gavetas-para-servidor-hp-dl360-dl380-3-5-g8-g9-651314-001/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/gavetas-para-servidorgaveta-servidor-hp-3-5-g8-g9-651314-001-dl360-dl380-gen9.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gavetas-para-servidor-hp-dl360-dl380-3-5-g8-g9-651314-001/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    }
+   },
+   "orders": {
+    "popularity": [
+     7878,
+     7876,
+     7874,
+     7872,
+     7870,
+     7868,
+     7866,
+     7864,
+     7862,
+     7860,
+     7858,
+     7854,
+     7852,
+     7850,
+     7848,
+     7846,
+     7844,
+     7842
+    ],
+    "rating": [
+     7878,
+     7876,
+     7874,
+     7872,
+     7870,
+     7868,
+     7866,
+     7864,
+     7862,
+     7860,
+     7858,
+     7854,
+     7852,
+     7850,
+     7848,
+     7846,
+     7844,
+     7842
+    ],
+    "date": [
+     7842,
+     7878,
+     7876,
+     7874,
+     7872,
+     7870,
+     7868,
+     7866,
+     7864,
+     7862,
+     7860,
+     7858,
+     7854,
+     7852,
+     7850,
+     7848,
+     7846,
+     7844
+    ],
+    "price": [
+     7842,
+     7844,
+     7846,
+     7848,
+     7850,
+     7852,
+     7854,
+     7858,
+     7860,
+     7862,
+     7864,
+     7866,
+     7868,
+     7870,
+     7872,
+     7874,
+     7876,
+     7878
+    ],
+    "price-desc": [
+     7878,
+     7876,
+     7874,
+     7872,
+     7870,
+     7868,
+     7866,
+     7864,
+     7862,
+     7860,
+     7858,
+     7854,
+     7852,
+     7850,
+     7848,
+     7846,
+     7844,
+     7842
+    ],
+    "menu_order": [
+     7862,
+     7846,
+     7850,
+     7848,
+     7842,
+     7844,
+     7852,
+     7854,
+     7858,
+     7860,
+     7864,
+     7868,
+     7870,
+     7866,
+     7872,
+     7874,
+     7878,
+     7876
+    ]
+   }
+  },
+  "baterias": {
+   "title": "Baterias - MSSERVER",
+   "canonical": "https://msserver.com.br/categoria-produto/baterias/",
+   "heading": "Baterias",
+   "perPage": 16,
+   "total": 3,
+   "resultCount": "Showing all 3 results",
+   "pagination": null,
+   "pages": [
+    [
+     7820,
+     7822,
+     7824
+    ]
+   ],
+   "products": {
+    "7820": {
+     "id": 7820,
+     "name": "Bateria Dell nu209 fr463 u8735 perc-5-6-h700-h800",
+     "url": "https://msserver.com.br/servidor/bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800-2.png",
+     "price": "R$ 350,00",
+     "button": {
+      "text": "Orçamento",
+      "href": "?add-to-cart=7820"
+     },
+     "categories": [
+      "baterias"
+     ]
+    },
+    "7822": {
+     "id": 7822,
+     "name": "Bateria-Dell-para-controladoras-perc-h710-h810-h730-h830-070k80",
+     "url": "https://msserver.com.br/servidor/bateria-dell-para-controladoras-perc-h710-h810-h730-h830-070k80/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-dell-para-controladoras-perc-h710-h810-h730-h830-070k80.png",
+     "price": "R$ 430,00",
+     "button": {
+      "text": "Orçamento",
+      "href": "?add-to-cart=7822"
+     },
+     "categories": [
+      "baterias"
+     ]
+    },
+    "7824": {
+     "id": 7824,
+     "name": "Bateria para hp p840p440 sl90030-4",
+     "url": "https://msserver.com.br/servidor/bateria-para-hp-p840p440-sl90030-4/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-para-hp-p840p440-sl90030-4.png",
+     "price": "R$ 950,00",
+     "button": {
+      "text": "Orçamento",
+      "href": "?add-to-cart=7824"
+     },
+     "categories": [
+      "baterias"
+     ]
+    }
+   },
+   "orders": {
+    "popularity": [
+     7824,
+     7822,
+     7820
+    ],
+    "rating": [
+     7824,
+     7822,
+     7820
+    ],
+    "date": [
+     7824,
+     7822,
+     7820
+    ],
+    "price": [
+     7820,
+     7822,
+     7824
+    ],
+    "price-desc": [
+     7824,
+     7822,
+     7820
+    ],
+    "menu_order": [
+     7820,
+     7822,
+     7824
+    ]
+   }
+  },
+  "dissipadores": {
+   "title": "Dissipadores - MSSERVER",
+   "canonical": "https://msserver.com.br/categoria-produto/dissipadores/",
+   "heading": "Dissipadores",
+   "perPage": 16,
+   "total": 5,
+   "resultCount": "Showing all 5 results",
+   "pagination": null,
+   "pages": [
+    [
+     7846,
+     7850,
+     7848,
+     7842,
+     7844
+    ]
+   ],
+   "products": {
+    "7846": {
+     "id": 7846,
+     "name": "Dissipador Dell Poweredge R630 heatsink dell 0y8mc1",
+     "url": "https://msserver.com.br/servidor/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores"
+     ]
+    },
+    "7850": {
+     "id": 7850,
+     "name": "Dissipador Dell R640",
+     "url": "https://msserver.com.br/servidor/dissipador-dell-r640/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-0f8nv-00f8nv-0trjt7-trjt7.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-dell-r640/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores"
+     ]
+    },
+    "7848": {
+     "id": 7848,
+     "name": "Dissipador Dell R740 R740xd 00f8nv-0f8nv",
+     "url": "https://msserver.com.br/servidor/dissipador-dell-r740-r740xd-00f8nv-0f8nv/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-00f8nv-0f8nv-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-dell-r740-r740xd-00f8nv-0f8nv/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores",
+      "sem-categoria"
+     ]
+    },
+    "7842": {
+     "id": 7842,
+     "name": "Dissipador Heatsink DL380 G8",
+     "url": "https://msserver.com.br/servidor/dissipador-heatsink-dl380-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/DISSIPADOR-HP-DL-380-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-heatsink-dl380-g8/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores"
+     ]
+    },
+    "7844": {
+     "id": 7844,
+     "name": "Dissipador Servidor Heatsink Dell Powerdge R730",
+     "url": "https://msserver.com.br/servidor/dissipador-servidor-heatsink-dell-powerdge-r730/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Dissipador-Servidor-Heatsink-Dell-Powerdge-R730-1.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-servidor-heatsink-dell-powerdge-r730/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores",
+      "sem-categoria"
+     ]
+    }
+   },
+   "orders": {
+    "popularity": [
+     7850,
+     7848,
+     7846,
+     7844,
+     7842
+    ],
+    "rating": [
+     7850,
+     7848,
+     7846,
+     7844,
+     7842
+    ],
+    "date": [
+     7842,
+     7850,
+     7848,
+     7846,
+     7844
+    ],
+    "price": [
+     7842,
+     7844,
+     7846,
+     7848,
+     7850
+    ],
+    "price-desc": [
+     7850,
+     7848,
+     7846,
+     7844,
+     7842
+    ],
+    "menu_order": [
+     7846,
+     7850,
+     7848,
+     7842,
+     7844
+    ]
+   }
+  },
+  "fans": {
+   "title": "Fans - MSSERVER",
+   "canonical": "https://msserver.com.br/categoria-produto/fans/",
+   "heading": "Fans",
+   "perPage": 16,
+   "total": 5,
+   "resultCount": "Showing all 5 results",
+   "pagination": null,
+   "pages": [
+    [
+     7862,
+     7852,
+     7854,
+     7858,
+     7860
+    ]
+   ],
+   "products": {
+    "7862": {
+     "id": 7862,
+     "name": "Cooler Fan Dell Emc Poweredge R740 R740xd N5t36 0n5t36",
+     "url": "https://msserver.com.br/servidor/cooler-fan-dell-emc-poweredge-r740-r740xd-n5t36-0n5t36/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Cooler-Fan-Dell-Emc-Poweredge-R740-R740xd-N5t36-0n5t36-300x300.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/cooler-fan-dell-emc-poweredge-r740-r740xd-n5t36-0n5t36/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7852": {
+     "id": 7852,
+     "name": "Fan Dell poweredge R530 R530xd 03d7gy-3d7gy-0r27nj-r27nj",
+     "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7854": {
+     "id": 7854,
+     "name": "Fan Dell poweredge R620 R320 R630 gfc0412ds-hr6c0-0hr6c0",
+     "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7858": {
+     "id": 7858,
+     "name": "Fan Dell R640 0kg52t-0cy92p-kg52t-cy92p",
+     "url": "https://msserver.com.br/servidor/fan-dell-r640-0kg52t-0cy92p-kg52t-cy92p/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-r640-r740-0kg52t-0cy92p-kg52t-cy92p-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-dell-r640-0kg52t-0cy92p-kg52t-cy92p/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7860": {
+     "id": 7860,
+     "name": "Fan Hp DL360 g9 g10 pn-750688-001-775415-001",
+     "url": "https://msserver.com.br/servidor/fan-hp-dl360-g9-g10-pn-750688-001-775415-001/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-hp-dl360-g9-g10-pn-750688-001-775415-001.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-hp-dl360-g9-g10-pn-750688-001-775415-001/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    }
+   },
+   "orders": {
+    "popularity": [
+     7862,
+     7860,
+     7858,
+     7854,
+     7852
+    ],
+    "rating": [
+     7862,
+     7860,
+     7858,
+     7854,
+     7852
+    ],
+    "date": [
+     7862,
+     7860,
+     7858,
+     7854,
+     7852
+    ],
+    "price": [
+     7852,
+     7854,
+     7858,
+     7860,
+     7862
+    ],
+    "price-desc": [
+     7862,
+     7860,
+     7858,
+     7854,
+     7852
+    ],
+    "menu_order": [
+     7862,
+     7852,
+     7854,
+     7858,
+     7860
+    ]
+   }
+  },
+  "fontes": {
+   "title": "Fontes - MSSERVER",
+   "canonical": "https://msserver.com.br/categoria-produto/fontes/",
+   "heading": "Fontes",
+   "perPage": 16,
+   "total": 4,
+   "resultCount": "Showing all 4 results",
+   "pagination": null,
+   "pages": [
+    [
+     7864,
+     7868,
+     7870,
+     7866
+    ]
+   ],
+   "products": {
+    "7864": {
+     "id": 7864,
+     "name": "Fonte 500w Hp Dl360 Dl380 Ml350 G9 723595-101 Dps-500ab-13 A",
+     "url": "https://msserver.com.br/servidor/fonte-500w-hp-dl360-dl380-ml350-g9-723595-101-dps-500ab-13-a/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-500w-Hp-Dl360-Dl380-Ml350-G9-1.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-500w-hp-dl360-dl380-ml350-g9-723595-101-dps-500ab-13-a/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    },
+    "7868": {
+     "id": 7868,
+     "name": "Fonte Dell 495w T420 R620 R720 f495e-s0-03ghw3",
+     "url": "https://msserver.com.br/servidor/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    },
+    "7870": {
+     "id": 7870,
+     "name": "Fonte Servidor Dell Poweredge R630 730 730xd 530 640 0grtnk",
+     "url": "https://msserver.com.br/servidor/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    },
+    "7866": {
+     "id": 7866,
+     "name": "Fonte Servidor Hp Proliant Dl380 G6 G7 G8 750w",
+     "url": "https://msserver.com.br/servidor/fonte-servidor-hp-proliant-dl380-g6-g7-g8-750w/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-Servidor-Hp-Proliant-Dl380-G6-G7-G8-750w-3.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-servidor-hp-proliant-dl380-g6-g7-g8-750w/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    }
+   },
+   "orders": {
+    "popularity": [
+     7870,
+     7868,
+     7866,
+     7864
+    ],
+    "rating": [
+     7870,
+     7868,
+     7866,
+     7864
+    ],
+    "date": [
+     7870,
+     7868,
+     7866,
+     7864
+    ],
+    "price": [
+     7864,
+     7866,
+     7868,
+     7870
+    ],
+    "price-desc": [
+     7870,
+     7868,
+     7866,
+     7864
+    ],
+    "menu_order": [
+     7864,
+     7868,
+     7870,
+     7866
+    ]
+   }
+  },
+  "gavetas": {
+   "title": "Gavetas - MSSERVER",
+   "canonical": "https://msserver.com.br/categoria-produto/gavetas/",
+   "heading": "Gavetas",
+   "perPage": 16,
+   "total": 4,
+   "resultCount": "Showing all 4 results",
+   "pagination": null,
+   "pages": [
+    [
+     7872,
+     7874,
+     7878,
+     7876
+    ]
+   ],
+   "products": {
+    "7872": {
+     "id": 7872,
+     "name": "Gaveta Hd 3.5 P Servidor Dell Poweredge 0KG1CH F238F",
+     "url": "https://msserver.com.br/servidor/gaveta-hd-3-5-p-servidor-dell-poweredge-0kg1ch-f238f/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/gaveta-para-hd-dell-25-sassata-r310-t310-r320-t320-r610-t610-g176j.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gaveta-hd-3-5-p-servidor-dell-poweredge-0kg1ch-f238f/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    },
+    "7874": {
+     "id": 7874,
+     "name": "Gaveta Servidor Dell 2.5 G176j",
+     "url": "https://msserver.com.br/servidor/gaveta-servidor-dell-2-5-g176j/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Dell-2.5-G176j-R310-T310-R320-T320-R610-T610.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gaveta-servidor-dell-2-5-g176j/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    },
+    "7878": {
+     "id": 7878,
+     "name": "Gaveta Servidor Hp 2.5 G8 G9 Dl360 Dl380 Dl320 Ml350 Gen9",
+     "url": "https://msserver.com.br/servidor/gaveta-servidor-hp-2-5-g8-g9-dl360-dl380-dl320-ml350-gen9/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Hp-2.5-G8-G9-Dl360-Dl380-Dl320-Ml350-Gen9-300x300.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gaveta-servidor-hp-2-5-g8-g9-dl360-dl380-dl320-ml350-gen9/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    },
+    "7876": {
+     "id": 7876,
+     "name": "Gavetas para Servidor Hp Dl360 Dl380 3.5 g8 g9 651314-001",
+     "url": "https://msserver.com.br/servidor/gavetas-para-servidor-hp-dl360-dl380-3-5-g8-g9-651314-001/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/gavetas-para-servidorgaveta-servidor-hp-3-5-g8-g9-651314-001-dl360-dl380-gen9.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gavetas-para-servidor-hp-dl360-dl380-3-5-g8-g9-651314-001/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    }
+   },
+   "orders": {
+    "popularity": [
+     7878,
+     7876,
+     7874,
+     7872
+    ],
+    "rating": [
+     7878,
+     7876,
+     7874,
+     7872
+    ],
+    "date": [
+     7878,
+     7876,
+     7874,
+     7872
+    ],
+    "price": [
+     7872,
+     7874,
+     7876,
+     7878
+    ],
+    "price-desc": [
+     7878,
+     7876,
+     7874,
+     7872
+    ],
+    "menu_order": [
+     7872,
+     7874,
+     7878,
+     7876
+    ]
+   }
+  },
+  "placas-de-rede": {
+   "title": "Placas de Rede - MSSERVER",
+   "canonical": "https://msserver.com.br/categoria-produto/placas-de-rede/",
+   "heading": "Placas de Rede",
+   "perPage": 16,
+   "total": 2,
+   "resultCount": "Showing all 2 results",
+   "pagination": null,
+   "pages": [
+    [
+     7826,
+     7828
+    ]
+   ],
+   "products": {
+    "7826": {
+     "id": 7826,
+     "name": "Placa de rede dual giga intel-82576eb-e1g42et-pcie",
+     "url": "https://msserver.com.br/servidor/placa-de-rede-dual-giga-intel-82576eb-e1g42et-pcie/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/placa-de-redeplaca-rede-dual-giga-intel-82576eb-e1g42et-pcie.png",
+     "price": "R$ 350,00",
+     "button": {
+      "text": "Orçamento",
+      "href": "?add-to-cart=7826"
+     },
+     "categories": [
+      "placas-de-rede"
+     ]
+    },
+    "7828": {
+     "id": 7828,
+     "name": "Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s",
+     "url": "https://msserver.com.br/servidor/placa-rede-servidor-10gb-pcie-x8-dual-port-sfp-bcm57810s/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/placa-rede-servidor-10gb-pcie-x8-dual-port-sfp-bcm57810s.png",
+     "price": "R$ 950,00",
+     "button": {
+      "text": "Orçamento",
+      "href": "?add-to-cart=7828"
+     },
+     "categories": [
+      "placas-de-rede"
+     ]
+    }
+   },
+   "orders": {
+    "popularity": [
+     7828,
+     7826
+    ],
+    "rating": [
+     7828,
+     7826
+    ],
+    "date": [
+     7828,
+     7826
+    ],
+    "price": [
+     7826,
+     7828
+    ],
+    "price-desc": [
+     7828,
+     7826
+    ],
+    "menu_order": [
+     7826,
+     7828
+    ]
+   }
   }
  }
 }

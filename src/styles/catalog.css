@@ -1,12 +1,12 @@
-/* ——— Catálogo de servidores (/servidores/ e categorias Dell, HP e IBM) ———
-   Uma folha para as 4 páginas: abertura escura com a palavra em contorno (como nas artes da hero),
-   navegação entre fabricantes, ferramentas (busca, ordenação, categorias), grade de cards no padrão
-   de "Nossa linha" da home, paginação e o bloco do blog. Classes com prefixo cat- e pc-. */
+/* ——— Catálogo (/servidores/, categorias Dell, HP e IBM e categorias de componentes) ———
+   Uma folha para todas as listagens: abertura escura com a palavra em contorno (como nas artes da
+   hero), navegação entre as categorias, ferramentas (busca, ordenação, categorias), grade de cards no
+   padrão de "Nossa linha" da home, paginação e o bloco do blog. Classes com prefixo cat- e pc-. */
 
 /* ——— Abertura ——— */
 .cat-hero {
   position: relative;
-  padding-block: clamp(1.25rem, 0.8rem + 1.8vw, 2.25rem) clamp(3.9rem, 3rem + 2.2vw, 4.75rem);
+  padding-block: clamp(1.1rem, 0.7rem + 1.4vw, 1.85rem) clamp(3.9rem, 3rem + 2.2vw, 4.75rem);
   background: linear-gradient(165deg, var(--c-navy-950) 0%, #04122d 60%, var(--c-navy-900) 100%);
   overflow: hidden;
 }
@@ -38,8 +38,23 @@
   mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
 }
 
-.cat-wordmark[data-length='long'] {
+.cat-wordmark[data-length='long'],
+.cat-wordmark[data-length='xl'] {
   font-size: clamp(3.4rem, 1.6rem + 4.6vw, 6.5rem);
+}
+
+/* Celular: palavras longas (COMPONENTES, DISSIPADORES, PLACAS DE REDE) ocupam toda a largura e,
+   como as trilhas longas das subcategorias de componentes, passariam por trás da trilha com força;
+   ficam mais sutis, como textura (as longas, também menores). */
+@media (max-width: 599px) {
+  .cat-wordmark[data-length='xl'] {
+    font-size: 2.9rem;
+  }
+
+  .cat-wordmark[data-quiet] {
+    -webkit-text-stroke-color: rgb(98 150 255 / 0.24);
+    filter: drop-shadow(0 0 12px rgb(46 110 210 / 0.35));
+  }
 }
 
 /* Desktop: a palavra fica no alto, acima dos botões de fabricante. */
@@ -55,26 +70,12 @@
   gap: 0.75rem;
 }
 
+/* Título e contagem na mesma linha (a contagem desce quando o nome é longo). */
 .cat-head {
-  display: grid;
-  gap: 0.5rem;
-}
-
-/* Desktop: título à esquerda e fabricantes à direita, na mesma faixa. */
-@media (min-width: 900px) {
-  .cat-hero-inner {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
-    column-gap: 2rem;
-  }
-
-  .cat-crumbs {
-    grid-column: 1 / -1;
-  }
-
-  .cat-brands {
-    margin-top: 0;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1.1rem;
 }
 
 .cat-crumbs ol {
@@ -88,9 +89,10 @@
   font-size: 0.86rem;
 }
 
-.cat-crumbs li + li::before {
+/* O traço fica no fim do item: se a trilha quebrar, a linha nova começa por um nome. */
+.cat-crumbs li:not(:last-child)::after {
   content: '/';
-  margin-right: 0.55rem;
+  margin-left: 0.55rem;
   color: rgb(255 255 255 / 0.25);
 }
 
@@ -138,35 +140,99 @@
   font-weight: 600;
 }
 
-/* Navegação entre fabricantes: todos os servidores, Dell, HP e IBM. */
+/* Navegação entre as categorias, nos dois grupos do menu do site: Servidores (todos e fabricantes)
+   e Componentes (e suas subcategorias). Uma linha por grupo; com espaço, o nome do grupo à esquerda. */
 .cat-brands {
-  margin-top: 0.4rem;
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.25rem;
+}
+
+.cat-brands-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.cat-brands-label {
+  display: none;
+  flex: none;
+  width: 7rem;
+  padding-top: 0.8rem;
+  color: var(--c-on-dark-3);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+@media (min-width: 1200px) {
+  .cat-brands-label {
+    display: block;
+  }
 }
 
 .cat-brands ul {
   display: flex;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.45rem;
   margin: 0;
   padding: 0;
   list-style: none;
-  overflow-x: auto;
-  scrollbar-width: none;
 }
 
-.cat-brands ul::-webkit-scrollbar {
-  display: none;
+/* Celular: os dois grupos numa só linha que desliza até a borda da tela, separados por um traço; a
+   categoria atual já aparece centralizada. Do tablet em diante, as linhas quebram e tudo fica à vista. */
+@media (max-width: 767px) {
+  .cat-brands {
+    display: flex;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-padding-inline: var(--gutter);
+    mask-image: linear-gradient(90deg, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+  }
+
+  .cat-brands::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cat-brands-row {
+    flex: none;
+  }
+
+  .cat-brands ul {
+    flex-wrap: nowrap;
+  }
+
+  .cat-brand {
+    min-height: 44px;
+  }
+
+  .cat-brands-row + .cat-brands-row ul::before {
+    content: '';
+    flex: none;
+    align-self: center;
+    width: 1px;
+    height: 24px;
+    margin-inline: 0.15rem 0.2rem;
+    background: var(--c-line-dark-2);
+  }
 }
 
 .cat-brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  min-height: 48px;
-  padding: 0 1.1rem 0 1.25rem;
+  gap: 0.45rem;
+  min-height: 42px;
+  padding: 0 0.75rem 0 0.95rem;
   border: 1px solid var(--c-line-dark-2);
   border-radius: 999px;
   background: rgb(255 255 255 / 0.04);
   color: var(--c-on-dark);
+  font-size: 0.95rem;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
@@ -193,9 +259,9 @@
 .cat-brand-count {
   display: grid;
   place-items: center;
-  min-width: 1.75rem;
-  height: 1.5rem;
-  padding: 0 0.45rem;
+  min-width: 1.6rem;
+  height: 1.45rem;
+  padding: 0 0.4rem;
   border-radius: 999px;
   background: rgb(255 255 255 / 0.1);
   color: var(--c-on-dark-2);
@@ -264,6 +330,11 @@
 .cat-search input::placeholder {
   color: var(--c-ink-3);
   opacity: 1;
+}
+
+/* Em telas estreitas, o texto de exemplo termina em reticências em vez de cortar no meio da palavra. */
+.cat-search input {
+  text-overflow: ellipsis;
 }
 
 .cat-search input:hover {
@@ -644,15 +715,15 @@
   padding: 1.05rem 1.15rem 1.15rem;
 }
 
-/* Nome em até 3 linhas; o nome completo fica no título do link e na página do produto. */
+/* Nome completo, sem corte: nas peças, o código no fim do nome (0hr6c0, 723595-101) é o que
+   identifica o item. Preço e botão ficam alinhados no pé do card, qualquer que seja o tamanho.
+   (overflow: hidden não corta nada aqui — a altura é automática —, mas mantém a mesma distribuição
+   de espaço do card horizontal do celular.) */
 .pc-title {
-  display: -webkit-box;
   overflow: hidden;
   font-size: 1.05rem;
   line-height: 1.25;
   letter-spacing: -0.02em;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
   overflow-wrap: anywhere;
 }
 
