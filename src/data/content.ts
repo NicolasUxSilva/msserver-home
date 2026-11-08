@@ -9,7 +9,7 @@ export type Slide = {
   /** Rótulo do seletor da hero: a palavra em destaque desenhada no próprio banner. */
   label: string;
   /** Slider do desktop/tablet (widget 551d510): o slide inteiro é um link. */
-  desktop: { heading: string; description: string; highlight: string; keywords?: string; button: string; href: string; newTab?: boolean };
+  desktop: { heading: string; description: string; highlight?: string; keywords?: string; button: string; href: string; newTab?: boolean };
   /** Slider do celular (widget 30e1739): o botão é o link. */
   mobile: { heading: string; description: string; highlight?: string; button: string; href: string };
   alt: string;
@@ -78,6 +78,28 @@ export const SLIDES: Slide[] = [
       href: 'https://msserver.com.br/obter-suporte',
     },
     alt: 'Racks de data center iluminados',
+  },
+  {
+    // Banner novo (08/11/2026): locação de servidores com GPU para projetos de IA. Artes da
+    // MSSERVER (desktop e celular) em src/assets/hero/slide-4-*.webp, sem alteração. Não existe
+    // página publicada só sobre locação; o botão leva ao pedido de orçamento (ver docs/PRESERVACAO.md).
+    key: 'locacao',
+    label: 'Locação para IA',
+    desktop: {
+      // A quebra de linha separa as duas frases do título (white-space: pre-line no componente);
+      // o espaço não separável mantém "por locação." na mesma linha.
+      heading: 'Potência para IA.\nSua infraestrutura por\u00a0locação.',
+      description: 'Tenha acesso a servidores equipados com GPUs de alto desempenho para inteligência artificial, sem precisar investir na aquisição dos equipamentos.',
+      button: 'Conheça a locação',
+      href: LINKS.quote,
+    },
+    mobile: {
+      heading: 'Potência para IA.\nSua infraestrutura por\u00a0locação.',
+      description: 'Tenha acesso a servidores equipados com GPUs de alto desempenho para inteligência artificial, sem precisar investir na aquisição dos equipamentos.',
+      button: 'Conheça a locação',
+      href: LINKS.quote,
+    },
+    alt: 'Servidores Dell em blade, torre e rack sob a palavra “Locação”, em fundo azul escuro',
   },
 ];
 

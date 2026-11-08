@@ -375,6 +375,14 @@ test.describe('hero interativa', () => {
       'href',
       isMobile ? 'https://msserver.com.br/obter-suporte' : 'https://msserver.com.br/solucoes-cloud-msserver/',
     );
+    // Seta para a direita no último tema existente leva ao banner de locação; End também.
+    await page.getByRole('tab', { name: 'Data Center' }).press('ArrowRight');
+    await expect(page.getByRole('tab', { name: 'Locação para IA' })).toBeFocused();
+    await expect(active(page)).toHaveAttribute('id', 'hero-p-locacao');
+    await page.getByRole('tab', { name: 'Locação para IA' }).press('ArrowRight');
+    await expect(active(page)).toHaveAttribute('id', 'hero-p-servidores');
+    await page.getByRole('tab', { name: 'Servidores' }).press('End');
+    await expect(active(page)).toHaveAttribute('id', 'hero-p-locacao');
     // Só a mensagem ativa fica visível e acessível.
     await expect(page.locator('#hero-p-servidores')).toBeHidden();
   });
@@ -399,9 +407,9 @@ test.describe('hero interativa', () => {
     await expect(active(page)).toHaveAttribute('id', 'hero-p-servidores');
   });
 
-  test('3 pontos centralizados indicam o tema, sem barra de status', async ({ page }) => {
+  test('pontos centralizados indicam o tema (um por banner), sem barra de status', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('[data-hero-tabs] [role="tab"]')).toHaveCount(3);
+    await expect(page.locator('[data-hero-tabs] [role="tab"]')).toHaveCount(4);
     // Os pontos não têm texto visível (o nome do tema fica só no rótulo acessível).
     expect((await page.locator('[data-hero-tabs]').innerText()).trim()).toBe('');
     // O grupo de pontos (do primeiro ao último) é pequeno e fica no centro da tela.
@@ -409,7 +417,7 @@ test.describe('hero interativa', () => {
     const last = (await page.locator('[data-hero-tabs] [role="tab"]').last().boundingBox())!;
     const span = last.x + last.width - first.x;
     expect(Math.abs(first.x + span / 2 - page.viewportSize()!.width / 2)).toBeLessThan(2);
-    expect(span).toBeLessThan(120);
+    expect(span).toBeLessThan(140);
     expect(first.height).toBeLessThanOrEqual(28);
     await expect(page.getByRole('tab', { name: 'Servidores' })).toHaveAttribute('aria-selected', 'true');
     await page.getByRole('tab', { name: 'Data Center' }).click();
@@ -439,11 +447,87 @@ test.describe('hero interativa', () => {
     await page.goto('/');
     const next = page.locator('#nossa-linha');
     const y0 = await next.evaluate((el) => el.getBoundingClientRect().top + scrollY);
-    for (const name of ['App', 'Data Center', 'Servidores']) {
+    for (const name of ['App', 'Data Center', 'Locação para IA', 'Servidores']) {
       await page.getByRole('tab', { name }).click();
       await page.waitForTimeout(300);
       expect(await next.evaluate((el) => el.getBoundingClientRect().top + scrollY)).toBe(y0);
     }
+  });
+});
+
+// Banner de locação de servidores para IA (artes enviadas pela MSSERVER, uma para desktop e outra
+// para o celular). Regiões da arte em pixels do arquivo: [x1, y1, x2, y2].
+const LOC_ART = {
+  desktop: { nat: [1714, 918], palavra: [112, 140, 1002, 300], servidores: [188, 288, 1052, 785] },
+  mobile: { nat: [941, 1672], palavra: [113, 808, 847, 958], servidores: [137, 1005, 817, 1418] },
+};
+
+test.describe('banner de locação para IA', () => {
+  const open = async (page: Page) => {
+    await page.goto('/');
+    await page.getByRole('tab', { name: 'Locação para IA' }).click();
+    await expect(page.locator('[data-hero-panel][data-active]')).toHaveAttribute('id', 'hero-p-locacao');
+  };
+
+  test('copy, botão e destino', async ({ page }) => {
+    await open(page);
+    const panel = page.locator('#hero-p-locacao');
+    await expect(panel.locator('.hero-title')).toHaveText(/^Potência para IA\.\s+Sua infraestrutura por\s+locação\.$/);
+    await expect(panel.locator('.hero-desc:visible')).toHaveText(
+      'Tenha acesso a servidores equipados com GPUs de alto desempenho para inteligência artificial, sem precisar investir na aquisição dos equipamentos.',
+    );
+    const cta = panel.getByRole('link', { name: 'Conheça a locação' });
+    await expect(cta).toHaveAttribute('href', 'https://msserver.com.br/orcamento/');
+    await expect(page.locator('[data-hero-art][data-active]')).toHaveAttribute('href', 'https://msserver.com.br/orcamento/');
+    await expect(page.locator('[data-hero]')).not.toContainText(/haas/i);
+  });
+
+  test('cada tela carrega a sua arte, sem deformar', async ({ page, isMobile }) => {
+    await open(page);
+    const img = page.locator('[data-hero-art][data-active] img');
+    await expect.poll(() => img.evaluate((i: HTMLImageElement) => i.currentSrc)).toMatch(isMobile ? /slide-4-mobile/ : /slide-4-desktop/);
+    await expect.poll(() => img.evaluate((i: HTMLImageElement) => i.complete && i.naturalWidth > 0)).toBe(true);
+    // Proporção da caixa igual à da arte (sem esticar) ou preenchimento proporcional.
+    const fit = await img.evaluate((i) => getComputedStyle(i).objectFit);
+    expect(['cover', 'contain']).toContain(fit);
+  });
+
+  test('o texto não cobre a palavra "LOCAÇÃO" nem os servidores', async ({ page }) => {
+    await open(page);
+    await page.waitForTimeout(1500);
+    const gaps = await page.evaluate((ART) => {
+      const img = document.querySelector<HTMLImageElement>('.media-item[data-key="locacao"] img')!;
+      const A = /slide-4-mobile/.test(img.currentSrc) ? ART.mobile : ART.desktop;
+      const box = img.getBoundingClientRect();
+      const cs = getComputedStyle(img);
+      const [nw, nh] = A.nat;
+      const sc = cs.objectFit === 'contain' ? Math.min(box.width / nw, box.height / nh) : Math.max(box.width / nw, box.height / nh);
+      const [px, py] = cs.objectPosition.split(' ').map((v) => parseFloat(v) / 100);
+      const ox = box.left + (box.width - nw * sc) * px;
+      const oy = box.top + (box.height - nh * sc) * py;
+      const map = (r: number[]) => [ox + r[0] * sc, oy + r[1] * sc, ox + r[2] * sc, oy + r[3] * sc];
+      const panel = document.querySelector('#hero-p-locacao')!;
+      const rects: number[][] = [];
+      for (const el of panel.querySelectorAll('.hero-title, .hero-desc')) {
+        if (getComputedStyle(el).display === 'none') continue;
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        for (const q of range.getClientRects()) rects.push([q.left, q.top, q.right, q.bottom]);
+      }
+      for (const a of panel.querySelectorAll('.hero-actions a')) {
+        if (getComputedStyle(a).display === 'none') continue;
+        const q = a.getBoundingClientRect();
+        rects.push([q.left, q.top, q.right, q.bottom]);
+      }
+      // Distância entre retângulos (positiva = separados).
+      const gap = (a: number[], b: number[]) => Math.max(a[0] - b[2], b[0] - a[2], a[1] - b[3], b[1] - a[3]);
+      return {
+        palavra: Math.min(...rects.map((r) => gap(r, map(A.palavra)))),
+        servidores: Math.min(...rects.map((r) => gap(r, map(A.servidores)))),
+      };
+    }, LOC_ART);
+    expect(gaps.palavra).toBeGreaterThan(12);
+    expect(gaps.servidores).toBeGreaterThan(12);
   });
 });
 

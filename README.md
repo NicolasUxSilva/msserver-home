@@ -36,6 +36,7 @@ npm run build
 | O quê | Comando / arquivo |
 | --- | --- |
 | Produtos das abas e últimas postagens | `npm run sync` → `src/data/products.json`, `src/data/posts.json` |
+| Banners da hero | `src/assets/hero/slide-N-desktop` e `slide-N-mobile` (JPG, PNG ou WebP) + textos e destino em `SLIDES` (`src/data/content.ts`) |
 | Logo, banners, imagens das seções, logos de clientes | `npm run assets` (baixa de msserver.com.br) e `node scripts/client-logos.mjs` (versão monocromática dos logos) |
 | Textos | `src/data/content.ts` (home) e `src/data/sobre.ts` ("Sobre nós") |
 | Fotos, ícones e fundos da página "Sobre nós" | `node scripts/prepare-sobre-assets.mjs` (baixa de msserver.com.br) |
@@ -77,10 +78,10 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-48 testes, executados em desktop 1440 px e celular 390 px (96 execuções; alguns só se aplicam a
-um dos dois). Home (`tests/e2e/home.spec.ts`, 30): preservação de links e textos contra a home
+51 testes, executados em desktop 1440 px e celular 390 px (102 execuções; alguns só se aplicam a
+um dos dois). Home (`tests/e2e/home.spec.ts`, 33): preservação de links e textos contra a home
 original (`tests/fixtures/original-home.json`), ordem das seções, SEO, imagens, console,
-rolagem horizontal, abas, hero de tela cheia (arte cobrindo a seção sem deformar, 3 pontos indicadores, teclado, troca automática, pausa com o mouse, deslize no celular, sem deslocamento de layout), busca, WhatsApp, vídeo, cartões clicáveis, coluna lateral fixa e carrosséis de servidores e postagens, acordeão de soluções no celular, submenus, menu móvel (meia tela, camadas, fechar tocando fora, sem mover a página), acessibilidade
+rolagem horizontal, abas, hero de tela cheia (arte cobrindo a seção sem deformar, um ponto indicador por banner, banner de locação com a arte certa em cada tela, texto sem cobrir a arte e botão para o orçamento, teclado, troca automática, pausa com o mouse, deslize no celular, sem deslocamento de layout), busca, WhatsApp, vídeo, cartões clicáveis, coluna lateral fixa e carrosséis de servidores e postagens, acordeão de soluções no celular, submenus, menu móvel (meia tela, camadas, fechar tocando fora, sem mover a página), acessibilidade
 (axe) e redução de movimento. Chamadas externas são bloqueadas durante os testes.
 
 "Sobre nós" (`tests/e2e/sobre.spec.ts`, 11): textos, títulos, ordem dos blocos, imagens e fundos,

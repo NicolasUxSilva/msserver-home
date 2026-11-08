@@ -3,10 +3,11 @@ import { getImage } from 'astro:assets';
 import Icon from './Icon.astro';
 import { SLIDES } from '../data/content';
 
-const files = import.meta.glob<{ default: ImageMetadata }>('../assets/hero/*.jpg', { eager: true });
-const img = (name: string) => files[`../assets/hero/${name}.jpg`].default;
+// Artes em JPG (banners do WordPress) ou no formato em que a MSSERVER as enviou (WebP/PNG), sem conversão.
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/hero/*.{jpg,png,webp}', { eager: true });
+const img = (name: string) => Object.entries(files).find(([path]) => path.replace(/\.\w+$/, '').endsWith(`/${name}`))![1].default;
 
-// Banners originais do WordPress: versão larga (paisagem) e versão vertical (celular e tablet em pé).
+// Banners: versão larga (paisagem) e versão vertical (celular e tablet em pé).
 const themes = await Promise.all(
   SLIDES.map(async (s, i) => {
     const d = img(`slide-${i + 1}-desktop`);
@@ -22,21 +23,24 @@ const themes = await Promise.all(
 
 // Mesmo ponto em que o texto passa para o topo (ver CSS): celular e tablet em pé.
 const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: portrait)';
+// O banner de locação usa a arte vertical em qualquer tela em pé (também tablets grandes, como o
+// iPad Pro): a arte larga dele não deixa espaço livre para o texto numa tela mais alta que larga.
+const portraitFor = (key: string) => (key === 'locacao' ? '(max-width: 767px), (orientation: portrait)' : PORTRAIT);
 ---
 
 {/* Hero de fundo inteiro: a arte de cada banner cobre a seção e o texto fica por cima.
-    Os três temas se alternam sozinhos, com esmaecimento lento, sem trilho de slides. */}
+    Os temas se alternam sozinhos, com esmaecimento lento, sem trilho de slides. */}
 <section class="hero on-dark" id="inicio" aria-label="Destaques da MSSERVER" data-hero data-theme={themes[0].key}>
   <div class="hero-media" data-hero-visual>
     {
       themes.map((t, i) => (
         // A arte leva ao destino do tema no desktop (no WordPress o banner inteiro era um link).
-        <a class="media-item" href={t.desktop.href} target={t.desktop.newTab ? '_blank' : undefined} rel={t.desktop.newTab ? 'noopener' : undefined} tabindex="-1" aria-hidden="true" data-hero-art data-active={i === 0 ? '' : undefined} data-track="hero_click" data-track-location={`hero-${t.key}-arte`}>
+        <a class="media-item" data-key={t.key} href={t.desktop.href} target={t.desktop.newTab ? '_blank' : undefined} rel={t.desktop.newTab ? 'noopener' : undefined} tabindex="-1" aria-hidden="true" data-hero-art data-active={i === 0 ? '' : undefined} data-track="hero_click" data-track-location={`hero-${t.key}-arte`}>
           <picture>
-            <source media={PORTRAIT} srcset={t.mSet} sizes="100vw" type="image/webp" />
+            <source media={portraitFor(t.key)} srcset={t.mSet} sizes="100vw" type="image/webp" />
             {/* Com cover, a área pode ser mais larga que a tela (altura × 1,87): o navegador escolhe o arquivo por ela. */}
             <source srcset={t.dSet} sizes="max(100vw, calc(187vh - 135px))" type="image/webp" />
-            {/* As três artes carregam logo (as duas seguintes com prioridade baixa), para a troca não esperar a rede. */}
+            {/* Todas as artes carregam logo (as seguintes com prioridade baixa), para a troca não esperar a rede. */}
             <img src={t.fallback} alt={t.alt} width={t.w} height={t.h} loading="eager" fetchpriority={i === 0 ? 'high' : 'low'} decoding="async" />
           </picture>
         </a>
@@ -51,7 +55,7 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     <div class="hero-panels">
       {
         themes.map((t, i) => (
-          <div class="hero-panel" role="tabpanel" id={`hero-p-${t.key}`} aria-labelledby={`hero-t-${t.key}`} data-hero-panel data-active={i === 0 ? '' : undefined}>
+          <div class="hero-panel" data-key={t.key} role="tabpanel" id={`hero-p-${t.key}`} aria-labelledby={`hero-t-${t.key}`} data-hero-panel data-active={i === 0 ? '' : undefined}>
             {t.desktop.heading === t.mobile.heading ? (
               i === 0 ? <h1 class="hero-title">{t.desktop.heading}</h1> : <p class="hero-title">{t.desktop.heading}</p>
             ) : (
@@ -62,7 +66,7 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
             )}
             <p class="hero-desc only-d">{t.desktop.description}</p>
             <p class="hero-desc only-m">{t.mobile.description}</p>
-            <p class="hero-hl only-d">{t.desktop.highlight}</p>
+            {t.desktop.highlight && <p class="hero-hl only-d">{t.desktop.highlight}</p>}
             {t.mobile.highlight && <p class="hero-hl only-m">{t.mobile.highlight}</p>}
             {t.desktop.keywords && <p class="hero-kw only-d">{t.desktop.keywords}</p>}
             <div class="hero-actions">
@@ -80,7 +84,7 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
       }
     </div>
 
-    {/* Três pontos centralizados indicam o tema exibido; também servem para escolher um. */}
+    {/* Pontos centralizados indicam o tema exibido; também servem para escolher um. */}
     <div class="hero-dots" role="tablist" aria-label="Destaques da MSSERVER" data-hero-tabs>
       {
         themes.map((t, i) => (
@@ -215,6 +219,9 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     overflow: hidden;
     isolation: isolate;
     view-timeline: --hero block;
+    /* Contêiner de consulta: 100cqw/100cqh (largura/altura da hero) posicionam o texto do banner
+       de locação em relação ao enquadramento real da arte (ver o fim deste estilo). */
+    container-type: size;
   }
 
   /* ——— Fundo: as artes dos banners ——— */
@@ -278,15 +285,32 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     }
   }
 
-  /* Escurece só onde há texto (direita) e onde fica o índice (base). A arte, à esquerda, fica intacta. */
+  /* Escurece só onde há texto (direita) e onde fica o índice (base). A arte, à esquerda, fica intacta.
+     O início do escurecimento é uma propriedade registrada: muda junto com a arte quando um banner
+     tem a arte mais larga (locação), sem salto. */
+  @property --scrim-a {
+    syntax: '<length-percentage>';
+    inherits: false;
+    initial-value: 38%;
+  }
+
+  @property --scrim-b {
+    syntax: '<length-percentage>';
+    inherits: false;
+    initial-value: 54%;
+  }
+
   .hero-scrim {
     position: absolute;
     inset: 0;
     z-index: -1;
     background:
-      linear-gradient(90deg, transparent 38%, rgb(14 13 34 / 0.5) 54%, rgb(14 13 34 / 0.8) 100%),
+      linear-gradient(90deg, transparent var(--scrim-a), rgb(14 13 34 / 0.5) var(--scrim-b), rgb(14 13 34 / 0.8) 100%),
       linear-gradient(0deg, rgb(14 13 34 / 0.55), transparent 18%);
     pointer-events: none;
+    transition:
+      --scrim-a 1.2s var(--ease-out),
+      --scrim-b 1.2s var(--ease-out);
   }
 
   /* ——— Conteúdo ——— */
@@ -375,6 +399,8 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     letter-spacing: -0.035em;
     line-height: 1.04;
     text-wrap: balance;
+    /* Quebra de linha explícita no texto (\n), quando o título tem duas frases. */
+    white-space: pre-line;
     text-shadow: 0 2px 24px rgb(14 13 34 / 0.45);
   }
 
@@ -515,8 +541,10 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
     }
 
     .hero-scrim {
+      --scrim-a: 30%;
+      --scrim-b: 50%;
       background:
-        linear-gradient(90deg, transparent 30%, rgb(14 13 34 / 0.62) 50%, rgb(14 13 34 / 0.88) 100%),
+        linear-gradient(90deg, transparent var(--scrim-a), rgb(14 13 34 / 0.62) var(--scrim-b), rgb(14 13 34 / 0.88) 100%),
         linear-gradient(0deg, rgb(14 13 34 / 0.55), transparent 18%);
     }
   }
@@ -582,6 +610,149 @@ const PORTRAIT = '(max-width: 767px), (max-width: 1023px) and (orientation: port
 
     a.only-m {
       display: inline-flex;
+    }
+  }
+
+  /* ——— Banner "Locação para IA" (tema locacao) ———
+     A arte larga deste banner ocupa mais da largura que as outras: a palavra "LOCAÇÃO" vai até
+     x ≈ 1002 e os servidores até x ≈ 1052 (de 1714 px); a área livre fica à direita, com a rede
+     de pontos no canto de cima. O texto é posicionado a partir do enquadramento real da arte
+     (mesmo cálculo do object-fit), para nunca cobrir a palavra nem os equipamentos. Medidas da
+     arte em pixels do arquivo; 100cqw/100cqh = largura/altura da hero; a área da arte transborda
+     8 px de cada lado (.hero-media). */
+  .hero {
+    /* Escala e origem da arte larga (cover, object-position 30% 50%). */
+    --loc-s: max((100cqw + 16px) / 1714, (100cqh + 16px) / 918);
+    --loc-x0: calc((100cqw + 16px - 1714 * var(--loc-s)) * 0.3 - 8px);
+    --loc-y0: calc((100cqh + 16px - 918 * var(--loc-s)) * 0.5 - 8px);
+    /* Coluna do texto: começa depois dos servidores, com respiro, e termina na borda do conteúdo
+       do site; se ficar estreita, avança até a margem da tela. */
+    --loc-edge: max(var(--gutter), (100cqw - var(--container)) / 2);
+    --loc-free: calc(var(--loc-x0) + 1052 * var(--loc-s) + clamp(1.5rem, 3vw, 3rem));
+    --loc-right: max(100cqw - var(--loc-edge), min(var(--loc-free) + max(26rem, 22cqw), 100cqw - var(--gutter)));
+    --loc-col: calc(var(--loc-right) - var(--loc-free));
+    /* O bloco de texto termina na linha da base dos servidores (y 785), sem descer além da área
+       das mensagens (acima dos pontos). */
+    --loc-base: calc(var(--loc-y0) + 785 * var(--loc-s));
+    --loc-cell-bottom: calc(100cqh - 28px - clamp(1rem, 0.6rem + 1vw, 1.75rem) - 1.5rem);
+    --loc-cell-top: clamp(2rem, 1rem + 3vw, 4rem);
+  }
+
+  .hero-panel[data-key='locacao'] {
+    justify-self: end;
+    justify-self: unsafe end;
+    align-self: end;
+    width: var(--loc-col);
+    margin-right: calc(100cqw - var(--loc-edge) - var(--loc-right));
+    translate: 0 calc(-1 * max(0px, var(--loc-cell-bottom) - var(--loc-base)));
+  }
+
+  .hero-panel[data-key='locacao'] .hero-title {
+    font-size: clamp(1.5rem, var(--loc-col) / 10.6, 3.25rem);
+  }
+
+  /* Escurecimento só a partir da coluna do texto: os servidores ficam com a luz original. */
+  .hero[data-theme='locacao'] .hero-scrim {
+    --scrim-a: calc(var(--loc-free) - 2.5rem);
+    --scrim-b: calc(var(--loc-free) + 12rem);
+  }
+
+  /* Paisagem mais "quadrada" que o banner (tablets deitados, monitores 4:3) ou muito baixa
+     (celular deitado, em que a hero tem a altura mínima): com cover, sobraria pouco espaço à
+     direita dos servidores. A arte aparece inteira na largura, ancorada no topo, e o piso continua
+     abaixo dela na mesma cor; o texto vai para a direita, acima dos pontos. */
+  @media (min-width: 768px) and (max-aspect-ratio: 8 / 5) and (orientation: landscape), (min-width: 768px) and (max-height: 500px) and (orientation: landscape) {
+    .hero {
+      --loc-s: calc((100cqw + 16px) / 1714);
+      --loc-x0: -8px;
+      --loc-y0: -8px;
+    }
+
+    /* Aqui a arte é mais baixa que a hero: o bloco fica centrado entre a rede de pontos (y 360) e
+       os pontos indicadores. */
+    .hero-panel[data-key='locacao'] {
+      align-self: center;
+      translate: 0 calc((var(--loc-y0) + 360 * var(--loc-s) - var(--loc-cell-top)) / 2);
+    }
+
+    .media-item[data-key='locacao'] {
+      background: linear-gradient(90deg, #021c40, #05244f 45%, #000e23);
+    }
+
+    .media-item[data-key='locacao'] img {
+      object-fit: contain;
+      object-position: left top;
+      mask-image: linear-gradient(#000 calc(918 * var(--loc-s) - 48px), transparent calc(918 * var(--loc-s) - 2px));
+    }
+  }
+
+  /* Telas em pé: arte vertical. A faixa de cima da arte (logotipo) fica fora do quadro, como nos
+     outros banners, mas a arte é ancorada pelo logotipo e não pela base: a palavra "LOCAÇÃO" desce
+     o máximo possível, mantendo os servidores acima dos pontos. O texto ocupa a área livre acima
+     da palavra, com tamanhos calculados pela altura disponível. Medidas da arte vertical
+     (941 × 1672): logotipo até y 130, "LOCAÇÃO" a partir de y 808, base dos servidores em y 1418. */
+  @media (max-width: 767px), (orientation: portrait) {
+    .hero {
+      /* Escala mínima para a arte cobrir a hero do logotipo para baixo (1542 = 1672 - 130). */
+      --m-s: max((100cqw + 16px) / 941, (100cqh + 8px) / 1542);
+      --m-top: min(8px - 130 * var(--m-s), 100cqh - 48px - 1418 * var(--m-s));
+      --m-word: calc(var(--m-top) - 8px + 808 * var(--m-s));
+      /* Espaço do topo da mensagem até a palavra, com respiro. */
+      --m-avail: calc(var(--m-word) - 1.75rem - 1.25rem);
+    }
+
+    .media-item[data-key='locacao'] img {
+      position: absolute;
+      inset: auto;
+      top: var(--m-top);
+      left: calc((100cqw + 16px - 941 * var(--m-s)) / 2);
+      width: calc(941 * var(--m-s));
+      height: calc(1672 * var(--m-s));
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* Ocupa a área das mensagens, como nos outros banners: a largura toda no celular e a coluna
+       da direita nos tablets grandes (a arte vertical tem o alto livre de ponta a ponta). */
+    .hero-panel[data-key='locacao'] {
+      justify-self: stretch;
+      align-self: start;
+      width: auto;
+      margin-right: 0;
+      translate: none;
+      gap: clamp(0.55rem, var(--m-avail) * 0.035, 0.8rem);
+    }
+
+    .hero-panel[data-key='locacao'] .hero-title {
+      font-size: clamp(1.4rem, min(1.1rem + 3.6vw, var(--m-avail) * 0.108), 2.6rem);
+    }
+
+    .hero-panel[data-key='locacao'] .hero-desc {
+      font-size: clamp(0.84rem, var(--m-avail) * 0.056, 0.98rem);
+      line-height: 1.5;
+    }
+
+    .hero-panel[data-key='locacao'] .hero-actions {
+      margin-top: clamp(0.15rem, var(--m-avail) * 0.02, 0.5rem);
+    }
+
+    /* Em telas baixas o botão fica um pouco menos alto (mínimo de 46 px, área de toque mantida). */
+    .hero-panel[data-key='locacao'] .btn {
+      --btn-h: clamp(46px, var(--m-avail) * 0.2, 56px);
+    }
+  }
+
+  /* Tablets grandes em pé (a partir de 1024 px, ex.: iPad Pro): os outros banners seguem o
+     layout de paisagem; o de locação usa o layout em pé, com a mensagem no topo. */
+  @media (min-width: 1024px) and (orientation: portrait) {
+    .hero-panel[data-key='locacao'] {
+      margin-top: calc(1.75rem - clamp(2rem, 1rem + 3vw, 4rem));
+    }
+
+    .hero[data-theme='locacao'] .hero-scrim {
+      background:
+        linear-gradient(180deg, rgb(14 13 34 / 0.75) 0%, rgb(14 13 34 / 0.45) 30%, transparent 55%),
+        linear-gradient(0deg, rgb(14 13 34 / 0.55), transparent 14%);
     }
   }
 

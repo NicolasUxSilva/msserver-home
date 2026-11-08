@@ -150,9 +150,9 @@ e destinos de cada banner continuam os mesmos.
 - **Troca automática a cada 7 s, sem botão de play/pause nem setas:** a arte nova surge por
   esmaecimento lento (nada desliza), com uma aproximação muito leve enquanto o tema está ativo,
   e a mensagem entra em cascata. A troca não desloca a página.
-- **3 pontos centralizados na base:** indicam o tema exibido (o ativo em laranja) e permitem
-  escolher um; setas do teclado também funcionam. Os nomes "Servidores", "App" e "Data Center"
-  ficam só como rótulo acessível dos pontos. No celular, deslizar o dedo também troca.
+- **Pontos centralizados na base (um por banner; 4 desde o banner de locação):** indicam o tema
+  exibido (o ativo em laranja) e permitem escolher um; setas do teclado também funcionam. Os nomes
+  "Servidores", "App", "Data Center" e "Locação para IA" ficam só como rótulo acessível dos pontos. No celular, deslizar o dedo também troca.
 - **Resolução:** os banners originais têm 1713 px (largos) e 941 px (verticais) de largura. Em
   telas muito grandes ou de alta densidade eles são ampliados um pouco; não há versão maior no
   WordPress.
@@ -160,6 +160,37 @@ e destinos de cada banner continuam os mesmos.
   "reduzir movimento" ativado (nesse caso não troca sozinha).
 - **Clique na arte:** no desktop leva ao destino do tema (no WordPress o banner inteiro era um
   link); no celular, o botão é o link, como no slider móvel do WordPress.
+
+## Banner "Locação para IA" (08/11/2026)
+
+Quarto tema da hero, depois de "Data Center", a pedido da MSSERVER. Os três banners anteriores
+não mudaram (comparação pixel a pixel com a versão anterior em 7 resoluções, fora a faixa dos
+pontos, que passou de 3 para 4).
+
+- **Artes:** as duas enviadas pela MSSERVER, usadas sem nenhuma alteração:
+  `src/assets/hero/slide-4-desktop.webp` (1714 × 918, só desktop) e
+  `src/assets/hero/slide-4-mobile.webp` (941 × 1672, só celular e telas em pé). Chegaram como
+  WebP, no mesmo tamanho dos outros banners; para usar os PNG originais, basta colocá-los na mesma
+  pasta com o mesmo nome (`slide-4-desktop.png`, `slide-4-mobile.png`) e apagar os WebP.
+- **Copy:** título "Potência para IA. / Sua infraestrutura por locação.", texto "Tenha acesso a
+  servidores equipados com GPUs de alto desempenho para inteligência artificial, sem precisar
+  investir na aquisição dos equipamentos." e botão "Conheça a locação". Sem a sigla HaaS.
+- **Destino do botão (e da arte, no desktop):** `https://msserver.com.br/orcamento/`. Não há página
+  publicada específica de locação (menu, rodapé e links da home atual conferidos); o pedido de
+  orçamento é o caminho comercial existente para contratar. Quando houver uma página de locação,
+  troque o `href` do slide `locacao` em `src/data/content.ts`.
+- **Composição:** a arte larga deste banner ocupa mais da largura que as outras (servidores até
+  ~61%), então o texto não usa a coluna fixa dos outros banners: é posicionado a partir do
+  enquadramento real da arte, à direita dos servidores, com a base alinhada à dos equipamentos.
+  Em paisagem mais "quadrada" (tablets deitados, 16:10, celular deitado) a arte aparece inteira
+  na largura e o piso continua abaixo dela na mesma cor. Em telas em pé, a arte vertical é
+  enquadrada pelo logotipo (que fica fora do quadro, como nos outros banners) e o texto ocupa a
+  área livre acima da palavra "LOCAÇÃO", com tamanhos ajustados à altura disponível. Conferido
+  sem sobreposição em 26 resoluções, de 360 × 640 a 2560 × 1305 (teste automático
+  `banner de locação para IA` na suíte).
+- **Limitação conhecida:** celular deitado com menos de 768 px de largura (ex.: 667 × 375) usa a
+  arte vertical numa tela deitada, como todos os banners da hero; ali o texto cobre parte da arte.
+  É um comportamento anterior da hero, não deste banner.
 
 ## Menu móvel (painel do topo)
 
