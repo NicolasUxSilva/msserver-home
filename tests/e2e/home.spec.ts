@@ -503,6 +503,8 @@ test.describe('banner de locação para IA', () => {
     const measure = async (key: string) => {
       await page.locator(`#hero-t-${key}`).click();
       await expect(page.locator('[data-hero-panel][data-active]')).toHaveAttribute('id', `hero-p-${key}`);
+      // A entrada do texto desloca as linhas (translateY) por ~1 s: mede só com tudo parado.
+      await page.locator(`#hero-p-${key}`).evaluate((panel) => Promise.all(panel.getAnimations({ subtree: true }).map((a) => a.finished)));
       return page.locator(`#hero-p-${key}`).evaluate((panel) => {
         const hero = panel.closest('[data-hero]')!.getBoundingClientRect();
         const boxes = [...panel.children]
