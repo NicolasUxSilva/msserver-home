@@ -43,7 +43,7 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <meta name="description" content={description} />
+    {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'max-image-preview:large'} />
     <meta name="theme-color" content="#f5f4f0" />
@@ -52,13 +52,13 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
     <meta property="og:site_name" content={SITE.ogSiteName} />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    {description && <meta property="og:description" content={description} />}
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={SITE.ogImage} />
     <meta property="og:image:secure_url" content={SITE.ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={SITE.ogImage} />
 
     <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon-32.png`} />

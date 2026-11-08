@@ -1,0 +1,119 @@
+---
+// Card de produto do catálogo: mesma linguagem do card de "Nossa linha" na home (foto em estúdio
+// claro, nome em Sora, preço em destaque, botão escuro, cartão inteiro clicável), com as
+// informações reais do WooCommerce: fabricante, tipo, configurações de memória e o botão do produto.
+import { getImage } from 'astro:assets';
+import Icon from '../Icon.astro';
+import { BRANDS, categoryName, priceParts, sortedTerms, type Product } from '../../data/catalog';
+
+interface Props {
+  product: Product;
+  /** Categoria da página atual (o fabricante não se repete no card dentro da própria categoria). */
+  listingCategory?: string;
+  hidden?: boolean;
+  /** Prioridade de carregamento para os primeiros cards visíveis. */
+  priority?: boolean;
+}
+
+const { product: p, listingCategory, hidden = false, priority = false } = Astro.props;
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/catalog/*.jpg', { eager: true });
+const src = p.image ? files[`../../assets/catalog/${p.image}`]?.default : null;
+const img = src ? await getImage({ src, widths: [360, 540, 720], format: 'webp', quality: 82 }) : null;
+
+const brand = p.categories.find((c) => c in BRANDS && c !== listingCategory);
+const tags = [
+  ...(brand ? [{ text: BRANDS[brand], brand: true }] : []),
+  ...p.categories.filter((c) => !(c in BRANDS) && c !== 'sem-categoria').map((c) => ({ text: categoryName(c), brand: false })),
+];
+const price = priceParts(p);
+const specs = p.attributes.filter((a) => a.variations && a.terms.length);
+const ratingPct = Math.round((p.rating / 5) * 100);
+---
+
+<li class="pc has-card-link" data-product={p.id} hidden={hidden}>
+  <div class="pc-media">
+    {
+      img ? (
+        <img
+          src={img.src}
+          srcset={img.srcSet.attribute}
+          sizes="(max-width: 599px) 40vw, (max-width: 1023px) 46vw, (max-width: 1279px) 30vw, 300px"
+          alt={p.name}
+          width="800"
+          height="600"
+          loading={priority ? 'eager' : 'lazy'}
+          fetchpriority={priority ? 'high' : undefined}
+          decoding="async"
+        />
+      ) : (
+        <span class="pc-noimg" aria-hidden="true">
+          <Icon name="server" size={40} />
+        </span>
+      )
+    }
+    {
+      tags.length > 0 && (
+        <ul class="pc-tags" aria-label="Categorias">
+          {tags.map((t) => (
+            <li class:list={['pc-tag', { 'pc-tag--brand': t.brand }]}>{t.text}</li>
+          ))}
+        </ul>
+      )
+    }
+    {!p.inStock && <span class="pc-stock">Fora de estoque</span>}
+  </div>
+
+  <div class="pc-body">
+    <h3 class="pc-title">
+      <a class="card-link" href={p.url} title={p.name}>{p.name}</a>
+    </h3>
+
+    {
+      specs.map((a) => (
+        <p class="pc-spec">
+          <span class="pc-spec-name">{a.name}</span>
+          <span class="pc-spec-values">{sortedTerms(a.terms).join(' · ')}</span>
+        </p>
+      ))
+    }
+
+    {
+      p.reviews > 0 && (
+        <p class="pc-rating" role="img" aria-label={`Avaliação ${p.rating.toLocaleString('pt-BR')} de 5 (${p.reviews} ${p.reviews === 1 ? 'avaliação' : 'avaliações'})`}>
+          <span style={`--pct:${ratingPct}%`} />
+        </p>
+      )
+    }
+
+    <div class="pc-foot">
+      {
+        price ? (
+          <p class="pc-price">
+            {price[0]}
+            {price[1] && (
+              <>
+                <span class="pc-sep" aria-label="a">
+                  –
+                </span>
+                {price[1]}
+              </>
+            )}
+          </p>
+        ) : (
+          <p class="pc-price pc-price--none">Sob consulta</p>
+        )
+      }
+      <a
+        class="btn btn--dark pc-btn card-raise"
+        href={p.button.url}
+        rel={p.button.kind === 'add-to-cart' ? 'nofollow' : undefined}
+        aria-label={`${p.button.text}: ${p.name}`}
+        data-kind={p.button.kind}
+        data-track="catalog_product_click"
+      >
+        {p.button.text}
+        <Icon name="arrow-right" class="btn-arrow" />
+      </a>
+    </div>
+  </div>
+</li>

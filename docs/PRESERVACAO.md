@@ -413,3 +413,74 @@ comercial do rodapé; aviso de falha com os mesmos contatos.
 - **Links:** "Orçamento" no menu e no rodapé, e o banner de locação da home, passaram a levar à
   página nova (`/orcamento/`), como as outras páginas reconstruídas. Home e "Sobre nós" não
   mudaram em nada além desses endereços.
+
+# Catálogo de servidores (`/servidores/` e categorias Dell, HP e IBM)
+
+Referência: as 11 páginas publicadas (lidas pelo endereço `http://` em 08/11/2026, com o HTTPS do
+site fora do ar) e a Store API do WooCommerce. O retrato usado nos testes, gerado do HTML, está em
+`tests/fixtures/original-catalog.json`.
+
+## O que as páginas originais tinham
+
+| Página | Origem no WordPress | Produtos | Por página | Paginação | Ordenação |
+| --- | --- | --- | --- | --- | --- |
+| `/servidores/` (título "SERVIDORES") | Página 4829 com o widget de produtos do Elementor (mais recentes primeiro) | 74 | 12 | `?product-page=2` … `7` | não tinha |
+| `/categoria-produto/dell/` ("DELL") | Arquivo de categoria do WooCommerce (template 4851) | 31 | 16 | `/page/2/` | 6 opções |
+| `/categoria-produto/hp/` ("HP") | Idem | 15 | 16 | — | 6 opções |
+| `/categoria-produto/ibm/` ("IBM") | Idem | 4 | 16 | — | 6 opções |
+
+- Card: miniatura da imagem destacada (recortada em 300 px), nome, estrelas de avaliação (todas
+  em 0, nenhum produto avaliado), preço ou faixa de preço e o botão do WooCommerce.
+- Botões: "Selecionar opções" nos 50 servidores (produtos variáveis; leva à página do produto,
+  onde se escolhe a memória); "Orçamento" nos 24 componentes: em 19 sem preço leva à página do
+  produto; em 5 com preço adiciona ao carrinho (`?add-to-cart=ID`).
+- Barra lateral: busca de produtos (FiboSearch), busca no site, categorias do blog, postagens
+  recentes e redes sociais. Categorias: breadcrumb "Home / DELL" (e "Page 2"), contagem em inglês
+  ("Showing 1–16 of 31 results") e ordenação em inglês.
+- Todos os produtos em estoque, nenhum em promoção, nenhuma avaliação, nenhuma descrição de
+  categoria.
+
+## O que foi preservado
+
+- Os 74 produtos, os 31 da Dell, os 15 da HP e os 4 da IBM, com as mesmas páginas (cada página
+  tem os mesmos produtos, na mesma ordem, que a página correspondente do WordPress), os mesmos
+  nomes, links, preços e faixas de preço, os mesmos textos e destinos dos botões e a imagem
+  destacada original de cada produto (a imagem inteira, sem o recorte quadrado da miniatura).
+- As 6 ordenações das categorias (padrão, popularidade, média de classificação, mais recentes,
+  preço crescente e decrescente), conferidas uma a uma contra as páginas do WordPress
+  (`?orderby=`): 15 de 15 idênticas.
+- Título, canonical, Open Graph e JSON-LD (CollectionPage, BreadcrumbList) de cada página; sem
+  meta description, como no original.
+- A classificação do WooCommerce: o "Servidor HP Proliant ML310 G8" está na categoria IBM no
+  WooCommerce e continua aparecendo em IBM (provável erro de cadastro, a corrigir no WooCommerce).
+- O conteúdo da barra lateral: postagens recentes, categorias do blog e busca no site, num bloco
+  "Blog" ao fim da página; a busca de produtos virou a busca do próprio catálogo; as redes sociais
+  já estão no rodapé.
+
+## O que mudou
+
+- **Textos traduzidos** do WooCommerce: contagem ("Mostrando 1–16 de 31 resultados"), ordenação
+  ("Ordenação padrão", "Popularidade", "Média de classificação", "Mais recentes", "Preço: menor
+  para maior", "Preço: maior para menor"), breadcrumb ("Início / Servidores / Dell / Página 2"),
+  "Postagens recentes", "Categorias".
+- **Títulos** em caixa de frase, como no resto do site: "Servidores", "Dell", "HP", "IBM".
+- **Novos recursos sobre os mesmos dados:** busca instantânea no catálogo (nome, categorias,
+  memória), filtro pelas categorias reais do WooCommerce (Rack, Torre, Escala nuvem e as de
+  componentes, com a contagem), ordenação também no catálogo geral (padrão "Mais recentes", a
+  ordem original dele) e navegação entre Todos, Dell, HP e IBM em todas as páginas.
+- **Paginação do catálogo geral:** `/servidores/page/N/`, como nas categorias. O endereço antigo
+  (`/servidores/?product-page=N`) continua funcionando e é convertido.
+- **Card:** etiquetas de fabricante e tipo (categorias reais), as configurações de memória das
+  variações ("Memoria RAM: 8GB · 16GB · 32GB…", como cadastradas, em ordem crescente) e "Sob
+  consulta" no lugar do preço vazio. As estrelas só aparecem em produtos com avaliações (hoje,
+  nenhum). "Sem categoria" não aparece como filtro nem etiqueta.
+- **Imagens:** a imagem destacada inteira (no lugar da miniatura recortada), enquadrada em fundo
+  branco como em "Nossa linha"; fotos muito pequenas são ampliadas até 3×, a mesma escala que o
+  card original aplicava. A do "Servidor Dell PowerEdge R430" tem só 100 × 100 px no WooCommerce
+  (a galeria do produto tem fotos maiores): vale trocar a imagem destacada lá.
+- **Adicionar ao carrinho:** nos 5 componentes com preço, o botão "Orçamento" leva a
+  `página-do-produto/?add-to-cart=ID` (o WooCommerce adiciona ao carrinho e mostra a página do
+  produto), em vez do pedido AJAX feito de dentro da página do WordPress.
+- **Links:** "Servidores" (menu, submenu "Ver todos", rodapé, "Ver modelos" e "Ver todos" da
+  home) e Dell, HP e IBM no submenu passaram a levar ao catálogo novo. As categorias de
+  componentes e as páginas de produto seguem no WordPress.

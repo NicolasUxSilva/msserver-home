@@ -132,6 +132,30 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 - O WhatsApp flutuante sai da frente quando cobriria os botões do formulário ou enquanto se digita
   numa tela de toque.
 
+## Padrões do catálogo
+
+- **Um componente para as 4 listagens** (`CatalogPage.astro`) e uma folha (`styles/catalog.css`,
+  prefixos `cat-` e `pc-`). Regras compartilhadas entre a página gerada e o navegador em
+  `lib/catalog-shared.ts` (contagem, paginação, endereços, busca sem acentos).
+- **Abertura compacta:** azul-marinho com luz azul e hachura, breadcrumb, título com o losango
+  laranja, contagem e a palavra da listagem em contorno com brilho azul (como "SERVIDORES" e
+  "LOCAÇÃO" nas artes da hero), no alto à direita. Fabricantes em pílulas (contagem em mono; a
+  atual em branco com a contagem em laranja), à direita do título no desktop.
+- **Ferramentas** num cartão branco sobre a borda da abertura: busca (com limpar), "Ordenar por" e
+  as categorias em chips (pressionado em tinta escura; contagem que acompanha a busca; sem
+  produtos, indisponível). No celular, os chips deslizam numa linha.
+- **Card de produto:** o de "Nossa linha" evoluído: foto em estúdio claro 4:3 com sombra de piso,
+  etiquetas (fabricante em índigo, tipo em branco), nome em Sora até 3 linhas, atributo de
+  variação em caixa alta + valores, preço em Sora (faixa com "–" mais leve; "Sob consulta" sem
+  preço) e botão escuro na largura do card; o cartão inteiro leva ao produto. Hover: sobe 4 px,
+  sombra, foto se aproxima, nome sublinhado. Celular (< 600 px): foto à esquerda, texto à direita
+  e o botão numa linha própria.
+- **Grade:** 4 colunas a partir de 1200 px, 3 a partir de 960, 2 a partir de 600, 1 abaixo.
+  Entrada curta e escalonada dos cards quando a lista muda (desligada com "reduzir movimento").
+- **Paginação:** anterior/próxima com rótulo, números com reticências, página atual em tinta
+  escura, "Página X de Y". Sem resultados: aviso tracejado com "Limpar busca e filtros" e "Buscar
+  em todo o site".
+
 ## Breakpoints
 
 Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo; a partir de 1180, grade de 3 colunas em "Nossa linha"), 1360

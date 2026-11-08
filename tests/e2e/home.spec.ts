@@ -28,7 +28,7 @@ test.describe('preservação da home original', () => {
     const equivalent: Record<string, string> = {
       // Âncora para a seção do app nesta mesma página.
       'https://msserver.com.br/#appmobile': '#appmobile',
-      // Páginas já reconstruídas neste projeto: Início, "Sobre nós" e Orçamento levam às rotas internas
+      // Páginas já reconstruídas neste projeto: Início, "Sobre nós", Orçamento e o catálogo levam às rotas internas
       // (ver ROUTES em src/config/site.ts); as demais seguem no WordPress.
       'https://msserver.com.br': '/',
       'https://msserver.com.br/': '/',
@@ -36,6 +36,10 @@ test.describe('preservação da home original', () => {
       'https://msserver.com.br/sobre/': '/sobre/',
       'https://msserver.com.br/orcamento': '/orcamento/',
       'https://msserver.com.br/orcamento/': '/orcamento/',
+      'https://msserver.com.br/servidores': '/servidores/',
+      'https://msserver.com.br/categoria-produto/dell/': '/categoria-produto/dell/',
+      'https://msserver.com.br/categoria-produto/hp/': '/categoria-produto/hp/',
+      'https://msserver.com.br/categoria-produto/ibm/': '/categoria-produto/ibm/',
     };
     const missing = original.hrefs.filter((h) => !hrefs.has(equivalent[h] ?? h));
     expect(missing).toEqual([]);
@@ -249,7 +253,7 @@ test.describe('celular', () => {
     // Submenus em camadas, com "Voltar". O título da camada leva à página do item, quando existe.
     await menu.getByRole('button', { name: 'Servidores', exact: true }).click();
     await expect(menu.getByRole('link', { name: 'Ver todos' })).toBeVisible();
-    await expect(menu.locator('#m-v-root-0 .m-title')).toHaveAttribute('href', 'https://msserver.com.br/servidores');
+    await expect(menu.locator('#m-v-root-0 .m-title')).toHaveAttribute('href', '/servidores/');
     await menu.getByRole('button', { name: 'Componentes', exact: true }).click();
     await expect(menu.locator('#m-v-root-0-4 .m-title')).toHaveAttribute('href', 'https://msserver.com.br/categoria-produto/componentes/');
     await expect(menu.getByRole('link', { name: 'Gavetas' })).toBeVisible();

@@ -1,0 +1,259 @@
+---
+// Página do catálogo (geral ou de fabricante): um único componente para /servidores/ e para as
+// categorias Dell, HP e IBM, com a mesma estrutura e os mesmos controles. A página gerada traz a
+// listagem na ordem padrão, já paginada (como no WordPress); busca, filtros, ordenação e troca de
+// página funcionam no navegador sobre os mesmos cards (src/scripts/catalog.ts).
+import '../../styles/catalog.css';
+import Base from '../../layouts/Base.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import WhatsAppFab from '../WhatsAppFab.astro';
+import Icon from '../Icon.astro';
+import ProductCard from './ProductCard.astro';
+import { LINKS, ROUTES } from '../../config/site';
+import { BLOG, LISTINGS, LISTING_KEYS, SCHEMAS, filtersFor, orderOf, pagesOf, product, searchIndex, totalOf, type ListingKey } from '../../data/catalog';
+import { ORDER_OPTIONS, pageItems, resultCount, stateUrl } from '../../lib/catalog-shared';
+
+interface Props {
+  listing: ListingKey;
+  page: number;
+}
+
+const { listing: key, page } = Astro.props;
+const L = LISTINGS[key];
+const ids = orderOf(key, L.defaultOrder);
+const total = ids.length;
+const pages = pagesOf(key);
+const start = (page - 1) * L.perPage;
+const visible = ids.slice(start, start + L.perPage);
+const filters = filtersFor(key);
+const category = key === 'servidores' ? undefined : key;
+const pageUrl = (n: number) => stateUrl(L.path, { page: n, orderby: L.defaultOrder, busca: '', tipo: '' }, L.defaultOrder);
+
+// Dados para o navegador: só o necessário para ordenar, buscar e filtrar os cards da página.
+const config = {
+  key,
+  base: L.path,
+  perPage: L.perPage,
+  defaultOrder: L.defaultOrder,
+  legacyParam: L.legacyPageParam ?? null,
+  orders: Object.fromEntries(ORDER_OPTIONS.map((o) => [o.key, orderOf(key, o.key)])),
+  products: Object.fromEntries(ids.map((id) => [id, { s: searchIndex(product(id)), c: product(id).categories }])),
+  searchAll: 'https://msserver.com.br/?post_type=product&s=',
+};
+
+const crumbs = [
+  { label: 'Início', href: ROUTES.home },
+  ...(key === 'servidores' ? [{ label: 'Servidores', href: page > 1 ? L.path : undefined }] : [{ label: 'Servidores', href: ROUTES.servers }, { label: L.title, href: page > 1 ? L.path : undefined }]),
+  ...(page > 1 ? [{ label: `Página ${page}`, href: undefined }] : []),
+];
+const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${L.title}`;
+---
+
+<Base title={L.seoTitle} description="" canonical={L.canonical} ogType="website" schema={SCHEMAS[key]}>
+  <Header current={LINKS.servers} />
+  <main id="conteudo" class="catalog" data-catalog>
+    {/* Abertura: identificação, contagem e navegação entre fabricantes. */}
+    <section class="cat-hero dark-surface on-dark" aria-labelledby="catalogo-title">
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="dark-surface__hatch"></div>
+        <div class="cat-light"></div>
+        <span class="cat-wordmark" data-length={L.wordmark.length > 4 ? 'long' : 'short'}>{L.wordmark}</span>
+      </div>
+      <div class="container cat-hero-inner">
+        <nav class="cat-crumbs" aria-label="Você está em">
+          <ol>
+            {crumbs.map((c, i) => <li>{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current={i === crumbs.length - 1 ? 'page' : undefined}>{c.label}</span>}</li>)}
+          </ol>
+        </nav>
+        <div class="cat-head">
+          <h1 id="catalogo-title" class="cat-title">{L.title}</h1>
+          <p class="cat-sub">
+            <b>{total}</b> {total === 1 ? 'produto' : 'produtos'}
+          </p>
+        </div>
+        <nav class="cat-brands" aria-label="Fabricantes">
+          <ul>
+            {
+              LISTING_KEYS.map((k) => (
+                <li>
+                  <a class="cat-brand" href={LISTINGS[k].path} aria-current={k === key ? 'page' : undefined}>
+                    {LISTINGS[k].navLabel}
+                    <span class="cat-brand-count" aria-label={`${totalOf(k)} produtos`}>
+                      {totalOf(k)}
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <section class="cat-body" aria-labelledby="resultados">
+      <div class="container">
+        {/* Ferramentas: busca, ordenação e categorias. Sem JavaScript, a busca vai para a busca de
+            produtos do WordPress (a mesma do widget original). */}
+        <div class="cat-tools">
+          <form class="cat-search" action="https://msserver.com.br/" method="get" role="search" data-cat-search>
+            <label class="sr-only" for="cat-q">{searchLabel}</label>
+            <Icon name="search" size={20} />
+            <input id="cat-q" name="s" type="search" placeholder="Buscar por modelo, fabricante ou componente" autocomplete="off" enterkeyhint="search" data-cat-q />
+            <input type="hidden" name="post_type" value="product" />
+            <button class="cat-clear" type="button" aria-label="Limpar busca" hidden data-cat-clear>
+              <Icon name="x" size={18} />
+            </button>
+          </form>
+
+          <div class="cat-sort">
+            <label for="cat-order">Ordenar por</label>
+            <div class="cat-select">
+              <select id="cat-order" name="orderby" data-cat-order>
+                {ORDER_OPTIONS.map((o) => <option value={o.key} selected={o.key === L.defaultOrder}>{o.label}</option>)}
+              </select>
+              <Icon name="chevron-down" size={18} />
+            </div>
+          </div>
+
+          {
+            filters.length > 0 && (
+              <div class="cat-filters" role="group" aria-label="Filtrar por categoria" data-cat-filters>
+                <button class="cat-chip" type="button" aria-pressed="true" data-cat-tipo="">
+                  Todos <span data-count>{total}</span>
+                </button>
+                {filters.map((g) => (
+                  <div class="cat-filter-group" role="group" aria-label={g.label}>
+                    <span class="cat-filter-sep" aria-hidden="true" />
+                    {g.items.map((f) => (
+                      <button class="cat-chip" type="button" aria-pressed="false" data-cat-tipo={f.slug}>
+                        {f.name} <span data-count>{f.count}</span>
+                      </button>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )
+          }
+        </div>
+
+        <div class="cat-status">
+          <h2 id="resultados" class="cat-count" tabindex="-1" data-cat-count>
+            {resultCount(start + 1, start + visible.length, total)}
+          </h2>
+          <div class="cat-active" data-cat-active></div>
+        </div>
+        <p class="sr-only" aria-live="polite" data-cat-live></p>
+
+        <ul class="cat-grid" aria-labelledby="resultados" data-cat-grid>
+          {ids.map((id, i) => <ProductCard product={product(id)} listingCategory={category} hidden={!visible.includes(id)} priority={i >= start && i < start + 4} />)}
+        </ul>
+
+        <div class="cat-empty" hidden data-cat-empty>
+          <Icon name="package-search" size={40} />
+          <h3>Nenhum produto encontrado</h3>
+          <p data-cat-empty-text>Nenhum produto corresponde aos filtros escolhidos.</p>
+          <div class="cat-empty-actions">
+            <button class="btn btn--outline" type="button" data-cat-reset>
+              <Icon name="x" size={18} />
+              Limpar busca e filtros
+            </button>
+            <a class="btn btn--dark" href={`${config.searchAll}`} data-cat-search-all>
+              Buscar em todo o site
+              <Icon name="arrow-right" class="btn-arrow" />
+            </a>
+          </div>
+        </div>
+
+        <nav class="cat-pages" aria-label="Paginação" hidden={pages <= 1} data-cat-pages>
+          {page > 1 ? (
+            <a class="cat-step" href={pageUrl(page - 1)} rel="prev" aria-label="Página anterior">
+              <Icon name="chevron-left" size={18} />
+              <span>Anterior</span>
+            </a>
+          ) : (
+            <span class="cat-step is-disabled" aria-hidden="true">
+              <Icon name="chevron-left" size={18} />
+              <span>Anterior</span>
+            </span>
+          )}
+          {pageItems(page, pages).map((it) =>
+            it.type === 'gap' ? (
+              <span class="cat-gap" aria-hidden="true">
+                …
+              </span>
+            ) : (
+              <a href={pageUrl(it.n)} aria-label={`Página ${it.n}`} aria-current={it.n === page ? 'page' : undefined}>
+                {it.n}
+              </a>
+            ),
+          )}
+          {page < pages ? (
+            <a class="cat-step" href={pageUrl(page + 1)} rel="next" aria-label="Próxima página">
+              <span>Próxima</span>
+              <Icon name="chevron-right" size={18} />
+            </a>
+          ) : (
+            <span class="cat-step is-disabled" aria-hidden="true">
+              <span>Próxima</span>
+              <Icon name="chevron-right" size={18} />
+            </span>
+          )}
+          <p class="cat-pages-info">
+            Página {page} de {pages}
+          </p>
+        </nav>
+      </div>
+    </section>
+
+    {/* Conteúdo da barra lateral original: postagens recentes, categorias do blog e busca no site. */}
+    <section class="cat-blog" aria-labelledby="catalogo-blog">
+      <div class="container cat-blog-grid">
+        <h2 id="catalogo-blog">Blog</h2>
+        <div>
+          <h3>Postagens recentes</h3>
+          <ul class="cat-blog-posts">
+            {
+              BLOG.posts.map((p) => (
+                <li>
+                  <a href={p.url}>
+                    {p.title}
+                    <Icon name="arrow-right" size={18} />
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <h3>Categorias</h3>
+          <ul class="cat-blog-cats">
+            {
+              BLOG.categories.map((c) => (
+                <li>
+                  <a href={c.url}>{c.name}</a>
+                </li>
+              ))
+            }
+          </ul>
+          <form class="cat-blog-search" action="https://msserver.com.br" method="get" role="search">
+            <label class="sr-only" for="cat-site-q">Buscar no site</label>
+            <input id="cat-site-q" name="s" type="search" placeholder="Buscar no site" />
+            <button class="btn btn--outline" type="submit">
+              <Icon name="search" size={18} />
+              <span class="sr-only">Buscar</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFab />
+  <script type="application/json" data-cat-config set:html={JSON.stringify(config)} />
+</Base>
+
+<script>
+  import { initCatalog } from '../../scripts/catalog';
+  initCatalog();
+</script>

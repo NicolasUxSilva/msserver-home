@@ -1,0 +1,1115 @@
+/* ——— Catálogo de servidores (/servidores/ e categorias Dell, HP e IBM) ———
+   Uma folha para as 4 páginas: abertura escura com a palavra em contorno (como nas artes da hero),
+   navegação entre fabricantes, ferramentas (busca, ordenação, categorias), grade de cards no padrão
+   de "Nossa linha" da home, paginação e o bloco do blog. Classes com prefixo cat- e pc-. */
+
+/* ——— Abertura ——— */
+.cat-hero {
+  position: relative;
+  padding-block: clamp(1.25rem, 0.8rem + 1.8vw, 2.25rem) clamp(3.9rem, 3rem + 2.2vw, 4.75rem);
+  background: linear-gradient(165deg, var(--c-navy-950) 0%, #04122d 60%, var(--c-navy-900) 100%);
+  overflow: hidden;
+}
+
+.cat-light {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(40% 70% at 12% 0%, rgb(46 110 210 / 0.32), transparent 72%),
+    radial-gradient(34% 60% at 88% 30%, rgb(46 110 210 / 0.2), transparent 70%);
+}
+
+/* Palavra em contorno com brilho azul, como "SERVIDORES" e "LOCAÇÃO" nas artes da hero. */
+.cat-wordmark {
+  position: absolute;
+  top: clamp(0.4rem, 0.2rem + 0.6vw, 0.9rem);
+  right: max(var(--gutter), calc((100% - var(--container)) / 2));
+  color: transparent;
+  font-family: var(--f-display);
+  font-size: clamp(4rem, 1.8rem + 6vw, 8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  white-space: nowrap;
+  -webkit-text-stroke: 1.5px rgb(98 150 255 / 0.42);
+  filter: drop-shadow(0 0 18px rgb(46 110 210 / 0.55));
+  user-select: none;
+  /* Some suavemente para a esquerda, atrás do título. */
+  mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
+}
+
+.cat-wordmark[data-length='long'] {
+  font-size: clamp(3.4rem, 1.6rem + 4.6vw, 6.5rem);
+}
+
+/* Desktop: a palavra fica no alto, acima dos botões de fabricante. */
+@media (min-width: 900px) {
+  .cat-wordmark {
+    mask-image: linear-gradient(90deg, transparent 0%, #000 40%);
+  }
+}
+
+.cat-hero-inner {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cat-head {
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* Desktop: título à esquerda e fabricantes à direita, na mesma faixa. */
+@media (min-width: 900px) {
+  .cat-hero-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    column-gap: 2rem;
+  }
+
+  .cat-crumbs {
+    grid-column: 1 / -1;
+  }
+
+  .cat-brands {
+    margin-top: 0;
+  }
+}
+
+.cat-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--c-on-dark-3);
+  font-size: 0.86rem;
+}
+
+.cat-crumbs li + li::before {
+  content: '/';
+  margin-right: 0.55rem;
+  color: rgb(255 255 255 / 0.25);
+}
+
+.cat-crumbs a {
+  color: var(--c-on-dark-2);
+  text-decoration: none;
+}
+
+.cat-crumbs a:hover {
+  color: var(--c-on-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cat-crumbs [aria-current] {
+  color: var(--c-on-dark);
+}
+
+.cat-title {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: clamp(2.1rem, 1.3rem + 2.6vw, 3.4rem);
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.cat-title::before {
+  content: '';
+  flex: none;
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  background: var(--c-orange);
+  transform: rotate(45deg);
+}
+
+.cat-sub {
+  color: var(--c-on-dark-2);
+  font-size: var(--t-lead);
+}
+
+.cat-sub b {
+  color: var(--c-on-dark);
+  font-weight: 600;
+}
+
+/* Navegação entre fabricantes: todos os servidores, Dell, HP e IBM. */
+.cat-brands {
+  margin-top: 0.4rem;
+}
+
+.cat-brands ul {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cat-brands ul::-webkit-scrollbar {
+  display: none;
+}
+
+.cat-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  padding: 0 1.1rem 0 1.25rem;
+  border: 1px solid var(--c-line-dark-2);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.04);
+  color: var(--c-on-dark);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-1) var(--ease-out),
+    border-color var(--dur-1) var(--ease-out),
+    color var(--dur-1) var(--ease-out),
+    transform var(--dur-1) var(--ease-out);
+}
+
+.cat-brand:hover {
+  border-color: rgb(255 255 255 / 0.45);
+  background: rgb(255 255 255 / 0.1);
+}
+
+.cat-brand:active {
+  transform: scale(0.97);
+}
+
+.cat-brand:focus-visible {
+  outline-color: var(--c-orange);
+}
+
+.cat-brand-count {
+  display: grid;
+  place-items: center;
+  min-width: 1.75rem;
+  height: 1.5rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.1);
+  color: var(--c-on-dark-2);
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.cat-brand[aria-current='page'] {
+  border-color: var(--c-surface);
+  background: var(--c-surface);
+  color: var(--c-ink);
+}
+
+.cat-brand[aria-current='page'] .cat-brand-count {
+  background: var(--c-orange);
+  color: var(--c-ink);
+}
+
+/* ——— Corpo: ferramentas sobre a borda da abertura, grade e paginação ——— */
+.cat-body {
+  padding-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  background: var(--c-paper);
+}
+
+.cat-tools {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.9rem 1rem;
+  margin-top: calc(clamp(2.75rem, 2rem + 2vw, 3.5rem) * -1);
+  padding: clamp(0.9rem, 0.7rem + 0.8vw, 1.25rem);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  box-shadow: 0 30px 60px -40px rgb(14 13 34 / 0.45);
+}
+
+.cat-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cat-search > .icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--c-ink-3);
+  pointer-events: none;
+}
+
+.cat-search input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 3rem 0 2.9rem;
+  border: 1.5px solid var(--c-line-2);
+  border-radius: 12px;
+  background: var(--c-surface);
+  font-size: 1rem;
+  transition:
+    border-color var(--dur-1) var(--ease-out),
+    box-shadow var(--dur-1) var(--ease-out);
+}
+
+.cat-search input::placeholder {
+  color: var(--c-ink-3);
+  opacity: 1;
+}
+
+.cat-search input:hover {
+  border-color: var(--c-ink-3);
+}
+
+.cat-search input:focus {
+  border-color: var(--c-indigo-600);
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(61 58 134 / 0.16);
+}
+
+.cat-search input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.cat-clear {
+  position: absolute;
+  right: 0.45rem;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--c-ink-2);
+}
+
+.cat-clear:hover {
+  background: var(--c-paper);
+  color: var(--c-ink);
+}
+
+.cat-clear[hidden] {
+  display: none;
+}
+
+.cat-sort {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cat-sort label {
+  color: var(--c-ink-3);
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+
+.cat-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cat-select select {
+  min-height: 52px;
+  padding: 0 2.6rem 0 1rem;
+  border: 1.5px solid var(--c-line-2);
+  border-radius: 12px;
+  background: var(--c-surface);
+  font-size: 0.95rem;
+  font-weight: 500;
+  appearance: none;
+  cursor: pointer;
+}
+
+.cat-select select:hover {
+  border-color: var(--c-ink-3);
+}
+
+.cat-select select:focus {
+  border-color: var(--c-indigo-600);
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(61 58 134 / 0.16);
+}
+
+.cat-select .icon {
+  position: absolute;
+  right: 0.85rem;
+  color: var(--c-ink-3);
+  pointer-events: none;
+}
+
+/* Filtros por categoria (categorias reais do WooCommerce, com a contagem). */
+.cat-filters {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--c-line);
+}
+
+.cat-filter-group {
+  display: contents;
+}
+
+/* Divisor entre "Todos", as categorias de servidores e as de componentes. */
+.cat-filter-sep {
+  flex: none;
+  width: 1px;
+  height: 24px;
+  margin-inline: 0.15rem;
+  background: var(--c-line-2);
+}
+
+.cat-chip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 40px;
+  padding: 0 0.65rem;
+  border: 1px solid var(--c-line-2);
+  border-radius: 999px;
+  background: var(--c-surface);
+  color: var(--c-ink-2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-1) var(--ease-out),
+    border-color var(--dur-1) var(--ease-out),
+    color var(--dur-1) var(--ease-out),
+    transform var(--dur-1) var(--ease-out);
+}
+
+.cat-chip span {
+  color: var(--c-ink-3);
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+}
+
+.cat-chip:hover {
+  border-color: var(--c-ink);
+  color: var(--c-ink);
+}
+
+.cat-chip:active {
+  transform: scale(0.97);
+}
+
+.cat-chip[aria-pressed='true'] {
+  border-color: var(--c-ink);
+  background: var(--c-ink);
+  color: var(--c-surface);
+}
+
+.cat-chip[aria-pressed='true'] span {
+  color: var(--c-orange);
+}
+
+.cat-chip:disabled {
+  border-color: var(--c-line);
+  color: var(--c-line-2);
+  cursor: default;
+}
+
+.cat-chip:disabled span {
+  color: var(--c-line-2);
+}
+
+@media (max-width: 1279px) {
+  .cat-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+}
+
+/* ——— Contagem ——— */
+.cat-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin: clamp(1.5rem, 1rem + 1.4vw, 2.25rem) 0 1.1rem;
+}
+
+.cat-count {
+  font-family: var(--f-text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--c-ink-2);
+}
+
+.cat-active {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cat-active button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 36px;
+  padding: 0 0.6rem 0 0.8rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--c-indigo-100);
+  color: var(--c-indigo-700);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.cat-active button:hover {
+  background: #dddbf3;
+}
+
+/* ——— Grade ——— */
+.cat-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 600px) {
+  .cat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 960px) {
+  .cat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .cat-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.1rem;
+  }
+}
+
+/* Entrada curta dos cards quando a lista muda (busca, filtro, ordem, página). */
+@media (prefers-reduced-motion: no-preference) {
+  .cat-grid.is-changing .pc {
+    animation: pc-in 0.38s var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 28ms);
+  }
+}
+
+@keyframes pc-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* ——— Card de produto ——— */
+.pc {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    box-shadow var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out),
+    transform var(--dur-2) var(--ease-out);
+}
+
+.pc[hidden] {
+  display: none;
+}
+
+.pc-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-bottom: 1px solid var(--c-line);
+  background: radial-gradient(70% 62% at 50% 44%, #fff 42%, var(--c-paper) 100%);
+  overflow: hidden;
+}
+
+/* Sombra de piso sob o equipamento, como nos cards da home. */
+.pc-media::after {
+  content: '';
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  bottom: 13%;
+  height: 9%;
+  background: radial-gradient(closest-side, rgb(27 24 32 / 0.14), transparent);
+  transition:
+    opacity var(--dur-2) var(--ease-out),
+    transform var(--dur-2) var(--ease-out);
+}
+
+.pc-media img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition:
+    transform 0.6s var(--ease-out),
+    opacity 0.4s var(--ease-out);
+}
+
+/* Carregando: a foto aparece suave quando chega (o fundo de estúdio já ocupa o espaço). */
+.js .pc-media img:not(.is-loaded) {
+  opacity: 0;
+}
+
+.pc-noimg {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--c-line-2);
+}
+
+.pc-tags {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.pc-tag {
+  padding: 0.22rem 0.55rem;
+  border: 1px solid var(--c-line);
+  border-radius: 6px;
+  background: rgb(255 255 255 / 0.92);
+  color: var(--c-ink-2);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+}
+
+.pc-tag--brand {
+  border-color: var(--c-indigo-800);
+  background: var(--c-indigo-800);
+  color: var(--c-on-dark);
+}
+
+.pc-stock {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 2;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: var(--c-danger-bg);
+  color: var(--c-danger);
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.pc-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.05rem 1.15rem 1.15rem;
+}
+
+/* Nome em até 3 linhas; o nome completo fica no título do link e na página do produto. */
+.pc-title {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow-wrap: anywhere;
+}
+
+.pc-title a {
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size var(--dur-2) var(--ease-out);
+}
+
+.pc-spec {
+  display: grid;
+  gap: 0.1rem;
+  color: var(--c-ink-2);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.pc-spec-name {
+  color: var(--c-ink-3);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pc-rating span {
+  display: block;
+  width: 5.4em;
+  height: 1em;
+  background: linear-gradient(90deg, var(--c-orange) var(--pct), var(--c-line-2) var(--pct));
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 108 20'%3E%3Cg%3E%3Cpath id='s' d='M10 1l2.6 6 6.4.6-4.9 4.3 1.5 6.3L10 14.9 4.4 18.2l1.5-6.3L1 7.6l6.4-.6z'/%3E%3Cuse href='%23s' x='22'/%3E%3Cuse href='%23s' x='44'/%3E%3Cuse href='%23s' x='66'/%3E%3Cuse href='%23s' x='88'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+.pc-foot {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: auto;
+  padding-top: 0.35rem;
+}
+
+.pc-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.4rem;
+  font-family: var(--f-display);
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.pc-sep {
+  color: var(--c-ink-3);
+  font-weight: 400;
+}
+
+.pc-price--none {
+  color: var(--c-ink-3);
+  font-family: var(--f-text);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.pc-btn {
+  justify-content: space-between;
+  width: 100%;
+  min-height: 46px;
+  font-size: 0.92rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pc:hover {
+    border-color: var(--c-line-2);
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-4px);
+  }
+
+  .pc:hover .pc-media img {
+    transform: translateY(-4px) scale(1.04);
+  }
+
+  .pc:hover .pc-media::after {
+    opacity: 0.7;
+    transform: scaleX(0.92);
+  }
+
+  .pc:hover .pc-title a {
+    background-size: 100% 1px;
+  }
+
+  .pc:hover .pc-btn {
+    background: var(--c-indigo-800);
+  }
+
+  .pc:hover .pc-btn .btn-arrow {
+    transform: translateX(3px);
+  }
+}
+
+.pc:active {
+  transform: translateY(-1px);
+  transition-duration: 0.08s;
+}
+
+/* Celular: card horizontal (foto à esquerda; nome, memória e preço à direita) e o botão numa
+   linha própria, na largura do card. */
+@media (max-width: 599px) {
+  .pc {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+      'media title'
+      'media spec'
+      'media price'
+      'btn btn';
+    column-gap: 0.9rem;
+  }
+
+  .pc-body,
+  .pc-foot {
+    display: contents;
+  }
+
+  .pc-media {
+    grid-area: media;
+    aspect-ratio: auto;
+    min-height: 132px;
+    border-right: 1px solid var(--c-line);
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  .pc-media img {
+    position: absolute;
+    inset: 0;
+  }
+
+  .pc-tags {
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .pc-tag {
+    font-size: 0.64rem;
+  }
+
+  /* Na foto estreita, só a primeira etiqueta (fabricante ou tipo), para não cobrir o equipamento. */
+  .pc-tag:nth-child(n + 2) {
+    display: none;
+  }
+
+  .pc-title {
+    grid-area: title;
+    padding: 0.85rem 0.85rem 0 0;
+    font-size: 0.98rem;
+  }
+
+  .pc-spec {
+    grid-area: spec;
+    padding: 0.45rem 0.85rem 0 0;
+  }
+
+  .pc-rating {
+    display: none;
+  }
+
+  .pc-price {
+    grid-area: price;
+    align-self: end;
+    padding: 0.5rem 0.85rem 0.85rem 0;
+    font-size: 1rem;
+    white-space: normal;
+  }
+
+  .pc-btn {
+    grid-area: btn;
+    width: auto;
+    margin: 0.75rem;
+    min-height: 46px;
+  }
+}
+
+/* ——— Sem resultados ——— */
+.cat-empty {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  padding: clamp(2.5rem, 2rem + 3vw, 4rem) 1.25rem;
+  border: 1px dashed var(--c-line-2);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  text-align: center;
+}
+
+.cat-empty[hidden] {
+  display: none;
+}
+
+.cat-empty .icon {
+  color: var(--c-ink-3);
+}
+
+.cat-empty h3 {
+  font-size: var(--t-h3);
+}
+
+.cat-empty p {
+  max-width: 46ch;
+  color: var(--c-ink-2);
+}
+
+.cat-empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+/* ——— Paginação ——— */
+.cat-pages {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: clamp(2rem, 1.5rem + 1.5vw, 3rem);
+}
+
+.cat-pages[hidden] {
+  display: none;
+}
+
+.cat-pages a,
+.cat-pages span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 46px;
+  height: 46px;
+  padding: 0 0.85rem;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cat-pages a {
+  border: 1px solid var(--c-line-2);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  transition:
+    border-color var(--dur-1) var(--ease-out),
+    background-color var(--dur-1) var(--ease-out),
+    transform var(--dur-1) var(--ease-out);
+}
+
+.cat-pages a:hover {
+  border-color: var(--c-ink);
+  transform: translateY(-1px);
+}
+
+.cat-pages a[aria-current='page'] {
+  border-color: var(--c-ink);
+  background: var(--c-ink);
+  color: var(--c-surface);
+  pointer-events: none;
+}
+
+.cat-pages .cat-gap {
+  min-width: 24px;
+  padding: 0;
+  color: var(--c-ink-3);
+}
+
+.cat-pages .cat-step {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.cat-pages .cat-step.is-disabled {
+  border: 1px solid var(--c-line);
+  background: var(--c-paper);
+  color: var(--c-ink-3);
+}
+
+.cat-pages-info {
+  flex-basis: 100%;
+  margin-top: 0.35rem;
+  color: var(--c-ink-3);
+  font-size: 0.86rem;
+  text-align: center;
+}
+
+@media (max-width: 599px) {
+  .cat-pages .cat-step span {
+    display: none;
+  }
+}
+
+/* ——— Blog (conteúdo da barra lateral original) ——— */
+.cat-blog {
+  padding-block: clamp(3rem, 2rem + 3vw, 4.5rem);
+  border-top: 1px solid var(--c-line);
+  background: var(--c-surface);
+}
+
+.cat-blog-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.cat-blog h2 {
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  letter-spacing: -0.035em;
+}
+
+.cat-blog h3 {
+  margin-bottom: 0.85rem;
+  color: var(--c-ink-3);
+  font-family: var(--f-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cat-blog-posts {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cat-blog-posts a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--c-line);
+  color: var(--c-ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.cat-blog-posts a:hover {
+  color: var(--c-indigo-700);
+}
+
+.cat-blog-posts .icon {
+  flex: none;
+  color: var(--c-ink-3);
+}
+
+.cat-blog-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.cat-blog-cats a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--c-line-2);
+  border-radius: 999px;
+  color: var(--c-ink-2);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.cat-blog-cats a:hover {
+  border-color: var(--c-ink);
+  color: var(--c-ink);
+}
+
+.cat-blog-search {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cat-blog-search input {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 1rem;
+  border: 1.5px solid var(--c-line-2);
+  border-radius: 12px;
+}
+
+.cat-blog-search input:focus {
+  border-color: var(--c-indigo-600);
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(61 58 134 / 0.16);
+}
+
+@media (min-width: 900px) {
+  .cat-blog-grid {
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(2rem, 1rem + 3vw, 4rem);
+  }
+}
+
+/* ——— Telas menores ——— */
+@media (max-width: 767px) {
+  .cat-tools {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cat-sort {
+    justify-content: space-between;
+  }
+
+  .cat-select,
+  .cat-select select {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .cat-select select {
+    font-size: 0.9rem;
+    text-overflow: ellipsis;
+  }
+
+  .cat-sort label {
+    font-size: 0.82rem;
+  }
+
+  /* Categorias numa linha que desliza, sem ocupar a tela. */
+  .cat-filters {
+    flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    margin-inline: calc(clamp(0.9rem, 0.7rem + 0.8vw, 1.25rem) * -1);
+    padding-inline: clamp(0.9rem, 0.7rem + 0.8vw, 1.25rem);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .cat-filters::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc,
+  .pc-media img,
+  .cat-brand,
+  .cat-chip {
+    transition: none;
+  }
+}

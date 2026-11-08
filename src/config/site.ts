@@ -17,8 +17,8 @@ const U = SITE.origin;
 
 /**
  * Páginas já reconstruídas neste projeto: os links entre elas são internos (caminho na raiz do
- * site, respeitando o BASE_PATH do build), para que as páginas novas (Home, "Sobre nós" e
- * Orçamento) levem umas às outras em qualquer ambiente. As páginas ainda não reformuladas continuam apontando para o WordPress
+ * site, respeitando o BASE_PATH do build), para que as páginas novas (Home, "Sobre nós",
+ * Orçamento e o catálogo de servidores) levem umas às outras em qualquer ambiente. As páginas ainda não reformuladas continuam apontando para o WordPress
  * em msserver.com.br até serem reconstruídas. Ao reconstruir outra página, acrescente-a aqui.
  */
 const BASE = (import.meta.env?.BASE_URL ?? '/').replace(/\/$/, '');
@@ -26,11 +26,15 @@ export const ROUTES = {
   home: `${BASE}/`,
   about: `${BASE}/sobre/`,
   quote: `${BASE}/orcamento/`,
+  servers: `${BASE}/servidores/`,
+  dell: `${BASE}/categoria-produto/dell/`,
+  hp: `${BASE}/categoria-produto/hp/`,
+  ibm: `${BASE}/categoria-produto/ibm/`,
 } as const;
 
 export const LINKS = {
   home: ROUTES.home,
-  servers: `${U}/servidores`,
+  servers: ROUTES.servers,
   about: ROUTES.about,
   quote: ROUTES.quote,
   blog: `${U}/blog/`,
@@ -46,12 +50,12 @@ export type NavLink = { label: string; href?: string; children?: NavLink[] };
 export const NAV: NavLink[] = [
   {
     label: 'Servidores',
-    href: `${U}/servidores`,
+    href: LINKS.servers,
     children: [
-      { label: 'Ver todos', href: `${U}/servidores` },
-      { label: 'Dell', href: `${U}/categoria-produto/dell/` },
-      { label: 'HP', href: `${U}/categoria-produto/hp/` },
-      { label: 'IBM', href: `${U}/categoria-produto/ibm/` },
+      { label: 'Ver todos', href: LINKS.servers },
+      { label: 'Dell', href: ROUTES.dell },
+      { label: 'HP', href: ROUTES.hp },
+      { label: 'IBM', href: ROUTES.ibm },
       {
         label: 'Componentes',
         href: `${U}/categoria-produto/componentes/`,
@@ -92,14 +96,14 @@ export const NAV: NavLink[] = [
   { label: 'Cases de sucesso', href: `${U}/cases-de-sucesso/` },
 ];
 
-/** Menu do rodapé ("MENU"), com os destinos do WordPress; Início, Quem somos e Orçamento levam às
- *  páginas reconstruídas (ROUTES). */
+/** Menu do rodapé ("MENU"), com os destinos do WordPress; Início, Quem somos, Orçamento e
+ *  Servidores levam às páginas reconstruídas (ROUTES). */
 export const FOOTER_MENU = [
   { label: 'Início', href: LINKS.home },
   { label: 'Quem somos', href: LINKS.about },
   { label: 'Orçamento', href: LINKS.quote },
   { label: 'Blog', href: `${U}/blog` },
-  { label: 'Servidores', href: `${U}/servidores` },
+  { label: 'Servidores', href: LINKS.servers },
   { label: 'Obter Suporte', href: `${U}/obter-suporte` },
 ] as const;
 

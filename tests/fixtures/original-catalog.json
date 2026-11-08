@@ -1,0 +1,2495 @@
+{
+ "source": "http://msserver.com.br (WooCommerce 509/4829/4851), capturado em 08/11/2026",
+ "listings": {
+  "servidores": {
+   "title": "Servidores - MSSERVER",
+   "canonical": "https://msserver.com.br/servidores/",
+   "heading": "SERVIDORES",
+   "perPage": 12,
+   "total": 74,
+   "resultCount": "Showing 1–12 of 74 results",
+   "pagination": "/servidores/?product-page={n}",
+   "pages": [
+    [
+     8147,
+     8141,
+     8134,
+     7529,
+     7502,
+     5672,
+     5668,
+     5662,
+     5655,
+     5649,
+     5642,
+     5632
+    ],
+    [
+     5614,
+     5605,
+     4994,
+     4990,
+     4986,
+     4978,
+     4974,
+     4970,
+     4966,
+     4962,
+     4958,
+     4954
+    ],
+    [
+     4950,
+     4947,
+     4943,
+     4939,
+     4935,
+     4930,
+     4927,
+     4924,
+     4921,
+     4917,
+     4914,
+     4911
+    ],
+    [
+     4909,
+     4905,
+     4900,
+     4891,
+     4886,
+     4881,
+     4879,
+     4875,
+     4870,
+     4866,
+     4862,
+     4858
+    ],
+    [
+     4831,
+     4827,
+     7842,
+     7878,
+     7876,
+     7874,
+     7872,
+     7870,
+     7868,
+     7866,
+     7864,
+     7862
+    ],
+    [
+     7860,
+     7858,
+     7856,
+     7854,
+     7852,
+     7850,
+     7848,
+     7846,
+     7844,
+     7828,
+     7826,
+     7824
+    ],
+    [
+     7822,
+     7820
+    ]
+   ],
+   "products": {
+    "8147": {
+     "id": 8147,
+     "name": "Servidor HP Proliant DL360 G10",
+     "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl360-g10/",
+     "image": "https://msserver.com.br/wp-content/uploads/2026/01/Captura-de-Tela-2026-01-22-as-15.56.11-300x203.png",
+     "price": "R$ 17.300,00 – R$ 17.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-proliant-dl360-g10/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "8141": {
+     "id": 8141,
+     "name": "Servidor HP Proliant DL380 G10",
+     "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g10/",
+     "image": "https://msserver.com.br/wp-content/uploads/2026/01/Captura-de-Tela-2026-01-22-as-16.05.44-300x300.png",
+     "price": "R$ 19.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g10/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "8134": {
+     "id": 8134,
+     "name": "Servidor Dell PowerEdge R740XD",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r740xd/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-300x300.jpeg",
+     "price": "R$ 28.200,00 – R$ 32.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r740xd/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "7529": {
+     "id": 7529,
+     "name": "Servidor Dell PowerEdge R540",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r540-copy/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-300x300.jpeg",
+     "price": "R$ 20.500,00 – R$ 23.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r540-copy/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "7502": {
+     "id": 7502,
+     "name": "Servidor Dell PowerEdge R640",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640-2/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-300x300.jpeg",
+     "price": "R$ 22.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640-2/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "5672": {
+     "id": 5672,
+     "name": "Servidor HP Proliant DL380 G9",
+     "url": "https://msserver.com.br/servidor/hp-dl380-g9/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-gen9-ti24h-771x1000-1-300x300.jpg",
+     "price": "R$ 13.500,00 – R$ 16.900,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/hp-dl380-g9/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "5668": {
+     "id": 5668,
+     "name": "Servidor HP Proliant DL380 G7",
+     "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g7/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-g6-ti24h-771x1000-1-300x300.jpeg",
+     "price": "R$ 3.800,00 – R$ 4.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g7/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "5662": {
+     "id": 5662,
+     "name": "Servidor HP Proliant DL380P G8 v2",
+     "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380p-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380p-g8-gen8-12x-lff-2x-e5-2650l-v2-64gb-2x-kieszen-300x300.jpg",
+     "price": "R$ 6.800,00 – R$ 7.800,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380p-g8/"
+     },
+     "categories": [
+      "escala-nuvem",
+      "hp",
+      "rack"
+     ]
+    },
+    "5655": {
+     "id": 5655,
+     "name": "Servidor Dell PowerEdge R530",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r530/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/r530-600x584-1-300x300.png",
+     "price": "R$ 14.500,00 – R$ 21.450,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r530/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "5649": {
+     "id": 5649,
+     "name": "Servidor Dell PowerEdge R520",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r520/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/r520-600x584-1-300x300.png",
+     "price": "R$ 7.500,00 – R$ 8.300,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r520/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "5642": {
+     "id": 5642,
+     "name": "Servidor Dell PowerEdge R720",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r720/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-Poweredge-r720-front-1-300x300.jpg",
+     "price": "R$ 9.950,00 – R$ 11.000,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r720/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "5632": {
+     "id": 5632,
+     "name": "Servidor Dell PowerEdge R640",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/R640-300x300.jpg",
+     "price": "R$ 20.500,00 – R$ 23.900,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "5614": {
+     "id": 5614,
+     "name": "Servidor Dell PowerEdge R730 XD",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730-xd/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/HTB1M4KrXAL0gK0jSZFtq6xQCXXaa-300x300.jpg",
+     "price": "R$ 20.500,00 – R$ 25.450,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730-xd/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "5605": {
+     "id": 5605,
+     "name": "Servidor Dell PowerEdge R730",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/HTB1M4KrXAL0gK0jSZFtq6xQCXXaa-300x300.jpg",
+     "price": "R$ 18.500,00 – R$ 23.950,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4994": {
+     "id": 4994,
+     "name": "Servidor Dell Poweredge R610",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r610/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R610-.png",
+     "price": "R$ 4.500,00 – R$ 5.250,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r610/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4990": {
+     "id": 4990,
+     "name": "Servidor Dell PowerEdge R740",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r740/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-300x300.jpeg",
+     "price": "R$ 23.500,00 – R$ 26.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r740/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "4986": {
+     "id": 4986,
+     "name": "Servidor Dell PowerEdge R910",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r910/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r910-1-300x300.jpeg",
+     "price": "R$ 12.050,00 – R$ 13.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r910/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4978": {
+     "id": 4978,
+     "name": "Servidor IBM x3650 M4",
+     "url": "https://msserver.com.br/servidor/servidor-ibm-x3650-m4/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m4-300x300.png",
+     "price": "R$ 5.200,00 – R$ 5.800,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-ibm-x3650-m4/"
+     },
+     "categories": [
+      "ibm",
+      "rack"
+     ]
+    },
+    "4974": {
+     "id": 4974,
+     "name": "Servidor IBM x3650 M3",
+     "url": "https://msserver.com.br/servidor/servidor-ibm-x3650-m3/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m3--300x300.jpeg",
+     "price": "R$ 3.250,00 – R$ 3.990,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-ibm-x3650-m3/"
+     },
+     "categories": [
+      "ibm",
+      "rack"
+     ]
+    },
+    "4970": {
+     "id": 4970,
+     "name": "Servidor IBM x3550 M4",
+     "url": "https://msserver.com.br/servidor/servidor-ibm-x3550-m4/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3550-m4-300x300.jpeg",
+     "price": "R$ 5.800,00 – R$ 6.450,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-ibm-x3550-m4/"
+     },
+     "categories": [
+      "ibm",
+      "rack"
+     ]
+    },
+    "4966": {
+     "id": 4966,
+     "name": "Servidor HP Proliant ML310 G8",
+     "url": "https://msserver.com.br/servidor/servidor-hp-ml310-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml310-g8-_1_-300x300.jpg",
+     "price": "R$ 3.900,00 – R$ 4.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-ml310-g8/"
+     },
+     "categories": [
+      "ibm",
+      "torre"
+     ]
+    },
+    "4962": {
+     "id": 4962,
+     "name": "Servidor HP Proliant ML350 G9",
+     "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g9/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g9-300x300.png",
+     "price": "R$ 11.500,00 – R$ 13.200,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g9/"
+     },
+     "categories": [
+      "hp",
+      "torre"
+     ]
+    },
+    "4958": {
+     "id": 4958,
+     "name": "Servidor HP Proliant ML350 G8",
+     "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g8-300x300.jpeg",
+     "price": "R$ 5.900,00 – R$ 6.600,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g8/"
+     },
+     "categories": [
+      "hp",
+      "torre"
+     ]
+    },
+    "4954": {
+     "id": 4954,
+     "name": "Servidor HP Proliant ML110 G9",
+     "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml110-g9/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml110-G9-300x300.jpeg",
+     "price": "R$ 4.800,00 – R$ 6.200,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-torre-hp-ml110-g9/"
+     },
+     "categories": [
+      "hp",
+      "torre"
+     ]
+    },
+    "4950": {
+     "id": 4950,
+     "name": "Servidor HP Proliant DL380 G6",
+     "url": "https://msserver.com.br/servidor/servidor-hp-dl380-g6/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-g6-ti24h-771x1000-1-300x300.jpeg",
+     "price": "R$ 3.200,00 – R$ 3.980,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-dl380-g6/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4947": {
+     "id": 4947,
+     "name": "Servidor HP Proliant DL160 G6",
+     "url": "https://msserver.com.br/servidor/servidor-rack-hp-dl160/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl160-g6-ti24h-771x1000-1-300x300.jpeg",
+     "price": "R$ 2.800,00 – R$ 3.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-rack-hp-dl160/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4943": {
+     "id": 4943,
+     "name": "Servidor HP Proliant DL380P G8",
+     "url": "https://msserver.com.br/servidor/servidor-hp-dl360p-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/Dl380-G8-4-300x300.png",
+     "price": "R$ 5.800,00 – R$ 6.400,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-dl360p-g8/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4939": {
+     "id": 4939,
+     "name": "Servidor HP Proliant DL360 G8",
+     "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8-300x300.jpeg",
+     "price": "R$ 5.500,00 – R$ 6.200,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-dl360-g8/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4935": {
+     "id": 4935,
+     "name": "Servidor HP Proliant DL360 G9",
+     "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g9/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9-300x300.jpeg",
+     "price": "R$ 12.000,00 – R$ 13.250,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-dl360-g9/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4930": {
+     "id": 4930,
+     "name": "Servidor HP Proliant DL360 G7",
+     "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g7/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6-300x300.jpeg",
+     "price": "R$ 3.200,00 – R$ 3.900,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-dl360-g7/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4927": {
+     "id": 4927,
+     "name": "Servidor HP Proliant DL360 G6",
+     "url": "https://msserver.com.br/servidor/servidor-rack-hp-dl360-g6/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6-300x300.jpeg",
+     "price": "R$ 2.800,00 – R$ 3.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-rack-hp-dl360-g6/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4924": {
+     "id": 4924,
+     "name": "Servidor Dell PowerEdge T420",
+     "url": "https://msserver.com.br/servidor/servidor-torre-dell-t420-2/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T420-SEM-FUNDO-300x300.png",
+     "price": "R$ 4.600,00 – R$ 5.300,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-torre-dell-t420-2/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4921": {
+     "id": 4921,
+     "name": "Servidor Dell PowerEdge T710",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t710/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-dell-poweredge-t710-2-ti24h-771x1000-1-300x300.png",
+     "price": "R$ 5.200,00 – R$ 6.200,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t710/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4917": {
+     "id": 4917,
+     "name": "Servidor Dell PowerEdge T630",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t630/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t630-1-300x300.png",
+     "price": "R$ 12.850,00 – R$ 13.800,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t630/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4914": {
+     "id": 4914,
+     "name": "Servidor Dell PowerEdge T620",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t620/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T620-SEM-FUNDO-300x300.png",
+     "price": "R$ 6.250,00 – R$ 6.980,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t620/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4911": {
+     "id": 4911,
+     "name": "Servidor Dell PowerEdge T610",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t610/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t610-300x300.png",
+     "price": "R$ 4.800,00 – R$ 5.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t610/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4909": {
+     "id": 4909,
+     "name": "Servidor Dell PowerEdge T320",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t420/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t420-2-300x300.jpeg",
+     "price": "R$ 4.200,00 – R$ 4.980,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t420/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4905": {
+     "id": 4905,
+     "name": "Servidor Dell PowerEdge T410",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t410/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t410-1-300x300.png",
+     "price": "R$ 3.550,00 – R$ 4.250,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t410/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4900": {
+     "id": 4900,
+     "name": "Servidor Dell PowerEdge T330",
+     "url": "https://msserver.com.br/servidor/servidor-torre-dell-t330/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t330-3-300x300.jpeg",
+     "price": "R$ 5.200,00 – R$ 6.400,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-torre-dell-t330/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4891": {
+     "id": 4891,
+     "name": "Servidor Dell PowerEdge T110",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t110/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T110-II-3-300x300.png",
+     "price": "R$ 2.800,00 – R$ 3.750,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t110/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4886": {
+     "id": 4886,
+     "name": "Servidor Dell PowerEdge R630",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r630/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r630-2-300x300.jpeg",
+     "price": "R$ 16.250,00 – R$ 22.800,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r630/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4881": {
+     "id": 4881,
+     "name": "Servidor Dell PowerEdge R620",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r620/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/R620-300x300.jpg",
+     "price": "R$ 8.950,00 – R$ 9.850,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r620/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4879": {
+     "id": 4879,
+     "name": "Servidor Dell PowerEdge R510",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r510/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-poweredge-r510-server-2-x-six-core-xeon-x5670-12x-3tb-36tb-sas-storage-vmware-esxi-6.5-h700-1174-p-300x300.jpg",
+     "price": "R$ 5.500,00 – R$ 6.200,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r510/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4875": {
+     "id": 4875,
+     "name": "Servidor Dell PowerEdge R440",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r440/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-300x300.jpeg",
+     "price": "R$ 15.500,00 – R$ 17.700,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r440/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4870": {
+     "id": 4870,
+     "name": "Servidor Dell PowerEdge R430",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r430/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r430.jpeg",
+     "price": "R$ 12.500,00 – R$ 15.350,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r430/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4866": {
+     "id": 4866,
+     "name": "Servidor Dell PowerEdge R420",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r420/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-R420-300x300.jpg",
+     "price": "R$ 5.300,00 – R$ 6.450,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r420/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4862": {
+     "id": 4862,
+     "name": "Servidor Dell PowerEdge R410",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r410/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/r410-300x300.png",
+     "price": "R$ 3.750,00 – R$ 4.450,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r410/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4858": {
+     "id": 4858,
+     "name": "Servidor Dell PowerEdge R230",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r320/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-R420-300x300.jpg",
+     "price": "R$ 3.500,00 – R$ 4.250,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r320/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4831": {
+     "id": 4831,
+     "name": "Servidor Dell PowerEdge R220",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r220/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r220-300x300.jpeg",
+     "price": "R$ 3.200,00 – R$ 4.800,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r220/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4827": {
+     "id": 4827,
+     "name": "Servidor Dell PowerEdge R210",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r210/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210.png",
+     "price": "R$ 3.100,00 – R$ 3.950,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r210/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "7842": {
+     "id": 7842,
+     "name": "Dissipador Heatsink DL380 G8",
+     "url": "https://msserver.com.br/servidor/dissipador-heatsink-dl380-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/DISSIPADOR-HP-DL-380-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-heatsink-dl380-g8/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores"
+     ]
+    },
+    "7878": {
+     "id": 7878,
+     "name": "Gaveta Servidor Hp 2.5 G8 G9 Dl360 Dl380 Dl320 Ml350 Gen9",
+     "url": "https://msserver.com.br/servidor/gaveta-servidor-hp-2-5-g8-g9-dl360-dl380-dl320-ml350-gen9/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Hp-2.5-G8-G9-Dl360-Dl380-Dl320-Ml350-Gen9-300x300.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gaveta-servidor-hp-2-5-g8-g9-dl360-dl380-dl320-ml350-gen9/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    },
+    "7876": {
+     "id": 7876,
+     "name": "Gavetas para Servidor Hp Dl360 Dl380 3.5 g8 g9 651314-001",
+     "url": "https://msserver.com.br/servidor/gavetas-para-servidor-hp-dl360-dl380-3-5-g8-g9-651314-001/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/gavetas-para-servidorgaveta-servidor-hp-3-5-g8-g9-651314-001-dl360-dl380-gen9.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gavetas-para-servidor-hp-dl360-dl380-3-5-g8-g9-651314-001/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    },
+    "7874": {
+     "id": 7874,
+     "name": "Gaveta Servidor Dell 2.5 G176j",
+     "url": "https://msserver.com.br/servidor/gaveta-servidor-dell-2-5-g176j/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Dell-2.5-G176j-R310-T310-R320-T320-R610-T610.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gaveta-servidor-dell-2-5-g176j/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    },
+    "7872": {
+     "id": 7872,
+     "name": "Gaveta Hd 3.5 P Servidor Dell Poweredge 0KG1CH F238F",
+     "url": "https://msserver.com.br/servidor/gaveta-hd-3-5-p-servidor-dell-poweredge-0kg1ch-f238f/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/gaveta-para-hd-dell-25-sassata-r310-t310-r320-t320-r610-t610-g176j.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/gaveta-hd-3-5-p-servidor-dell-poweredge-0kg1ch-f238f/"
+     },
+     "categories": [
+      "componentes",
+      "gavetas"
+     ]
+    },
+    "7870": {
+     "id": 7870,
+     "name": "Fonte Servidor Dell Poweredge R630 730 730xd 530 640 0grtnk",
+     "url": "https://msserver.com.br/servidor/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    },
+    "7868": {
+     "id": 7868,
+     "name": "Fonte Dell 495w T420 R620 R720 f495e-s0-03ghw3",
+     "url": "https://msserver.com.br/servidor/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    },
+    "7866": {
+     "id": 7866,
+     "name": "Fonte Servidor Hp Proliant Dl380 G6 G7 G8 750w",
+     "url": "https://msserver.com.br/servidor/fonte-servidor-hp-proliant-dl380-g6-g7-g8-750w/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-Servidor-Hp-Proliant-Dl380-G6-G7-G8-750w-3.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-servidor-hp-proliant-dl380-g6-g7-g8-750w/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    },
+    "7864": {
+     "id": 7864,
+     "name": "Fonte 500w Hp Dl360 Dl380 Ml350 G9 723595-101 Dps-500ab-13 A",
+     "url": "https://msserver.com.br/servidor/fonte-500w-hp-dl360-dl380-ml350-g9-723595-101-dps-500ab-13-a/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-500w-Hp-Dl360-Dl380-Ml350-G9-1.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fonte-500w-hp-dl360-dl380-ml350-g9-723595-101-dps-500ab-13-a/"
+     },
+     "categories": [
+      "componentes",
+      "fontes"
+     ]
+    },
+    "7862": {
+     "id": 7862,
+     "name": "Cooler Fan Dell Emc Poweredge R740 R740xd N5t36 0n5t36",
+     "url": "https://msserver.com.br/servidor/cooler-fan-dell-emc-poweredge-r740-r740xd-n5t36-0n5t36/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Cooler-Fan-Dell-Emc-Poweredge-R740-R740xd-N5t36-0n5t36-300x300.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/cooler-fan-dell-emc-poweredge-r740-r740xd-n5t36-0n5t36/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7860": {
+     "id": 7860,
+     "name": "Fan Hp DL360 g9 g10 pn-750688-001-775415-001",
+     "url": "https://msserver.com.br/servidor/fan-hp-dl360-g9-g10-pn-750688-001-775415-001/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-hp-dl360-g9-g10-pn-750688-001-775415-001.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-hp-dl360-g9-g10-pn-750688-001-775415-001/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7858": {
+     "id": 7858,
+     "name": "Fan Dell R640 0kg52t-0cy92p-kg52t-cy92p",
+     "url": "https://msserver.com.br/servidor/fan-dell-r640-0kg52t-0cy92p-kg52t-cy92p/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-r640-r740-0kg52t-0cy92p-kg52t-cy92p-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-dell-r640-0kg52t-0cy92p-kg52t-cy92p/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7856": {
+     "id": 7856,
+     "name": "Fan Dell R520 05fx8x-5fx8x",
+     "url": "https://msserver.com.br/servidor/fan-dell-r520-05fx8x-5fx8x/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-r520-05fx8x-5fx8x.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-dell-r520-05fx8x-5fx8x/"
+     },
+     "categories": [
+      "sem-categoria"
+     ]
+    },
+    "7854": {
+     "id": 7854,
+     "name": "Fan Dell poweredge R620 R320 R630 gfc0412ds-hr6c0-0hr6c0",
+     "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7852": {
+     "id": 7852,
+     "name": "Fan Dell poweredge R530 R530xd 03d7gy-3d7gy-0r27nj-r27nj",
+     "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj/"
+     },
+     "categories": [
+      "componentes",
+      "fans"
+     ]
+    },
+    "7850": {
+     "id": 7850,
+     "name": "Dissipador Dell R640",
+     "url": "https://msserver.com.br/servidor/dissipador-dell-r640/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-0f8nv-00f8nv-0trjt7-trjt7.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-dell-r640/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores"
+     ]
+    },
+    "7848": {
+     "id": 7848,
+     "name": "Dissipador Dell R740 R740xd 00f8nv-0f8nv",
+     "url": "https://msserver.com.br/servidor/dissipador-dell-r740-r740xd-00f8nv-0f8nv/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-00f8nv-0f8nv-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-dell-r740-r740xd-00f8nv-0f8nv/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores",
+      "sem-categoria"
+     ]
+    },
+    "7846": {
+     "id": 7846,
+     "name": "Dissipador Dell Poweredge R630 heatsink dell 0y8mc1",
+     "url": "https://msserver.com.br/servidor/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1-2.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores"
+     ]
+    },
+    "7844": {
+     "id": 7844,
+     "name": "Dissipador Servidor Heatsink Dell Powerdge R730",
+     "url": "https://msserver.com.br/servidor/dissipador-servidor-heatsink-dell-powerdge-r730/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/Dissipador-Servidor-Heatsink-Dell-Powerdge-R730-1.png",
+     "price": "",
+     "button": {
+      "text": "Orçamento",
+      "href": "https://msserver.com.br/servidor/dissipador-servidor-heatsink-dell-powerdge-r730/"
+     },
+     "categories": [
+      "componentes",
+      "dissipadores",
+      "sem-categoria"
+     ]
+    },
+    "7828": {
+     "id": 7828,
+     "name": "Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s",
+     "url": "https://msserver.com.br/servidor/placa-rede-servidor-10gb-pcie-x8-dual-port-sfp-bcm57810s/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/placa-rede-servidor-10gb-pcie-x8-dual-port-sfp-bcm57810s.png",
+     "price": "R$ 950,00",
+     "button": {
+      "text": "Orçamento",
+      "href": "?add-to-cart=7828"
+     },
+     "categories": [
+      "placas-de-rede"
+     ]
+    },
+    "7826": {
+     "id": 7826,
+     "name": "Placa de rede dual giga intel-82576eb-e1g42et-pcie",
+     "url": "https://msserver.com.br/servidor/placa-de-rede-dual-giga-intel-82576eb-e1g42et-pcie/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/placa-de-redeplaca-rede-dual-giga-intel-82576eb-e1g42et-pcie.png",
+     "price": "R$ 350,00",
+     "button": {
+      "text": "Orçamento",
+      "href": "?add-to-cart=7826"
+     },
+     "categories": [
+      "placas-de-rede"
+     ]
+    },
+    "7824": {
+     "id": 7824,
+     "name": "Bateria para hp p840p440 sl90030-4",
+     "url": "https://msserver.com.br/servidor/bateria-para-hp-p840p440-sl90030-4/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-para-hp-p840p440-sl90030-4.png",
+     "price": "R$ 950,00",
+     "button": {
+      "text": "Orçamento",
+      "href": "?add-to-cart=7824"
+     },
+     "categories": [
+      "baterias"
+     ]
+    },
+    "7822": {
+     "id": 7822,
+     "name": "Bateria-Dell-para-controladoras-perc-h710-h810-h730-h830-070k80",
+     "url": "https://msserver.com.br/servidor/bateria-dell-para-controladoras-perc-h710-h810-h730-h830-070k80/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-dell-para-controladoras-perc-h710-h810-h730-h830-070k80.png",
+     "price": "R$ 430,00",
+     "button": {
+      "text": "Orçamento",
+      "href": "?add-to-cart=7822"
+     },
+     "categories": [
+      "baterias"
+     ]
+    },
+    "7820": {
+     "id": 7820,
+     "name": "Bateria Dell nu209 fr463 u8735 perc-5-6-h700-h800",
+     "url": "https://msserver.com.br/servidor/bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800/",
+     "image": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800-2.png",
+     "price": "R$ 350,00",
+     "button": {
+      "text": "Orçamento",
+      "href": "?add-to-cart=7820"
+     },
+     "categories": [
+      "baterias"
+     ]
+    }
+   },
+   "orders": {
+    "date": [
+     8147,
+     8141,
+     8134,
+     7529,
+     7502,
+     5672,
+     5668,
+     5662,
+     5655,
+     5649,
+     5642,
+     5632,
+     5614,
+     5605,
+     4994,
+     4990,
+     4986,
+     4978,
+     4974,
+     4970,
+     4966,
+     4962,
+     4958,
+     4954,
+     4950,
+     4947,
+     4943,
+     4939,
+     4935,
+     4930,
+     4927,
+     4924,
+     4921,
+     4917,
+     4914,
+     4911,
+     4909,
+     4905,
+     4900,
+     4891,
+     4886,
+     4881,
+     4879,
+     4875,
+     4870,
+     4866,
+     4862,
+     4858,
+     4831,
+     4827,
+     7842,
+     7878,
+     7876,
+     7874,
+     7872,
+     7870,
+     7868,
+     7866,
+     7864,
+     7862,
+     7860,
+     7858,
+     7856,
+     7854,
+     7852,
+     7850,
+     7848,
+     7846,
+     7844,
+     7828,
+     7826,
+     7824,
+     7822,
+     7820
+    ]
+   }
+  },
+  "dell": {
+   "title": "DELL - MSSERVER",
+   "canonical": "https://msserver.com.br/categoria-produto/dell/",
+   "heading": "DELL",
+   "perPage": 16,
+   "total": 31,
+   "resultCount": "Showing 1–16 of 31 results",
+   "pagination": "/categoria-produto/dell/page/{n}/",
+   "pages": [
+    [
+     4827,
+     4831,
+     4858,
+     4862,
+     4866,
+     4870,
+     4875,
+     4879,
+     5649,
+     5655,
+     7529,
+     4994,
+     4881,
+     4886,
+     5632,
+     7502
+    ],
+    [
+     5642,
+     5605,
+     5614,
+     4990,
+     8134,
+     4986,
+     4891,
+     4909,
+     4900,
+     4905,
+     4924,
+     4911,
+     4914,
+     4917,
+     4921
+    ]
+   ],
+   "products": {
+    "4827": {
+     "id": 4827,
+     "name": "Servidor Dell PowerEdge R210",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r210/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210.png",
+     "price": "R$ 3.100,00 – R$ 3.950,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r210/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4831": {
+     "id": 4831,
+     "name": "Servidor Dell PowerEdge R220",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r220/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r220-300x300.jpeg",
+     "price": "R$ 3.200,00 – R$ 4.800,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r220/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4858": {
+     "id": 4858,
+     "name": "Servidor Dell PowerEdge R230",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r320/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-R420-300x300.jpg",
+     "price": "R$ 3.500,00 – R$ 4.250,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r320/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4862": {
+     "id": 4862,
+     "name": "Servidor Dell PowerEdge R410",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r410/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/r410-300x300.png",
+     "price": "R$ 3.750,00 – R$ 4.450,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r410/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4866": {
+     "id": 4866,
+     "name": "Servidor Dell PowerEdge R420",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r420/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-R420-300x300.jpg",
+     "price": "R$ 5.300,00 – R$ 6.450,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r420/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4870": {
+     "id": 4870,
+     "name": "Servidor Dell PowerEdge R430",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r430/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r430.jpeg",
+     "price": "R$ 12.500,00 – R$ 15.350,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r430/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4875": {
+     "id": 4875,
+     "name": "Servidor Dell PowerEdge R440",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r440/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-300x300.jpeg",
+     "price": "R$ 15.500,00 – R$ 17.700,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r440/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4879": {
+     "id": 4879,
+     "name": "Servidor Dell PowerEdge R510",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r510/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-poweredge-r510-server-2-x-six-core-xeon-x5670-12x-3tb-36tb-sas-storage-vmware-esxi-6.5-h700-1174-p-300x300.jpg",
+     "price": "R$ 5.500,00 – R$ 6.200,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r510/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "5649": {
+     "id": 5649,
+     "name": "Servidor Dell PowerEdge R520",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r520/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/r520-600x584-1-300x300.png",
+     "price": "R$ 7.500,00 – R$ 8.300,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r520/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "5655": {
+     "id": 5655,
+     "name": "Servidor Dell PowerEdge R530",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r530/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/r530-600x584-1-300x300.png",
+     "price": "R$ 14.500,00 – R$ 21.450,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r530/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "7529": {
+     "id": 7529,
+     "name": "Servidor Dell PowerEdge R540",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r540-copy/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-300x300.jpeg",
+     "price": "R$ 20.500,00 – R$ 23.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r540-copy/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "4994": {
+     "id": 4994,
+     "name": "Servidor Dell Poweredge R610",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r610/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R610-.png",
+     "price": "R$ 4.500,00 – R$ 5.250,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r610/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4881": {
+     "id": 4881,
+     "name": "Servidor Dell PowerEdge R620",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r620/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/R620-300x300.jpg",
+     "price": "R$ 8.950,00 – R$ 9.850,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r620/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4886": {
+     "id": 4886,
+     "name": "Servidor Dell PowerEdge R630",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r630/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r630-2-300x300.jpeg",
+     "price": "R$ 16.250,00 – R$ 22.800,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r630/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "5632": {
+     "id": 5632,
+     "name": "Servidor Dell PowerEdge R640",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/R640-300x300.jpg",
+     "price": "R$ 20.500,00 – R$ 23.900,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "7502": {
+     "id": 7502,
+     "name": "Servidor Dell PowerEdge R640",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640-2/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-300x300.jpeg",
+     "price": "R$ 22.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640-2/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "5642": {
+     "id": 5642,
+     "name": "Servidor Dell PowerEdge R720",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r720/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-Poweredge-r720-front-1-300x300.jpg",
+     "price": "R$ 9.950,00 – R$ 11.000,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r720/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "5605": {
+     "id": 5605,
+     "name": "Servidor Dell PowerEdge R730",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/HTB1M4KrXAL0gK0jSZFtq6xQCXXaa-300x300.jpg",
+     "price": "R$ 18.500,00 – R$ 23.950,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "5614": {
+     "id": 5614,
+     "name": "Servidor Dell PowerEdge R730 XD",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730-xd/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/HTB1M4KrXAL0gK0jSZFtq6xQCXXaa-300x300.jpg",
+     "price": "R$ 20.500,00 – R$ 25.450,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730-xd/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "4990": {
+     "id": 4990,
+     "name": "Servidor Dell PowerEdge R740",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r740/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-300x300.jpeg",
+     "price": "R$ 23.500,00 – R$ 26.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r740/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "8134": {
+     "id": 8134,
+     "name": "Servidor Dell PowerEdge R740XD",
+     "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r740xd/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-300x300.jpeg",
+     "price": "R$ 28.200,00 – R$ 32.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-poweredge-r740xd/"
+     },
+     "categories": [
+      "dell",
+      "escala-nuvem",
+      "rack"
+     ]
+    },
+    "4986": {
+     "id": 4986,
+     "name": "Servidor Dell PowerEdge R910",
+     "url": "https://msserver.com.br/servidor/servidor-dell-r910/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r910-1-300x300.jpeg",
+     "price": "R$ 12.050,00 – R$ 13.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-r910/"
+     },
+     "categories": [
+      "dell",
+      "rack"
+     ]
+    },
+    "4891": {
+     "id": 4891,
+     "name": "Servidor Dell PowerEdge T110",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t110/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T110-II-3-300x300.png",
+     "price": "R$ 2.800,00 – R$ 3.750,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t110/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4909": {
+     "id": 4909,
+     "name": "Servidor Dell PowerEdge T320",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t420/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t420-2-300x300.jpeg",
+     "price": "R$ 4.200,00 – R$ 4.980,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t420/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4900": {
+     "id": 4900,
+     "name": "Servidor Dell PowerEdge T330",
+     "url": "https://msserver.com.br/servidor/servidor-torre-dell-t330/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t330-3-300x300.jpeg",
+     "price": "R$ 5.200,00 – R$ 6.400,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-torre-dell-t330/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4905": {
+     "id": 4905,
+     "name": "Servidor Dell PowerEdge T410",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t410/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t410-1-300x300.png",
+     "price": "R$ 3.550,00 – R$ 4.250,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t410/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4924": {
+     "id": 4924,
+     "name": "Servidor Dell PowerEdge T420",
+     "url": "https://msserver.com.br/servidor/servidor-torre-dell-t420-2/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T420-SEM-FUNDO-300x300.png",
+     "price": "R$ 4.600,00 – R$ 5.300,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-torre-dell-t420-2/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4911": {
+     "id": 4911,
+     "name": "Servidor Dell PowerEdge T610",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t610/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t610-300x300.png",
+     "price": "R$ 4.800,00 – R$ 5.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t610/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4914": {
+     "id": 4914,
+     "name": "Servidor Dell PowerEdge T620",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t620/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T620-SEM-FUNDO-300x300.png",
+     "price": "R$ 6.250,00 – R$ 6.980,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t620/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4917": {
+     "id": 4917,
+     "name": "Servidor Dell PowerEdge T630",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t630/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t630-1-300x300.png",
+     "price": "R$ 12.850,00 – R$ 13.800,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t630/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    },
+    "4921": {
+     "id": 4921,
+     "name": "Servidor Dell PowerEdge T710",
+     "url": "https://msserver.com.br/servidor/servidor-dell-t710/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-dell-poweredge-t710-2-ti24h-771x1000-1-300x300.png",
+     "price": "R$ 5.200,00 – R$ 6.200,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-dell-t710/"
+     },
+     "categories": [
+      "dell",
+      "torre"
+     ]
+    }
+   },
+   "orders": {
+    "popularity": [
+     8134,
+     7529,
+     7502,
+     5655,
+     5649,
+     5642,
+     5632,
+     5614,
+     5605,
+     4994,
+     4990,
+     4986,
+     4924,
+     4921,
+     4917,
+     4914,
+     4911,
+     4909,
+     4905,
+     4900,
+     4891,
+     4886,
+     4881,
+     4879,
+     4875,
+     4870,
+     4866,
+     4862,
+     4858,
+     4831,
+     4827
+    ],
+    "rating": [
+     8134,
+     7529,
+     7502,
+     5655,
+     5649,
+     5642,
+     5632,
+     5614,
+     5605,
+     4994,
+     4990,
+     4986,
+     4924,
+     4921,
+     4917,
+     4914,
+     4911,
+     4909,
+     4905,
+     4900,
+     4891,
+     4886,
+     4881,
+     4879,
+     4875,
+     4870,
+     4866,
+     4862,
+     4858,
+     4831,
+     4827
+    ],
+    "date": [
+     8134,
+     7529,
+     7502,
+     5655,
+     5649,
+     5642,
+     5632,
+     5614,
+     5605,
+     4994,
+     4990,
+     4986,
+     4924,
+     4921,
+     4917,
+     4914,
+     4911,
+     4909,
+     4905,
+     4900,
+     4891,
+     4886,
+     4881,
+     4879,
+     4875,
+     4870,
+     4866,
+     4862,
+     4858,
+     4831,
+     4827
+    ],
+    "price": [
+     4891,
+     4827,
+     4831,
+     4858,
+     4905,
+     4862,
+     4909,
+     4994,
+     4924,
+     4911,
+     4900,
+     4921,
+     4866,
+     4879,
+     4914,
+     5649,
+     4881,
+     5642,
+     4986,
+     4870,
+     4917,
+     5655,
+     4875,
+     4886,
+     5605,
+     5614,
+     5632,
+     7529,
+     7502,
+     4990,
+     8134
+    ],
+    "price-desc": [
+     8134,
+     4990,
+     5614,
+     5605,
+     5632,
+     7529,
+     4886,
+     7502,
+     5655,
+     4875,
+     4870,
+     4917,
+     4986,
+     5642,
+     4881,
+     5649,
+     4914,
+     4866,
+     4900,
+     4921,
+     4879,
+     4911,
+     4924,
+     4994,
+     4909,
+     4831,
+     4862,
+     4905,
+     4858,
+     4827,
+     4891
+    ],
+    "menu_order": [
+     4827,
+     4831,
+     4858,
+     4862,
+     4866,
+     4870,
+     4875,
+     4879,
+     5649,
+     5655,
+     7529,
+     4994,
+     4881,
+     4886,
+     5632,
+     7502,
+     5642,
+     5605,
+     5614,
+     4990,
+     8134,
+     4986,
+     4891,
+     4909,
+     4900,
+     4905,
+     4924,
+     4911,
+     4914,
+     4917,
+     4921
+    ]
+   }
+  },
+  "hp": {
+   "title": "HP - MSSERVER",
+   "canonical": "https://msserver.com.br/categoria-produto/hp/",
+   "heading": "HP",
+   "perPage": 16,
+   "total": 15,
+   "resultCount": "Showing all 15 results",
+   "pagination": null,
+   "pages": [
+    [
+     4947,
+     8147,
+     4927,
+     4930,
+     4939,
+     4935,
+     8141,
+     4950,
+     5668,
+     5672,
+     4943,
+     5662,
+     4954,
+     4958,
+     4962
+    ]
+   ],
+   "products": {
+    "4947": {
+     "id": 4947,
+     "name": "Servidor HP Proliant DL160 G6",
+     "url": "https://msserver.com.br/servidor/servidor-rack-hp-dl160/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl160-g6-ti24h-771x1000-1-300x300.jpeg",
+     "price": "R$ 2.800,00 – R$ 3.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-rack-hp-dl160/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "8147": {
+     "id": 8147,
+     "name": "Servidor HP Proliant DL360 G10",
+     "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl360-g10/",
+     "image": "https://msserver.com.br/wp-content/uploads/2026/01/Captura-de-Tela-2026-01-22-as-15.56.11-300x203.png",
+     "price": "R$ 17.300,00 – R$ 17.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-proliant-dl360-g10/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4927": {
+     "id": 4927,
+     "name": "Servidor HP Proliant DL360 G6",
+     "url": "https://msserver.com.br/servidor/servidor-rack-hp-dl360-g6/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6-300x300.jpeg",
+     "price": "R$ 2.800,00 – R$ 3.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-rack-hp-dl360-g6/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4930": {
+     "id": 4930,
+     "name": "Servidor HP Proliant DL360 G7",
+     "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g7/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6-300x300.jpeg",
+     "price": "R$ 3.200,00 – R$ 3.900,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-dl360-g7/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4939": {
+     "id": 4939,
+     "name": "Servidor HP Proliant DL360 G8",
+     "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8-300x300.jpeg",
+     "price": "R$ 5.500,00 – R$ 6.200,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-dl360-g8/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4935": {
+     "id": 4935,
+     "name": "Servidor HP Proliant DL360 G9",
+     "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g9/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9-300x300.jpeg",
+     "price": "R$ 12.000,00 – R$ 13.250,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-dl360-g9/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "8141": {
+     "id": 8141,
+     "name": "Servidor HP Proliant DL380 G10",
+     "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g10/",
+     "image": "https://msserver.com.br/wp-content/uploads/2026/01/Captura-de-Tela-2026-01-22-as-16.05.44-300x300.png",
+     "price": "R$ 19.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g10/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4950": {
+     "id": 4950,
+     "name": "Servidor HP Proliant DL380 G6",
+     "url": "https://msserver.com.br/servidor/servidor-hp-dl380-g6/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-g6-ti24h-771x1000-1-300x300.jpeg",
+     "price": "R$ 3.200,00 – R$ 3.980,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-dl380-g6/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "5668": {
+     "id": 5668,
+     "name": "Servidor HP Proliant DL380 G7",
+     "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g7/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-g6-ti24h-771x1000-1-300x300.jpeg",
+     "price": "R$ 3.800,00 – R$ 4.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g7/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "5672": {
+     "id": 5672,
+     "name": "Servidor HP Proliant DL380 G9",
+     "url": "https://msserver.com.br/servidor/hp-dl380-g9/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-gen9-ti24h-771x1000-1-300x300.jpg",
+     "price": "R$ 13.500,00 – R$ 16.900,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/hp-dl380-g9/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "4943": {
+     "id": 4943,
+     "name": "Servidor HP Proliant DL380P G8",
+     "url": "https://msserver.com.br/servidor/servidor-hp-dl360p-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/Dl380-G8-4-300x300.png",
+     "price": "R$ 5.800,00 – R$ 6.400,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-dl360p-g8/"
+     },
+     "categories": [
+      "hp",
+      "rack"
+     ]
+    },
+    "5662": {
+     "id": 5662,
+     "name": "Servidor HP Proliant DL380P G8 v2",
+     "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380p-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380p-g8-gen8-12x-lff-2x-e5-2650l-v2-64gb-2x-kieszen-300x300.jpg",
+     "price": "R$ 6.800,00 – R$ 7.800,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380p-g8/"
+     },
+     "categories": [
+      "escala-nuvem",
+      "hp",
+      "rack"
+     ]
+    },
+    "4954": {
+     "id": 4954,
+     "name": "Servidor HP Proliant ML110 G9",
+     "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml110-g9/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml110-G9-300x300.jpeg",
+     "price": "R$ 4.800,00 – R$ 6.200,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-torre-hp-ml110-g9/"
+     },
+     "categories": [
+      "hp",
+      "torre"
+     ]
+    },
+    "4958": {
+     "id": 4958,
+     "name": "Servidor HP Proliant ML350 G8",
+     "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g8-300x300.jpeg",
+     "price": "R$ 5.900,00 – R$ 6.600,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g8/"
+     },
+     "categories": [
+      "hp",
+      "torre"
+     ]
+    },
+    "4962": {
+     "id": 4962,
+     "name": "Servidor HP Proliant ML350 G9",
+     "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g9/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g9-300x300.png",
+     "price": "R$ 11.500,00 – R$ 13.200,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g9/"
+     },
+     "categories": [
+      "hp",
+      "torre"
+     ]
+    }
+   },
+   "orders": {
+    "popularity": [
+     8147,
+     8141,
+     5672,
+     5668,
+     5662,
+     4962,
+     4958,
+     4954,
+     4950,
+     4947,
+     4943,
+     4939,
+     4935,
+     4930,
+     4927
+    ],
+    "rating": [
+     8147,
+     8141,
+     5672,
+     5668,
+     5662,
+     4962,
+     4958,
+     4954,
+     4950,
+     4947,
+     4943,
+     4939,
+     4935,
+     4930,
+     4927
+    ],
+    "date": [
+     8147,
+     8141,
+     5672,
+     5668,
+     5662,
+     4962,
+     4958,
+     4954,
+     4950,
+     4947,
+     4943,
+     4939,
+     4935,
+     4930,
+     4927
+    ],
+    "price": [
+     4927,
+     4947,
+     4930,
+     4950,
+     5668,
+     4954,
+     4939,
+     4943,
+     4958,
+     5662,
+     4962,
+     4935,
+     5672,
+     8147,
+     8141
+    ],
+    "price-desc": [
+     8141,
+     8147,
+     5672,
+     4935,
+     4962,
+     5662,
+     4958,
+     4943,
+     4954,
+     4939,
+     5668,
+     4950,
+     4930,
+     4947,
+     4927
+    ],
+    "menu_order": [
+     4947,
+     8147,
+     4927,
+     4930,
+     4939,
+     4935,
+     8141,
+     4950,
+     5668,
+     5672,
+     4943,
+     5662,
+     4954,
+     4958,
+     4962
+    ]
+   }
+  },
+  "ibm": {
+   "title": "IBM - MSSERVER",
+   "canonical": "https://msserver.com.br/categoria-produto/ibm/",
+   "heading": "IBM",
+   "perPage": 16,
+   "total": 4,
+   "resultCount": "Showing all 4 results",
+   "pagination": null,
+   "pages": [
+    [
+     4966,
+     4970,
+     4974,
+     4978
+    ]
+   ],
+   "products": {
+    "4966": {
+     "id": 4966,
+     "name": "Servidor HP Proliant ML310 G8",
+     "url": "https://msserver.com.br/servidor/servidor-hp-ml310-g8/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml310-g8-_1_-300x300.jpg",
+     "price": "R$ 3.900,00 – R$ 4.500,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-hp-ml310-g8/"
+     },
+     "categories": [
+      "ibm",
+      "torre"
+     ]
+    },
+    "4970": {
+     "id": 4970,
+     "name": "Servidor IBM x3550 M4",
+     "url": "https://msserver.com.br/servidor/servidor-ibm-x3550-m4/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3550-m4-300x300.jpeg",
+     "price": "R$ 5.800,00 – R$ 6.450,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-ibm-x3550-m4/"
+     },
+     "categories": [
+      "ibm",
+      "rack"
+     ]
+    },
+    "4974": {
+     "id": 4974,
+     "name": "Servidor IBM x3650 M3",
+     "url": "https://msserver.com.br/servidor/servidor-ibm-x3650-m3/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m3--300x300.jpeg",
+     "price": "R$ 3.250,00 – R$ 3.990,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-ibm-x3650-m3/"
+     },
+     "categories": [
+      "ibm",
+      "rack"
+     ]
+    },
+    "4978": {
+     "id": 4978,
+     "name": "Servidor IBM x3650 M4",
+     "url": "https://msserver.com.br/servidor/servidor-ibm-x3650-m4/",
+     "image": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m4-300x300.png",
+     "price": "R$ 5.200,00 – R$ 5.800,00",
+     "button": {
+      "text": "Selecionar opções",
+      "href": "https://msserver.com.br/servidor/servidor-ibm-x3650-m4/"
+     },
+     "categories": [
+      "ibm",
+      "rack"
+     ]
+    }
+   },
+   "orders": {
+    "popularity": [
+     4978,
+     4974,
+     4970,
+     4966
+    ],
+    "rating": [
+     4978,
+     4974,
+     4970,
+     4966
+    ],
+    "date": [
+     4978,
+     4974,
+     4970,
+     4966
+    ],
+    "price": [
+     4974,
+     4966,
+     4978,
+     4970
+    ],
+    "price-desc": [
+     4970,
+     4978,
+     4966,
+     4974
+    ],
+    "menu_order": [
+     4966,
+     4970,
+     4974,
+     4978
+    ]
+   }
+  }
+ }
+}

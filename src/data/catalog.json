@@ -1,0 +1,3808 @@
+{
+ "fetchedAt": "2026-11-08T17:36:36.654Z",
+ "source": "https://msserver.com.br/wp-json/wc/store/v1/products",
+ "categories": {
+  "baterias": {
+   "id": 93,
+   "name": "Baterias",
+   "count": 3
+  },
+  "componentes": {
+   "id": 88,
+   "name": "Componentes",
+   "count": 18
+  },
+  "dell": {
+   "id": 46,
+   "name": "DELL",
+   "count": 31
+  },
+  "dissipadores": {
+   "id": 90,
+   "name": "Dissipadores",
+   "count": 5
+  },
+  "escala-nuvem": {
+   "id": 84,
+   "name": "Escala nuvem",
+   "count": 8
+  },
+  "fans": {
+   "id": 89,
+   "name": "Fans",
+   "count": 5
+  },
+  "fontes": {
+   "id": 92,
+   "name": "Fontes",
+   "count": 4
+  },
+  "gavetas": {
+   "id": 94,
+   "name": "Gavetas",
+   "count": 4
+  },
+  "hp": {
+   "id": 45,
+   "name": "HP",
+   "count": 15
+  },
+  "ibm": {
+   "id": 44,
+   "name": "IBM",
+   "count": 4
+  },
+  "placas-de-rede": {
+   "id": 91,
+   "name": "Placas de Rede",
+   "count": 2
+  },
+  "rack": {
+   "id": 34,
+   "name": "Rack",
+   "count": 37
+  },
+  "sem-categoria": {
+   "id": 33,
+   "name": "Sem categoria",
+   "count": 3
+  },
+  "torre": {
+   "id": 35,
+   "name": "Torre",
+   "count": 13
+  }
+ },
+ "listings": {
+  "servidores": {
+   "category": null,
+   "defaultOrder": "date",
+   "total": 74,
+   "orders": {
+    "menu_order": [
+     7862,
+     7846,
+     7850,
+     7848,
+     7842,
+     7844,
+     7852,
+     7854,
+     7856,
+     7858,
+     7860,
+     7864,
+     7868,
+     7870,
+     7866,
+     7872,
+     7874,
+     7878,
+     7876,
+     4827,
+     4831,
+     4858,
+     4862,
+     4866,
+     4870,
+     4875,
+     4879,
+     5649,
+     5655,
+     7529,
+     4994,
+     4881,
+     4886,
+     5632,
+     7502,
+     5642,
+     5605,
+     5614,
+     4990,
+     8134,
+     4986,
+     4891,
+     4909,
+     4900,
+     4905,
+     4924,
+     4911,
+     4914,
+     4917,
+     4921,
+     4947,
+     8147,
+     4927,
+     4930,
+     4939,
+     4935,
+     8141,
+     4950,
+     5668,
+     5672,
+     4943,
+     5662,
+     4954,
+     4966,
+     4958,
+     4962,
+     4970,
+     4974,
+     4978,
+     7820,
+     7822,
+     7824,
+     7826,
+     7828
+    ],
+    "popularity": [
+     8147,
+     8141,
+     8134,
+     7878,
+     7876,
+     7874,
+     7872,
+     7870,
+     7868,
+     7866,
+     7864,
+     7862,
+     7860,
+     7858,
+     7856,
+     7854,
+     7852,
+     7850,
+     7848,
+     7846,
+     7844,
+     7842,
+     7828,
+     7826,
+     7824,
+     7822,
+     7820,
+     7529,
+     7502,
+     5672,
+     5668,
+     5662,
+     5655,
+     5649,
+     5642,
+     5632,
+     5614,
+     5605,
+     4994,
+     4990,
+     4986,
+     4978,
+     4974,
+     4970,
+     4966,
+     4962,
+     4958,
+     4954,
+     4950,
+     4947,
+     4943,
+     4939,
+     4935,
+     4930,
+     4927,
+     4924,
+     4921,
+     4917,
+     4914,
+     4911,
+     4909,
+     4905,
+     4900,
+     4891,
+     4886,
+     4881,
+     4879,
+     4875,
+     4870,
+     4866,
+     4862,
+     4858,
+     4831,
+     4827
+    ],
+    "rating": [
+     8147,
+     8141,
+     8134,
+     7878,
+     7876,
+     7874,
+     7872,
+     7870,
+     7868,
+     7866,
+     7864,
+     7862,
+     7860,
+     7858,
+     7856,
+     7854,
+     7852,
+     7850,
+     7848,
+     7846,
+     7844,
+     7842,
+     7828,
+     7826,
+     7824,
+     7822,
+     7820,
+     7529,
+     7502,
+     5672,
+     5668,
+     5662,
+     5655,
+     5649,
+     5642,
+     5632,
+     5614,
+     5605,
+     4994,
+     4990,
+     4986,
+     4978,
+     4974,
+     4970,
+     4966,
+     4962,
+     4958,
+     4954,
+     4950,
+     4947,
+     4943,
+     4939,
+     4935,
+     4930,
+     4927,
+     4924,
+     4921,
+     4917,
+     4914,
+     4911,
+     4909,
+     4905,
+     4900,
+     4891,
+     4886,
+     4881,
+     4879,
+     4875,
+     4870,
+     4866,
+     4862,
+     4858,
+     4831,
+     4827
+    ],
+    "date": [
+     8147,
+     8141,
+     8134,
+     7529,
+     7502,
+     5672,
+     5668,
+     5662,
+     5655,
+     5649,
+     5642,
+     5632,
+     5614,
+     5605,
+     4994,
+     4990,
+     4986,
+     4978,
+     4974,
+     4970,
+     4966,
+     4962,
+     4958,
+     4954,
+     4950,
+     4947,
+     4943,
+     4939,
+     4935,
+     4930,
+     4927,
+     4924,
+     4921,
+     4917,
+     4914,
+     4911,
+     4909,
+     4905,
+     4900,
+     4891,
+     4886,
+     4881,
+     4879,
+     4875,
+     4870,
+     4866,
+     4862,
+     4858,
+     4831,
+     4827,
+     7842,
+     7878,
+     7876,
+     7874,
+     7872,
+     7870,
+     7868,
+     7866,
+     7864,
+     7862,
+     7860,
+     7858,
+     7856,
+     7854,
+     7852,
+     7850,
+     7848,
+     7846,
+     7844,
+     7828,
+     7826,
+     7824,
+     7822,
+     7820
+    ],
+    "price": [
+     7842,
+     7844,
+     7846,
+     7848,
+     7850,
+     7852,
+     7854,
+     7856,
+     7858,
+     7860,
+     7862,
+     7864,
+     7866,
+     7868,
+     7870,
+     7872,
+     7874,
+     7876,
+     7878,
+     7820,
+     7826,
+     7822,
+     7824,
+     7828,
+     4891,
+     4927,
+     4947,
+     4827,
+     4831,
+     4930,
+     4950,
+     4974,
+     4858,
+     4905,
+     4862,
+     5668,
+     4966,
+     4909,
+     4994,
+     4924,
+     4911,
+     4954,
+     4900,
+     4921,
+     4978,
+     4866,
+     4879,
+     4939,
+     4943,
+     4970,
+     4958,
+     4914,
+     5662,
+     5649,
+     4881,
+     5642,
+     4962,
+     4935,
+     4986,
+     4870,
+     4917,
+     5672,
+     5655,
+     4875,
+     4886,
+     8147,
+     5605,
+     8141,
+     5614,
+     5632,
+     7529,
+     7502,
+     4990,
+     8134
+    ],
+    "price-desc": [
+     8134,
+     4990,
+     5614,
+     5605,
+     5632,
+     7529,
+     4886,
+     7502,
+     5655,
+     8141,
+     4875,
+     8147,
+     5672,
+     4870,
+     4917,
+     4986,
+     4935,
+     4962,
+     5642,
+     4881,
+     5649,
+     5662,
+     4914,
+     4958,
+     4970,
+     4866,
+     4943,
+     4900,
+     4954,
+     4939,
+     4921,
+     4879,
+     4978,
+     4911,
+     4924,
+     4994,
+     4909,
+     4831,
+     5668,
+     4966,
+     4862,
+     4905,
+     4858,
+     4974,
+     4950,
+     4827,
+     4930,
+     4891,
+     4947,
+     4927,
+     7828,
+     7824,
+     7822,
+     7826,
+     7820,
+     7878,
+     7876,
+     7874,
+     7872,
+     7870,
+     7868,
+     7866,
+     7864,
+     7862,
+     7860,
+     7858,
+     7856,
+     7854,
+     7852,
+     7850,
+     7848,
+     7846,
+     7844,
+     7842
+    ]
+   }
+  },
+  "dell": {
+   "category": {
+    "id": 46,
+    "slug": "dell",
+    "name": "DELL",
+    "count": 31
+   },
+   "defaultOrder": "menu_order",
+   "total": 31,
+   "orders": {
+    "menu_order": [
+     4827,
+     4831,
+     4858,
+     4862,
+     4866,
+     4870,
+     4875,
+     4879,
+     5649,
+     5655,
+     7529,
+     4994,
+     4881,
+     4886,
+     5632,
+     7502,
+     5642,
+     5605,
+     5614,
+     4990,
+     8134,
+     4986,
+     4891,
+     4909,
+     4900,
+     4905,
+     4924,
+     4911,
+     4914,
+     4917,
+     4921
+    ],
+    "popularity": [
+     8134,
+     7529,
+     7502,
+     5655,
+     5649,
+     5642,
+     5632,
+     5614,
+     5605,
+     4994,
+     4990,
+     4986,
+     4924,
+     4921,
+     4917,
+     4914,
+     4911,
+     4909,
+     4905,
+     4900,
+     4891,
+     4886,
+     4881,
+     4879,
+     4875,
+     4870,
+     4866,
+     4862,
+     4858,
+     4831,
+     4827
+    ],
+    "rating": [
+     8134,
+     7529,
+     7502,
+     5655,
+     5649,
+     5642,
+     5632,
+     5614,
+     5605,
+     4994,
+     4990,
+     4986,
+     4924,
+     4921,
+     4917,
+     4914,
+     4911,
+     4909,
+     4905,
+     4900,
+     4891,
+     4886,
+     4881,
+     4879,
+     4875,
+     4870,
+     4866,
+     4862,
+     4858,
+     4831,
+     4827
+    ],
+    "date": [
+     8134,
+     7529,
+     7502,
+     5655,
+     5649,
+     5642,
+     5632,
+     5614,
+     5605,
+     4994,
+     4990,
+     4986,
+     4924,
+     4921,
+     4917,
+     4914,
+     4911,
+     4909,
+     4905,
+     4900,
+     4891,
+     4886,
+     4881,
+     4879,
+     4875,
+     4870,
+     4866,
+     4862,
+     4858,
+     4831,
+     4827
+    ],
+    "price": [
+     4891,
+     4827,
+     4831,
+     4858,
+     4905,
+     4862,
+     4909,
+     4994,
+     4924,
+     4911,
+     4900,
+     4921,
+     4866,
+     4879,
+     4914,
+     5649,
+     4881,
+     5642,
+     4986,
+     4870,
+     4917,
+     5655,
+     4875,
+     4886,
+     5605,
+     5614,
+     5632,
+     7529,
+     7502,
+     4990,
+     8134
+    ],
+    "price-desc": [
+     8134,
+     4990,
+     5614,
+     5605,
+     5632,
+     7529,
+     4886,
+     7502,
+     5655,
+     4875,
+     4870,
+     4917,
+     4986,
+     5642,
+     4881,
+     5649,
+     4914,
+     4866,
+     4900,
+     4921,
+     4879,
+     4911,
+     4924,
+     4994,
+     4909,
+     4831,
+     4862,
+     4905,
+     4858,
+     4827,
+     4891
+    ]
+   }
+  },
+  "hp": {
+   "category": {
+    "id": 45,
+    "slug": "hp",
+    "name": "HP",
+    "count": 15
+   },
+   "defaultOrder": "menu_order",
+   "total": 15,
+   "orders": {
+    "menu_order": [
+     4947,
+     8147,
+     4927,
+     4930,
+     4939,
+     4935,
+     8141,
+     4950,
+     5668,
+     5672,
+     4943,
+     5662,
+     4954,
+     4958,
+     4962
+    ],
+    "popularity": [
+     8147,
+     8141,
+     5672,
+     5668,
+     5662,
+     4962,
+     4958,
+     4954,
+     4950,
+     4947,
+     4943,
+     4939,
+     4935,
+     4930,
+     4927
+    ],
+    "rating": [
+     8147,
+     8141,
+     5672,
+     5668,
+     5662,
+     4962,
+     4958,
+     4954,
+     4950,
+     4947,
+     4943,
+     4939,
+     4935,
+     4930,
+     4927
+    ],
+    "date": [
+     8147,
+     8141,
+     5672,
+     5668,
+     5662,
+     4962,
+     4958,
+     4954,
+     4950,
+     4947,
+     4943,
+     4939,
+     4935,
+     4930,
+     4927
+    ],
+    "price": [
+     4927,
+     4947,
+     4930,
+     4950,
+     5668,
+     4954,
+     4939,
+     4943,
+     4958,
+     5662,
+     4962,
+     4935,
+     5672,
+     8147,
+     8141
+    ],
+    "price-desc": [
+     8141,
+     8147,
+     5672,
+     4935,
+     4962,
+     5662,
+     4958,
+     4943,
+     4954,
+     4939,
+     5668,
+     4950,
+     4930,
+     4947,
+     4927
+    ]
+   }
+  },
+  "ibm": {
+   "category": {
+    "id": 44,
+    "slug": "ibm",
+    "name": "IBM",
+    "count": 4
+   },
+   "defaultOrder": "menu_order",
+   "total": 4,
+   "orders": {
+    "menu_order": [
+     4966,
+     4970,
+     4974,
+     4978
+    ],
+    "popularity": [
+     4978,
+     4974,
+     4970,
+     4966
+    ],
+    "rating": [
+     4978,
+     4974,
+     4970,
+     4966
+    ],
+    "date": [
+     4978,
+     4974,
+     4970,
+     4966
+    ],
+    "price": [
+     4974,
+     4966,
+     4978,
+     4970
+    ],
+    "price-desc": [
+     4970,
+     4978,
+     4966,
+     4974
+    ]
+   }
+  }
+ },
+ "products": {
+  "4827": {
+   "id": 4827,
+   "name": "Servidor Dell PowerEdge R210",
+   "slug": "servidor-dell-r210",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r210/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4827.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210.png",
+   "imageCount": 3,
+   "price": {
+    "min": 3100,
+    "max": 3950
+   },
+   "priceText": "R$ 3.100,00 – R$ 3.950,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r210/",
+    "label": "Select options for “Servidor Dell PowerEdge R210”"
+   }
+  },
+  "4831": {
+   "id": 4831,
+   "name": "Servidor Dell PowerEdge R220",
+   "slug": "servidor-dell-r220",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r220/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4831.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r220.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 3200,
+    "max": 4800
+   },
+   "priceText": "R$ 3.200,00 – R$ 4.800,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r220/",
+    "label": "Select options for “Servidor Dell PowerEdge R220”"
+   }
+  },
+  "4858": {
+   "id": 4858,
+   "name": "Servidor Dell PowerEdge R230",
+   "slug": "servidor-dell-r320",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r320/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4858.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-R420.jpg",
+   "imageCount": 4,
+   "price": {
+    "min": 3500,
+    "max": 4250
+   },
+   "priceText": "R$ 3.500,00 – R$ 4.250,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r320/",
+    "label": "Select options for “Servidor Dell PowerEdge R230”"
+   }
+  },
+  "4862": {
+   "id": 4862,
+   "name": "Servidor Dell PowerEdge R410",
+   "slug": "servidor-dell-r410",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r410/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4862.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/r410.png",
+   "imageCount": 3,
+   "price": {
+    "min": 3750,
+    "max": 4450
+   },
+   "priceText": "R$ 3.750,00 – R$ 4.450,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r410/",
+    "label": "Select options for “Servidor Dell PowerEdge R410”"
+   }
+  },
+  "4866": {
+   "id": 4866,
+   "name": "Servidor Dell PowerEdge R420",
+   "slug": "servidor-dell-r420",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r420/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4866.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-R420.jpg",
+   "imageCount": 3,
+   "price": {
+    "min": 5300,
+    "max": 6450
+   },
+   "priceText": "R$ 5.300,00 – R$ 6.450,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r420/",
+    "label": "Select options for “Servidor Dell PowerEdge R420”"
+   }
+  },
+  "4870": {
+   "id": 4870,
+   "name": "Servidor Dell PowerEdge R430",
+   "slug": "servidor-dell-r430",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r430/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4870.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r430.jpeg",
+   "imageCount": 4,
+   "price": {
+    "min": 12500,
+    "max": 15350
+   },
+   "priceText": "R$ 12.500,00 – R$ 15.350,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "64GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r430/",
+    "label": "Select options for “Servidor Dell PowerEdge R430”"
+   }
+  },
+  "4875": {
+   "id": 4875,
+   "name": "Servidor Dell PowerEdge R440",
+   "slug": "servidor-dell-r440",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r440/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4875.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 15500,
+    "max": 17700
+   },
+   "priceText": "R$ 15.500,00 – R$ 17.700,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r440/",
+    "label": "Select options for “Servidor Dell PowerEdge R440”"
+   }
+  },
+  "4879": {
+   "id": 4879,
+   "name": "Servidor Dell PowerEdge R510",
+   "slug": "servidor-dell-r510",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r510/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4879.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-poweredge-r510-server-2-x-six-core-xeon-x5670-12x-3tb-36tb-sas-storage-vmware-esxi-6.5-h700-1174-p.jpg",
+   "imageCount": 3,
+   "price": {
+    "min": 5500,
+    "max": 6200
+   },
+   "priceText": "R$ 5.500,00 – R$ 6.200,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r510/",
+    "label": "Select options for “Servidor Dell PowerEdge R510”"
+   }
+  },
+  "4881": {
+   "id": 4881,
+   "name": "Servidor Dell PowerEdge R620",
+   "slug": "servidor-dell-r620",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r620/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4881.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/R620.jpg",
+   "imageCount": 3,
+   "price": {
+    "min": 8950,
+    "max": 9850
+   },
+   "priceText": "R$ 8.950,00 – R$ 9.850,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r620/",
+    "label": "Select options for “Servidor Dell PowerEdge R620”"
+   }
+  },
+  "4886": {
+   "id": 4886,
+   "name": "Servidor Dell PowerEdge R630",
+   "slug": "servidor-dell-r630",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r630/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4886.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r630-2.jpeg",
+   "imageCount": 4,
+   "price": {
+    "min": 16250,
+    "max": 22800
+   },
+   "priceText": "R$ 16.250,00 – R$ 22.800,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "128GB",
+      "16GB",
+      "32GB",
+      "64GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r630/",
+    "label": "Select options for “Servidor Dell PowerEdge R630”"
+   }
+  },
+  "4891": {
+   "id": 4891,
+   "name": "Servidor Dell PowerEdge T110",
+   "slug": "servidor-dell-t110",
+   "url": "https://msserver.com.br/servidor/servidor-dell-t110/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "torre"
+   ],
+   "image": "4891.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T110-II-3.png",
+   "imageCount": 2,
+   "price": {
+    "min": 2800,
+    "max": 3750
+   },
+   "priceText": "R$ 2.800,00 – R$ 3.750,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-t110/",
+    "label": "Select options for “Servidor Dell PowerEdge T110”"
+   }
+  },
+  "4900": {
+   "id": 4900,
+   "name": "Servidor Dell PowerEdge T330",
+   "slug": "servidor-torre-dell-t330",
+   "url": "https://msserver.com.br/servidor/servidor-torre-dell-t330/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "torre"
+   ],
+   "image": "4900.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t330-3.jpeg",
+   "imageCount": 4,
+   "price": {
+    "min": 5200,
+    "max": 6400
+   },
+   "priceText": "R$ 5.200,00 – R$ 6.400,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-torre-dell-t330/",
+    "label": "Select options for “Servidor Dell PowerEdge T330”"
+   }
+  },
+  "4905": {
+   "id": 4905,
+   "name": "Servidor Dell PowerEdge T410",
+   "slug": "servidor-dell-t410",
+   "url": "https://msserver.com.br/servidor/servidor-dell-t410/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "torre"
+   ],
+   "image": "4905.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t410-1.png",
+   "imageCount": 4,
+   "price": {
+    "min": 3550,
+    "max": 4250
+   },
+   "priceText": "R$ 3.550,00 – R$ 4.250,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-t410/",
+    "label": "Select options for “Servidor Dell PowerEdge T410”"
+   }
+  },
+  "4909": {
+   "id": 4909,
+   "name": "Servidor Dell PowerEdge T320",
+   "slug": "servidor-dell-t420",
+   "url": "https://msserver.com.br/servidor/servidor-dell-t420/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "torre"
+   ],
+   "image": "4909.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t420-2.jpeg",
+   "imageCount": 1,
+   "price": {
+    "min": 4200,
+    "max": 4980
+   },
+   "priceText": "R$ 4.200,00 – R$ 4.980,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-t420/",
+    "label": "Select options for “Servidor Dell PowerEdge T320”"
+   }
+  },
+  "4911": {
+   "id": 4911,
+   "name": "Servidor Dell PowerEdge T610",
+   "slug": "servidor-dell-t610",
+   "url": "https://msserver.com.br/servidor/servidor-dell-t610/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "torre"
+   ],
+   "image": "4911.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t610.png",
+   "imageCount": 3,
+   "price": {
+    "min": 4800,
+    "max": 5500
+   },
+   "priceText": "R$ 4.800,00 – R$ 5.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-t610/",
+    "label": "Select options for “Servidor Dell PowerEdge T610”"
+   }
+  },
+  "4914": {
+   "id": 4914,
+   "name": "Servidor Dell PowerEdge T620",
+   "slug": "servidor-dell-t620",
+   "url": "https://msserver.com.br/servidor/servidor-dell-t620/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "torre"
+   ],
+   "image": "4914.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T620-SEM-FUNDO.png",
+   "imageCount": 3,
+   "price": {
+    "min": 6250,
+    "max": 6980
+   },
+   "priceText": "R$ 6.250,00 – R$ 6.980,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-t620/",
+    "label": "Select options for “Servidor Dell PowerEdge T620”"
+   }
+  },
+  "4917": {
+   "id": 4917,
+   "name": "Servidor Dell PowerEdge T630",
+   "slug": "servidor-dell-t630",
+   "url": "https://msserver.com.br/servidor/servidor-dell-t630/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "torre"
+   ],
+   "image": "4917.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t630-1.png",
+   "imageCount": 3,
+   "price": {
+    "min": 12850,
+    "max": 13800
+   },
+   "priceText": "R$ 12.850,00 – R$ 13.800,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-t630/",
+    "label": "Select options for “Servidor Dell PowerEdge T630”"
+   }
+  },
+  "4921": {
+   "id": 4921,
+   "name": "Servidor Dell PowerEdge T710",
+   "slug": "servidor-dell-t710",
+   "url": "https://msserver.com.br/servidor/servidor-dell-t710/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "torre"
+   ],
+   "image": "4921.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-dell-poweredge-t710-2-ti24h-771x1000-1.png",
+   "imageCount": 2,
+   "price": {
+    "min": 5200,
+    "max": 6200
+   },
+   "priceText": "R$ 5.200,00 – R$ 6.200,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-t710/",
+    "label": "Select options for “Servidor Dell PowerEdge T710”"
+   }
+  },
+  "4924": {
+   "id": 4924,
+   "name": "Servidor Dell PowerEdge T420",
+   "slug": "servidor-torre-dell-t420-2",
+   "url": "https://msserver.com.br/servidor/servidor-torre-dell-t420-2/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "torre"
+   ],
+   "image": "4924.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T420-SEM-FUNDO.png",
+   "imageCount": 2,
+   "price": {
+    "min": 4600,
+    "max": 5300
+   },
+   "priceText": "R$ 4.600,00 – R$ 5.300,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-torre-dell-t420-2/",
+    "label": "Select options for “Servidor Dell PowerEdge T420”"
+   }
+  },
+  "4927": {
+   "id": 4927,
+   "name": "Servidor HP Proliant DL360 G6",
+   "slug": "servidor-rack-hp-dl360-g6",
+   "url": "https://msserver.com.br/servidor/servidor-rack-hp-dl360-g6/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "rack"
+   ],
+   "image": "4927.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6.jpeg",
+   "imageCount": 2,
+   "price": {
+    "min": 2800,
+    "max": 3500
+   },
+   "priceText": "R$ 2.800,00 – R$ 3.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-rack-hp-dl360-g6/",
+    "label": "Select options for “Servidor HP Proliant DL360 G6”"
+   }
+  },
+  "4930": {
+   "id": 4930,
+   "name": "Servidor HP Proliant DL360 G7",
+   "slug": "servidor-hp-dl360-g7",
+   "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g7/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "rack"
+   ],
+   "image": "4930.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6.jpeg",
+   "imageCount": 2,
+   "price": {
+    "min": 3200,
+    "max": 3900
+   },
+   "priceText": "R$ 3.200,00 – R$ 3.900,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g7/",
+    "label": "Select options for “Servidor HP Proliant DL360 G7”"
+   }
+  },
+  "4935": {
+   "id": 4935,
+   "name": "Servidor HP Proliant DL360 G9",
+   "slug": "servidor-hp-dl360-g9",
+   "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g9/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "rack"
+   ],
+   "image": "4935.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 12000,
+    "max": 13250
+   },
+   "priceText": "R$ 12.000,00 – R$ 13.250,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g9/",
+    "label": "Select options for “Servidor HP Proliant DL360 G9”"
+   }
+  },
+  "4939": {
+   "id": 4939,
+   "name": "Servidor HP Proliant DL360 G8",
+   "slug": "servidor-hp-dl360-g8",
+   "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g8/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "rack"
+   ],
+   "image": "4939.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 5500,
+    "max": 6200
+   },
+   "priceText": "R$ 5.500,00 – R$ 6.200,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g8/",
+    "label": "Select options for “Servidor HP Proliant DL360 G8”"
+   }
+  },
+  "4943": {
+   "id": 4943,
+   "name": "Servidor HP Proliant DL380P G8",
+   "slug": "servidor-hp-dl360p-g8",
+   "url": "https://msserver.com.br/servidor/servidor-hp-dl360p-g8/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "rack"
+   ],
+   "image": "4943.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/Dl380-G8-4.png",
+   "imageCount": 3,
+   "price": {
+    "min": 5800,
+    "max": 6400
+   },
+   "priceText": "R$ 5.800,00 – R$ 6.400,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-hp-dl360p-g8/",
+    "label": "Select options for “Servidor HP Proliant DL380P G8”"
+   }
+  },
+  "4947": {
+   "id": 4947,
+   "name": "Servidor HP Proliant DL160 G6",
+   "slug": "servidor-rack-hp-dl160",
+   "url": "https://msserver.com.br/servidor/servidor-rack-hp-dl160/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "rack"
+   ],
+   "image": "4947.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl160-g6-ti24h-771x1000-1.jpeg",
+   "imageCount": 2,
+   "price": {
+    "min": 2800,
+    "max": 3500
+   },
+   "priceText": "R$ 2.800,00 – R$ 3.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-rack-hp-dl160/",
+    "label": "Select options for “Servidor HP Proliant DL160 G6”"
+   }
+  },
+  "4950": {
+   "id": 4950,
+   "name": "Servidor HP Proliant DL380 G6",
+   "slug": "servidor-hp-dl380-g6",
+   "url": "https://msserver.com.br/servidor/servidor-hp-dl380-g6/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "rack"
+   ],
+   "image": "4950.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-g6-ti24h-771x1000-1.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 3200,
+    "max": 3980
+   },
+   "priceText": "R$ 3.200,00 – R$ 3.980,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-hp-dl380-g6/",
+    "label": "Select options for “Servidor HP Proliant DL380 G6”"
+   }
+  },
+  "4954": {
+   "id": 4954,
+   "name": "Servidor HP Proliant ML110 G9",
+   "slug": "servidor-torre-hp-ml110-g9",
+   "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml110-g9/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "torre"
+   ],
+   "image": "4954.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml110-G9.jpeg",
+   "imageCount": 1,
+   "price": {
+    "min": 4800,
+    "max": 6200
+   },
+   "priceText": "R$ 4.800,00 – R$ 6.200,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml110-g9/",
+    "label": "Select options for “Servidor HP Proliant ML110 G9”"
+   }
+  },
+  "4958": {
+   "id": 4958,
+   "name": "Servidor HP Proliant ML350 G8",
+   "slug": "servidor-torre-hp-ml350-g8",
+   "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g8/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "torre"
+   ],
+   "image": "4958.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g8.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 5900,
+    "max": 6600
+   },
+   "priceText": "R$ 5.900,00 – R$ 6.600,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g8/",
+    "label": "Select options for “Servidor HP Proliant ML350 G8”"
+   }
+  },
+  "4962": {
+   "id": 4962,
+   "name": "Servidor HP Proliant ML350 G9",
+   "slug": "servidor-torre-hp-ml350-g9",
+   "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g9/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "torre"
+   ],
+   "image": "4962.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g9.png",
+   "imageCount": 3,
+   "price": {
+    "min": 11500,
+    "max": 13200
+   },
+   "priceText": "R$ 11.500,00 – R$ 13.200,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g9/",
+    "label": "Select options for “Servidor HP Proliant ML350 G9”"
+   }
+  },
+  "4966": {
+   "id": 4966,
+   "name": "Servidor HP Proliant ML310 G8",
+   "slug": "servidor-hp-ml310-g8",
+   "url": "https://msserver.com.br/servidor/servidor-hp-ml310-g8/",
+   "type": "variable",
+   "categories": [
+    "ibm",
+    "torre"
+   ],
+   "image": "4966.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml310-g8-_1_.jpg",
+   "imageCount": 2,
+   "price": {
+    "min": 3900,
+    "max": 4500
+   },
+   "priceText": "R$ 3.900,00 – R$ 4.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-hp-ml310-g8/",
+    "label": "Select options for “Servidor HP Proliant ML310 G8”"
+   }
+  },
+  "4970": {
+   "id": 4970,
+   "name": "Servidor IBM x3550 M4",
+   "slug": "servidor-ibm-x3550-m4",
+   "url": "https://msserver.com.br/servidor/servidor-ibm-x3550-m4/",
+   "type": "variable",
+   "categories": [
+    "ibm",
+    "rack"
+   ],
+   "image": "4970.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3550-m4.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 5800,
+    "max": 6450
+   },
+   "priceText": "R$ 5.800,00 – R$ 6.450,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-ibm-x3550-m4/",
+    "label": "Select options for “Servidor IBM x3550 M4”"
+   }
+  },
+  "4974": {
+   "id": 4974,
+   "name": "Servidor IBM x3650 M3",
+   "slug": "servidor-ibm-x3650-m3",
+   "url": "https://msserver.com.br/servidor/servidor-ibm-x3650-m3/",
+   "type": "variable",
+   "categories": [
+    "ibm",
+    "rack"
+   ],
+   "image": "4974.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m3-.jpeg",
+   "imageCount": 2,
+   "price": {
+    "min": 3250,
+    "max": 3990
+   },
+   "priceText": "R$ 3.250,00 – R$ 3.990,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-ibm-x3650-m3/",
+    "label": "Select options for “Servidor IBM x3650 M3”"
+   }
+  },
+  "4978": {
+   "id": 4978,
+   "name": "Servidor IBM x3650 M4",
+   "slug": "servidor-ibm-x3650-m4",
+   "url": "https://msserver.com.br/servidor/servidor-ibm-x3650-m4/",
+   "type": "variable",
+   "categories": [
+    "ibm",
+    "rack"
+   ],
+   "image": "4978.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m4.png",
+   "imageCount": 3,
+   "price": {
+    "min": 5200,
+    "max": 5800
+   },
+   "priceText": "R$ 5.200,00 – R$ 5.800,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-ibm-x3650-m4/",
+    "label": "Select options for “Servidor IBM x3650 M4”"
+   }
+  },
+  "4986": {
+   "id": 4986,
+   "name": "Servidor Dell PowerEdge R910",
+   "slug": "servidor-dell-r910",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r910/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4986.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r910-1.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 12050,
+    "max": 13500
+   },
+   "priceText": "R$ 12.050,00 – R$ 13.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "64GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r910/",
+    "label": "Select options for “Servidor Dell PowerEdge R910”"
+   }
+  },
+  "4990": {
+   "id": 4990,
+   "name": "Servidor Dell PowerEdge R740",
+   "slug": "servidor-dell-r740",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r740/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "escala-nuvem",
+    "rack"
+   ],
+   "image": "4990.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 23500,
+    "max": 26500
+   },
+   "priceText": "R$ 23.500,00 – R$ 26.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "128GB",
+      "16GB",
+      "32GB",
+      "64GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r740/",
+    "label": "Select options for “Servidor Dell PowerEdge R740”"
+   }
+  },
+  "4994": {
+   "id": 4994,
+   "name": "Servidor Dell Poweredge R610",
+   "slug": "servidor-dell-r610",
+   "url": "https://msserver.com.br/servidor/servidor-dell-r610/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "4994.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R610-.png",
+   "imageCount": 3,
+   "price": {
+    "min": 4500,
+    "max": 5250
+   },
+   "priceText": "R$ 4.500,00 – R$ 5.250,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "8GB",
+      "16GB",
+      "32GB",
+      "64GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-r610/",
+    "label": "Select options for “Servidor Dell Poweredge R610”"
+   }
+  },
+  "5605": {
+   "id": 5605,
+   "name": "Servidor Dell PowerEdge R730",
+   "slug": "servidor-dell-poweredge-r730",
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "5605.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/HTB1M4KrXAL0gK0jSZFtq6xQCXXaa.jpg",
+   "imageCount": 2,
+   "price": {
+    "min": 18500,
+    "max": 23950
+   },
+   "priceText": "R$ 18.500,00 – R$ 23.950,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "128GB",
+      "16GB",
+      "32GB",
+      "64GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730/",
+    "label": "Select options for “Servidor Dell PowerEdge R730”"
+   }
+  },
+  "5614": {
+   "id": 5614,
+   "name": "Servidor Dell PowerEdge R730 XD",
+   "slug": "servidor-dell-poweredge-r730-xd",
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730-xd/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "escala-nuvem",
+    "rack"
+   ],
+   "image": "5614.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/HTB1M4KrXAL0gK0jSZFtq6xQCXXaa.jpg",
+   "imageCount": 2,
+   "price": {
+    "min": 20500,
+    "max": 25450
+   },
+   "priceText": "R$ 20.500,00 – R$ 25.450,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "128GB",
+      "16GB",
+      "32GB",
+      "64GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730-xd/",
+    "label": "Select options for “Servidor Dell PowerEdge R730 XD”"
+   }
+  },
+  "5632": {
+   "id": 5632,
+   "name": "Servidor Dell PowerEdge R640",
+   "slug": "servidor-dell-poweredge-r640",
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "5632.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/R640.jpg",
+   "imageCount": 3,
+   "price": {
+    "min": 20500,
+    "max": 23900
+   },
+   "priceText": "R$ 20.500,00 – R$ 23.900,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "128GB",
+      "16GB",
+      "32GB",
+      "64GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640/",
+    "label": "Select options for “Servidor Dell PowerEdge R640”"
+   }
+  },
+  "5642": {
+   "id": 5642,
+   "name": "Servidor Dell PowerEdge R720",
+   "slug": "servidor-dell-poweredge-r720",
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r720/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "escala-nuvem",
+    "rack"
+   ],
+   "image": "5642.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-Poweredge-r720-front-1.jpg",
+   "imageCount": 3,
+   "price": {
+    "min": 9950,
+    "max": 11000
+   },
+   "priceText": "R$ 9.950,00 – R$ 11.000,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r720/",
+    "label": "Select options for “Servidor Dell PowerEdge R720”"
+   }
+  },
+  "5649": {
+   "id": 5649,
+   "name": "Servidor Dell PowerEdge R520",
+   "slug": "servidor-dell-poweredge-r520",
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r520/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "escala-nuvem",
+    "rack"
+   ],
+   "image": "5649.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/r520-600x584-1.png",
+   "imageCount": 2,
+   "price": {
+    "min": 7500,
+    "max": 8300
+   },
+   "priceText": "R$ 7.500,00 – R$ 8.300,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r520/",
+    "label": "Select options for “Servidor Dell PowerEdge R520”"
+   }
+  },
+  "5655": {
+   "id": 5655,
+   "name": "Servidor Dell PowerEdge R530",
+   "slug": "servidor-dell-poweredge-r530",
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r530/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "escala-nuvem",
+    "rack"
+   ],
+   "image": "5655.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/r530-600x584-1.png",
+   "imageCount": 1,
+   "price": {
+    "min": 14500,
+    "max": 21450
+   },
+   "priceText": "R$ 14.500,00 – R$ 21.450,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "128GB",
+      "16GB",
+      "32GB",
+      "64GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r530/",
+    "label": "Select options for “Servidor Dell PowerEdge R530”"
+   }
+  },
+  "5662": {
+   "id": 5662,
+   "name": "Servidor HP Proliant DL380P G8 v2",
+   "slug": "servidor-hp-proliant-dl380p-g8",
+   "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380p-g8/",
+   "type": "variable",
+   "categories": [
+    "escala-nuvem",
+    "hp",
+    "rack"
+   ],
+   "image": "5662.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380p-g8-gen8-12x-lff-2x-e5-2650l-v2-64gb-2x-kieszen.jpg",
+   "imageCount": 2,
+   "price": {
+    "min": 6800,
+    "max": 7800
+   },
+   "priceText": "R$ 6.800,00 – R$ 7.800,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380p-g8/",
+    "label": "Select options for “Servidor HP Proliant DL380P G8 v2”"
+   }
+  },
+  "5668": {
+   "id": 5668,
+   "name": "Servidor HP Proliant DL380 G7",
+   "slug": "servidor-hp-proliant-dl380-g7",
+   "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g7/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "rack"
+   ],
+   "image": "5668.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-g6-ti24h-771x1000-1.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 3800,
+    "max": 4500
+   },
+   "priceText": "R$ 3.800,00 – R$ 4.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g7/",
+    "label": "Select options for “Servidor HP Proliant DL380 G7”"
+   }
+  },
+  "5672": {
+   "id": 5672,
+   "name": "Servidor HP Proliant DL380 G9",
+   "slug": "hp-dl380-g9",
+   "url": "https://msserver.com.br/servidor/hp-dl380-g9/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "rack"
+   ],
+   "image": "5672.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-gen9-ti24h-771x1000-1.jpg",
+   "imageCount": 1,
+   "price": {
+    "min": 13500,
+    "max": 16900
+   },
+   "priceText": "R$ 13.500,00 – R$ 16.900,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/hp-dl380-g9/",
+    "label": "Select options for “Servidor HP Proliant DL380 G9”"
+   }
+  },
+  "7502": {
+   "id": 7502,
+   "name": "Servidor Dell PowerEdge R640",
+   "slug": "servidor-dell-poweredge-r640-2",
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640-2/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "rack"
+   ],
+   "image": "7502.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 22500,
+    "max": 22500
+   },
+   "priceText": "R$ 22.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "128G",
+      "16GB",
+      "32GB",
+      "64G",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640-2/",
+    "label": "Select options for “Servidor Dell PowerEdge R640”"
+   }
+  },
+  "7529": {
+   "id": 7529,
+   "name": "Servidor Dell PowerEdge R540",
+   "slug": "servidor-dell-poweredge-r540-copy",
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r540-copy/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "escala-nuvem",
+    "rack"
+   ],
+   "image": "7529.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 20500,
+    "max": 23500
+   },
+   "priceText": "R$ 20.500,00 – R$ 23.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "128GB",
+      "16GB",
+      "32GB",
+      "64GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r540-copy/",
+    "label": "Select options for “Servidor Dell PowerEdge R540”"
+   }
+  },
+  "7820": {
+   "id": 7820,
+   "name": "Bateria Dell nu209 fr463 u8735 perc-5-6-h700-h800",
+   "slug": "bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800",
+   "url": "https://msserver.com.br/servidor/bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800/",
+   "type": "simple",
+   "categories": [
+    "baterias"
+   ],
+   "image": "7820.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800-2.png",
+   "imageCount": 1,
+   "price": {
+    "min": 350,
+    "max": 350
+   },
+   "priceText": "R$ 350,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800",
+   "button": {
+    "text": "Orçamento",
+    "kind": "add-to-cart",
+    "url": "https://msserver.com.br/servidor/bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800/?add-to-cart=7820",
+    "label": "Add “Bateria Dell nu209 fr463 u8735 perc-5-6-h700-h800” to your cart"
+   }
+  },
+  "7822": {
+   "id": 7822,
+   "name": "Bateria-Dell-para-controladoras-perc-h710-h810-h730-h830-070k80",
+   "slug": "bateria-dell-para-controladoras-perc-h710-h810-h730-h830-070k80",
+   "url": "https://msserver.com.br/servidor/bateria-dell-para-controladoras-perc-h710-h810-h730-h830-070k80/",
+   "type": "simple",
+   "categories": [
+    "baterias"
+   ],
+   "image": "7822.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-dell-para-controladoras-perc-h710-h810-h730-h830-070k80.png",
+   "imageCount": 1,
+   "price": {
+    "min": 430,
+    "max": 430
+   },
+   "priceText": "R$ 430,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "Bateria dell para controladoras perc h710-h810-h730-h830-070k80",
+   "button": {
+    "text": "Orçamento",
+    "kind": "add-to-cart",
+    "url": "https://msserver.com.br/servidor/bateria-dell-para-controladoras-perc-h710-h810-h730-h830-070k80/?add-to-cart=7822",
+    "label": "Add “Bateria-Dell-para-controladoras-perc-h710-h810-h730-h830-070k80” to your cart"
+   }
+  },
+  "7824": {
+   "id": 7824,
+   "name": "Bateria para hp p840p440 sl90030-4",
+   "slug": "bateria-para-hp-p840p440-sl90030-4",
+   "url": "https://msserver.com.br/servidor/bateria-para-hp-p840p440-sl90030-4/",
+   "type": "simple",
+   "categories": [
+    "baterias"
+   ],
+   "image": "7824.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-para-hp-p840p440-sl90030-4.png",
+   "imageCount": 1,
+   "price": {
+    "min": 950,
+    "max": 950
+   },
+   "priceText": "R$ 950,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "Bateria para hp p840p440 sl90030-4",
+   "button": {
+    "text": "Orçamento",
+    "kind": "add-to-cart",
+    "url": "https://msserver.com.br/servidor/bateria-para-hp-p840p440-sl90030-4/?add-to-cart=7824",
+    "label": "Add “Bateria para hp p840p440 sl90030-4” to your cart"
+   }
+  },
+  "7826": {
+   "id": 7826,
+   "name": "Placa de rede dual giga intel-82576eb-e1g42et-pcie",
+   "slug": "placa-de-rede-dual-giga-intel-82576eb-e1g42et-pcie",
+   "url": "https://msserver.com.br/servidor/placa-de-rede-dual-giga-intel-82576eb-e1g42et-pcie/",
+   "type": "simple",
+   "categories": [
+    "placas-de-rede"
+   ],
+   "image": "7826.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/placa-de-redeplaca-rede-dual-giga-intel-82576eb-e1g42et-pcie.png",
+   "imageCount": 1,
+   "price": {
+    "min": 350,
+    "max": 350
+   },
+   "priceText": "R$ 350,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "Placa de rede dual giga intel-82576eb-e1g42et-pcie",
+   "button": {
+    "text": "Orçamento",
+    "kind": "add-to-cart",
+    "url": "https://msserver.com.br/servidor/placa-de-rede-dual-giga-intel-82576eb-e1g42et-pcie/?add-to-cart=7826",
+    "label": "Add “Placa de rede dual giga intel-82576eb-e1g42et-pcie” to your cart"
+   }
+  },
+  "7828": {
+   "id": 7828,
+   "name": "Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s",
+   "slug": "placa-rede-servidor-10gb-pcie-x8-dual-port-sfp-bcm57810s",
+   "url": "https://msserver.com.br/servidor/placa-rede-servidor-10gb-pcie-x8-dual-port-sfp-bcm57810s/",
+   "type": "simple",
+   "categories": [
+    "placas-de-rede"
+   ],
+   "image": "7828.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/placa-rede-servidor-10gb-pcie-x8-dual-port-sfp-bcm57810s.png",
+   "imageCount": 1,
+   "price": {
+    "min": 950,
+    "max": 950
+   },
+   "priceText": "R$ 950,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s",
+   "button": {
+    "text": "Orçamento",
+    "kind": "add-to-cart",
+    "url": "https://msserver.com.br/servidor/placa-rede-servidor-10gb-pcie-x8-dual-port-sfp-bcm57810s/?add-to-cart=7828",
+    "label": "Add “Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s” to your cart"
+   }
+  },
+  "7842": {
+   "id": 7842,
+   "name": "Dissipador Heatsink DL380 G8",
+   "slug": "dissipador-heatsink-dl380-g8",
+   "url": "https://msserver.com.br/servidor/dissipador-heatsink-dl380-g8/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "dissipadores"
+   ],
+   "image": "7842.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/DISSIPADOR-HP-DL-380-2.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/dissipador-heatsink-dl380-g8/",
+    "label": "Read more about “Dissipador Heatsink DL380 G8”"
+   }
+  },
+  "7844": {
+   "id": 7844,
+   "name": "Dissipador Servidor Heatsink Dell Powerdge R730",
+   "slug": "dissipador-servidor-heatsink-dell-powerdge-r730",
+   "url": "https://msserver.com.br/servidor/dissipador-servidor-heatsink-dell-powerdge-r730/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "dissipadores"
+   ],
+   "image": "7844.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/Dissipador-Servidor-Heatsink-Dell-Powerdge-R730-1.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/dissipador-servidor-heatsink-dell-powerdge-r730/",
+    "label": "Read more about “Dissipador Servidor Heatsink Dell Powerdge R730”"
+   }
+  },
+  "7846": {
+   "id": 7846,
+   "name": "Dissipador Dell Poweredge R630 heatsink dell 0y8mc1",
+   "slug": "dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1",
+   "url": "https://msserver.com.br/servidor/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "dissipadores"
+   ],
+   "image": "7846.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1-2.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1/",
+    "label": "Read more about “Dissipador Dell Poweredge R630 heatsink dell 0y8mc1”"
+   }
+  },
+  "7848": {
+   "id": 7848,
+   "name": "Dissipador Dell R740 R740xd 00f8nv-0f8nv",
+   "slug": "dissipador-dell-r740-r740xd-00f8nv-0f8nv",
+   "url": "https://msserver.com.br/servidor/dissipador-dell-r740-r740xd-00f8nv-0f8nv/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "dissipadores"
+   ],
+   "image": "7848.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-00f8nv-0f8nv-2.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/dissipador-dell-r740-r740xd-00f8nv-0f8nv/",
+    "label": "Read more about “Dissipador Dell R740 R740xd 00f8nv-0f8nv”"
+   }
+  },
+  "7850": {
+   "id": 7850,
+   "name": "Dissipador Dell R640",
+   "slug": "dissipador-dell-r640",
+   "url": "https://msserver.com.br/servidor/dissipador-dell-r640/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "dissipadores"
+   ],
+   "image": "7850.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-0f8nv-00f8nv-0trjt7-trjt7.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/dissipador-dell-r640/",
+    "label": "Read more about “Dissipador Dell R640”"
+   }
+  },
+  "7852": {
+   "id": 7852,
+   "name": "Fan Dell poweredge R530 R530xd 03d7gy-3d7gy-0r27nj-r27nj",
+   "slug": "fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj",
+   "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "fans"
+   ],
+   "image": "7852.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj/",
+    "label": "Read more about “Fan Dell poweredge R530 R530xd 03d7gy-3d7gy-0r27nj-r27nj”"
+   }
+  },
+  "7854": {
+   "id": 7854,
+   "name": "Fan Dell poweredge R620 R320 R630 gfc0412ds-hr6c0-0hr6c0",
+   "slug": "fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0",
+   "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "fans"
+   ],
+   "image": "7854.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0/",
+    "label": "Read more about “Fan Dell poweredge R620 R320 R630 gfc0412ds-hr6c0-0hr6c0”"
+   }
+  },
+  "7856": {
+   "id": 7856,
+   "name": "Fan Dell R520 05fx8x-5fx8x",
+   "slug": "fan-dell-r520-05fx8x-5fx8x",
+   "url": "https://msserver.com.br/servidor/fan-dell-r520-05fx8x-5fx8x/",
+   "type": "simple",
+   "categories": [],
+   "image": "7856.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-r520-05fx8x-5fx8x.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/fan-dell-r520-05fx8x-5fx8x/",
+    "label": "Read more about “Fan Dell R520 05fx8x-5fx8x”"
+   }
+  },
+  "7858": {
+   "id": 7858,
+   "name": "Fan Dell R640 0kg52t-0cy92p-kg52t-cy92p",
+   "slug": "fan-dell-r640-0kg52t-0cy92p-kg52t-cy92p",
+   "url": "https://msserver.com.br/servidor/fan-dell-r640-0kg52t-0cy92p-kg52t-cy92p/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "fans"
+   ],
+   "image": "7858.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-r640-r740-0kg52t-0cy92p-kg52t-cy92p-2.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/fan-dell-r640-0kg52t-0cy92p-kg52t-cy92p/",
+    "label": "Read more about “Fan Dell R640 0kg52t-0cy92p-kg52t-cy92p”"
+   }
+  },
+  "7860": {
+   "id": 7860,
+   "name": "Fan Hp DL360 g9 g10 pn-750688-001-775415-001",
+   "slug": "fan-hp-dl360-g9-g10-pn-750688-001-775415-001",
+   "url": "https://msserver.com.br/servidor/fan-hp-dl360-g9-g10-pn-750688-001-775415-001/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "fans"
+   ],
+   "image": "7860.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/fan-hp-dl360-g9-g10-pn-750688-001-775415-001.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/fan-hp-dl360-g9-g10-pn-750688-001-775415-001/",
+    "label": "Read more about “Fan Hp DL360 g9 g10 pn-750688-001-775415-001”"
+   }
+  },
+  "7862": {
+   "id": 7862,
+   "name": "Cooler Fan Dell Emc Poweredge R740 R740xd N5t36 0n5t36",
+   "slug": "cooler-fan-dell-emc-poweredge-r740-r740xd-n5t36-0n5t36",
+   "url": "https://msserver.com.br/servidor/cooler-fan-dell-emc-poweredge-r740-r740xd-n5t36-0n5t36/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "fans"
+   ],
+   "image": "7862.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/Cooler-Fan-Dell-Emc-Poweredge-R740-R740xd-N5t36-0n5t36.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/cooler-fan-dell-emc-poweredge-r740-r740xd-n5t36-0n5t36/",
+    "label": "Read more about “Cooler Fan Dell Emc Poweredge R740 R740xd N5t36 0n5t36”"
+   }
+  },
+  "7864": {
+   "id": 7864,
+   "name": "Fonte 500w Hp Dl360 Dl380 Ml350 G9 723595-101 Dps-500ab-13 A",
+   "slug": "fonte-500w-hp-dl360-dl380-ml350-g9-723595-101-dps-500ab-13-a",
+   "url": "https://msserver.com.br/servidor/fonte-500w-hp-dl360-dl380-ml350-g9-723595-101-dps-500ab-13-a/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "fontes"
+   ],
+   "image": "7864.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-500w-Hp-Dl360-Dl380-Ml350-G9-1.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/fonte-500w-hp-dl360-dl380-ml350-g9-723595-101-dps-500ab-13-a/",
+    "label": "Read more about “Fonte 500w Hp Dl360 Dl380 Ml350 G9 723595-101 Dps-500ab-13 A”"
+   }
+  },
+  "7866": {
+   "id": 7866,
+   "name": "Fonte Servidor Hp Proliant Dl380 G6 G7 G8 750w",
+   "slug": "fonte-servidor-hp-proliant-dl380-g6-g7-g8-750w",
+   "url": "https://msserver.com.br/servidor/fonte-servidor-hp-proliant-dl380-g6-g7-g8-750w/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "fontes"
+   ],
+   "image": "7866.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-Servidor-Hp-Proliant-Dl380-G6-G7-G8-750w-3.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/fonte-servidor-hp-proliant-dl380-g6-g7-g8-750w/",
+    "label": "Read more about “Fonte Servidor Hp Proliant Dl380 G6 G7 G8 750w”"
+   }
+  },
+  "7868": {
+   "id": 7868,
+   "name": "Fonte Dell 495w T420 R620 R720 f495e-s0-03ghw3",
+   "slug": "fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3",
+   "url": "https://msserver.com.br/servidor/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "fontes"
+   ],
+   "image": "7868.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3/",
+    "label": "Read more about “Fonte Dell 495w T420 R620 R720 f495e-s0-03ghw3”"
+   }
+  },
+  "7870": {
+   "id": 7870,
+   "name": "Fonte Servidor Dell Poweredge R630 730 730xd 530 640 0grtnk",
+   "slug": "fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk",
+   "url": "https://msserver.com.br/servidor/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "fontes"
+   ],
+   "image": "7870.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk/",
+    "label": "Read more about “Fonte Servidor Dell Poweredge R630 730 730xd 530 640 0grtnk”"
+   }
+  },
+  "7872": {
+   "id": 7872,
+   "name": "Gaveta Hd 3.5 P Servidor Dell Poweredge 0KG1CH F238F",
+   "slug": "gaveta-hd-3-5-p-servidor-dell-poweredge-0kg1ch-f238f",
+   "url": "https://msserver.com.br/servidor/gaveta-hd-3-5-p-servidor-dell-poweredge-0kg1ch-f238f/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "gavetas"
+   ],
+   "image": "7872.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/gaveta-para-hd-dell-25-sassata-r310-t310-r320-t320-r610-t610-g176j.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/gaveta-hd-3-5-p-servidor-dell-poweredge-0kg1ch-f238f/",
+    "label": "Read more about “Gaveta Hd 3.5 P Servidor Dell Poweredge 0KG1CH F238F”"
+   }
+  },
+  "7874": {
+   "id": 7874,
+   "name": "Gaveta Servidor Dell 2.5 G176j",
+   "slug": "gaveta-servidor-dell-2-5-g176j",
+   "url": "https://msserver.com.br/servidor/gaveta-servidor-dell-2-5-g176j/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "gavetas"
+   ],
+   "image": "7874.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Dell-2.5-G176j-R310-T310-R320-T320-R610-T610.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/gaveta-servidor-dell-2-5-g176j/",
+    "label": "Read more about “Gaveta Servidor Dell 2.5 G176j”"
+   }
+  },
+  "7876": {
+   "id": 7876,
+   "name": "Gavetas para Servidor Hp Dl360 Dl380 3.5 g8 g9 651314-001",
+   "slug": "gavetas-para-servidor-hp-dl360-dl380-3-5-g8-g9-651314-001",
+   "url": "https://msserver.com.br/servidor/gavetas-para-servidor-hp-dl360-dl380-3-5-g8-g9-651314-001/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "gavetas"
+   ],
+   "image": "7876.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/gavetas-para-servidorgaveta-servidor-hp-3-5-g8-g9-651314-001-dl360-dl380-gen9.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/gavetas-para-servidor-hp-dl360-dl380-3-5-g8-g9-651314-001/",
+    "label": "Read more about “Gavetas para Servidor Hp Dl360 Dl380 3.5 g8 g9 651314-001”"
+   }
+  },
+  "7878": {
+   "id": 7878,
+   "name": "Gaveta Servidor Hp 2.5 G8 G9 Dl360 Dl380 Dl320 Ml350 Gen9",
+   "slug": "gaveta-servidor-hp-2-5-g8-g9-dl360-dl380-dl320-ml350-gen9",
+   "url": "https://msserver.com.br/servidor/gaveta-servidor-hp-2-5-g8-g9-dl360-dl380-dl320-ml350-gen9/",
+   "type": "simple",
+   "categories": [
+    "componentes",
+    "gavetas"
+   ],
+   "image": "7878.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Hp-2.5-G8-G9-Dl360-Dl380-Dl320-Ml350-Gen9.png",
+   "imageCount": 1,
+   "price": null,
+   "priceText": "",
+   "onSale": false,
+   "purchasable": false,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [],
+   "shortDescription": "",
+   "button": {
+    "text": "Orçamento",
+    "kind": "link",
+    "url": "https://msserver.com.br/servidor/gaveta-servidor-hp-2-5-g8-g9-dl360-dl380-dl320-ml350-gen9/",
+    "label": "Read more about “Gaveta Servidor Hp 2.5 G8 G9 Dl360 Dl380 Dl320 Ml350 Gen9”"
+   }
+  },
+  "8134": {
+   "id": 8134,
+   "name": "Servidor Dell PowerEdge R740XD",
+   "slug": "servidor-dell-poweredge-r740xd",
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r740xd/",
+   "type": "variable",
+   "categories": [
+    "dell",
+    "escala-nuvem",
+    "rack"
+   ],
+   "image": "8134.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740.jpeg",
+   "imageCount": 3,
+   "price": {
+    "min": 28200,
+    "max": 32500
+   },
+   "priceText": "R$ 28.200,00 – R$ 32.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "128GB",
+      "16GB",
+      "32GB",
+      "64GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r740xd/",
+    "label": "Select options for “Servidor Dell PowerEdge R740XD”"
+   }
+  },
+  "8141": {
+   "id": 8141,
+   "name": "Servidor HP Proliant DL380 G10",
+   "slug": "servidor-hp-proliant-dl380-g10",
+   "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g10/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "rack"
+   ],
+   "image": "8141.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2026/01/Captura-de-Tela-2026-01-22-as-16.05.44.png",
+   "imageCount": 1,
+   "price": {
+    "min": 19500,
+    "max": 19500
+   },
+   "priceText": "R$ 19.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g10/",
+    "label": "Select options for “Servidor HP Proliant DL380 G10”"
+   }
+  },
+  "8147": {
+   "id": 8147,
+   "name": "Servidor HP Proliant DL360 G10",
+   "slug": "servidor-hp-proliant-dl360-g10",
+   "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl360-g10/",
+   "type": "variable",
+   "categories": [
+    "hp",
+    "rack"
+   ],
+   "image": "8147.jpg",
+   "imageSrc": "https://msserver.com.br/wp-content/uploads/2026/01/Captura-de-Tela-2026-01-22-as-15.56.11.png",
+   "imageCount": 3,
+   "price": {
+    "min": 17300,
+    "max": 17500
+   },
+   "priceText": "R$ 17.300,00 – R$ 17.500,00",
+   "onSale": false,
+   "purchasable": true,
+   "inStock": true,
+   "rating": 0,
+   "reviews": 0,
+   "attributes": [
+    {
+     "name": "Memoria RAM",
+     "variations": true,
+     "terms": [
+      "16GB",
+      "32GB",
+      "8GB"
+     ]
+    }
+   ],
+   "shortDescription": "",
+   "button": {
+    "text": "Selecionar opções",
+    "kind": "options",
+    "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl360-g10/",
+    "label": "Select options for “Servidor HP Proliant DL360 G10”"
+   }
+  }
+ },
+ "blog": {
+  "posts": [
+   {
+    "id": 8473,
+    "title": "Quando substituir disco de servidor: 7 sinais",
+    "url": "https://msserver.com.br/quando-substituir-disco-servidor/"
+   },
+   {
+    "id": 8468,
+    "title": "Review servidor PowerEdge: vale a pena para empresas?",
+    "url": "https://msserver.com.br/review-servidor-poweredge-vale-a-pena/"
+   },
+   {
+    "id": 8466,
+    "title": "SSD SAS versus SATA para servidores corporativos",
+    "url": "https://msserver.com.br/ssd-sas-versus-sata-servidores-corporativos/"
+   },
+   {
+    "id": 8461,
+    "title": "Como configurar RAID empresarial sem erro",
+    "url": "https://msserver.com.br/como-configurar-raid-empresarial/"
+   },
+   {
+    "id": 8457,
+    "title": "Dell R740 avaliação: vale a pena em 2026?",
+    "url": "https://msserver.com.br/dell-r740-avaliacao-vale-a-pena-2026/"
+   }
+  ],
+  "categories": [
+   {
+    "id": 4,
+    "name": "Conteúdo Técnico",
+    "url": "https://msserver.com.br/category/conteudo-tecnico/"
+   },
+   {
+    "id": 5,
+    "name": "Otimização",
+    "url": "https://msserver.com.br/category/otimizacao/"
+   },
+   {
+    "id": 1,
+    "name": "Sem categoria",
+    "url": "https://msserver.com.br/category/sem-categoria/"
+   },
+   {
+    "id": 6,
+    "name": "Servidores",
+    "url": "https://msserver.com.br/category/servidores/"
+   },
+   {
+    "id": 7,
+    "name": "Sustentabilidade",
+    "url": "https://msserver.com.br/category/sustentabilidade/"
+   },
+   {
+    "id": 8,
+    "name": "Tendências tecnológicas",
+    "url": "https://msserver.com.br/category/tendencias-tecnologicas/"
+   }
+  ]
+ }
+}

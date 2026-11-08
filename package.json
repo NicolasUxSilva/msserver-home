@@ -13,6 +13,7 @@
     "test:e2e": "playwright test",
     "sync": "node scripts/sync-content.mjs",
     "sync:reviews": "node --env-file-if-exists=.env scripts/sync-google-reviews.mjs",
+    "sync:catalog": "node scripts/sync-catalog.mjs",
     "assets": "node scripts/prepare-assets.mjs"
   },
   "engines": {

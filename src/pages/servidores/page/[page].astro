@@ -1,0 +1,14 @@
+---
+// Páginas seguintes do catálogo geral (/servidores/page/2/ …). O endereço antigo do WordPress,
+// /servidores/?product-page=2, continua funcionando: a primeira página o converte para este.
+import CatalogPage from '../../../components/catalog/CatalogPage.astro';
+import { pagesOf } from '../../../data/catalog';
+
+export function getStaticPaths() {
+  return Array.from({ length: pagesOf('servidores') - 1 }, (_, i) => ({ params: { page: String(i + 2) } }));
+}
+
+const page = Number(Astro.params.page);
+---
+
+<CatalogPage listing="servidores" page={page} />
