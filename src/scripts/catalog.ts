@@ -1,7 +1,7 @@
 import { ORDER_OPTIONS, matches, pageItems, resultCount, stateUrl, type CatalogState, type OrderKey } from '../lib/catalog-shared';
 import { track } from './analytics';
 
-// Catálogo no navegador: busca, filtro por categoria, ordenação e paginação sobre os cards que a
+// Catálogo no navegador: busca, categoria (seletor), ordenação e paginação sobre os cards que a
 // página já trouxe (nenhum card é criado aqui; só mostrados, escondidos e reordenados). O estado
 // fica na URL, como no WooCommerce: página no caminho (/page/2/) e ?orderby=, além de ?tipo= e
 // ?busca=. O endereço antigo de /servidores/ (?product-page=N) é convertido.
@@ -43,11 +43,12 @@ export function initCatalog() {
   const q = root.querySelector<HTMLInputElement>('[data-cat-q]')!;
   const clear = root.querySelector<HTMLButtonElement>('[data-cat-clear]')!;
   const order = root.querySelector<HTMLSelectElement>('[data-cat-order]')!;
-  const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-cat-tipo]')];
+  const tipoSel = root.querySelector<HTMLSelectElement>('select[data-cat-tipo]');
+  const tipoOpts = tipoSel ? [...tipoSel.options].filter((o) => o.value) : [];
   const active = root.querySelector<HTMLElement>('[data-cat-active]')!;
   const brandLinks = [...root.querySelectorAll<HTMLAnchorElement>('.cat-brand')];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  const tipos = new Map(chips.filter((c) => c.dataset.catTipo).map((c) => [c.dataset.catTipo!, c.firstChild!.textContent!.trim()]));
+  const tipos = new Map(tipoOpts.map((o) => [o.value, o.dataset.name!]));
 
   // Foto aparece suave quando termina de carregar.
   grid.querySelectorAll<HTMLImageElement>('.pc-media img').forEach((img) => {
@@ -128,14 +129,16 @@ export function initCatalog() {
       searchAll.href = cfg.searchAll + encodeURIComponent(state.busca.trim());
     }
 
-    // Categorias: a contagem acompanha a busca; sem produtos, a opção fica indisponível.
-    chips.forEach((ch) => {
-      const t = ch.dataset.catTipo!;
-      const n = t ? searched.filter((id) => cfg.products[id].c.includes(t)).length : searched.length;
-      ch.querySelector('[data-count]')!.textContent = String(n);
-      ch.setAttribute('aria-pressed', String(t === state.tipo));
-      ch.disabled = n === 0 && t !== state.tipo;
+    // Categorias: a contagem de cada opção acompanha a busca; sem produtos, a opção fica indisponível.
+    tipoOpts.forEach((o) => {
+      const n = searched.filter((id) => cfg.products[id].c.includes(o.value)).length;
+      o.textContent = `${o.dataset.name} (${n})`;
+      o.disabled = n === 0 && o.value !== state.tipo;
     });
+    if (tipoSel) {
+      tipoSel.value = state.tipo;
+      tipoSel.classList.toggle('is-set', !!state.tipo);
+    }
 
     order.value = state.orderby;
     if (document.activeElement !== q) q.value = state.busca;
@@ -194,14 +197,11 @@ export function initCatalog() {
     render({ history: 'push', animate: true });
     track('catalog_sort', { listing: cfg.key, orderby: state.orderby });
   });
-  chips.forEach((ch) =>
-    ch.addEventListener('click', () => {
-      const t = ch.dataset.catTipo!;
-      state = { ...state, tipo: t === state.tipo ? '' : t, page: 1 };
-      render({ history: 'push', animate: true });
-      track('catalog_filter', { listing: cfg.key, tipo: state.tipo || 'todos' });
-    }),
-  );
+  tipoSel?.addEventListener('change', () => {
+    state = { ...state, tipo: tipoSel.value, page: 1 };
+    render({ history: 'push', animate: true });
+    track('catalog_filter', { listing: cfg.key, tipo: state.tipo || 'todos' });
+  });
   active.addEventListener('click', (e) => {
     const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-remove]');
     if (!btn) return;

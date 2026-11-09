@@ -71,9 +71,9 @@ busca, filtro por categoria, ordenação e troca de página funcionam no navegad
 (`src/scripts/catalog.ts`), com o estado na URL (`/page/N/`, `?orderby=`, `?tipo=`, `?busca=`).
 Os cards de produto levam às páginas do produto no WordPress (variações, carrinho e compra
 continuam lá). A navegação do catálogo segue os dois grupos do menu do site (Servidores: todos,
-Dell, HP, IBM; Componentes: Componentes e suas subcategorias). Os filtros de cada página são as
-categorias reais que separam parte dos produtos dela (em Fans, Baterias etc., todos os produtos
-têm as mesmas categorias, e a página não mostra filtros). Se o sincronismo acusar diferença entre
+Dell, HP, IBM; Componentes: Componentes e suas subcategorias). O seletor "Categoria", ao lado da
+busca e do "Ordenar por", traz as categorias reais que separam parte dos produtos de cada página
+(em Fans, Baterias etc., todos os produtos têm as mesmas categorias, e o seletor não aparece). Se o sincronismo acusar diferença entre
 a contagem publicada de uma categoria e a listagem, ele para sem gravar nada.
 
 ### Avaliações do Google

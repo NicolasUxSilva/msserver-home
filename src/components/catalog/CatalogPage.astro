@@ -117,8 +117,8 @@ const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${
 
     <section class="cat-body" aria-labelledby="resultados">
       <div class="container">
-        {/* Ferramentas: busca, ordenação e categorias. Sem JavaScript, a busca vai para a busca de
-            produtos do WordPress (a mesma do widget original). */}
+        {/* Ferramentas, numa linha só: busca, categoria (seletor que abre a lista) e ordenação. Sem
+            JavaScript, a busca vai para a busca de produtos do WordPress (a mesma do widget original). */}
         <div class="cat-tools">
           <form class="cat-search" action="https://msserver.com.br/" method="get" role="search" data-cat-search>
             <label class="sr-only" for="cat-q">{searchLabel}</label>
@@ -130,7 +130,40 @@ const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${
             </button>
           </form>
 
-          <div class="cat-sort">
+          {
+            /* Categorias reais que separam parte da lista (com a contagem, que acompanha a busca);
+               nas páginas em que todos os produtos têm as mesmas categorias, o seletor não aparece. */
+            filters.length > 0 && (
+              <div class="cat-field">
+                <label for="cat-tipo">Categoria</label>
+                <div class="cat-select">
+                  <select id="cat-tipo" name="tipo" data-cat-tipo>
+                    <option value="" data-name="Todas">
+                      Todas
+                    </option>
+                    {filters.length > 1
+                      ? filters.map((g) => (
+                          <optgroup label={g.label}>
+                            {g.items.map((f) => (
+                              <option value={f.slug} data-name={f.name}>
+                                {`${f.name} (${f.count})`}
+                              </option>
+                            ))}
+                          </optgroup>
+                        ))
+                      : filters[0].items.map((f) => (
+                          <option value={f.slug} data-name={f.name}>
+                            {`${f.name} (${f.count})`}
+                          </option>
+                        ))}
+                  </select>
+                  <Icon name="chevron-down" size={18} />
+                </div>
+              </div>
+            )
+          }
+
+          <div class="cat-field">
             <label for="cat-order">Ordenar por</label>
             <div class="cat-select">
               <select id="cat-order" name="orderby" data-cat-order>
@@ -139,26 +172,6 @@ const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${
               <Icon name="chevron-down" size={18} />
             </div>
           </div>
-
-          {
-            filters.length > 0 && (
-              <div class="cat-filters" role="group" aria-label="Filtrar por categoria" data-cat-filters>
-                <button class="cat-chip" type="button" aria-pressed="true" data-cat-tipo="">
-                  Todos <span data-count>{total}</span>
-                </button>
-                {filters.map((g) => (
-                  <div class="cat-filter-group" role="group" aria-label={g.label}>
-                    <span class="cat-filter-sep" aria-hidden="true" />
-                    {g.items.map((f) => (
-                      <button class="cat-chip" type="button" aria-pressed="false" data-cat-tipo={f.slug}>
-                        {f.name} <span data-count>{f.count}</span>
-                      </button>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            )
-          }
         </div>
 
         <div class="cat-status">

@@ -148,11 +148,14 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
   768 a 1099 px a linha de Componentes quebra (tudo à vista). No celular, uma só linha que desliza
   até a borda, com um traço entre os grupos e a listagem atual centralizada antes da primeira
   pintura.
-- **Ferramentas** num cartão branco sobre a borda da abertura: busca (com limpar; o texto de
-  exemplo termina em reticências em telas estreitas), "Ordenar por" e as categorias em chips
-  (pressionado em tinta escura; contagem que acompanha a busca; sem produtos, indisponível). Só
-  aparecem categorias que separam parte da lista; sem nenhuma, a linha de chips não existe. No
-  celular, os chips deslizam numa linha.
+- **Ferramentas** num cartão branco e enxuto sobre a borda da abertura, numa linha a partir de
+  1100 px: busca (com limpar; o texto de exemplo termina em reticências em telas estreitas),
+  "Categoria" e "Ordenar por", os dois como seletores que abrem a lista (mesmo desenho). O seletor
+  de categoria traz só categorias que separam parte da lista, com a contagem que acompanha a busca
+  (sem produtos, a opção fica indisponível) e os grupos Servidores/Componentes quando há os dois;
+  escolhida uma categoria, ele fica marcado e o filtro aparece como etiqueta removível acima da
+  grade. Sem categoria útil (Fans, Baterias…), só a ordenação. Abaixo de 1100 px a busca ocupa a
+  linha e os seletores ficam lado a lado embaixo; no celular, com o nome de cada um em cima.
 - **Card de produto:** o de "Nossa linha" evoluído: foto em estúdio claro 4:3 com sombra de piso,
   etiquetas (fabricante em índigo, tipo em branco; não repetem uma categoria comum a todos os
   produtos da página), nome completo em Sora (sem corte: nas peças, o código no fim do nome é o que

@@ -129,11 +129,14 @@ test.describe('catálogo: busca, filtros, ordenação e paginação', () => {
     const ids = await visibleIds(page);
     expect(ids.length).toBeGreaterThan(0);
     for (const name of await page.locator('.pc:not([hidden]) .pc-title a').allTextContents()) expect(name.toLowerCase()).toContain('r740');
-    // Filtro por categoria real (contagem acompanha a busca).
-    await page.locator('[data-cat-tipo="fans"]').click();
+    // Categoria escolhida no seletor (só categorias reais; a contagem de cada opção acompanha a busca).
+    await expect(page.locator('#cat-tipo option[value="fans"]')).toHaveText(/^Fans \(\d+\)$/);
+    await expect(page.locator('#cat-tipo option[value="placas-de-rede"]')).toBeDisabled();
+    await page.selectOption('#cat-tipo', 'fans');
     await expect(page).toHaveURL(/tipo=fans/);
     for (const tags of await page.locator('.pc:not([hidden]) .pc-tags').allTextContents()) expect(tags).toContain('Fans');
-    await expect(page.locator('[data-cat-tipo="fans"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#cat-tipo')).toHaveValue('fans');
+    await expect(page.locator('[data-cat-active]')).toContainText('Fans');
     // Sem resultados: aviso e saída.
     await page.fill('#cat-q', 'modelo que não existe');
     await expect(page.locator('[data-cat-empty]')).toBeVisible();
@@ -211,11 +214,10 @@ test.describe('catálogo: busca, filtros, ordenação e paginação', () => {
     await expect(trail.getByRole('link', { name: 'Componentes' })).toHaveAttribute('href', '/categoria-produto/componentes/');
   });
 
-  test('componentes: filtros só com subcategorias reais; categorias de um tipo só ficam sem filtros', async ({ page }) => {
+  test('componentes: seletor de categoria só com subcategorias reais; categorias de um tipo só, sem seletor', async ({ page }) => {
     await page.goto('/categoria-produto/componentes/');
-    const chips = page.locator('[data-cat-tipo]');
-    await expect(chips).toHaveText([/^Todos\s*18$/, /^Dissipadores\s*5$/, /^Fans\s*5$/, /^Fontes\s*4$/, /^Gavetas\s*4$/]);
-    await page.locator('[data-cat-tipo="fans"]').click();
+    await expect(page.locator('#cat-tipo option')).toHaveText(['Todas', 'Dissipadores (5)', 'Fans (5)', 'Fontes (4)', 'Gavetas (4)']);
+    await page.selectOption('#cat-tipo', 'fans');
     await expect(page).toHaveURL(/\/categoria-produto\/componentes\/\?tipo=fans$/);
     // O filtro mostra exatamente os produtos da categoria Fans, na ordem padrão da loja.
     expect(await visibleIds(page)).toEqual(LISTINGS.fans.pages.flat());
@@ -224,7 +226,7 @@ test.describe('catálogo: busca, filtros, ordenação e paginação', () => {
     // Em Fans, Baterias etc. todos os produtos têm as mesmas categorias: nenhum filtro que não filtra.
     for (const key of COMPONENTS.filter((k) => k !== 'componentes')) {
       await page.goto(PATH[key]);
-      await expect(page.locator('[data-cat-filters]')).toHaveCount(0);
+      await expect(page.locator('#cat-tipo')).toHaveCount(0);
       await expect(page.locator('#cat-order option')).toHaveCount(6);
     }
   });
@@ -313,6 +315,10 @@ test.describe('catálogo: página, telas e acessibilidade', () => {
       const cur = (await page.getByRole('navigation', { name: NAV }).locator('[aria-current="page"]').boundingBox())!;
       expect(cur.x).toBeGreaterThanOrEqual(0);
       expect(cur.x + cur.width).toBeLessThanOrEqual(page.viewportSize()!.width);
+      // Ferramentas enxutas: busca, categoria e ordenação, sem linha de chips. No desktop, numa linha só.
+      const tools = await page.locator('.cat-tools > *').evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top)));
+      if (!isMobile) expect(new Set(tools).size).toBe(1);
+      await expect(page.locator('.cat-tools button[aria-pressed]')).toHaveCount(0);
       const cols = await page.locator('[data-cat-grid]').evaluate((g) => getComputedStyle(g).gridTemplateColumns.split(' ').length);
       expect(cols).toBe(isMobile ? 1 : 4);
       const card = page.locator('.pc:not([hidden])').first();

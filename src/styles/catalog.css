@@ -287,12 +287,15 @@
   background: var(--c-paper);
 }
 
+/* Busca, categoria e ordenação numa linha (a partir de 1100 px); abaixo disso, a busca em cima e os
+   dois seletores lado a lado. */
 .cat-tools {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 0.9rem 1rem;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.75rem 1rem;
   margin-top: calc(clamp(2.75rem, 2rem + 2vw, 3.5rem) * -1);
   padding: clamp(0.9rem, 0.7rem + 0.8vw, 1.25rem);
   border: 1px solid var(--c-line);
@@ -373,16 +376,40 @@
   display: none;
 }
 
-.cat-sort {
+.cat-tools:not(:has(.cat-field + .cat-field)) {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.cat-field {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  min-width: 0;
 }
 
-.cat-sort label {
+.cat-field label {
   color: var(--c-ink-3);
   font-size: 0.88rem;
   white-space: nowrap;
+}
+
+@media (max-width: 1099px) {
+  .cat-tools,
+  .cat-tools:not(:has(.cat-field + .cat-field)) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cat-search,
+  .cat-field:only-of-type {
+    grid-column: 1 / -1;
+  }
+
+  .cat-select,
+  .cat-select select {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+  }
 }
 
 .cat-select {
@@ -420,92 +447,10 @@
   pointer-events: none;
 }
 
-/* Filtros por categoria (categorias reais do WooCommerce, com a contagem). */
-.cat-filters {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem;
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--c-line);
-}
-
-.cat-filter-group {
-  display: contents;
-}
-
-/* Divisor entre "Todos", as categorias de servidores e as de componentes. */
-.cat-filter-sep {
-  flex: none;
-  width: 1px;
-  height: 24px;
-  margin-inline: 0.15rem;
-  background: var(--c-line-2);
-}
-
-.cat-chip {
-  display: inline-flex;
-  flex: none;
-  align-items: center;
-  gap: 0.35rem;
-  min-height: 40px;
-  padding: 0 0.65rem;
-  border: 1px solid var(--c-line-2);
-  border-radius: 999px;
-  background: var(--c-surface);
-  color: var(--c-ink-2);
-  font-size: 0.875rem;
-  font-weight: 500;
-  white-space: nowrap;
-  transition:
-    background-color var(--dur-1) var(--ease-out),
-    border-color var(--dur-1) var(--ease-out),
-    color var(--dur-1) var(--ease-out),
-    transform var(--dur-1) var(--ease-out);
-}
-
-.cat-chip span {
-  color: var(--c-ink-3);
-  font-family: var(--f-mono);
-  font-size: 0.74rem;
-}
-
-.cat-chip:hover {
+/* Categoria escolhida: o seletor fica marcado, como o filtro ativo logo abaixo da busca. */
+.cat-select select.is-set {
   border-color: var(--c-ink);
-  color: var(--c-ink);
-}
-
-.cat-chip:active {
-  transform: scale(0.97);
-}
-
-.cat-chip[aria-pressed='true'] {
-  border-color: var(--c-ink);
-  background: var(--c-ink);
-  color: var(--c-surface);
-}
-
-.cat-chip[aria-pressed='true'] span {
-  color: var(--c-orange);
-}
-
-.cat-chip:disabled {
-  border-color: var(--c-line);
-  color: var(--c-line-2);
-  cursor: default;
-}
-
-.cat-chip:disabled span {
-  color: var(--c-line-2);
-}
-
-@media (max-width: 1279px) {
-  .cat-filters {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: thin;
-  }
+  font-weight: 600;
 }
 
 /* ——— Contagem ——— */
@@ -1136,51 +1081,31 @@
 }
 
 /* ——— Telas menores ——— */
-@media (max-width: 767px) {
-  .cat-tools {
-    grid-template-columns: minmax(0, 1fr);
+@media (max-width: 599px) {
+  /* Dois seletores lado a lado: o nome de cada um em cima. */
+  .cat-field {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
   }
 
-  .cat-sort {
-    justify-content: space-between;
-  }
-
-  .cat-select,
-  .cat-select select {
-    flex: 1;
-    width: 100%;
-    min-width: 0;
+  .cat-field label {
+    font-size: 0.78rem;
+    font-weight: 500;
   }
 
   .cat-select select {
+    min-height: 48px;
+    padding-left: 0.85rem;
     font-size: 0.9rem;
     text-overflow: ellipsis;
-  }
-
-  .cat-sort label {
-    font-size: 0.82rem;
-  }
-
-  /* Categorias numa linha que desliza, sem ocupar a tela. */
-  .cat-filters {
-    flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    margin-inline: calc(clamp(0.9rem, 0.7rem + 0.8vw, 1.25rem) * -1);
-    padding-inline: clamp(0.9rem, 0.7rem + 0.8vw, 1.25rem);
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .cat-filters::-webkit-scrollbar {
-    display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pc,
   .pc-media img,
-  .cat-brand,
-  .cat-chip {
+  .cat-brand {
     transition: none;
   }
 }
