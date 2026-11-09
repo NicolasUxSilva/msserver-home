@@ -1,0 +1,4404 @@
+{
+ "source": "http://msserver.com.br/servidor/… (modelo Elementor 4844), capturado em 09/11/2026",
+ "products": {
+  "4827": {
+   "id": 4827,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r210/",
+   "title": "Servidor Dell PowerEdge R210 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 1 Processadores Intel Xeon 3400 Suporte para até 16Gb de memória RAM DDR3 ECC UDIMM 2x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 1x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/R210-SpecSheet.pdf",
+   "h1": "Servidor Dell PowerEdge R210",
+   "breadcrumb": "Home / DELL / Servidor Dell PowerEdge R210",
+   "price": "R$ 3.100,00 – R$ 3.950,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210-1.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 1 Processadores Intel Xeon 3400 Suporte para até 16Gb de memória RAM DDR3 ECC UDIMM 2x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 1x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/R210-SpecSheet.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5423,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 3100,
+      "inStock": true
+     },
+     {
+      "id": 5421,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 3950,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4831": {
+   "id": 4831,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r220/",
+   "title": "Servidor Dell PowerEdge R220 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 1 Processadores Intel Xeon E3-1200 Suporte para até 32Gb de memória RAM DDR3 ECC UDIMM 2x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 2x Slots PCI-e https://i.dell.com/sites/doccontent/shared-content/data-sheets/en/Documents/PowerEdge_R220_Spec_Sheet.pdf Video Canal MS Youtube",
+   "h1": "Servidor Dell PowerEdge R220",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R220",
+   "price": "R$ 3.200,00 – R$ 4.800,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r220.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r220-2.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r220-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 1 Processadores Intel Xeon E3-1200 Suporte para até 32Gb de memória RAM DDR3 ECC UDIMM 2x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 2x Slots PCI-e https://i.dell.com/sites/doccontent/shared-content/data-sheets/en/Documents/PowerEdge_R220_Spec_Sheet.pdf Video Canal MS Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5420,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 3200,
+      "inStock": true
+     },
+     {
+      "id": 5418,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 3700,
+      "inStock": true
+     },
+     {
+      "id": 5419,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 4800,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4858": {
+   "id": 4858,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r320/",
+   "title": "Servidor Dell PowerEdge R230 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2400 Suporte para até 96Gb de memória RAM DDR3 ECC UDIMM 4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 2x Slots PCI-e https://www.xbyte.com/spec-sheet-dell-poweredge-r320 Video Canal MS Youtube",
+   "h1": "Servidor Dell PowerEdge R230",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R230",
+   "price": "R$ 3.500,00 – R$ 4.250,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/Dell-R420.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R320-ABERTA-S.F.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2400 Suporte para até 96Gb de memória RAM DDR3 ECC UDIMM 4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 2x Slots PCI-e https://www.xbyte.com/spec-sheet-dell-poweredge-r320 Video Canal MS Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5417,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 3500,
+      "inStock": true
+     },
+     {
+      "id": 5415,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 4250,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4862": {
+   "id": 4862,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r410/",
+   "title": "Servidor Dell PowerEdge R410 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 / E5600 Suporte para até 128Gb de memória RAM DDR3 ECC 4x Slots para Disco SAS/SATA Hot-Plug 3.5 2x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R410-Spec-Sheet_br.pdf",
+   "h1": "Servidor Dell PowerEdge R410",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R410",
+   "price": "R$ 3.750,00 – R$ 4.450,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/r410.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r410-2.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r410-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 / E5600 Suporte para até 128Gb de memória RAM DDR3 ECC 4x Slots para Disco SAS/SATA Hot-Plug 3.5 2x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R410-Spec-Sheet_br.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5414,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 3750,
+      "inStock": true
+     },
+     {
+      "id": 5412,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 4000,
+      "inStock": true
+     },
+     {
+      "id": 5413,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 4450,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4866": {
+   "id": 4866,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r420/",
+   "title": "Servidor Dell PowerEdge R420 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2400 v2 Suporte para até 192TB de memória RAM DDR3 ECC 4x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://www.dell.com/support/home/pt-br/product-support/product/poweredge-r420/docs",
+   "h1": "Servidor Dell PowerEdge R420",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R420",
+   "price": "R$ 5.300,00 – R$ 6.450,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/Dell-R420.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r420-3.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r420.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2400 v2 Suporte para até 192TB de memória RAM DDR3 ECC 4x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://www.dell.com/support/home/pt-br/product-support/product/poweredge-r420/docs",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5411,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 5300,
+      "inStock": true
+     },
+     {
+      "id": 5409,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 5650,
+      "inStock": true
+     },
+     {
+      "id": 5410,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 6450,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4870": {
+   "id": 4870,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r430/",
+   "title": "Servidor Dell PowerEdge R430 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3 v4 Suporte para até 384TB de memória RAM DDR4 ECC 4x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://www.dell.com/learn/us/en/04/shared-content~data-sheets~en/documents~dell-poweredge-r430-spec-sheet.pdf",
+   "h1": "Servidor Dell PowerEdge R430",
+   "breadcrumb": "Home / DELL / Servidor Dell PowerEdge R430",
+   "price": "R$ 12.500,00 – R$ 15.350,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r430.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r430-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r430-1.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R430-ABERTA-S.F.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3 v4 Suporte para até 384TB de memória RAM DDR4 ECC 4x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://www.dell.com/learn/us/en/04/shared-content~data-sheets~en/documents~dell-poweredge-r430-spec-sheet.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5622,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 12500,
+      "inStock": true
+     },
+     {
+      "id": 5408,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 13000,
+      "inStock": true
+     },
+     {
+      "id": 5406,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 13900,
+      "inStock": true
+     },
+     {
+      "id": 5407,
+      "attributes": {
+       "attribute_pa_memoria-ram": "64gb"
+      },
+      "price": 15350,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4875": {
+   "id": 4875,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r440/",
+   "title": "Servidor Dell PowerEdge R440 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 1TB de memória RAM DDR4 RDIMM / LRDIMM 4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r440-spec-sheet.pdf Video Canal MS Youtube",
+   "h1": "Servidor Dell PowerEdge R440",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R440",
+   "price": "R$ 15.500,00 – R$ 17.700,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 1TB de memória RAM DDR4 RDIMM / LRDIMM 4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r440-spec-sheet.pdf Video Canal MS Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5405,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 15500,
+      "inStock": true
+     },
+     {
+      "id": 5403,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 16800,
+      "inStock": true
+     },
+     {
+      "id": 5404,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 17700,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4879": {
+   "id": 4879,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r510/",
+   "title": "Servidor Dell PowerEdge R510 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 / E5600 Suporte para até 128Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 2x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R510-Spec-Sheet_br.pdf",
+   "h1": "Servidor Dell PowerEdge R510",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R510",
+   "price": "R$ 5.500,00 – R$ 6.200,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-poweredge-r510-server-2-x-six-core-xeon-x5670-12x-3tb-36tb-sas-storage-vmware-esxi-6.5-h700-1174-p.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r730xd.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-poweredge-r510-server-2-x-six-core-xeon-x5670-12x-3tb-36tb-sas-storage-vmware-esxi-6.5-h700-1174-p.jpg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 / E5600 Suporte para até 128Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 2x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R510-Spec-Sheet_br.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5402,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 5500,
+      "inStock": true
+     },
+     {
+      "id": 5400,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 5750,
+      "inStock": true
+     },
+     {
+      "id": 5401,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 6200,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4881": {
+   "id": 4881,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r620/",
+   "title": "Servidor Dell PowerEdge R620 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768TB de memória RAM DDR3 ECC 4x Slots para Disco SAS/SATA Hot-Plug 2.5 4x Slots PCI-e Datasheet Dell R620 Video Canal Youtube",
+   "h1": "Servidor Dell PowerEdge R620",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R620",
+   "price": "R$ 8.950,00 – R$ 9.850,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/R620.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r620-3.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r620-2.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768TB de memória RAM DDR3 ECC 4x Slots para Disco SAS/SATA Hot-Plug 2.5 4x Slots PCI-e Datasheet Dell R620 Video Canal Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5399,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 8950,
+      "inStock": true
+     },
+     {
+      "id": 5397,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 9150,
+      "inStock": true
+     },
+     {
+      "id": 5398,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 9850,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4886": {
+   "id": 4886,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r630/",
+   "title": "Servidor Dell PowerEdge R630 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3 v4 Suporte para até 1.5TB de memória RAM DDR4 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/doccontent/shared-content/data-sheets/en/documents/dell-poweredge-r630-spec-sheet.pdf Video Canal MS YouTube",
+   "h1": "Servidor Dell PowerEdge R630",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R630",
+   "price": "R$ 16.250,00 – R$ 22.800,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r630-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r630.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r630-3.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r630-1.jpg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3 v4 Suporte para até 1.5TB de memória RAM DDR4 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/doccontent/shared-content/data-sheets/en/documents/dell-poweredge-r630-spec-sheet.pdf Video Canal MS YouTube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5600,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 16750,
+      "inStock": true
+     },
+     {
+      "id": 5601,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 16250,
+      "inStock": true
+     },
+     {
+      "id": 5396,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 17800,
+      "inStock": true
+     },
+     {
+      "id": 5394,
+      "attributes": {
+       "attribute_pa_memoria-ram": "64gb"
+      },
+      "price": 18600,
+      "inStock": true
+     },
+     {
+      "id": 5395,
+      "attributes": {
+       "attribute_pa_memoria-ram": "128gb"
+      },
+      "price": 22800,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4891": {
+   "id": 4891,
+   "url": "https://msserver.com.br/servidor/servidor-dell-t110/",
+   "title": "Servidor Dell PowerEdge T110 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para 1x Processadores Intel Xeon 3400 Series Suporte para até 16Gb de memória RAM DDR3 ECC UDDIM 4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/T110-SpecSheet.pdf",
+   "h1": "Servidor Dell PowerEdge T110",
+   "breadcrumb": "Home / DELL / Servidor Dell PowerEdge T110",
+   "price": "R$ 2.800,00 – R$ 3.750,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T110-II-3.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t110-II-2.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para 1x Processadores Intel Xeon 3400 Series Suporte para até 16Gb de memória RAM DDR3 ECC UDDIM 4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/T110-SpecSheet.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5393,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 2800,
+      "inStock": true
+     },
+     {
+      "id": 5391,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 3750,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4900": {
+   "id": 4900,
+   "url": "https://msserver.com.br/servidor/servidor-torre-dell-t330/",
+   "title": "Servidor Dell PowerEdge T330 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para 1x Processadores Intel Xeon E5 1200 v6 Suporte para até 64Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/LA-FY16Q3-377-Dell-PowerEdge-T330-SpecSheet-102015-PT-BR.pdf",
+   "h1": "Servidor Dell PowerEdge T330",
+   "breadcrumb": "Home / Torre / Servidor Dell PowerEdge T330",
+   "price": "R$ 5.200,00 – R$ 6.400,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t330-3.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t330.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t330-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t330-1.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para 1x Processadores Intel Xeon E5 1200 v6 Suporte para até 64Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/LA-FY16Q3-377-Dell-PowerEdge-T330-SpecSheet-102015-PT-BR.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5387,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 5200,
+      "inStock": true
+     },
+     {
+      "id": 5385,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 5600,
+      "inStock": true
+     },
+     {
+      "id": 5386,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 6400,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4905": {
+   "id": 4905,
+   "url": "https://msserver.com.br/servidor/servidor-dell-t410/",
+   "title": "Servidor Dell PowerEdge T410 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 128Gb de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5/2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-T410-Spec-Sheet_br.pdf",
+   "h1": "Servidor Dell PowerEdge T410",
+   "breadcrumb": "Home / Torre / Servidor Dell PowerEdge T410",
+   "price": "R$ 3.550,00 – R$ 4.250,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t410-1.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t410-1.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T410-VERSO-SEM-FUNDO.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T410-ABERTA-E-SEM-FUNDO.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 128Gb de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5/2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-T410-Spec-Sheet_br.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5384,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 3550,
+      "inStock": true
+     },
+     {
+      "id": 5382,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 3800,
+      "inStock": true
+     },
+     {
+      "id": 5383,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 4250,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4909": {
+   "id": 4909,
+   "url": "https://msserver.com.br/servidor/servidor-dell-t420/",
+   "title": "Servidor Dell PowerEdge T320 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para 1x Processadores Intel Xeon E5 2400 Suporte para até 192Gb de memória RAM DDR3 ECC 4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://dl.dell.com/topicspdf/poweredge-t320_owners-manual_en-us.pdf",
+   "h1": "Servidor Dell PowerEdge T320",
+   "breadcrumb": "Home / Torre / Servidor Dell PowerEdge T320",
+   "price": "R$ 4.200,00 – R$ 4.980,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t420-2.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para 1x Processadores Intel Xeon E5 2400 Suporte para até 192Gb de memória RAM DDR3 ECC 4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://dl.dell.com/topicspdf/poweredge-t320_owners-manual_en-us.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5381,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 4200,
+      "inStock": true
+     },
+     {
+      "id": 5379,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 4450,
+      "inStock": true
+     },
+     {
+      "id": 5380,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 4980,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4911": {
+   "id": 4911,
+   "url": "https://msserver.com.br/servidor/servidor-dell-t610/",
+   "title": "Servidor Dell PowerEdge T610 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 256Gb de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5/2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-T610-Spec-Sheet_br.pdf",
+   "h1": "Servidor Dell PowerEdge T610",
+   "breadcrumb": "Home / Torre / Servidor Dell PowerEdge T610",
+   "price": "R$ 4.800,00 – R$ 5.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t610.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t610.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t610-1.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 256Gb de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5/2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-T610-Spec-Sheet_br.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5378,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 4800,
+      "inStock": true
+     },
+     {
+      "id": 5376,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 5050,
+      "inStock": true
+     },
+     {
+      "id": 5377,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 5500,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4914": {
+   "id": 4914,
+   "url": "https://msserver.com.br/servidor/servidor-dell-t620/",
+   "title": "Servidor Dell PowerEdge T620 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5 2600 Suporte para até 768Gb de memória RAM DDR3 ECC 4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/T620-spec-sheet_PT-BR.pdf",
+   "h1": "Servidor Dell PowerEdge T620",
+   "breadcrumb": "Home / Torre / Servidor Dell PowerEdge T620",
+   "price": "R$ 6.250,00 – R$ 6.980,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T620-SEM-FUNDO.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t620-1.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T620-ABERTA.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5 2600 Suporte para até 768Gb de memória RAM DDR3 ECC 4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/T620-spec-sheet_PT-BR.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5375,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 6250,
+      "inStock": true
+     },
+     {
+      "id": 5373,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 6500,
+      "inStock": true
+     },
+     {
+      "id": 5374,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 6980,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4917": {
+   "id": 4917,
+   "url": "https://msserver.com.br/servidor/servidor-dell-t630/",
+   "title": "Servidor Dell PowerEdge T630 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3 v4 Suporte para até 1.5TB de memória RAM DDR4 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/us/Dell-PowerEdge-T630-Spec-Sheet.pdf Video Canal MS YouTube",
+   "h1": "Servidor Dell PowerEdge T630",
+   "breadcrumb": "Home / Torre / Servidor Dell PowerEdge T630",
+   "price": "R$ 12.850,00 – R$ 13.800,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t630-1.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t630.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t630-2.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3 v4 Suporte para até 1.5TB de memória RAM DDR4 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/us/Dell-PowerEdge-T630-Spec-Sheet.pdf Video Canal MS YouTube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5372,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 12850,
+      "inStock": true
+     },
+     {
+      "id": 5370,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 13050,
+      "inStock": true
+     },
+     {
+      "id": 5371,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 13800,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4921": {
+   "id": 4921,
+   "url": "https://msserver.com.br/servidor/servidor-dell-t710/",
+   "title": "Servidor Dell PowerEdge T710 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 384Gb de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123166",
+   "h1": "Servidor Dell PowerEdge T710",
+   "breadcrumb": "Home / DELL / Servidor Dell PowerEdge T710",
+   "price": "R$ 5.200,00 – R$ 6.200,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/servidor-dell-poweredge-t710-2-ti24h-771x1000-1.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dellpet710i2.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 384Gb de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123166",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5369,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 5200,
+      "inStock": true
+     },
+     {
+      "id": 5367,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 5550,
+      "inStock": true
+     },
+     {
+      "id": 5368,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 6200,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4924": {
+   "id": 4924,
+   "url": "https://msserver.com.br/servidor/servidor-torre-dell-t420-2/",
+   "title": "Servidor Dell PowerEdge T420 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5 2400 Suporte para até 192Gb de memória RAM DDR3 ECC 4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/uk/Dell_PowerEdge_T420_Spec_Sheet.pdf",
+   "h1": "Servidor Dell PowerEdge T420",
+   "breadcrumb": "Home / Torre / Servidor Dell PowerEdge T420",
+   "price": "R$ 4.600,00 – R$ 5.300,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T420-SEM-FUNDO.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-t420-_1_.jpg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5 2400 Suporte para até 192Gb de memória RAM DDR3 ECC 4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/uk/Dell_PowerEdge_T420_Spec_Sheet.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5363,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 4600,
+      "inStock": true
+     },
+     {
+      "id": 5361,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 4850,
+      "inStock": true
+     },
+     {
+      "id": 5362,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 5300,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4927": {
+   "id": 4927,
+   "url": "https://msserver.com.br/servidor/servidor-rack-hp-dl360-g6/",
+   "title": "Servidor HP Proliant DL360 G6 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 192Gb de memória RAM DDR3 ECC 4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c01710737",
+   "h1": "Servidor HP Proliant DL360 G6",
+   "breadcrumb": "Home / Rack / Servidor HP Proliant DL360 G6",
+   "price": "R$ 2.800,00 – R$ 3.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 192Gb de memória RAM DDR3 ECC 4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c01710737",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5360,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 2800,
+      "inStock": true
+     },
+     {
+      "id": 5358,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 3050,
+      "inStock": true
+     },
+     {
+      "id": 5359,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 3500,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4930": {
+   "id": 4930,
+   "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g7/",
+   "title": "Servidor HP Proliant DL360 G7 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 192Gb de memória RAM DDR3 ECC 4x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c02206768 Video Canal MS Youtube",
+   "h1": "Servidor HP Proliant DL360 G7",
+   "breadcrumb": "Home / Rack / Servidor HP Proliant DL360 G7",
+   "price": "R$ 3.200,00 – R$ 3.900,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G7-2.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 192Gb de memória RAM DDR3 ECC 4x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c02206768 Video Canal MS Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5357,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 3200,
+      "inStock": true
+     },
+     {
+      "id": 5355,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 3450,
+      "inStock": true
+     },
+     {
+      "id": 5356,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 3900,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4935": {
+   "id": 4935,
+   "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g9/",
+   "title": "Servidor HP Proliant DL360 G9 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3/v4 Suporte para até 3TB de memória RAM DDR4 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04346229.pdf?jumpid=in_lit-psnow-getpdf",
+   "h1": "Servidor HP Proliant DL360 G9",
+   "breadcrumb": "Home / Rack / Servidor HP Proliant DL360 G9",
+   "price": "R$ 12.000,00 – R$ 13.250,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9-1.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9-2.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3/v4 Suporte para até 3TB de memória RAM DDR4 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04346229.pdf?jumpid=in_lit-psnow-getpdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5354,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 12000,
+      "inStock": true
+     },
+     {
+      "id": 5352,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 12500,
+      "inStock": true
+     },
+     {
+      "id": 5353,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 13250,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4939": {
+   "id": 4939,
+   "url": "https://msserver.com.br/servidor/servidor-hp-dl360-g8/",
+   "title": "Servidor HP Proliant DL360 G8 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123167.pdf?jumpid=in_lit-psnow-getpdf",
+   "h1": "Servidor HP Proliant DL360 G8",
+   "breadcrumb": "Home / HP / Servidor HP Proliant DL360 G8",
+   "price": "R$ 5.500,00 – R$ 6.200,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360E-G8-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123167.pdf?jumpid=in_lit-psnow-getpdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5351,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 5500,
+      "inStock": true
+     },
+     {
+      "id": 5349,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 5750,
+      "inStock": true
+     },
+     {
+      "id": 5350,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 6200,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4943": {
+   "id": 4943,
+   "url": "https://msserver.com.br/servidor/servidor-hp-dl360p-g8/",
+   "title": "Servidor HP Proliant DL380P G8 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug / 12x 3.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123238",
+   "h1": "Servidor HP Proliant DL380P G8",
+   "breadcrumb": "Home / Rack / Servidor HP Proliant DL380P G8",
+   "price": "R$ 5.800,00 – R$ 6.400,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/Dl380-G8-4.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8-1.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug / 12x 3.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123238",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5348,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 5800,
+      "inStock": true
+     },
+     {
+      "id": 5346,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 6050,
+      "inStock": true
+     },
+     {
+      "id": 5347,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 6400,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4947": {
+   "id": 4947,
+   "url": "https://msserver.com.br/servidor/servidor-rack-hp-dl160/",
+   "title": "Servidor HP Proliant DL160 G6 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 128Gb de memória RAM DDR3 ECC 4x Slots para Disco SAS/SATA Hot-Plug 3.5 2x Slots PCI-e https://www.hpe.com/psnow/doc/c04284374.pdf?jumpid=in_lit-psnow-getpdf",
+   "h1": "Servidor HP Proliant DL160 G6",
+   "breadcrumb": "Home / Rack / Servidor HP Proliant DL160 G6",
+   "price": "R$ 2.800,00 – R$ 3.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl160-g6-ti24h-771x1000-1.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl160-_1_.jpg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 128Gb de memória RAM DDR3 ECC 4x Slots para Disco SAS/SATA Hot-Plug 3.5 2x Slots PCI-e https://www.hpe.com/psnow/doc/c04284374.pdf?jumpid=in_lit-psnow-getpdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5345,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 2800,
+      "inStock": true
+     },
+     {
+      "id": 5343,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 3050,
+      "inStock": true
+     },
+     {
+      "id": 5344,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 3500,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4950": {
+   "id": 4950,
+   "url": "https://msserver.com.br/servidor/servidor-hp-dl380-g6/",
+   "title": "Servidor HP Proliant DL380 G6 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 192Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c01714639",
+   "h1": "Servidor HP Proliant DL380 G6",
+   "breadcrumb": "Home / Rack / Servidor HP Proliant DL380 G6",
+   "price": "R$ 3.200,00 – R$ 3.980,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-g6-ti24h-771x1000-1.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380-g6-_1_.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380-g6-_2_.jpg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 192Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c01714639",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5342,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 3200,
+      "inStock": true
+     },
+     {
+      "id": 5340,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 3500,
+      "inStock": true
+     },
+     {
+      "id": 5341,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 3980,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4954": {
+   "id": 4954,
+   "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml110-g9/",
+   "title": "Servidor HP Proliant ML110 G9 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para 1 Processador Intel Xeon E5-1600 E5-2600 v3/v4 Suporte para até 256Gb de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123166",
+   "h1": "Servidor HP Proliant ML110 G9",
+   "breadcrumb": "Home / Torre / Servidor HP Proliant ML110 G9",
+   "price": "R$ 4.800,00 – R$ 6.200,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml110-G9.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para 1 Processador Intel Xeon E5-1600 E5-2600 v3/v4 Suporte para até 256Gb de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123166",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5339,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 4800,
+      "inStock": true
+     },
+     {
+      "id": 5337,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 5300,
+      "inStock": true
+     },
+     {
+      "id": 5338,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 6200,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4958": {
+   "id": 4958,
+   "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g8/",
+   "title": "Servidor HP Proliant ML350 G8 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123166",
+   "h1": "Servidor HP Proliant ML350 G8",
+   "breadcrumb": "Home / HP / Servidor HP Proliant ML350 G8",
+   "price": "R$ 5.900,00 – R$ 6.600,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g8.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g8-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g8-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123166",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5333,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 5900,
+      "inStock": true
+     },
+     {
+      "id": 5331,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 6150,
+      "inStock": true
+     },
+     {
+      "id": 5332,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 6600,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4962": {
+   "id": 4962,
+   "url": "https://msserver.com.br/servidor/servidor-torre-hp-ml350-g9/",
+   "title": "Servidor HP Proliant ML350 G9 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5 2600 v3 /v4 Suporte para até 1.5TB de memória RAM DDR4 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 8x Slots PCI-e https://www.hpe.com/psnow/doc/c04346270",
+   "h1": "Servidor HP Proliant ML350 G9",
+   "breadcrumb": "Home / Torre / Servidor HP Proliant ML350 G9",
+   "price": "R$ 11.500,00 – R$ 13.200,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g9.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g9-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g9-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5 2600 v3 /v4 Suporte para até 1.5TB de memória RAM DDR4 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 8x Slots PCI-e https://www.hpe.com/psnow/doc/c04346270",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5336,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 11500,
+      "inStock": true
+     },
+     {
+      "id": 5334,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 12250,
+      "inStock": true
+     },
+     {
+      "id": 5335,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 13200,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4966": {
+   "id": 4966,
+   "url": "https://msserver.com.br/servidor/servidor-hp-ml310-g8/",
+   "title": "Servidor HP Proliant ML310 G8 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para 1 processador Celeron/Pentium/i3 Suporte para até 32Gb de memória RAM DDR3 ECC UDDIM 4x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://www.hpe.com/psnow/doc/c04128120",
+   "h1": "Servidor HP Proliant ML310 G8",
+   "breadcrumb": "Home / Torre / Servidor HP Proliant ML310 G8",
+   "price": "R$ 3.900,00 – R$ 4.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml310-g8-_1_.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml310-g8.jpg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para 1 processador Celeron/Pentium/i3 Suporte para até 32Gb de memória RAM DDR3 ECC UDDIM 4x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://www.hpe.com/psnow/doc/c04128120",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5330,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 3900,
+      "inStock": true
+     },
+     {
+      "id": 5328,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 4500,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4970": {
+   "id": 4970,
+   "url": "https://msserver.com.br/servidor/servidor-ibm-x3550-m4/",
+   "title": "Servidor IBM x3550 M4 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5-2600 v2 Suporte para até 384Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://lenovopress.lenovo.com/lp0038.pdf",
+   "h1": "Servidor IBM x3550 M4",
+   "breadcrumb": "Home / Rack / Servidor IBM x3550 M4",
+   "price": "R$ 5.800,00 – R$ 6.450,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3550-m4.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3550-m4-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3550-m4-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5-2600 v2 Suporte para até 384Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://lenovopress.lenovo.com/lp0038.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5325,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 5800,
+      "inStock": true
+     },
+     {
+      "id": 5323,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 6050,
+      "inStock": true
+     },
+     {
+      "id": 5324,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 6450,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4974": {
+   "id": 4974,
+   "url": "https://msserver.com.br/servidor/servidor-ibm-x3650-m3/",
+   "title": "Servidor IBM x3650 M3 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 / E5600 Suporte para até 192Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://www.ibm.com/common/ssi/rep_ca/9/872/ENUSAG10-0019/ENUSAG10-0019.PDF",
+   "h1": "Servidor IBM x3650 M3",
+   "breadcrumb": "Home / IBM / Servidor IBM x3650 M3",
+   "price": "R$ 3.250,00 – R$ 3.990,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m3-.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m3-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 / E5600 Suporte para até 192Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://www.ibm.com/common/ssi/rep_ca/9/872/ENUSAG10-0019/ENUSAG10-0019.PDF",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5322,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 3250,
+      "inStock": true
+     },
+     {
+      "id": 5320,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 3500,
+      "inStock": true
+     },
+     {
+      "id": 5321,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 3990,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4978": {
+   "id": 4978,
+   "url": "https://msserver.com.br/servidor/servidor-ibm-x3650-m4/",
+   "title": "Servidor IBM x3650 M4 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 384Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 2x Slots PCI-e https://www.ibm.com/common/ssi/rep_ca/4/897/ENUS112-144/ENUS112-144.PDF",
+   "h1": "Servidor IBM x3650 M4",
+   "breadcrumb": "Home / Rack / Servidor IBM x3650 M4",
+   "price": "R$ 5.200,00 – R$ 5.800,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m4.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m4-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m4-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 384Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 2x Slots PCI-e https://www.ibm.com/common/ssi/rep_ca/4/897/ENUS112-144/ENUS112-144.PDF",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5319,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 5200,
+      "inStock": true
+     },
+     {
+      "id": 5317,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 5500,
+      "inStock": true
+     },
+     {
+      "id": 5318,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 5800,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4986": {
+   "id": 4986,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r910/",
+   "title": "Servidor Dell PowerEdge R910 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 4 Processadores Intel Xeon E7-4800 / E7-8800 de 10 nícleos Suporte para até 1TB de memória RAM DDR3 ECC 6x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R910-Spec-Sheet_br.pdf",
+   "h1": "Servidor Dell PowerEdge R910",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R910",
+   "price": "R$ 12.050,00 – R$ 13.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r910-1.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r910.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r910-2.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 4 Processadores Intel Xeon E7-4800 / E7-8800 de 10 nícleos Suporte para até 1TB de memória RAM DDR3 ECC 6x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R910-Spec-Sheet_br.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5557,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 12050,
+      "inStock": true
+     },
+     {
+      "id": 5316,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 12300,
+      "inStock": true
+     },
+     {
+      "id": 5314,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 12780,
+      "inStock": true
+     },
+     {
+      "id": 5315,
+      "attributes": {
+       "attribute_pa_memoria-ram": "64gb"
+      },
+      "price": 13500,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4990": {
+   "id": 4990,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r740/",
+   "title": "Servidor Dell PowerEdge R740 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf Video Canal MSServer Youtube",
+   "h1": "Servidor Dell PowerEdge R740",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R740",
+   "price": "R$ 23.500,00 – R$ 26.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-1.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-2.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf Video Canal MSServer Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5556,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 23500,
+      "inStock": true
+     },
+     {
+      "id": 5310,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 24000,
+      "inStock": true
+     },
+     {
+      "id": 5311,
+      "attributes": {
+       "attribute_pa_memoria-ram": "64gb"
+      },
+      "price": 25000,
+      "inStock": true
+     },
+     {
+      "id": 5312,
+      "attributes": {
+       "attribute_pa_memoria-ram": "128gb"
+      },
+      "price": 26500,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "4994": {
+   "id": 4994,
+   "url": "https://msserver.com.br/servidor/servidor-dell-r610/",
+   "title": "Servidor Dell Poweredge R610 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 / E5600 Suporte para até 192Gb de memória RAM DDR3 ECC 6x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R610-Spec-Sheet_br.pdf",
+   "h1": "Servidor Dell Poweredge R610",
+   "breadcrumb": "Home / DELL / Servidor Dell Poweredge R610",
+   "price": "R$ 4.500,00 – R$ 5.250,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R610-.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R610-VERSO-S.F.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R610-ABERTA-S.F.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 / E5600 Suporte para até 192Gb de memória RAM DDR3 ECC 6x Slots para Disco SFF SAS/SATA Hot-Plug 2x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R610-Spec-Sheet_br.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5551,
+      "attributes": {
+       "attribute_memoria-ram": "8GB"
+      },
+      "price": 4500,
+      "inStock": true
+     },
+     {
+      "id": 5277,
+      "attributes": {
+       "attribute_memoria-ram": "16GB"
+      },
+      "price": 4750,
+      "inStock": true
+     },
+     {
+      "id": 5278,
+      "attributes": {
+       "attribute_memoria-ram": "32GB"
+      },
+      "price": 4980,
+      "inStock": true
+     },
+     {
+      "id": 5279,
+      "attributes": {
+       "attribute_memoria-ram": "64GB"
+      },
+      "price": 5250,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "8GB",
+       "label": "8GB"
+      },
+      {
+       "value": "16GB",
+       "label": "16GB"
+      },
+      {
+       "value": "32GB",
+       "label": "32GB"
+      },
+      {
+       "value": "64GB",
+       "label": "64GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "5605": {
+   "id": 5605,
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730/",
+   "title": "Servidor Dell PowerEdge R730 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3 v4 Suporte para até 1.5TB de memória RAM DDR4 ECC 8x Slots para Disco SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/Dell-PowerEdge-R730-Spec-Sheet-PT-BR-HR.pdf",
+   "h1": "Servidor Dell PowerEdge R730",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R730",
+   "price": "R$ 18.500,00 – R$ 23.950,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/HTB1M4KrXAL0gK0jSZFtq6xQCXXaa.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R730-ABERTA-S.F.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3 v4 Suporte para até 1.5TB de memória RAM DDR4 ECC 8x Slots para Disco SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/Dell-PowerEdge-R730-Spec-Sheet-PT-BR-HR.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5606,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 19000,
+      "inStock": true
+     },
+     {
+      "id": 5607,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 18500,
+      "inStock": true
+     },
+     {
+      "id": 5608,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 21500,
+      "inStock": true
+     },
+     {
+      "id": 5609,
+      "attributes": {
+       "attribute_pa_memoria-ram": "64gb"
+      },
+      "price": 22600,
+      "inStock": true
+     },
+     {
+      "id": 5610,
+      "attributes": {
+       "attribute_pa_memoria-ram": "128gb"
+      },
+      "price": 23950,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "5614": {
+   "id": 5614,
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r730-xd/",
+   "title": "Servidor Dell PowerEdge R730 XD - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3 v4 Suporte para até 1.5TB de memória RAM DDR4 ECC 12x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/Dell-PowerEdge-R730-Spec-Sheet-PT-BR-HR.pdf",
+   "h1": "Servidor Dell PowerEdge R730 XD",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R730 XD",
+   "price": "R$ 20.500,00 – R$ 25.450,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/HTB1M4KrXAL0gK0jSZFtq6xQCXXaa.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R730-ABERTA-S.F.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3 v4 Suporte para até 1.5TB de memória RAM DDR4 ECC 12x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/Dell-PowerEdge-R730-Spec-Sheet-PT-BR-HR.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5615,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 20500,
+      "inStock": true
+     },
+     {
+      "id": 5616,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 22000,
+      "inStock": true
+     },
+     {
+      "id": 5617,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 23000,
+      "inStock": true
+     },
+     {
+      "id": 5618,
+      "attributes": {
+       "attribute_pa_memoria-ram": "64gb"
+      },
+      "price": 24100,
+      "inStock": true
+     },
+     {
+      "id": 5619,
+      "attributes": {
+       "attribute_pa_memoria-ram": "128gb"
+      },
+      "price": 25450,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "5632": {
+   "id": 5632,
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640/",
+   "title": "Servidor Dell PowerEdge R640 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Product_Docs/en/poweredge-r640-spec-sheet.pdf",
+   "h1": "Servidor Dell PowerEdge R640",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R640",
+   "price": "R$ 20.500,00 – R$ 23.900,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/R640.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R640-VERSO.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R640-AVERTE-S.F.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Product_Docs/en/poweredge-r640-spec-sheet.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5633,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 20500,
+      "inStock": true
+     },
+     {
+      "id": 5634,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 21250,
+      "inStock": true
+     },
+     {
+      "id": 5635,
+      "attributes": {
+       "attribute_pa_memoria-ram": "64gb"
+      },
+      "price": 22800,
+      "inStock": true
+     },
+     {
+      "id": 5636,
+      "attributes": {
+       "attribute_pa_memoria-ram": "128gb"
+      },
+      "price": 23900,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "5642": {
+   "id": 5642,
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r720/",
+   "title": "Servidor Dell PowerEdge R720 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768TB de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/Dell-PowerEdge-R720-Spec-Sheet_PT-BR.pdf Video Canal MS Youtube",
+   "h1": "Servidor Dell PowerEdge R720",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R720",
+   "price": "R$ 9.950,00 – R$ 11.000,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/Dell-Poweredge-r720-front-1.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R720-ABERTA-S.F.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R720-VERSO.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768TB de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/Dell-PowerEdge-R720-Spec-Sheet_PT-BR.pdf Video Canal MS Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5643,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 9950,
+      "inStock": true
+     },
+     {
+      "id": 5644,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 10350,
+      "inStock": true
+     },
+     {
+      "id": 5645,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 11000,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "5649": {
+   "id": 5649,
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r520/",
+   "title": "Servidor Dell PowerEdge R520 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2400 v2 Suporte para até 128GB de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://www.dell.com/support/manuals/pt-br/poweredge-r520/r520systemsownersmanual/technical-specifications?guid=guid-6e6de978-513e-4bc1-a7f2-dc25b303dbe1&lang=en-us",
+   "h1": "Servidor Dell PowerEdge R520",
+   "breadcrumb": "Home / DELL / Servidor Dell PowerEdge R520",
+   "price": "R$ 7.500,00 – R$ 8.300,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/r520-600x584-1.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/r520-front-771x1000-1.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2400 v2 Suporte para até 128GB de memória RAM DDR3 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://www.dell.com/support/manuals/pt-br/poweredge-r520/r520systemsownersmanual/technical-specifications?guid=guid-6e6de978-513e-4bc1-a7f2-dc25b303dbe1&lang=en-us",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5650,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 7500,
+      "inStock": true
+     },
+     {
+      "id": 5651,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 7850,
+      "inStock": true
+     },
+     {
+      "id": 5652,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 8300,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "5655": {
+   "id": 5655,
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r530/",
+   "title": "Servidor Dell PowerEdge R530 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v4 Suporte para até 384GB de memória RAM DDR4 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/aa/Dell-PowerEdge-R530-Spec-Sheet.pdf",
+   "h1": "Servidor Dell PowerEdge R530",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R530",
+   "price": "R$ 14.500,00 – R$ 21.450,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/r530-600x584-1.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v4 Suporte para até 384GB de memória RAM DDR4 ECC 8x Slots para Disco SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/aa/Dell-PowerEdge-R530-Spec-Sheet.pdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5656,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 19000,
+      "inStock": true
+     },
+     {
+      "id": 5657,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 14500,
+      "inStock": true
+     },
+     {
+      "id": 5658,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 15800,
+      "inStock": true
+     },
+     {
+      "id": 5659,
+      "attributes": {
+       "attribute_pa_memoria-ram": "64gb"
+      },
+      "price": 17500,
+      "inStock": true
+     },
+     {
+      "id": 5660,
+      "attributes": {
+       "attribute_pa_memoria-ram": "128gb"
+      },
+      "price": 21450,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "5662": {
+   "id": 5662,
+   "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380p-g8/",
+   "title": "Servidor HP Proliant DL380P G8 v2 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768Gb de memória RAM DDR3 ECC 12x Slots para Disco SFF SAS/SATA Hot-Plug / 3.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123238",
+   "h1": "Servidor HP Proliant DL380P G8 v2",
+   "breadcrumb": "Home / Rack / Servidor HP Proliant DL380P G8 v2",
+   "price": "R$ 6.800,00 – R$ 7.800,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380p-g8-gen8-12x-lff-2x-e5-2650l-v2-64gb-2x-kieszen.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v2 Suporte para até 768Gb de memória RAM DDR3 ECC 12x Slots para Disco SFF SAS/SATA Hot-Plug / 3.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04123238",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5663,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 6800,
+      "inStock": true
+     },
+     {
+      "id": 5664,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 7050,
+      "inStock": true
+     },
+     {
+      "id": 5665,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 7800,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "5668": {
+   "id": 5668,
+   "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g7/",
+   "title": "Servidor HP Proliant DL380 G7 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 384Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04199811",
+   "h1": "Servidor HP Proliant DL380 G7",
+   "breadcrumb": "Home / Rack / Servidor HP Proliant DL380 G7",
+   "price": "R$ 3.800,00 – R$ 4.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-g6-ti24h-771x1000-1.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380-g6-_1_.jpg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380-g6-_2_.jpg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E5500 E5600 Suporte para até 384Gb de memória RAM DDR3 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04199811",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5669,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 3800,
+      "inStock": true
+     },
+     {
+      "id": 5670,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 4100,
+      "inStock": true
+     },
+     {
+      "id": 5671,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 4500,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "5672": {
+   "id": 5672,
+   "url": "https://msserver.com.br/servidor/hp-dl380-g9/",
+   "title": "Servidor HP Proliant DL380 G9 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3/v4 Suporte para até 3TB de memória RAM DDR4 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04346247 Video Canal MS Youtube",
+   "h1": "Servidor HP Proliant DL380 G9",
+   "breadcrumb": "Home / Rack / Servidor HP Proliant DL380 G9",
+   "price": "R$ 13.500,00 – R$ 16.900,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-gen9-ti24h-771x1000-1.jpg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon E2600 v3/v4 Suporte para até 3TB de memória RAM DDR4 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04346247 Video Canal MS Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 5673,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 13500,
+      "inStock": true
+     },
+     {
+      "id": 5674,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 14000,
+      "inStock": true
+     },
+     {
+      "id": 5675,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 16900,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7502": {
+   "id": 7502,
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r640-2/",
+   "title": "Servidor Dell PowerEdge R640 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM 4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r440-spec-sheet.pdf Video Canal MS Youtube",
+   "h1": "Servidor Dell PowerEdge R640",
+   "breadcrumb": "Home / DELL / Servidor Dell PowerEdge R640",
+   "price": "R$ 22.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-2.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-1.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM 4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r440-spec-sheet.pdf Video Canal MS Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 7834,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 22500,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "32gb",
+       "label": "32GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7529": {
+   "id": 7529,
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r540-copy/",
+   "title": "Servidor Dell PowerEdge R540 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf Video Canal MSServer Youtube",
+   "h1": "Servidor Dell PowerEdge R540",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R540",
+   "price": "R$ 20.500,00 – R$ 23.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-1.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-2.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM 8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf Video Canal MSServer Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 7530,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 20500,
+      "inStock": true
+     },
+     {
+      "id": 7531,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 21000,
+      "inStock": true
+     },
+     {
+      "id": 7532,
+      "attributes": {
+       "attribute_pa_memoria-ram": "64gb"
+      },
+      "price": 22000,
+      "inStock": true
+     },
+     {
+      "id": 7533,
+      "attributes": {
+       "attribute_pa_memoria-ram": "128gb"
+      },
+      "price": 23500,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7820": {
+   "id": 7820,
+   "url": "https://msserver.com.br/servidor/bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800/",
+   "title": "Bateria Dell nu209 fr463 u8735 perc-5-6-h700-h800 - MSSERVER",
+   "description": "bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800",
+   "h1": "Bateria Dell nu209 fr463 u8735 perc-5-6-h700-h800",
+   "breadcrumb": "Home / Baterias / Bateria Dell nu209 fr463 u8735 perc-5-6-h700-h800",
+   "price": "R$ 350,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800-2.png"
+   ],
+   "text": "Bateria para controladora Dell Perc6 – H700 – H800",
+   "form": {
+    "type": "simple",
+    "fields": [
+     "quantity",
+     "add-to-cart"
+    ],
+    "button": "Orçamento",
+    "addToCart": 7820
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7822": {
+   "id": 7822,
+   "url": "https://msserver.com.br/servidor/bateria-dell-para-controladoras-perc-h710-h810-h730-h830-070k80/",
+   "title": "Bateria-Dell-para-controladoras-perc-h710-h810-h730-h830-070k80 - MSSERVER",
+   "description": "Bateria dell para controladoras perc h710-h810-h730-h830-070k80",
+   "h1": "Bateria-Dell-para-controladoras-perc-h710-h810-h730-h830-070k80",
+   "breadcrumb": "Home / Baterias / Bateria-Dell-para-controladoras-perc-h710-h810-h730-h830-070k80",
+   "price": "R$ 430,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/bateria-dell-para-controladoras-perc-h710-h810-h730-h830-070k80.png"
+   ],
+   "text": "Bateria dell para controladoras perc h710-h810-h730-h830-070k80",
+   "form": {
+    "type": "simple",
+    "fields": [
+     "quantity",
+     "add-to-cart"
+    ],
+    "button": "Orçamento",
+    "addToCart": 7822
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7824": {
+   "id": 7824,
+   "url": "https://msserver.com.br/servidor/bateria-para-hp-p840p440-sl90030-4/",
+   "title": "Bateria para hp p840p440 sl90030-4 - MSSERVER",
+   "description": "Bateria para hp p840p440 sl90030-4",
+   "h1": "Bateria para hp p840p440 sl90030-4",
+   "breadcrumb": "Home / Baterias / Bateria para hp p840p440 sl90030-4",
+   "price": "R$ 950,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/bateria-para-hp-p840p440-sl90030-4.png"
+   ],
+   "text": "Bateria para hp p840p440 sl90030-4",
+   "form": {
+    "type": "simple",
+    "fields": [
+     "quantity",
+     "add-to-cart"
+    ],
+    "button": "Orçamento",
+    "addToCart": 7824
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7826": {
+   "id": 7826,
+   "url": "https://msserver.com.br/servidor/placa-de-rede-dual-giga-intel-82576eb-e1g42et-pcie/",
+   "title": "Placa de rede dual giga intel-82576eb-e1g42et-pcie - MSSERVER",
+   "description": "Placa de rede dual giga intel-82576eb-e1g42et-pcie",
+   "h1": "Placa de rede dual giga intel-82576eb-e1g42et-pcie",
+   "breadcrumb": "Home / Placas de Rede / Placa de rede dual giga intel-82576eb-e1g42et-pcie",
+   "price": "R$ 350,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/placa-de-redeplaca-rede-dual-giga-intel-82576eb-e1g42et-pcie.png"
+   ],
+   "text": "Placa de rede dual giga intel-82576eb-e1g42et-pcie",
+   "form": {
+    "type": "simple",
+    "fields": [
+     "quantity",
+     "add-to-cart"
+    ],
+    "button": "Orçamento",
+    "addToCart": 7826
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7828": {
+   "id": 7828,
+   "url": "https://msserver.com.br/servidor/placa-rede-servidor-10gb-pcie-x8-dual-port-sfp-bcm57810s/",
+   "title": "Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s - MSSERVER",
+   "description": "Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s",
+   "h1": "Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s",
+   "breadcrumb": "Home / Placas de Rede / Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s",
+   "price": "R$ 950,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/placa-rede-servidor-10gb-pcie-x8-dual-port-sfp-bcm57810s.png"
+   ],
+   "text": "Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s",
+   "form": {
+    "type": "simple",
+    "fields": [
+     "quantity",
+     "add-to-cart"
+    ],
+    "button": "Orçamento",
+    "addToCart": 7828
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7842": {
+   "id": 7842,
+   "url": "https://msserver.com.br/servidor/dissipador-heatsink-dl380-g8/",
+   "title": "Dissipador Heatsink DL380 G8 - MSSERVER",
+   "description": "HP HEATSINK FOR HP PROLIANT DL380P G8 / DL388P G8 / DL560 G8 662522-001 PN: 662522-001 HP HEATSINK FOR HP PROLIANT DL380P G8 / DL388P G8 / DL560 G8 - LATCH TYPE 60W-135W MANUFACTURER: HP PART NUMBER: 662522-001 COMPATIBILITY: HP PROLIANT DL380P G8 / DL388P G8 / DL560 G8 ADDITIONAL INFORMATION: LATCH TYPE HEATSINK, 60W-135W",
+   "h1": "Dissipador Heatsink DL380 G8",
+   "breadcrumb": "Home / Componentes / Dissipador Heatsink DL380 G8",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/DISSIPADOR-HP-DL-380-2.png"
+   ],
+   "text": "HP HEATSINK FOR HP PROLIANT DL380P G8 / DL388P G8 / DL560 G8 662522-001 PN: 662522-001 HP HEATSINK FOR HP PROLIANT DL380P G8 / DL388P G8 / DL560 G8 – LATCH TYPE 60W-135W MANUFACTURER: HP PART NUMBER: 662522-001 COMPATIBILITY: HP PROLIANT DL380P G8 / DL388P G8 / DL560 G8 ADDITIONAL INFORMATION: LATCH TYPE HEATSINK, 60W-135W",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7844": {
+   "id": 7844,
+   "url": "https://msserver.com.br/servidor/dissipador-servidor-heatsink-dell-powerdge-r730/",
+   "title": "Dissipador Servidor Heatsink Dell Powerdge R730 - MSSERVER",
+   "description": "0YY2R8 - Melhore o resfriamento eficaz do seu servidor Dell Poweredge R730 e R730XD. Projetado para proporcionar um controle térmico otimizado, este componente crucial mantém os elementos internos em temperatura ideal, assegurando operação estável e prolongando a vida útil do sistema. Com design robusto e materiais de alta qualidade, este dissipador é uma escolha confiável para",
+   "h1": "Dissipador Servidor Heatsink Dell Powerdge R730",
+   "breadcrumb": "Home / Sem categoria / Dissipador Servidor Heatsink Dell Powerdge R730",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/Dissipador-Servidor-Heatsink-Dell-Powerdge-R730-1.png"
+   ],
+   "text": "0YY2R8 – Melhore o resfriamento eficaz do seu servidor Dell Poweredge R730 e R730XD. Projetado para proporcionar um controle térmico otimizado, este componente crucial mantém os elementos internos em temperatura ideal, assegurando operação estável e prolongando a vida útil do sistema. Com design robusto e materiais de alta qualidade, este dissipador é uma escolha confiável para maximizar o desempenho do seu servidor. Detalhes do Produto Modelo: 0YY2R8 Partnumber: YY2R8 Tipo: Heatsink Compatibilidade: Servidores Dell PowerEdge R730, R730XD",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7846": {
+   "id": 7846,
+   "url": "https://msserver.com.br/servidor/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1/",
+   "title": "Dissipador Dell Poweredge R630 heatsink dell 0y8mc1 - MSSERVER",
+   "description": "Dissipador Dell R630 HeatSink 0Y8MC1 Características: Marca: Dell Modelo: Poweredge R630 Part Number: 0Y8MC1",
+   "h1": "Dissipador Dell Poweredge R630 heatsink dell 0y8mc1",
+   "breadcrumb": "Home / Componentes / Dissipador Dell Poweredge R630 heatsink dell 0y8mc1",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1-2.png"
+   ],
+   "text": "Dissipador Dell R630 HeatSink 0Y8MC1 Características: Marca: Dell Modelo: Poweredge R630 Part Number: 0Y8MC1",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7848": {
+   "id": 7848,
+   "url": "https://msserver.com.br/servidor/dissipador-dell-r740-r740xd-00f8nv-0f8nv/",
+   "title": "Dissipador Dell R740 R740xd 00f8nv-0f8nv - MSSERVER",
+   "description": "Dissipador DELL R640 R740 r740xd heatsink heatsink 0F8NV CN- 00F8NV CN- 0C6R9H",
+   "h1": "Dissipador Dell R740 R740xd 00f8nv-0f8nv",
+   "breadcrumb": "Home / Componentes / Dissipador Dell R740 R740xd 00f8nv-0f8nv",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-00f8nv-0f8nv-2.png"
+   ],
+   "text": "Dissipador DELL R640 R740 r740xd heatsink heatsink 0F8NV CN- 00F8NV CN- 0C6R9H",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7850": {
+   "id": 7850,
+   "url": "https://msserver.com.br/servidor/dissipador-dell-r640/",
+   "title": "Dissipador Dell R640 - MSSERVER",
+   "description": "Dissipador DELL R640 R740 r740xd heatsink heatsink 0F8NV CN- 00F8NV CN- 0C6R9H",
+   "h1": "Dissipador Dell R640",
+   "breadcrumb": "Home / Componentes / Dissipador Dell R640",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-0f8nv-00f8nv-0trjt7-trjt7.png"
+   ],
+   "text": "Dissipador DELL R640 R740 r740xd heatsink heatsink 0F8NV CN- 00F8NV CN- 0C6R9H",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7852": {
+   "id": 7852,
+   "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj/",
+   "title": "Fan Dell poweredge R530 R530xd 03d7gy-3d7gy-0r27nj-r27nj - MSSERVER",
+   "description": "Fan DELL PowerEdge R530 R530XD 03D7GY 3D7GY 0R27NJ R27NJ 0MRX6C MRX6C 0WFXP8 WFXP8 * Somos GPC | PECASDATACENTER Maior estoque de peças para seu DataCenter",
+   "h1": "Fan Dell poweredge R530 R530xd 03d7gy-3d7gy-0r27nj-r27nj",
+   "breadcrumb": "Home / Componentes / Fan Dell poweredge R530 R530xd 03d7gy-3d7gy-0r27nj-r27nj",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj.png"
+   ],
+   "text": "Fan DELL PowerEdge R530 R530XD 03D7GY 3D7GY 0R27NJ R27NJ 0MRX6C MRX6C 0WFXP8 WFXP8 * Somos GPC | PECASDATACENTER Maior estoque de peças para seu DataCenter",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7854": {
+   "id": 7854,
+   "url": "https://msserver.com.br/servidor/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0/",
+   "title": "Fan Dell poweredge R620 R320 R630 gfc0412ds-hr6c0-0hr6c0 - MSSERVER",
+   "description": "Modelo: DELL POWEREDGE R620 R630 Part Number: 014VG6 14VG6 / 02X0NG / F1YN7 / GFC0112DC Conector: 6 Vias",
+   "h1": "Fan Dell poweredge R620 R320 R630 gfc0412ds-hr6c0-0hr6c0",
+   "breadcrumb": "Home / Componentes / Fan Dell poweredge R620 R320 R630 gfc0412ds-hr6c0-0hr6c0",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0.png"
+   ],
+   "text": "Modelo: DELL POWEREDGE R620 R630 Part Number: 014VG6 14VG6 / 02X0NG / F1YN7 / GFC0112DC Conector: 6 Vias",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7856": {
+   "id": 7856,
+   "url": "https://msserver.com.br/servidor/fan-dell-r520-05fx8x-5fx8x/",
+   "title": "Fan Dell R520 05fx8x-5fx8x - MSSERVER",
+   "description": "Marca Dell Modelo 5FX8X 05FX8X",
+   "h1": "Fan Dell R520 05fx8x-5fx8x",
+   "breadcrumb": "Home / Sem categoria / Fan Dell R520 05fx8x-5fx8x",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-r520-05fx8x-5fx8x.png"
+   ],
+   "text": "Marca Dell Modelo 5FX8X 05FX8X",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7858": {
+   "id": 7858,
+   "url": "https://msserver.com.br/servidor/fan-dell-r640-0kg52t-0cy92p-kg52t-cy92p/",
+   "title": "Fan Dell R640 0kg52t-0cy92p-kg52t-cy92p - MSSERVER",
+   "description": "Fan Dell R640 0kg52t-0cy92p-kg52t-cy92p",
+   "h1": "Fan Dell R640 0kg52t-0cy92p-kg52t-cy92p",
+   "breadcrumb": "Home / Fans / Fan Dell R640 0kg52t-0cy92p-kg52t-cy92p",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-r640-r740-0kg52t-0cy92p-kg52t-cy92p-2.png"
+   ],
+   "text": "Fan Dell R640 0kg52t-0cy92p-kg52t-cy92p",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7860": {
+   "id": 7860,
+   "url": "https://msserver.com.br/servidor/fan-hp-dl360-g9-g10-pn-750688-001-775415-001/",
+   "title": "Fan Hp DL360 g9 g10 pn-750688-001-775415-001 - MSSERVER",
+   "description": "Modelo: HP DL360 DL360P DL360E G9 Part Number: V40W12BS1M5-08A033 / PFM0412HS DC12V 1.50A / SPS: 775415-001 / 750688-001 / 792851-001 Conector: 6 Vias",
+   "h1": "Fan Hp DL360 g9 g10 pn-750688-001-775415-001",
+   "breadcrumb": "Home / Componentes / Fan Hp DL360 g9 g10 pn-750688-001-775415-001",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/fan-hp-dl360-g9-g10-pn-750688-001-775415-001.png"
+   ],
+   "text": "Modelo: HP DL360 DL360P DL360E G9 Part Number: V40W12BS1M5-08A033 / PFM0412HS DC12V 1.50A / SPS: 775415-001 / 750688-001 / 792851-001 Conector: 6 Vias",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7862": {
+   "id": 7862,
+   "url": "https://msserver.com.br/servidor/cooler-fan-dell-emc-poweredge-r740-r740xd-n5t36-0n5t36/",
+   "title": "Cooler Fan Dell Emc Poweredge R740 R740xd N5t36 0n5t36 - MSSERVER",
+   "description": "Modelo: Dell Poweredge R740xd R740 Part Number: PFR0612DHE-C / CT3RT-A00 / 0N5T36 Conector: 6 Vias Estado do Produto: Novo",
+   "h1": "Cooler Fan Dell Emc Poweredge R740 R740xd N5t36 0n5t36",
+   "breadcrumb": "Home / Componentes / Cooler Fan Dell Emc Poweredge R740 R740xd N5t36 0n5t36",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/Cooler-Fan-Dell-Emc-Poweredge-R740-R740xd-N5t36-0n5t36.png"
+   ],
+   "text": "Modelo: Dell Poweredge R740xd R740 Part Number: PFR0612DHE-C / CT3RT-A00 / 0N5T36 Conector: 6 Vias Estado do Produto: Novo",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7864": {
+   "id": 7864,
+   "url": "https://msserver.com.br/servidor/fonte-500w-hp-dl360-dl380-ml350-g9-723595-101-dps-500ab-13-a/",
+   "title": "Fonte 500w Hp Dl360 Dl380 Ml350 G9 723595-101 Dps-500ab-13 A - MSSERVER",
+   "description": "FONTE 500W HP PROLIANT DL360 GEN9 MODEL: DPS-500AB-13 A P/N: 723595-101 GPN: 723594-001 RMN: HSTNS-PC40 SPN: 754344-001 OPTION KIT P/N: 720478-B21 HP POWER SUPPLY 500W 80 PLUS PLATINUM FOR HPE PROLIANT DL360 DL380 G9 723594-001 Product Details: HP POWER SUPPLY 500W 80 PLUS PLATINUM HOT PLUG FOR HPE PROLIANT DL360 G9 / DL380 G9 /",
+   "h1": "Fonte 500w Hp Dl360 Dl380 Ml350 G9 723595-101 Dps-500ab-13 A",
+   "breadcrumb": "Home / Componentes / Fonte 500w Hp Dl360 Dl380 Ml350 G9 723595-101 Dps-500ab-13 A",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-500w-Hp-Dl360-Dl380-Ml350-G9-1.png"
+   ],
+   "text": "FONTE 500W HP PROLIANT DL360 GEN9 MODEL: DPS-500AB-13 A P/N: 723595-101 GPN: 723594-001 RMN: HSTNS-PC40 SPN: 754344-001 OPTION KIT P/N: 720478-B21 HP POWER SUPPLY 500W 80 PLUS PLATINUM FOR HPE PROLIANT DL360 DL380 G9 723594-001 Product Details: HP POWER SUPPLY 500W 80 PLUS PLATINUM HOT PLUG FOR HPE PROLIANT DL360 G9 / DL380 G9 / ML350 G9",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7866": {
+   "id": 7866,
+   "url": "https://msserver.com.br/servidor/fonte-servidor-hp-proliant-dl380-g6-g7-g8-750w/",
+   "title": "Fonte Servidor Hp Proliant Dl380 G6 G7 G8 750w - MSSERVER",
+   "description": "Fonte Redundante Servidor HP 750W DL380 ML150 ML350 G6 G7 G8 Fabricante: HP Hewlett Packard Company Modelo DPS-750RB Input 100~240V Output 750W (MAX) Part-Numbers compatíveis: 506821-001 506822-001 506822-101 506822-201 511778-001 512327-B21 DPS-750RB A HSTNS-PD18 HSTNS-PL18 PS-2751-2CB-LF Fonte Redundante Power Supply para Servidores ProLiant G6 e G7 HPE 750W Common Slot Gold Hot Plug Power Supply",
+   "h1": "Fonte Servidor Hp Proliant Dl380 G6 G7 G8 750w",
+   "breadcrumb": "Home / Componentes / Fonte Servidor Hp Proliant Dl380 G6 G7 G8 750w",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-Servidor-Hp-Proliant-Dl380-G6-G7-G8-750w-3.png"
+   ],
+   "text": "Fonte Redundante Servidor HP 750W DL380 ML150 ML350 G6 G7 G8 Fabricante: HP Hewlett Packard Company Modelo DPS-750RB Input 100~240V Output 750W (MAX) Part-Numbers compatíveis: 506821-001 506822-001 506822-101 506822-201 511778-001 512327-B21 DPS-750RB A HSTNS-PD18 HSTNS-PL18 PS-2751-2CB-LF Fonte Redundante Power Supply para Servidores ProLiant G6 e G7 HPE 750W Common Slot Gold Hot Plug Power Supply Kit (512327-B21) Compatível com: HP ProLiant DL160 G6 HP ProLiant DL165 G7 HP ProLiant DL180 G6 HP ProLiant DL288 HP ProLiant DL360 G6 HP ProLiant DL360 G7 HP ProLiant DL360p Gen8 HP ProLiant DL360e Gen8 HP ProLiant DL370 G6 E5530 SFF Base AP Rmkt Svr HP ProLiant DL380 G6 HP ProLiant DL380 G7 HP ProLiant DL380e Gen8 HP ProLiant DL380p Gen8 HP ProLiant DL385 G6 HP ProLiant DL385 G7 HP ProLiant DL385p Gen8 HP ProLiant DL385 G7 HP ProLiant ML110 Gen9 HP ProLiant ML150 G6 HP ProLiant ML330 G6 HP ProLiant ML350 G6 HP ProLiant ML350e Gen8 HP ProLiant ML350p Gen8 HP ProLiant ML370 G6 HP ProLiant SL160z G6 HP ProLiant SL170z G6 Storages: HP StorageWorks P4300 HP StorageWorks P4500 HP StorageWorks P4500 G2 HP StorageWorks X1500 G2 HP StorageWorks X1500 HP StorageWorks X1600 HP StorageWorks X1600 G2 HP StorageWorks X1800 HP StorageWorks X3800 HP StorageWorks X3800 HP StorageWorks X9300 HP StorageWorks X9320 HP StoreAll 9320 HP StoreEasy 1550 HP StoreEasy 1640 HP StoreEasy 1840 HP StoreEasy 3840 HP StoreOnce 4210 HP StoreOnce 4220 HP Superdome 2 HP VLS12200 HP VLS9200 HPE SV3200",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7868": {
+   "id": 7868,
+   "url": "https://msserver.com.br/servidor/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3/",
+   "title": "Fonte Dell 495w T420 R620 R720 f495e-s0-03ghw3 - MSSERVER",
+   "description": "Fonte Redundante Servidor Dell 495W T320 T420 R620 R720 495 WATT POWER SUPPLY FOR Dell POWEREDGE Fabricante: Dell Input 100~240V Output 495 Watts Hot-Plug Modelo F495E-S0 Part Number 3GHW3, 03GHW3, CN-03GHW3 Alternative Parts N24MJ, 9338D, 0N24MJ CN-0N24MJ D495E-S0, E495E-S1 Model Number F495E-S0 Ref. No. S-0495ADU00-101 Max Power 495 Watt Input 100-240V, 6.5A~3.0A, 50-60Hz Output +12V—41.25A",
+   "h1": "Fonte Dell 495w T420 R620 R720 f495e-s0-03ghw3",
+   "breadcrumb": "Home / Fontes / Fonte Dell 495w T420 R620 R720 f495e-s0-03ghw3",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3.png"
+   ],
+   "text": "Fonte Redundante Servidor Dell 495W T320 T420 R620 R720 495 WATT POWER SUPPLY FOR Dell POWEREDGE Fabricante: Dell Input 100~240V Output 495 Watts Hot-Plug Modelo F495E-S0 Part Number 3GHW3, 03GHW3, CN-03GHW3 Alternative Parts N24MJ, 9338D, 0N24MJ CN-0N24MJ D495E-S0, E495E-S1 Model Number F495E-S0 Ref. No. S-0495ADU00-101 Max Power 495 Watt Input 100-240V, 6.5A~3.0A, 50-60Hz Output +12V—41.25A +12Vsb—3.0A Application Dell PowerEdge R620 R720 T320 Server Detail Description PWR SPLY,460W,PFC,DELTA A02-00 Part-Numbers compat¡veis: 0N24MJ N24MJ 03GHW3 3GHW3 Compativel com: Dell PowerEdge T320 Dell PowerEdge T420 Dell PowerEdge R620 Dell PowerEdge R720",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7870": {
+   "id": 7870,
+   "url": "https://msserver.com.br/servidor/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk/",
+   "title": "Fonte Servidor Dell Poweredge R630 730 730xd 530 640 0grtnk - MSSERVER",
+   "description": "FONTE DELL PARA SERVIDORES R630 R730 R730XD R530 R640 (NÃO ACOMPANHA CABOS). Número da peça: DP/N: 0GRTNK Modelo: D495E-S1 Padrão AC, 495W de potência Voltagem: 100-240V AC Amperagem 6.5A",
+   "h1": "Fonte Servidor Dell Poweredge R630 730 730xd 530 640 0grtnk",
+   "breadcrumb": "Home / Componentes / Fonte Servidor Dell Poweredge R630 730 730xd 530 640 0grtnk",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk.png"
+   ],
+   "text": "FONTE DELL PARA SERVIDORES R630 R730 R730XD R530 R640 (NÃO ACOMPANHA CABOS). Número da peça: DP/N: 0GRTNK Modelo: D495E-S1 Padrão AC, 495W de potência Voltagem: 100-240V AC Amperagem 6.5A",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7872": {
+   "id": 7872,
+   "url": "https://msserver.com.br/servidor/gaveta-hd-3-5-p-servidor-dell-poweredge-0kg1ch-f238f/",
+   "title": "Gaveta Hd 3.5 P Servidor Dell Poweredge 0KG1CH F238F - MSSERVER",
+   "description": "Gaveta Hd 3.5 P Servidor Dell Poweredge R230 R410 R420 R430 R520 R530 R610 T330 T420 T620 T630 0KG1CH, F238F",
+   "h1": "Gaveta Hd 3.5 P Servidor Dell Poweredge 0KG1CH F238F",
+   "breadcrumb": "Home / Componentes / Gaveta Hd 3.5 P Servidor Dell Poweredge 0KG1CH F238F",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/gaveta-para-hd-dell-25-sassata-r310-t310-r320-t320-r610-t610-g176j.png"
+   ],
+   "text": "Gaveta Hd 3.5 P Servidor Dell Poweredge R230 R410 R420 R430 R520 R530 R610 T330 T420 T620 T630 0KG1CH, F238F",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7874": {
+   "id": 7874,
+   "url": "https://msserver.com.br/servidor/gaveta-servidor-dell-2-5-g176j/",
+   "title": "Gaveta Servidor Dell 2.5 G176j - MSSERVER",
+   "description": "Detalhes do Produto Modelo: 0G176J Partnumber: G176J Tamanho: 2.5\" SFF Hot swap: Sim Indicador LED: Sim Incluso: 4 parafusos para montagem Compatibilidade: R10 Series: R310, R415, R510, R515, R610, R710, R715, R810, R815 e R910 R20 Series: R320, R420, R520, R620, R720/R720XD e R820 T10 Series: T310, T410, T610 e T710 T20 Series: T320, T420 e T620 M600 Series: M605 e M610/M610X M700",
+   "h1": "Gaveta Servidor Dell 2.5 G176j",
+   "breadcrumb": "Home / Componentes / Gaveta Servidor Dell 2.5 G176j",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Dell-2.5-G176j-R310-T310-R320-T320-R610-T610.png"
+   ],
+   "text": "Detalhes do Produto Modelo: 0G176J Partnumber: G176J Tamanho: 2.5″ SFF Hot swap: Sim Indicador LED: Sim Incluso: 4 parafusos para montagem Compatibilidade: R10 Series: R310, R415, R510, R515, R610, R710, R715, R810, R815 e R910 R20 Series: R320, R420, R520, R620, R720/R720XD e R820 T10 Series: T310, T410, T610 e T710 T20 Series: T320, T420 e T620 M600 Series: M605 e M610/M610X M700 Series: M710 e M710HD M800 Series: M805 M900 Series: M905, M910 e M915 M1000 Series: M1000e",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7876": {
+   "id": 7876,
+   "url": "https://msserver.com.br/servidor/gavetas-para-servidor-hp-dl360-dl380-3-5-g8-g9-651314-001/",
+   "title": "Gavetas para Servidor Hp Dl360 Dl380 3.5 g8 g9 651314-001 - MSSERVER",
+   "description": "Gaveta hot-swap HP para servidor ProLiant Gen8 e Gen9 com discos de 3,5\" PN: 651314-001 Suporta HDs SAS, SATA e SSD* Tipo: 651314-001 / 651320-001 Material: metal + plástico Medidas da gaveta: aprox. 190 x 110 x 25 mm Suporta 3.5\" hard disk Hard disk port: SAS/SATA/SSD (Universal)",
+   "h1": "Gavetas para Servidor Hp Dl360 Dl380 3.5 g8 g9 651314-001",
+   "breadcrumb": "Home / Componentes / Gavetas para Servidor Hp Dl360 Dl380 3.5 g8 g9 651314-001",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/gavetas-para-servidorgaveta-servidor-hp-3-5-g8-g9-651314-001-dl360-dl380-gen9.png"
+   ],
+   "text": "Gaveta hot-swap HP para servidor ProLiant Gen8 e Gen9 com discos de 3,5″ PN: 651314-001 Suporta HDs SAS, SATA e SSD* Tipo: 651314-001 / 651320-001 Material: metal + plástico Medidas da gaveta: aprox. 190 x 110 x 25 mm Suporta 3.5″ hard disk Hard disk port: SAS/SATA/SSD (Universal)",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "7878": {
+   "id": 7878,
+   "url": "https://msserver.com.br/servidor/gaveta-servidor-hp-2-5-g8-g9-dl360-dl380-dl320-ml350-gen9/",
+   "title": "Gaveta Servidor Hp 2.5 G8 G9 Dl360 Dl380 Dl320 Ml350 Gen9 - MSSERVER",
+   "description": "Gaveta de Servidor HP para HDs de 2,5 Tipo: 651687-001 / 651699-001 Material: metal + plástico Medidas da gaveta: aprox. 136 x 80 x 20 mm Suporta 2.5\" hard disk Hard disk port: SAS/SATA/SSD (Universal) Acompanha os parafusos de fixação. Servidores compatíveis: HP ProLiant ML350p G8 HP ProLiant ML350E G8 HP ProLiant ML350 G9 HP",
+   "h1": "Gaveta Servidor Hp 2.5 G8 G9 Dl360 Dl380 Dl320 Ml350 Gen9",
+   "breadcrumb": "Home / Gavetas / Gaveta Servidor Hp 2.5 G8 G9 Dl360 Dl380 Dl320 Ml350 Gen9",
+   "price": "",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Hp-2.5-G8-G9-Dl360-Dl380-Dl320-Ml350-Gen9.png"
+   ],
+   "text": "Gaveta de Servidor HP para HDs de 2,5 Tipo: 651687-001 / 651699-001 Material: metal + plástico Medidas da gaveta: aprox. 136 x 80 x 20 mm Suporta 2.5″ hard disk Hard disk port: SAS/SATA/SSD (Universal) Acompanha os parafusos de fixação. Servidores compatíveis: HP ProLiant ML350p G8 HP ProLiant ML350E G8 HP ProLiant ML350 G9 HP ProLiant ML310 G8 HP ProLiant ML110 Gen9 HP ProLiant ML110 G8 HP ProLiant ML150 Gen9 HP ProLiant DL380P G8 HP ProLiant DL360P G8 HP ProLiant DL360E G8 HP ProLiant DL320E G8 HP ProLiant DL160 G8 HP ProLiant DL 560 G8 HP ProLiant DL 388 G8 HP ProLiant DL 380E G8 HP ProLiant BL660c G8 HP ProLiant BL465c G8 HP ProLiant BL460c G9 HP ProLiant BL460c G9 HP ProLiant BL460c G8 HP ProLiant BL420c G8 HP ProLiant SL250s G8 HP ProLiant SL230s G8",
+   "form": null,
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "8134": {
+   "id": 8134,
+   "url": "https://msserver.com.br/servidor/servidor-dell-poweredge-r740xd/",
+   "title": "Servidor Dell PowerEdge R740XD - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM 12x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf Video Canal MSServer Youtube",
+   "h1": "Servidor Dell PowerEdge R740XD",
+   "breadcrumb": "Home / Rack / Servidor Dell PowerEdge R740XD",
+   "price": "R$ 28.200,00 – R$ 32.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-1.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-2.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM 12x Slots para Disco SFF SAS/SATA Hot-Plug 3.5 4x Slots PCI-e https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf Video Canal MSServer Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 8137,
+      "attributes": {
+       "attribute_pa_memoria-ram": "128gb"
+      },
+      "price": 32500,
+      "inStock": true
+     },
+     {
+      "id": 8138,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 28900,
+      "inStock": true
+     },
+     {
+      "id": 8139,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 29000,
+      "inStock": true
+     },
+     {
+      "id": 8140,
+      "attributes": {
+       "attribute_pa_memoria-ram": "8gb"
+      },
+      "price": 28200,
+      "inStock": true
+     },
+     {
+      "id": 8135,
+      "attributes": {
+       "attribute_pa_memoria-ram": "64gb"
+      },
+      "price": 29800,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "8141": {
+   "id": 8141,
+   "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g10/",
+   "title": "Servidor HP Proliant DL380 G10 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3,5TB de memória RAM DDR4 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04346247 Video Canal MS Youtube",
+   "h1": "Servidor HP Proliant DL380 G10",
+   "breadcrumb": "Home / Rack / Servidor HP Proliant DL380 G10",
+   "price": "R$ 19.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2026/01/Captura-de-Tela-2026-01-22-as-16.05.44.png"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3,5TB de memória RAM DDR4 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04346247 Video Canal MS Youtube",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 8143,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 19500,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  },
+  "8147": {
+   "id": 8147,
+   "url": "https://msserver.com.br/servidor/servidor-hp-proliant-dl360-g10/",
+   "title": "Servidor HP Proliant DL360 G10 - MSSERVER",
+   "description": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3,5TB de memória RAM DDR4 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04346229.pdf?jumpid=in_lit-psnow-getpdf",
+   "h1": "Servidor HP Proliant DL360 G10",
+   "breadcrumb": "Home / Rack / Servidor HP Proliant DL360 G10",
+   "price": "R$ 17.300,00 – R$ 17.500,00",
+   "gallery": [
+    "https://msserver.com.br/wp-content/uploads/2026/01/Captura-de-Tela-2026-01-22-as-15.56.11.png",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9-1.jpeg",
+    "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9-2.jpeg"
+   ],
+   "text": "ESPECIFICAÇÕES: Suporte para até 2 Processadores Intel Xeon Scalable Suporte para até 3,5TB de memória RAM DDR4 ECC 8x Slots para Disco SFF SAS/SATA Hot-Plug 4x Slots PCI-e https://www.hpe.com/psnow/doc/c04346229.pdf?jumpid=in_lit-psnow-getpdf",
+   "form": {
+    "type": "variable",
+    "fields": [
+     "attribute_pa_memoria-ram",
+     "quantity",
+     "add-to-cart",
+     "product_id",
+     "variation_id"
+    ],
+    "button": "Orçamento",
+    "variations": [
+     {
+      "id": 8149,
+      "attributes": {
+       "attribute_pa_memoria-ram": "16gb"
+      },
+      "price": 17300,
+      "inStock": true
+     },
+     {
+      "id": 8150,
+      "attributes": {
+       "attribute_pa_memoria-ram": "32gb"
+      },
+      "price": 17500,
+      "inStock": true
+     }
+    ],
+    "attribute": {
+     "field": "attribute_pa_memoria-ram",
+     "label": "Memoria RAM",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   },
+   "schemaTypes": [
+    "BreadcrumbList",
+    "ItemPage",
+    "Organization",
+    "WebSite"
+   ]
+  }
+ }
+}

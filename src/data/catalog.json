@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-11-08T18:48:14.777Z",
+ "fetchedAt": "2026-11-09T02:02:59.624Z",
  "source": "https://msserver.com.br/wp-json/wc/store/v1/products",
  "categories": {
   "baterias": {
@@ -1360,6 +1360,68 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 1 Processadores Intel Xeon 3400</li>\n<li>Suporte para até 16Gb de memória RAM DDR3 ECC UDIMM</li>\n<li>2x Slots para Disco SFF SAS/SATA Hot-Plug 3.5</li>\n<li>1x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/R210-SpecSheet.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/R210-SpecSheet.pdf</a></h5>",
+   "gallery": [
+    {
+     "file": "4827-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    },
+    {
+     "file": "4827-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210-2.jpeg",
+     "alt": "",
+     "width": 1000,
+     "height": 667
+    },
+    {
+     "file": "4827-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210-1.png",
+     "alt": "",
+     "width": 945,
+     "height": 709
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5423,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 3100,
+     "regularPrice": 3100,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5421,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 3950,
+     "regularPrice": 3950,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1402,6 +1464,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 1 Processadores Intel Xeon E3-1200</li>\n<li>Suporte para até 32Gb de memória RAM DDR3 ECC UDIMM</li>\n<li>2x Slots para Disco SFF SAS/SATA Hot-Plug 3.5</li>\n<li>2x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/doccontent/shared-content/data-sheets/en/Documents/PowerEdge_R220_Spec_Sheet.pdf\">https://i.dell.com/sites/doccontent/shared-content/data-sheets/en/Documents/PowerEdge_R220_Spec_Sheet.pdf</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=Qdorr8NXrrQ\">Video Canal MS Youtube</a></h5>",
+   "gallery": [
+    {
+     "file": "4831-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r220.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4831-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r220-2.png",
+     "alt": "",
+     "width": 800,
+     "height": 600
+    },
+    {
+     "file": "4831-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r220-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5420,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 3200,
+     "regularPrice": 3200,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5418,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 3700,
+     "regularPrice": 3700,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5419,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 4800,
+     "regularPrice": 4800,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1444,6 +1582,75 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2400</li>\n<li>Suporte para até 96Gb de memória RAM DDR3 ECC UDIMM</li>\n<li>4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5</li>\n<li>2x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.xbyte.com/spec-sheet-dell-poweredge-r320\">https://www.xbyte.com/spec-sheet-dell-poweredge-r320</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=fp0qAC35aCk&amp;t=41s\">Video Canal MS Youtube</a></h5>",
+   "gallery": [
+    {
+     "file": "4858-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-R420.jpg",
+     "alt": "",
+     "width": 380,
+     "height": 420
+    },
+    {
+     "file": "4858-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    },
+    {
+     "file": "4858-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r210-2.jpeg",
+     "alt": "",
+     "width": 1000,
+     "height": 667
+    },
+    {
+     "file": "4858-3.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R320-ABERTA-S.F.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5417,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 3500,
+     "regularPrice": 3500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5415,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 4250,
+     "regularPrice": 4250,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1486,6 +1693,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 / E5600</li>\n<li>Suporte para até 128Gb de memória RAM DDR3 ECC</li>\n<li>4x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>2x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"http://Especificações do fabricante\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R410-Spec-Sheet_br.pdf</a></h5>",
+   "gallery": [
+    {
+     "file": "4862-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/r410.png",
+     "alt": "",
+     "width": 800,
+     "height": 778
+    },
+    {
+     "file": "4862-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r410-2.png",
+     "alt": "",
+     "width": 800,
+     "height": 600
+    },
+    {
+     "file": "4862-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r410-1.jpeg",
+     "alt": "",
+     "width": 500,
+     "height": 242
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5414,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 3750,
+     "regularPrice": 3750,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5412,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 4000,
+     "regularPrice": 4000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5413,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 4450,
+     "regularPrice": 4450,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1528,6 +1811,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2400 v2</li>\n<li>Suporte para até 192TB de memória RAM DDR3 ECC</li>\n<li>4x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.dell.com/support/home/pt-br/product-support/product/poweredge-r420/docs\">https://www.dell.com/support/home/pt-br/product-support/product/poweredge-r420/docs</a></h5>",
+   "gallery": [
+    {
+     "file": "4866-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-R420.jpg",
+     "alt": "",
+     "width": 380,
+     "height": 420
+    },
+    {
+     "file": "4866-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r420-3.jpeg",
+     "alt": "",
+     "width": 1600,
+     "height": 1600
+    },
+    {
+     "file": "4866-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r420.jpeg",
+     "alt": "",
+     "width": 100,
+     "height": 100
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5411,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 5300,
+     "regularPrice": 5300,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5409,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 5650,
+     "regularPrice": 5650,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5410,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 6450,
+     "regularPrice": 6450,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1571,6 +1930,103 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v3 v4</li>\n<li>Suporte para até 384TB de memória RAM DDR4 ECC</li>\n<li>4x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.dell.com/learn/us/en/04/shared-content~data-sheets~en/documents~dell-poweredge-r430-spec-sheet.pdf\">https://www.dell.com/learn/us/en/04/shared-content~data-sheets~en/documents~dell-poweredge-r430-spec-sheet.pdf</a></h5>",
+   "gallery": [
+    {
+     "file": "4870-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r430.jpeg",
+     "alt": "",
+     "width": 100,
+     "height": 100
+    },
+    {
+     "file": "4870-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r430-2.jpeg",
+     "alt": "",
+     "width": 100,
+     "height": 100
+    },
+    {
+     "file": "4870-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r430-1.png",
+     "alt": "",
+     "width": 100,
+     "height": 100
+    },
+    {
+     "file": "4870-3.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R430-ABERTA-S.F.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5622,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 12500,
+     "regularPrice": 12500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5408,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 13000,
+     "regularPrice": 13000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5406,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 13900,
+     "regularPrice": 13900,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5407,
+     "attributes": {
+      "attribute_pa_memoria-ram": "64gb"
+     },
+     "price": 15350,
+     "regularPrice": 15350,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1613,6 +2069,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon Scalable</li>\n<li>Suporte para até 1TB de memória RAM DDR4 RDIMM / LRDIMM</li>\n<li>4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r440-spec-sheet.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r440-spec-sheet.pdf</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=A3t1rOOuAEI\">Video Canal MS Youtube</a></h5>",
+   "gallery": [
+    {
+     "file": "4875-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4875-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-2.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4875-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5405,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 15500,
+     "regularPrice": 15500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5403,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 16800,
+     "regularPrice": 16800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5404,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 17700,
+     "regularPrice": 17700,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1655,6 +2187,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 / E5600</li>\n<li>Suporte para até 128Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug 3.5</li>\n<li>2x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R510-Spec-Sheet_br.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R510-Spec-Sheet_br.pdf</a></h5>",
+   "gallery": [
+    {
+     "file": "4879-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-poweredge-r510-server-2-x-six-core-xeon-x5670-12x-3tb-36tb-sas-storage-vmware-esxi-6.5-h700-1174-p.jpg",
+     "alt": "",
+     "width": 400,
+     "height": 400
+    },
+    {
+     "file": "4879-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r730xd.png",
+     "alt": "",
+     "width": 600,
+     "height": 600
+    },
+    {
+     "file": "4879-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-poweredge-r510-server-2-x-six-core-xeon-x5670-12x-3tb-36tb-sas-storage-vmware-esxi-6.5-h700-1174-p.jpg",
+     "alt": "",
+     "width": 400,
+     "height": 400
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5402,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 5500,
+     "regularPrice": 5500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5400,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 5750,
+     "regularPrice": 5750,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5401,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 6200,
+     "regularPrice": 6200,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1697,6 +2305,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v2</li>\n<li>Suporte para até 768TB de memória RAM DDR3 ECC</li>\n<li>4x Slots para Disco SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/Dell-PowerEdge-R620-Spec-Sheet_PT-BR.pdf\">Datasheet Dell R620</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=uozWYBDYf8Y&amp;t=16s\"><strong>Video Canal Youtube</strong></a></h5>\n<p>&nbsp;</p>",
+   "gallery": [
+    {
+     "file": "4881-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/R620.jpg",
+     "alt": "",
+     "width": 380,
+     "height": 420
+    },
+    {
+     "file": "4881-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r620-3.jpeg",
+     "alt": "",
+     "width": 100,
+     "height": 100
+    },
+    {
+     "file": "4881-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r620-2.png",
+     "alt": "",
+     "width": 100,
+     "height": 100
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5399,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 8950,
+     "regularPrice": 8950,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5397,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 9150,
+     "regularPrice": 9150,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5398,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 9850,
+     "regularPrice": 9850,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1741,6 +2425,117 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v3 v4</li>\n<li>Suporte para até 1.5TB de memória RAM DDR4 ECC</li>\n<li>8x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/doccontent/shared-content/data-sheets/en/documents/dell-poweredge-r630-spec-sheet.pdf\">https://i.dell.com/sites/doccontent/shared-content/data-sheets/en/documents/dell-poweredge-r630-spec-sheet.pdf</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=X4Wj9WlVn7M\">Video Canal MS YouTube</a></h5>",
+   "gallery": [
+    {
+     "file": "4886-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r630-2.jpeg",
+     "alt": "",
+     "width": 800,
+     "height": 800
+    },
+    {
+     "file": "4886-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r630.jpeg",
+     "alt": "",
+     "width": 100,
+     "height": 100
+    },
+    {
+     "file": "4886-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r630-3.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4886-3.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r630-1.jpg",
+     "alt": "",
+     "width": 100,
+     "height": 100
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5600,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 16750,
+     "regularPrice": 16750,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5601,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 16250,
+     "regularPrice": 16250,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5396,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 17800,
+     "regularPrice": 17800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5394,
+     "attributes": {
+      "attribute_pa_memoria-ram": "64gb"
+     },
+     "price": 18600,
+     "regularPrice": 18600,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5395,
+     "attributes": {
+      "attribute_pa_memoria-ram": "128gb"
+     },
+     "price": 22800,
+     "regularPrice": 22800,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1783,6 +2578,61 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para 1x Processadores Intel Xeon 3400 Series</li>\n<li>Suporte para até 16Gb de memória RAM DDR3 ECC UDDIM</li>\n<li>4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/T110-SpecSheet.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/T110-SpecSheet.pdf</a></h5>",
+   "gallery": [
+    {
+     "file": "4891-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T110-II-3.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    },
+    {
+     "file": "4891-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t110-II-2.png",
+     "alt": "",
+     "width": 945,
+     "height": 709
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5393,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 2800,
+     "regularPrice": 2800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5391,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 3750,
+     "regularPrice": 3750,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1825,6 +2675,89 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para 1x Processadores Intel Xeon E5 1200 v6</li>\n<li>Suporte para até 64Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<p><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/LA-FY16Q3-377-Dell-PowerEdge-T330-SpecSheet-102015-PT-BR.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/LA-FY16Q3-377-Dell-PowerEdge-T330-SpecSheet-102015-PT-BR.pdf</a></p>",
+   "gallery": [
+    {
+     "file": "4900-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t330-3.jpeg",
+     "alt": "",
+     "width": 380,
+     "height": 320
+    },
+    {
+     "file": "4900-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t330.png",
+     "alt": "",
+     "width": 373,
+     "height": 500
+    },
+    {
+     "file": "4900-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t330-2.jpeg",
+     "alt": "",
+     "width": 843,
+     "height": 691
+    },
+    {
+     "file": "4900-3.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t330-1.png",
+     "alt": "",
+     "width": 386,
+     "height": 500
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5387,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 5200,
+     "regularPrice": 5200,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5385,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 5600,
+     "regularPrice": 5600,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5386,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 6400,
+     "regularPrice": 6400,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1867,6 +2800,89 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 E5600</li>\n<li>Suporte para até 128Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SAS/SATA Hot-Plug 3.5/2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<p><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-T410-Spec-Sheet_br.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-T410-Spec-Sheet_br.pdf</a></p>",
+   "gallery": [
+    {
+     "file": "4905-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t410-1.png",
+     "alt": "",
+     "width": 600,
+     "height": 500
+    },
+    {
+     "file": "4905-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t410-1.png",
+     "alt": "",
+     "width": 600,
+     "height": 500
+    },
+    {
+     "file": "4905-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T410-VERSO-SEM-FUNDO.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    },
+    {
+     "file": "4905-3.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T410-ABERTA-E-SEM-FUNDO.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5384,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 3550,
+     "regularPrice": 3550,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5382,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 3800,
+     "regularPrice": 3800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5383,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 4250,
+     "regularPrice": 4250,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1909,6 +2925,68 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para 1x Processadores Intel Xeon E5 2400</li>\n<li>Suporte para até 192Gb de memória RAM DDR3 ECC</li>\n<li>4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\">https://dl.dell.com/topicspdf/poweredge-t320_owners-manual_en-us.pdf</h5>",
+   "gallery": [
+    {
+     "file": "4909-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t420-2.jpeg",
+     "alt": "",
+     "width": 800,
+     "height": 800
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5381,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 4200,
+     "regularPrice": 4200,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5379,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 4450,
+     "regularPrice": 4450,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5380,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 4980,
+     "regularPrice": 4980,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1951,6 +3029,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 E5600</li>\n<li>Suporte para até 256Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SAS/SATA Hot-Plug 3.5/2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<p><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-T610-Spec-Sheet_br.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-T610-Spec-Sheet_br.pdf</a></p>",
+   "gallery": [
+    {
+     "file": "4911-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t610.png",
+     "alt": "",
+     "width": 600,
+     "height": 500
+    },
+    {
+     "file": "4911-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t610.png",
+     "alt": "",
+     "width": 600,
+     "height": 500
+    },
+    {
+     "file": "4911-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t610-1.png",
+     "alt": "",
+     "width": 600,
+     "height": 500
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5378,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 4800,
+     "regularPrice": 4800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5376,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 5050,
+     "regularPrice": 5050,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5377,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 5500,
+     "regularPrice": 5500,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -1993,6 +3147,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5 2600</li>\n<li>Suporte para até 768Gb de memória RAM DDR3 ECC</li>\n<li>4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/T620-spec-sheet_PT-BR.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/T620-spec-sheet_PT-BR.pdf</a></h5>",
+   "gallery": [
+    {
+     "file": "4914-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T620-SEM-FUNDO.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    },
+    {
+     "file": "4914-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t620-1.png",
+     "alt": "",
+     "width": 600,
+     "height": 600
+    },
+    {
+     "file": "4914-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T620-ABERTA.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5375,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 6250,
+     "regularPrice": 6250,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5373,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 6500,
+     "regularPrice": 6500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5374,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 6980,
+     "regularPrice": 6980,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2035,6 +3265,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v3 v4</li>\n<li>Suporte para até 1.5TB de memória RAM DDR4 ECC</li>\n<li>8x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/us/Dell-PowerEdge-T630-Spec-Sheet.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/us/Dell-PowerEdge-T630-Spec-Sheet.pdf</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=6A0g3Fo0ZRo\">Video Canal MS YouTube</a></h5>",
+   "gallery": [
+    {
+     "file": "4917-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t630-1.png",
+     "alt": "",
+     "width": 458,
+     "height": 416
+    },
+    {
+     "file": "4917-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t630.jpeg",
+     "alt": "",
+     "width": 500,
+     "height": 358
+    },
+    {
+     "file": "4917-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t630-2.jpeg",
+     "alt": "",
+     "width": 800,
+     "height": 800
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5372,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 12850,
+     "regularPrice": 12850,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5370,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 13050,
+     "regularPrice": 13050,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5371,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 13800,
+     "regularPrice": 13800,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2077,6 +3383,75 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 E5600</li>\n<li>Suporte para até 384Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.hpe.com/psnow/doc/c04123166\">https://www.hpe.com/psnow/doc/c04123166</a></h5>",
+   "gallery": [
+    {
+     "file": "4921-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-dell-poweredge-t710-2-ti24h-771x1000-1.png",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4921-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dellpet710i2.jpeg",
+     "alt": "",
+     "width": 440,
+     "height": 330
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5369,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 5200,
+     "regularPrice": 5200,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5367,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 5550,
+     "regularPrice": 5550,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5368,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 6200,
+     "regularPrice": 6200,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2119,6 +3494,75 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5 2400</li>\n<li>Suporte para até 192Gb de memória RAM DDR3 ECC</li>\n<li>4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/uk/Dell_PowerEdge_T420_Spec_Sheet.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/uk/Dell_PowerEdge_T420_Spec_Sheet.pdf</a></h5>",
+   "gallery": [
+    {
+     "file": "4924-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-T420-SEM-FUNDO.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    },
+    {
+     "file": "4924-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-t420-_1_.jpg",
+     "alt": "",
+     "width": 600,
+     "height": 600
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5363,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 4600,
+     "regularPrice": 4600,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5361,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 4850,
+     "regularPrice": 4850,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5362,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 5300,
+     "regularPrice": 5300,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2161,6 +3605,75 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 E5600</li>\n<li>Suporte para até 192Gb de memória RAM DDR3 ECC</li>\n<li>4x Slots para Disco SFF SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c01710737\">https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c01710737</a></h5>",
+   "gallery": [
+    {
+     "file": "4927-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6.jpeg",
+     "alt": "",
+     "width": 800,
+     "height": 800
+    },
+    {
+     "file": "4927-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6-1.jpeg",
+     "alt": "",
+     "width": 1600,
+     "height": 1103
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5360,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 2800,
+     "regularPrice": 2800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5358,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 3050,
+     "regularPrice": 3050,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5359,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 3500,
+     "regularPrice": 3500,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2203,6 +3716,75 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 E5600</li>\n<li>Suporte para até 192Gb de memória RAM DDR3 ECC</li>\n<li>4x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>2x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c02206768\">https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c02206768</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=A3t1rOOuAEI\">Video Canal MS Youtube</a></h5>",
+   "gallery": [
+    {
+     "file": "4930-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G6.jpeg",
+     "alt": "",
+     "width": 800,
+     "height": 800
+    },
+    {
+     "file": "4930-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G7-2.png",
+     "alt": "",
+     "width": 800,
+     "height": 600
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5357,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 3200,
+     "regularPrice": 3200,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5355,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 3450,
+     "regularPrice": 3450,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5356,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 3900,
+     "regularPrice": 3900,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2245,6 +3827,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v3/v4</li>\n<li>Suporte para até 3TB de memória RAM DDR4 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.hpe.com/psnow/doc/c04346229.pdf?jumpid=in_lit-psnow-getpdf\">https://www.hpe.com/psnow/doc/c04346229.pdf?jumpid=in_lit-psnow-getpdf</a></h5>",
+   "gallery": [
+    {
+     "file": "4935-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4935-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4935-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9-2.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5354,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 12000,
+     "regularPrice": 12000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5352,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 12500,
+     "regularPrice": 12500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5353,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 13250,
+     "regularPrice": 13250,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2287,6 +3945,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v2</li>\n<li>Suporte para até 768Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.hpe.com/psnow/doc/c04123167.pdf?jumpid=in_lit-psnow-getpdf\">https://www.hpe.com/psnow/doc/c04123167.pdf?jumpid=in_lit-psnow-getpdf</a></h5>",
+   "gallery": [
+    {
+     "file": "4939-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4939-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8-2.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4939-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360E-G8-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5351,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 5500,
+     "regularPrice": 5500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5349,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 5750,
+     "regularPrice": 5750,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5350,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 6200,
+     "regularPrice": 6200,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2329,6 +4063,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v2</li>\n<li>Suporte para até 768Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug / 12x 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\">https://www.hpe.com/psnow/doc/c04123238</h5>",
+   "gallery": [
+    {
+     "file": "4943-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/Dl380-G8-4.png",
+     "alt": "",
+     "width": 1024,
+     "height": 1024
+    },
+    {
+     "file": "4943-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4943-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5348,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 5800,
+     "regularPrice": 5800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5346,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 6050,
+     "regularPrice": 6050,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5347,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 6400,
+     "regularPrice": 6400,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2371,6 +4181,75 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 E5600</li>\n<li>Suporte para até 128Gb de memória RAM DDR3 ECC</li>\n<li>4x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>2x Slots PCI-e</li>\n<li><a href=\"https://www.hpe.com/psnow/doc/c04284374.pdf?jumpid=in_lit-psnow-getpdf\">https://www.hpe.com/psnow/doc/c04284374.pdf?jumpid=in_lit-psnow-getpdf</a></li>\n</ul>",
+   "gallery": [
+    {
+     "file": "4947-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl160-g6-ti24h-771x1000-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4947-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl160-_1_.jpg",
+     "alt": "",
+     "width": 600,
+     "height": 600
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5345,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 2800,
+     "regularPrice": 2800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5343,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 3050,
+     "regularPrice": 3050,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5344,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 3500,
+     "regularPrice": 3500,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2413,6 +4292,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 E5600</li>\n<li>Suporte para até 192Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<p><a href=\"https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c01714639\">https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c01714639</a></p>",
+   "gallery": [
+    {
+     "file": "4950-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-g6-ti24h-771x1000-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4950-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380-g6-_1_.jpg",
+     "alt": "",
+     "width": 602,
+     "height": 500
+    },
+    {
+     "file": "4950-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380-g6-_2_.jpg",
+     "alt": "",
+     "width": 602,
+     "height": 500
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5342,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 3200,
+     "regularPrice": 3200,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5340,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 3500,
+     "regularPrice": 3500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5341,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 3980,
+     "regularPrice": 3980,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2455,6 +4410,68 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para 1 Processador Intel Xeon E5-1600 E5-2600 v3/v4</li>\n<li>Suporte para até 256Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.hpe.com/psnow/doc/c04545452\">https://www.hpe.com/psnow/doc/c04123166</a></h5>",
+   "gallery": [
+    {
+     "file": "4954-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml110-G9.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5339,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 4800,
+     "regularPrice": 4800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5337,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 5300,
+     "regularPrice": 5300,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5338,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 6200,
+     "regularPrice": 6200,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2497,6 +4514,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v2</li>\n<li>Suporte para até 768Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.hpe.com/psnow/doc/c04123166\">https://www.hpe.com/psnow/doc/c04123166</a></h5>",
+   "gallery": [
+    {
+     "file": "4958-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g8.jpeg",
+     "alt": "",
+     "width": 400,
+     "height": 400
+    },
+    {
+     "file": "4958-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g8-2.jpeg",
+     "alt": "",
+     "width": 640,
+     "height": 480
+    },
+    {
+     "file": "4958-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g8-1.jpeg",
+     "alt": "",
+     "width": 1280,
+     "height": 960
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5333,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 5900,
+     "regularPrice": 5900,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5331,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 6150,
+     "regularPrice": 6150,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5332,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 6600,
+     "regularPrice": 6600,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2539,6 +4632,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5 2600 v3 /v4</li>\n<li>Suporte para até 1.5TB de memória RAM DDR4 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>8x Slots PCI-e</li>\n</ul>\n<p>https://www.hpe.com/psnow/doc/c04346270</p>",
+   "gallery": [
+    {
+     "file": "4962-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g9.png",
+     "alt": "",
+     "width": 500,
+     "height": 580
+    },
+    {
+     "file": "4962-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g9-2.jpeg",
+     "alt": "",
+     "width": 843,
+     "height": 696
+    },
+    {
+     "file": "4962-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml350-g9-1.jpeg",
+     "alt": "",
+     "width": 2000,
+     "height": 1500
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5336,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 11500,
+     "regularPrice": 11500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5334,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 12250,
+     "regularPrice": 12250,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5335,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 13200,
+     "regularPrice": 13200,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2581,6 +4750,61 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para 1 processador Celeron/Pentium/i3</li>\n<li>Suporte para até 32Gb de memória RAM DDR3 ECC UDDIM</li>\n<li>4x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>2x Slots PCI-e</li>\n</ul>\n<p><a href=\"https://www.hpe.com/psnow/doc/c04128120\">https://www.hpe.com/psnow/doc/c04128120</a></p>",
+   "gallery": [
+    {
+     "file": "4966-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml310-g8-_1_.jpg",
+     "alt": "",
+     "width": 600,
+     "height": 600
+    },
+    {
+     "file": "4966-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-ml310-g8.jpg",
+     "alt": "",
+     "width": 600,
+     "height": 600
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5330,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 3900,
+     "regularPrice": 3900,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5328,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 4500,
+     "regularPrice": 4500,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2623,6 +4847,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5-2600 v2</li>\n<li>Suporte para até 384Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>2x Slots PCI-e</li>\n</ul>\n<p><a href=\"https://lenovopress.lenovo.com/lp0038.pdf\">https://lenovopress.lenovo.com/lp0038.pdf</a></p>",
+   "gallery": [
+    {
+     "file": "4970-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3550-m4.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4970-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3550-m4-2.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4970-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3550-m4-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5325,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 5800,
+     "regularPrice": 5800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5323,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 6050,
+     "regularPrice": 6050,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5324,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 6450,
+     "regularPrice": 6450,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2665,6 +4965,75 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 / E5600</li>\n<li>Suporte para até 192Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>2x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.ibm.com/common/ssi/rep_ca/9/872/ENUSAG10-0019/ENUSAG10-0019.PDF\">https://www.ibm.com/common/ssi/rep_ca/9/872/ENUSAG10-0019/ENUSAG10-0019.PDF</a></h5>",
+   "gallery": [
+    {
+     "file": "4974-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m3-.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4974-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m3-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5322,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 3250,
+     "regularPrice": 3250,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5320,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 3500,
+     "regularPrice": 3500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5321,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 3990,
+     "regularPrice": 3990,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2707,6 +5076,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v2</li>\n<li>Suporte para até 384Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5</li>\n<li>2x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.ibm.com/common/ssi/rep_ca/4/897/ENUS112-144/ENUS112-144.PDF\">https://www.ibm.com/common/ssi/rep_ca/4/897/ENUS112-144/ENUS112-144.PDF</a></h5>",
+   "gallery": [
+    {
+     "file": "4978-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m4.png",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4978-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m4-2.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4978-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/ibm-x3650-m4-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5319,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 5200,
+     "regularPrice": 5200,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5317,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 5500,
+     "regularPrice": 5500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5318,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 5800,
+     "regularPrice": 5800,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2750,6 +5195,96 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 4 Processadores Intel Xeon E7-4800 / E7-8800 de 10 nícleos</li>\n<li>Suporte para até 1TB de memória RAM DDR3 ECC</li>\n<li>6x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>2x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R910-Spec-Sheet_br.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R910-Spec-Sheet_br.pdf</a></h5>",
+   "gallery": [
+    {
+     "file": "4986-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r910-1.jpeg",
+     "alt": "",
+     "width": 800,
+     "height": 800
+    },
+    {
+     "file": "4986-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r910.jpeg",
+     "alt": "",
+     "width": 1600,
+     "height": 1600
+    },
+    {
+     "file": "4986-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r910-2.jpeg",
+     "alt": "",
+     "width": 284,
+     "height": 177
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5557,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 12050,
+     "regularPrice": 12050,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5316,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 12300,
+     "regularPrice": 12300,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5314,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 12780,
+     "regularPrice": 12780,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5315,
+     "attributes": {
+      "attribute_pa_memoria-ram": "64gb"
+     },
+     "price": 13500,
+     "regularPrice": 13500,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2795,6 +5330,96 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon Scalable</li>\n<li>Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=ZYxRfIPf2ZQ\">Video Canal MSServer Youtube</a></h5>\n<p>&nbsp;</p>",
+   "gallery": [
+    {
+     "file": "4990-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4990-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "4990-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-2.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5556,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 23500,
+     "regularPrice": 23500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5310,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 24000,
+     "regularPrice": 24000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5311,
+     "attributes": {
+      "attribute_pa_memoria-ram": "64gb"
+     },
+     "price": 25000,
+     "regularPrice": 25000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5312,
+     "attributes": {
+      "attribute_pa_memoria-ram": "128gb"
+     },
+     "price": 26500,
+     "regularPrice": 26500,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2838,6 +5463,96 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 / E5600</li>\n<li>Suporte para até 192Gb de memória RAM DDR3 ECC</li>\n<li>6x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>2x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R610-Spec-Sheet_br.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/PowerEdge-R610-Spec-Sheet_br.pdf</a></h5>",
+   "gallery": [
+    {
+     "file": "4994-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R610-.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    },
+    {
+     "file": "4994-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R610-VERSO-S.F.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    },
+    {
+     "file": "4994-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R610-ABERTA-S.F.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_memoria-ram",
+     "options": [
+      {
+       "value": "8GB",
+       "label": "8GB"
+      },
+      {
+       "value": "16GB",
+       "label": "16GB"
+      },
+      {
+       "value": "32GB",
+       "label": "32GB"
+      },
+      {
+       "value": "64GB",
+       "label": "64GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5551,
+     "attributes": {
+      "attribute_memoria-ram": "8GB"
+     },
+     "price": 4500,
+     "regularPrice": 4500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5277,
+     "attributes": {
+      "attribute_memoria-ram": "16GB"
+     },
+     "price": 4750,
+     "regularPrice": 4750,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5278,
+     "attributes": {
+      "attribute_memoria-ram": "32GB"
+     },
+     "price": 4980,
+     "regularPrice": 4980,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5279,
+     "attributes": {
+      "attribute_memoria-ram": "64GB"
+     },
+     "price": 5250,
+     "regularPrice": 5250,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2882,6 +5597,103 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v3 v4</li>\n<li>Suporte para até 1.5TB de memória RAM DDR4 ECC</li>\n<li>8x Slots para Disco SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/Dell-PowerEdge-R730-Spec-Sheet-PT-BR-HR.pdf</h5>",
+   "gallery": [
+    {
+     "file": "5605-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/HTB1M4KrXAL0gK0jSZFtq6xQCXXaa.jpg",
+     "alt": "",
+     "width": 640,
+     "height": 640
+    },
+    {
+     "file": "5605-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R730-ABERTA-S.F.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5606,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 19000,
+     "regularPrice": 19000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5607,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 18500,
+     "regularPrice": 18500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5608,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 21500,
+     "regularPrice": 21500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5609,
+     "attributes": {
+      "attribute_pa_memoria-ram": "64gb"
+     },
+     "price": 22600,
+     "regularPrice": 22600,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5610,
+     "attributes": {
+      "attribute_pa_memoria-ram": "128gb"
+     },
+     "price": 23950,
+     "regularPrice": 23950,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2927,6 +5739,103 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v3 v4</li>\n<li>Suporte para até 1.5TB de memória RAM DDR4 ECC</li>\n<li>12x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/Dell-PowerEdge-R730-Spec-Sheet-PT-BR-HR.pdf</h5>",
+   "gallery": [
+    {
+     "file": "5614-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/HTB1M4KrXAL0gK0jSZFtq6xQCXXaa.jpg",
+     "alt": "",
+     "width": 640,
+     "height": 640
+    },
+    {
+     "file": "5614-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R730-ABERTA-S.F.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5615,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 20500,
+     "regularPrice": 20500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5616,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 22000,
+     "regularPrice": 22000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5617,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 23000,
+     "regularPrice": 23000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5618,
+     "attributes": {
+      "attribute_pa_memoria-ram": "64gb"
+     },
+     "price": 24100,
+     "regularPrice": 24100,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5619,
+     "attributes": {
+      "attribute_pa_memoria-ram": "128gb"
+     },
+     "price": 25450,
+     "regularPrice": 25450,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -2971,6 +5880,96 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon Scalable</li>\n<li>Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Product_Docs/en/poweredge-r640-spec-sheet.pdf\">https://i.dell.com/sites/csdocuments/Product_Docs/en/poweredge-r640-spec-sheet.pdf</a></h5>",
+   "gallery": [
+    {
+     "file": "5632-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/R640.jpg",
+     "alt": "",
+     "width": 500,
+     "height": 500
+    },
+    {
+     "file": "5632-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R640-VERSO.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    },
+    {
+     "file": "5632-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R640-AVERTE-S.F.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5633,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 20500,
+     "regularPrice": 20500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5634,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 21250,
+     "regularPrice": 21250,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5635,
+     "attributes": {
+      "attribute_pa_memoria-ram": "64gb"
+     },
+     "price": 22800,
+     "regularPrice": 22800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5636,
+     "attributes": {
+      "attribute_pa_memoria-ram": "128gb"
+     },
+     "price": 23900,
+     "regularPrice": 23900,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -3014,6 +6013,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v2</li>\n<li>Suporte para até 768TB de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/Dell-PowerEdge-R720-Spec-Sheet_PT-BR.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/pt/br/Dell-PowerEdge-R720-Spec-Sheet_PT-BR.pdf</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=_V_XSeznxx4\">Video Canal MS Youtube</a></h5>",
+   "gallery": [
+    {
+     "file": "5642-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/Dell-Poweredge-r720-front-1.jpg",
+     "alt": "",
+     "width": 500,
+     "height": 500
+    },
+    {
+     "file": "5642-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R720-ABERTA-S.F.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    },
+    {
+     "file": "5642-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/DELL-R720-VERSO.png",
+     "alt": "",
+     "width": 800,
+     "height": 550
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5643,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 9950,
+     "regularPrice": 9950,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5644,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 10350,
+     "regularPrice": 10350,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5645,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 11000,
+     "regularPrice": 11000,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -3057,6 +6132,75 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2400 v2</li>\n<li>Suporte para até 128GB de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.dell.com/support/manuals/pt-br/poweredge-r520/r520systemsownersmanual/technical-specifications?guid=guid-6e6de978-513e-4bc1-a7f2-dc25b303dbe1&amp;lang=en-us\">https://www.dell.com/support/manuals/pt-br/poweredge-r520/r520systemsownersmanual/technical-specifications?guid=guid-6e6de978-513e-4bc1-a7f2-dc25b303dbe1&amp;lang=en-us</a></h5>",
+   "gallery": [
+    {
+     "file": "5649-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/r520-600x584-1.png",
+     "alt": "",
+     "width": 600,
+     "height": 584
+    },
+    {
+     "file": "5649-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/r520-front-771x1000-1.png",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5650,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 7500,
+     "regularPrice": 7500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5651,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 7850,
+     "regularPrice": 7850,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5652,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 8300,
+     "regularPrice": 8300,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -3102,6 +6246,96 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v4</li>\n<li>Suporte para até 384GB de memória RAM DDR4 ECC</li>\n<li>8x Slots para Disco SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<p><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/aa/Dell-PowerEdge-R530-Spec-Sheet.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/aa/Dell-PowerEdge-R530-Spec-Sheet.pdf</a></p>",
+   "gallery": [
+    {
+     "file": "5655-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/r530-600x584-1.png",
+     "alt": "",
+     "width": 600,
+     "height": 584
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5656,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 19000,
+     "regularPrice": 19000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5657,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 14500,
+     "regularPrice": 14500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5658,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 15800,
+     "regularPrice": 15800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5659,
+     "attributes": {
+      "attribute_pa_memoria-ram": "64gb"
+     },
+     "price": 17500,
+     "regularPrice": 17500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5660,
+     "attributes": {
+      "attribute_pa_memoria-ram": "128gb"
+     },
+     "price": 21450,
+     "regularPrice": 21450,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -3145,6 +6379,75 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v2</li>\n<li>Suporte para até 768Gb de memória RAM DDR3 ECC</li>\n<li>12x Slots para Disco SFF SAS/SATA Hot-Plug /  3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\">https://www.hpe.com/psnow/doc/c04123238</h5>",
+   "gallery": [
+    {
+     "file": "5662-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380p-g8-gen8-12x-lff-2x-e5-2650l-v2-64gb-2x-kieszen.jpg",
+     "alt": "",
+     "width": 475,
+     "height": 530
+    },
+    {
+     "file": "5662-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360P-G8-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5663,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 6800,
+     "regularPrice": 6800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5664,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 7050,
+     "regularPrice": 7050,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5665,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 7800,
+     "regularPrice": 7800,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -3187,6 +6490,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E5500 E5600</li>\n<li>Suporte para até 384Gb de memória RAM DDR3 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<p><a href=\"https://www.hpe.com/psnow/doc/c04199811\">https://www.hpe.com/psnow/doc/c04199811</a></p>",
+   "gallery": [
+    {
+     "file": "5668-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-g6-ti24h-771x1000-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "5668-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380-g6-_1_.jpg",
+     "alt": "",
+     "width": 602,
+     "height": 500
+    },
+    {
+     "file": "5668-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl380-g6-_2_.jpg",
+     "alt": "",
+     "width": 602,
+     "height": 500
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5669,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 3800,
+     "regularPrice": 3800,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5670,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 4100,
+     "regularPrice": 4100,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5671,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 4500,
+     "regularPrice": 4500,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -3229,6 +6608,68 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon E2600 v3/v4</li>\n<li>Suporte para até 3TB de memória RAM DDR4 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.hpe.com/psnow/doc/c04346247\">https://www.hpe.com/psnow/doc/c04346247</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=ZLrNNK82hxc\">Video Canal MS Youtube</a></h5>\n<p>&nbsp;</p>",
+   "gallery": [
+    {
+     "file": "5672-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/servidor-hp-proliant-dl380-gen9-ti24h-771x1000-1.jpg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 5673,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 13500,
+     "regularPrice": 13500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5674,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 14000,
+     "regularPrice": 14000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 5675,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 16900,
+     "regularPrice": 16900,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -3273,6 +6714,54 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon Scalable</li>\n<li>Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM</li>\n<li>4x Slots para Disco SFF SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r440-spec-sheet.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r440-spec-sheet.pdf</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=A3t1rOOuAEI\">Video Canal MS Youtube</a></h5>",
+   "gallery": [
+    {
+     "file": "7502-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "7502-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-2.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "7502-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r440-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "32gb",
+       "label": "32GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 7834,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 22500,
+     "regularPrice": 22500,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -3318,6 +6807,96 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon Scalable</li>\n<li>Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug 2.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=ZYxRfIPf2ZQ\">Video Canal MSServer Youtube</a></h5>\n<p>&nbsp;</p>",
+   "gallery": [
+    {
+     "file": "7529-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "7529-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "7529-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-2.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 7530,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 20500,
+     "regularPrice": 20500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 7531,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 21000,
+     "regularPrice": 21000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 7532,
+     "attributes": {
+      "attribute_pa_memoria-ram": "64gb"
+     },
+     "price": 22000,
+     "regularPrice": 22000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 7533,
+     "attributes": {
+      "attribute_pa_memoria-ram": "128gb"
+     },
+     "price": 23500,
+     "regularPrice": 23500,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -3349,6 +6928,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800",
+   "description": "<p>Bateria para controladora Dell Perc6 &#8211; H700 &#8211; H800</p>",
+   "gallery": [
+    {
+     "file": "7820-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-dell-nu209-fr463-u8735-perc-5-6-h700-h800-2.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "add-to-cart",
@@ -3380,6 +6971,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "Bateria dell para controladoras perc h710-h810-h730-h830-070k80",
+   "description": "<p>Bateria dell para controladoras perc h710-h810-h730-h830-070k80</p>",
+   "gallery": [
+    {
+     "file": "7822-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-dell-para-controladoras-perc-h710-h810-h730-h830-070k80.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "add-to-cart",
@@ -3411,6 +7014,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "Bateria para hp p840p440 sl90030-4",
+   "description": "<p>Bateria para hp p840p440 sl90030-4</p>",
+   "gallery": [
+    {
+     "file": "7824-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/bateria-para-hp-p840p440-sl90030-4.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "add-to-cart",
@@ -3442,6 +7057,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "Placa de rede dual giga intel-82576eb-e1g42et-pcie",
+   "description": "<p>Placa de rede dual giga intel-82576eb-e1g42et-pcie</p>",
+   "gallery": [
+    {
+     "file": "7826-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/placa-de-redeplaca-rede-dual-giga-intel-82576eb-e1g42et-pcie.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "add-to-cart",
@@ -3473,6 +7100,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s",
+   "description": "<p>Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s</p>",
+   "gallery": [
+    {
+     "file": "7828-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/placa-rede-servidor-10gb-pcie-x8-dual-port-sfp-bcm57810s.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "add-to-cart",
@@ -3502,6 +7141,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>HP HEATSINK FOR HP PROLIANT DL380P G8 / DL388P G8 / DL560 G8 662522-001</p>\n<p>PN: 662522-001<br />\nHP HEATSINK FOR HP PROLIANT DL380P G8 / DL388P G8 / DL560 G8 &#8211; LATCH TYPE 60W-135W</p>\n<p>MANUFACTURER: HP<br />\nPART NUMBER: 662522-001<br />\nCOMPATIBILITY: HP PROLIANT DL380P G8 / DL388P G8 / DL560 G8<br />\nADDITIONAL INFORMATION: LATCH TYPE HEATSINK, 60W-135W</p>",
+   "gallery": [
+    {
+     "file": "7842-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/DISSIPADOR-HP-DL-380-2.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3531,6 +7182,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<div class=\"product-section\">\n<p class=\"product-description\">0YY2R8 &#8211; Melhore o resfriamento eficaz do seu servidor Dell Poweredge R730 e R730XD. Projetado para proporcionar um controle térmico otimizado, este componente crucial mantém os elementos internos em temperatura ideal, assegurando operação estável e prolongando a vida útil do sistema. Com design robusto e materiais de alta qualidade, este dissipador é uma escolha confiável para maximizar o desempenho do seu servidor.</p>\n</div>\n<div class=\"product-section\">\n<h3 class=\"product-header\">Detalhes do Produto</h3>\n<p><strong>Modelo:</strong> 0YY2R8</p>\n<p><strong>Partnumber:</strong> YY2R8</p>\n<p><strong>Tipo:</strong> Heatsink</p>\n<p><strong>Compatibilidade:</strong> Servidores Dell PowerEdge R730, R730XD</p>\n</div>",
+   "gallery": [
+    {
+     "file": "7844-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/Dissipador-Servidor-Heatsink-Dell-Powerdge-R730-1.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3560,6 +7223,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Dissipador Dell R630 HeatSink 0Y8MC1</p>\n<p>Características:<br />\nMarca: Dell<br />\nModelo: Poweredge R630<br />\nPart Number: 0Y8MC1</p>",
+   "gallery": [
+    {
+     "file": "7846-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-poweredge-r630-heatsink-dell-0y8mc1-2.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3589,6 +7264,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Dissipador DELL R640 R740 r740xd heatsink heatsink 0F8NV</p>\n<p>CN- 00F8NV<br />\nCN- 0C6R9H</p>",
+   "gallery": [
+    {
+     "file": "7848-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-00f8nv-0f8nv-2.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3618,6 +7305,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Dissipador DELL R640 R740 r740xd heatsink heatsink 0F8NV<br />\nCN- 00F8NV<br />\nCN- 0C6R9H</p>",
+   "gallery": [
+    {
+     "file": "7850-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/dissipador-dell-r740-r740xd-r640-0f8nv-00f8nv-0trjt7-trjt7.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3647,6 +7346,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Fan DELL PowerEdge R530 R530XD 03D7GY 3D7GY 0R27NJ R27NJ 0MRX6C MRX6C 0WFXP8 WFXP8 *</p>\n<p>Somos GPC | PECASDATACENTER<br />\nMaior estoque de peças para seu DataCenter</p>",
+   "gallery": [
+    {
+     "file": "7852-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r530-r530xd-03d7gy-3d7gy-0r27nj-r27nj.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3676,6 +7387,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Modelo: DELL POWEREDGE R620 R630<br />\nPart Number: 014VG6 14VG6 / 02X0NG / F1YN7 / GFC0112DC<br />\nConector: 6 Vias</p>",
+   "gallery": [
+    {
+     "file": "7854-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-poweredge-r620-r320-r630-gfc0412ds-hr6c0-0hr6c0.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3702,6 +7425,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<table class=\"andes-table\" style=\"height: 71px\" width=\"219\">\n<tbody class=\"andes-table__body\">\n<tr class=\"andes-table__row\">\n<th class=\"andes-table__header andes-table__header--left ui-pdp-specs__table__column ui-pdp-specs__table__column-title\" scope=\"row\">\n<div class=\"andes-table__header__container\">Marca</div>\n</th>\n<td id=\":R19esqk9im:\" class=\"andes-table__column andes-table__column--left andes-table__column--vertical-align-center ui-pdp-specs__table__column\"><span id=\":R19esqk9im:-value\" class=\"andes-table__column--value\">Dell</span></td>\n</tr>\n<tr class=\"andes-table__row\">\n<th class=\"andes-table__header andes-table__header--left ui-pdp-specs__table__column ui-pdp-specs__table__column-title\" scope=\"row\">\n<div class=\"andes-table__header__container\">Modelo</div>\n</th>\n<td id=\":R19msqk9im:\" class=\"andes-table__column andes-table__column--left andes-table__column--vertical-align-center ui-pdp-specs__table__column\"><span id=\":R19msqk9im:-value\" class=\"andes-table__column--value\">5FX8X 05FX8X</span></td>\n</tr>\n</tbody>\n</table>",
+   "gallery": [
+    {
+     "file": "7856-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-r520-05fx8x-5fx8x.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3731,6 +7466,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Fan Dell R640 0kg52t-0cy92p-kg52t-cy92p</p>",
+   "gallery": [
+    {
+     "file": "7858-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/fan-dell-r640-r740-0kg52t-0cy92p-kg52t-cy92p-2.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3760,6 +7507,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Modelo: HP DL360 DL360P DL360E G9<br />\nPart Number: V40W12BS1M5-08A033 / PFM0412HS DC12V 1.50A / SPS: 775415-001 / 750688-001 / 792851-001<br />\nConector: 6 Vias</p>",
+   "gallery": [
+    {
+     "file": "7860-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/fan-hp-dl360-g9-g10-pn-750688-001-775415-001.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3789,6 +7548,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Modelo: Dell Poweredge R740xd R740<br />\nPart Number: PFR0612DHE-C / CT3RT-A00 / 0N5T36<br />\nConector: 6 Vias<br />\nEstado do Produto: Novo</p>",
+   "gallery": [
+    {
+     "file": "7862-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/Cooler-Fan-Dell-Emc-Poweredge-R740-R740xd-N5t36-0n5t36.png",
+     "alt": "",
+     "width": 575,
+     "height": 510
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3818,6 +7589,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>FONTE 500W HP PROLIANT DL360 GEN9<br />\nMODEL: DPS-500AB-13 A<br />\nP/N: 723595-101<br />\nGPN: 723594-001<br />\nRMN: HSTNS-PC40<br />\nSPN: 754344-001<br />\nOPTION KIT P/N: 720478-B21</p>\n<p>HP POWER SUPPLY 500W 80 PLUS PLATINUM FOR HPE PROLIANT DL360 DL380 G9 723594-001</p>\n<p>Product Details:</p>\n<p>HP POWER SUPPLY 500W 80 PLUS PLATINUM HOT PLUG FOR HPE PROLIANT DL360 G9 / DL380 G9 / ML350 G9</p>",
+   "gallery": [
+    {
+     "file": "7864-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-500w-Hp-Dl360-Dl380-Ml350-G9-1.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3847,6 +7630,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Fonte Redundante Servidor HP 750W DL380 ML150 ML350 G6 G7 G8</p>\n<p>Fabricante: HP Hewlett Packard Company<br />\nModelo DPS-750RB<br />\nInput 100~240V<br />\nOutput 750W (MAX)</p>\n<p>Part-Numbers compatíveis:<br />\n506821-001 506822-001 506822-101 506822-201 511778-001 512327-B21 DPS-750RB A HSTNS-PD18 HSTNS-PL18 PS-2751-2CB-LF</p>\n<p>Fonte Redundante Power Supply para Servidores ProLiant G6 e G7<br />\nHPE 750W Common Slot Gold Hot Plug Power Supply Kit (512327-B21)</p>\n<p>Compatível com:<br />\nHP ProLiant DL160 G6<br />\nHP ProLiant DL165 G7<br />\nHP ProLiant DL180 G6<br />\nHP ProLiant DL288<br />\nHP ProLiant DL360 G6<br />\nHP ProLiant DL360 G7<br />\nHP ProLiant DL360p Gen8<br />\nHP ProLiant DL360e Gen8<br />\nHP ProLiant DL370 G6 E5530 SFF Base AP Rmkt Svr<br />\nHP ProLiant DL380 G6<br />\nHP ProLiant DL380 G7<br />\nHP ProLiant DL380e Gen8<br />\nHP ProLiant DL380p Gen8<br />\nHP ProLiant DL385 G6<br />\nHP ProLiant DL385 G7<br />\nHP ProLiant DL385p Gen8<br />\nHP ProLiant DL385 G7<br />\nHP ProLiant ML110 Gen9<br />\nHP ProLiant ML150 G6<br />\nHP ProLiant ML330 G6<br />\nHP ProLiant ML350 G6<br />\nHP ProLiant ML350e Gen8<br />\nHP ProLiant ML350p Gen8<br />\nHP ProLiant ML370 G6<br />\nHP ProLiant SL160z G6<br />\nHP ProLiant SL170z G6</p>\n<p>Storages:<br />\nHP StorageWorks P4300<br />\nHP StorageWorks P4500<br />\nHP StorageWorks P4500 G2<br />\nHP StorageWorks X1500 G2<br />\nHP StorageWorks X1500<br />\nHP StorageWorks X1600<br />\nHP StorageWorks X1600 G2<br />\nHP StorageWorks X1800<br />\nHP StorageWorks X3800<br />\nHP StorageWorks X3800<br />\nHP StorageWorks X9300<br />\nHP StorageWorks X9320<br />\nHP StoreAll 9320<br />\nHP StoreEasy 1550<br />\nHP StoreEasy 1640<br />\nHP StoreEasy 1840<br />\nHP StoreEasy 3840<br />\nHP StoreOnce 4210<br />\nHP StoreOnce 4220<br />\nHP Superdome 2<br />\nHP VLS12200<br />\nHP VLS9200<br />\nHPE SV3200</p>",
+   "gallery": [
+    {
+     "file": "7866-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/Fonte-Servidor-Hp-Proliant-Dl380-G6-G7-G8-750w-3.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3876,6 +7671,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Fonte Redundante Servidor Dell 495W T320 T420 R620 R720</p>\n<p>495 WATT POWER SUPPLY FOR Dell POWEREDGE</p>\n<p>Fabricante: Dell<br />\nInput 100~240V<br />\nOutput 495 Watts<br />\nHot-Plug<br />\nModelo F495E-S0</p>\n<p>Part Number 3GHW3, 03GHW3, CN-03GHW3<br />\nAlternative Parts N24MJ, 9338D, 0N24MJ CN-0N24MJ D495E-S0, E495E-S1<br />\nModel Number F495E-S0<br />\nRef. No. S-0495ADU00-101<br />\nMax Power 495 Watt<br />\nInput 100-240V, 6.5A~3.0A, 50-60Hz<br />\nOutput +12V—41.25A +12Vsb—3.0A<br />\nApplication Dell PowerEdge R620 R720 T320 Server<br />\nDetail Description PWR SPLY,460W,PFC,DELTA A02-00</p>\n<p>Part-Numbers compat¡veis:<br />\n0N24MJ<br />\nN24MJ<br />\n03GHW3<br />\n3GHW3</p>\n<p>Compativel com:<br />\nDell PowerEdge T320<br />\nDell PowerEdge T420<br />\nDell PowerEdge R620<br />\nDell PowerEdge R720</p>",
+   "gallery": [
+    {
+     "file": "7868-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/fonte-dell-495w-t420-r620-r720-f495e-s0-03ghw3.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3905,6 +7712,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>FONTE DELL PARA SERVIDORES R630 R730 R730XD R530 R640 (NÃO ACOMPANHA CABOS).</p>\n<p>Número da peça: DP/N: 0GRTNK<br />\nModelo: D495E-S1<br />\nPadrão AC, 495W de potência<br />\nVoltagem: 100-240V AC<br />\nAmperagem 6.5A</p>",
+   "gallery": [
+    {
+     "file": "7870-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/fonte-servidor-dell-poweredge-r630-730-730xd-530-640-0grtnk.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3934,6 +7753,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Gaveta Hd 3.5 P Servidor Dell Poweredge R230 R410 R420 R430 R520 R530 R610 T330 T420 T620 T630 0KG1CH, F238F</p>\n<h1 class=\"product-name\"></h1>",
+   "gallery": [
+    {
+     "file": "7872-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/gaveta-para-hd-dell-25-sassata-r310-t310-r320-t320-r610-t610-g176j.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3963,6 +7794,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<h3 class=\"product-header\">Detalhes do Produto</h3>\n<p><strong>Modelo:</strong> 0G176J</p>\n<p><strong>Partnumber:</strong> G176J</p>\n<p><strong>Tamanho:</strong> 2.5&#8243; SFF</p>\n<p><strong>Hot swap:</strong> Sim</p>\n<p><strong>Indicador LED:</strong> Sim</p>\n<p><strong>Incluso:</strong> 4 parafusos para montagem</p>\n<p><strong>Compatibilidade:</strong></p>\n<p>&nbsp;</p>\n<p><em><strong>R10 Series:</strong></em> R310, R415, R510, R515, R610, R710, R715, R810, R815 e R910</p>\n<p><em><strong>R20 Series:</strong></em> R320, R420, R520, R620, R720/R720XD e R820</p>\n<p>&nbsp;</p>\n<p><em><strong>T10 Series: </strong></em>T310, T410, T610 e T710</p>\n<p><em><strong>T20 Series: </strong></em>T320, T420 e T620</p>\n<p>&nbsp;</p>\n<p><strong><em>M600 Series:</em> </strong>M605 e M610/M610X</p>\n<p><em><strong>M700 Series: </strong></em>M710 e M710HD</p>\n<p><em><strong>M800 Series: </strong></em>M805</p>\n<p><em><strong>M900 Series: </strong></em>M905, M910 e M915</p>\n<p><strong><em>M1000 Series:</em> </strong>M1000e</p>",
+   "gallery": [
+    {
+     "file": "7874-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Dell-2.5-G176j-R310-T310-R320-T320-R610-T610.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -3992,6 +7835,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Gaveta hot-swap HP para servidor ProLiant Gen8 e Gen9 com discos de 3,5&#8243; PN: 651314-001</p>\n<p>Suporta HDs SAS, SATA e SSD*<br />\nTipo: 651314-001 / 651320-001<br />\nMaterial: metal + plástico<br />\nMedidas da gaveta: aprox. 190 x 110 x 25 mm<br />\nSuporta 3.5&#8243; hard disk<br />\nHard disk port: SAS/SATA/SSD (Universal)</p>",
+   "gallery": [
+    {
+     "file": "7876-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/gavetas-para-servidorgaveta-servidor-hp-3-5-g8-g9-651314-001-dl360-dl380-gen9.png",
+     "alt": "",
+     "width": 300,
+     "height": 300
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -4021,6 +7876,18 @@
    "reviews": 0,
    "attributes": [],
    "shortDescription": "",
+   "description": "<p>Gaveta de Servidor HP para HDs de 2,5<br />\nTipo: 651687-001 / 651699-001<br />\nMaterial: metal + plástico<br />\nMedidas da gaveta: aprox. 136 x 80 x 20 mm<br />\nSuporta 2.5&#8243; hard disk<br />\nHard disk port: SAS/SATA/SSD (Universal)<br />\nAcompanha os parafusos de fixação.</p>\n<p>Servidores compatíveis:<br />\nHP ProLiant ML350p G8<br />\nHP ProLiant ML350E G8<br />\nHP ProLiant ML350 G9<br />\nHP ProLiant ML310 G8<br />\nHP ProLiant ML110 Gen9<br />\nHP ProLiant ML110 G8<br />\nHP ProLiant ML150 Gen9<br />\nHP ProLiant DL380P G8<br />\nHP ProLiant DL360P G8<br />\nHP ProLiant DL360E G8<br />\nHP ProLiant DL320E G8<br />\nHP ProLiant DL160 G8<br />\nHP ProLiant DL 560 G8<br />\nHP ProLiant DL 388 G8<br />\nHP ProLiant DL 380E G8<br />\nHP ProLiant BL660c G8<br />\nHP ProLiant BL465c G8<br />\nHP ProLiant BL460c G9<br />\nHP ProLiant BL460c G9<br />\nHP ProLiant BL460c G8<br />\nHP ProLiant BL420c G8<br />\nHP ProLiant SL250s G8<br />\nHP ProLiant SL230s G8</p>",
+   "gallery": [
+    {
+     "file": "7878-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2024/12/Gaveta-Servidor-Hp-2.5-G8-G9-Dl360-Dl380-Dl320-Ml350-Gen9.png",
+     "alt": "",
+     "width": 534,
+     "height": 524
+    }
+   ],
+   "variationAttributes": [],
+   "variations": [],
    "button": {
     "text": "Orçamento",
     "kind": "link",
@@ -4066,6 +7933,110 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon Scalable</li>\n<li>Suporte para até 3TB de memória RAM DDR4 RDIMM / LRDIMM</li>\n<li>12x Slots para Disco SFF SAS/SATA Hot-Plug 3.5</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf\">https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/poweredge-r740-spec-sheet.pdf</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=ZYxRfIPf2ZQ\">Video Canal MSServer Youtube</a></h5>\n<p>&nbsp;</p>",
+   "gallery": [
+    {
+     "file": "8134-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "8134-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "8134-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/dell-r740-2.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "128gb",
+       "label": "128GB"
+      },
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "64gb",
+       "label": "64GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 8137,
+     "attributes": {
+      "attribute_pa_memoria-ram": "128gb"
+     },
+     "price": 32500,
+     "regularPrice": 32500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 8138,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 28900,
+     "regularPrice": 28900,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 8139,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 29000,
+     "regularPrice": 29000,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 8140,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 28200,
+     "regularPrice": 28200,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 8135,
+     "attributes": {
+      "attribute_pa_memoria-ram": "64gb"
+     },
+     "price": 29800,
+     "regularPrice": 29800,
+     "inStock": true,
+     "purchasable": true
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -4108,6 +8079,68 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon Scalable</li>\n<li>Suporte para até 3,5TB de memória RAM DDR4 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.hpe.com/psnow/doc/c04346247\">https://www.hpe.com/psnow/doc/c04346247</a></h5>\n<h5><a href=\"https://www.youtube.com/watch?v=ZLrNNK82hxc\">Video Canal MS Youtube</a></h5>\n<p>&nbsp;</p>",
+   "gallery": [
+    {
+     "file": "8141-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2026/01/Captura-de-Tela-2026-01-22-as-16.05.44.png",
+     "alt": "",
+     "width": 498,
+     "height": 433
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 8142,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 0,
+     "regularPrice": 0,
+     "inStock": true,
+     "purchasable": false
+    },
+    {
+     "id": 8143,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 19500,
+     "regularPrice": 19500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 8144,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 0,
+     "regularPrice": 0,
+     "inStock": true,
+     "purchasable": false
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",
@@ -4150,6 +8183,82 @@
     }
    ],
    "shortDescription": "",
+   "description": "<h4><strong>ESPECIFICAÇÕES:</strong></h4>\n<ul>\n<li>Suporte para até 2 Processadores Intel Xeon Scalable</li>\n<li>Suporte para até 3,5TB de memória RAM DDR4 ECC</li>\n<li>8x Slots para Disco SFF SAS/SATA Hot-Plug</li>\n<li>4x Slots PCI-e</li>\n</ul>\n<h5 data-renderer-start-pos=\"344\"><a href=\"https://www.hpe.com/psnow/doc/c04346229.pdf?jumpid=in_lit-psnow-getpdf\">https://www.hpe.com/psnow/doc/c04346229.pdf?jumpid=in_lit-psnow-getpdf</a></h5>",
+   "gallery": [
+    {
+     "file": "8147-0.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2026/01/Captura-de-Tela-2026-01-22-as-15.56.11.png",
+     "alt": "",
+     "width": 373,
+     "height": 203
+    },
+    {
+     "file": "8147-1.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9-1.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    },
+    {
+     "file": "8147-2.jpg",
+     "src": "https://msserver.com.br/wp-content/uploads/2023/06/hp-dl360-G9-2.jpeg",
+     "alt": "",
+     "width": 771,
+     "height": 1000
+    }
+   ],
+   "variationAttributes": [
+    {
+     "name": "Memoria RAM",
+     "field": "attribute_pa_memoria-ram",
+     "options": [
+      {
+       "value": "16gb",
+       "label": "16GB"
+      },
+      {
+       "value": "32gb",
+       "label": "32GB"
+      },
+      {
+       "value": "8gb",
+       "label": "8GB"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "id": 8149,
+     "attributes": {
+      "attribute_pa_memoria-ram": "16gb"
+     },
+     "price": 17300,
+     "regularPrice": 17300,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 8150,
+     "attributes": {
+      "attribute_pa_memoria-ram": "32gb"
+     },
+     "price": 17500,
+     "regularPrice": 17500,
+     "inStock": true,
+     "purchasable": true
+    },
+    {
+     "id": 8151,
+     "attributes": {
+      "attribute_pa_memoria-ram": "8gb"
+     },
+     "price": 0,
+     "regularPrice": 0,
+     "inStock": true,
+     "purchasable": false
+    }
+   ],
    "button": {
     "text": "Selecionar opções",
     "kind": "options",

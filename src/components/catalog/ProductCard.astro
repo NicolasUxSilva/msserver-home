@@ -4,7 +4,8 @@
 // informações reais do WooCommerce: fabricante, tipo, configurações de memória e o botão do produto.
 import { getImage } from 'astro:assets';
 import Icon from '../Icon.astro';
-import { BRANDS, categoryName, priceParts, sortedTerms, type Product } from '../../data/catalog';
+import { LINKS } from '../../config/site';
+import { BRANDS, categoryName, priceParts, productHref, variationOptions, type Product } from '../../data/catalog';
 
 interface Props {
   product: Product;
@@ -28,7 +29,12 @@ const tags = [
   ...p.categories.filter((c) => !(c in BRANDS) && shown(c)).map((c) => ({ text: categoryName(c), brand: false })),
 ];
 const price = priceParts(p);
-const specs = p.attributes.filter((a) => a.variations && a.terms.length);
+// Opções que podem ser escolhidas de fato (as variações com preço), como no formulário do produto.
+const specs = variationOptions(p);
+// O card leva à página do produto neste site; "adicionar ao carrinho" vai ao carrinho do WooCommerce
+// (o mesmo ?add-to-cart=ID, agora no endereço que continua no WordPress).
+const href = productHref(p.url);
+const buttonHref = p.button.kind === 'add-to-cart' ? `${LINKS.cart}?add-to-cart=${p.id}` : productHref(p.button.url);
 const ratingPct = Math.round((p.rating / 5) * 100);
 ---
 
@@ -67,14 +73,14 @@ const ratingPct = Math.round((p.rating / 5) * 100);
 
   <div class="pc-body">
     <h3 class="pc-title">
-      <a class="card-link" href={p.url} title={p.name}>{p.name}</a>
+      <a class="card-link" href={href} title={p.name}>{p.name}</a>
     </h3>
 
     {
       specs.map((a) => (
         <p class="pc-spec">
           <span class="pc-spec-name">{a.name}</span>
-          <span class="pc-spec-values">{sortedTerms(a.terms).join(' · ')}</span>
+          <span class="pc-spec-values">{a.options.map((o) => o.label).join(' · ')}</span>
         </p>
       ))
     }
@@ -107,7 +113,7 @@ const ratingPct = Math.round((p.rating / 5) * 100);
       }
       <a
         class="btn btn--dark pc-btn card-raise"
-        href={p.button.url}
+        href={buttonHref}
         rel={p.button.kind === 'add-to-cart' ? 'nofollow' : undefined}
         aria-label={`${p.button.text}: ${p.name}`}
         data-kind={p.button.kind}

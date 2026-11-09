@@ -40,6 +40,9 @@ export const ROUTES = {
   placasDeRede: `${BASE}/categoria-produto/placas-de-rede/`,
 } as const;
 
+/** Página de um produto (/servidor/slug/, o mesmo endereço do WooCommerce). */
+export const productRoute = (slug: string) => `${BASE}/servidor/${slug}/`;
+
 export const LINKS = {
   home: ROUTES.home,
   servers: ROUTES.servers,
@@ -50,6 +53,8 @@ export const LINKS = {
   cases: `${U}/cases-de-sucesso/`,
   app: `${U}/aplicativo-ms-server/`,
   search: `${U}/`,
+  /** Carrinho do WooCommerce (continua no WordPress): o botão "Orçamento" adiciona o produto aqui. */
+  cart: `${U}/carrinho/`,
 } as const;
 
 export type NavLink = { label: string; href?: string; children?: NavLink[] };

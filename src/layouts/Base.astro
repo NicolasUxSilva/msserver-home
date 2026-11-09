@@ -13,7 +13,8 @@ interface Props {
   canonical?: string;
   /** og:type da página (o All in One SEO usa "website" na home e "article" nas páginas). */
   ogType?: string;
-  /** Dados estruturados (JSON-LD) da página; padrão: os da home. */
+  /** Dados estruturados (JSON-LD) da página; padrão: os da home. Uma lista vira um bloco por item
+   *  (como nas páginas de produto do WordPress: o do All in One SEO e o do WooCommerce). */
   schema?: unknown;
 }
 
@@ -72,7 +73,7 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
     </script>
     {TRACKING.enabled && <script is:inline set:html={tracking} />}
     {TRACKING.enabled && <script is:inline async src={TRACKING.rdStation} />}
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    {(Array.isArray(schema) ? schema : [schema]).map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body>
     {

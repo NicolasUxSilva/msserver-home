@@ -44,7 +44,9 @@ test.describe('preservação da home original', () => {
         ['componentes', 'baterias', 'dissipadores', 'fans', 'fontes', 'gavetas', 'placas-de-rede'].map((c) => [`https://msserver.com.br/categoria-produto/${c}/`, `/categoria-produto/${c}/`]),
       ),
     };
-    const missing = original.hrefs.filter((h) => !hrefs.has(equivalent[h] ?? h));
+    // Páginas de produto: reconstruídas no mesmo endereço (/servidor/slug/).
+    const local = (h: string) => equivalent[h] ?? h.replace(/^https:\/\/msserver\.com\.br(?=\/servidor\/[^/]+\/$)/, '');
+    const missing = original.hrefs.filter((h) => !hrefs.has(local(h)));
     expect(missing).toEqual([]);
     expect(await page.locator('a[href="#"], a[href="#/"]').count()).toBe(0);
   });
@@ -316,7 +318,9 @@ test('cartões inteiros clicáveis levam ao mesmo destino do título', async ({ 
   // Clique real do usuário sobre a foto (sem seletor): o link esticado do título recebe o clique.
   let box = (await card.locator('.card-photo').boundingBox())!;
   await page.mouse.click(box.x + 30, box.y + 30);
-  await expect(page).toHaveURL('https://msserver.com.br/servidor/servidor-hp-proliant-dl380-g7/');
+  // Página do produto reconstruída, no mesmo endereço do WordPress.
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d+\/servidor\/servidor-hp-proliant-dl380-g7\/$/);
+  await expect(page.locator('h1')).toHaveText('Servidor HP Proliant DL380 G7');
   await page.goto('/');
   const post = page.locator('.post').first();
   await post.scrollIntoViewIfNeeded();

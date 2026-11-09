@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 import data from '../data/products.json';
 import { LINE } from '../data/content';
+import { productHref } from '../data/catalog';
 
 type Product = { id: number; name: string; url: string; image: string | null; imageAlt: string; min: number; max: number; rating: number; button: string };
 const products = data.products as unknown as Record<string, Product>;
@@ -58,7 +59,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
                     </div>
                     <div class="card-body">
                       <h3 class="card-title">
-                        <a class="card-link" href={p.url}>{p.name}</a>
+                        <a class="card-link" href={productHref(p.url)}>{p.name}</a>
                       </h3>
                       <p class="rating" role="img" aria-label={`Rated ${p.rating} out of 5`}>
                         {[0, 1, 2, 3, 4].map((k) => (
@@ -76,7 +77,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
                           </Fragment>
                         )}
                       </p>
-                      <a class="btn btn--dark btn--sm card-btn card-raise" href={p.url} aria-label={`${p.button}: ${p.name}`}>
+                      <a class="btn btn--dark btn--sm card-btn card-raise" href={productHref(p.url)} aria-label={`${p.button}: ${p.name}`}>
                         {p.button}
                         <Icon name="arrow-right" size={16} class="btn-arrow" />
                       </a>

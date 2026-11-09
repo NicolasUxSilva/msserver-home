@@ -40,7 +40,7 @@ npm run build
 | Logo, banners, imagens das seções, logos de clientes | `npm run assets` (baixa de msserver.com.br) e `node scripts/client-logos.mjs` (versão monocromática dos logos) |
 | Textos | `src/data/content.ts` (home) e `src/data/sobre.ts` ("Sobre nós") |
 | Fotos, ícones e fundos da página "Sobre nós" | `node scripts/prepare-sobre-assets.mjs` (baixa de msserver.com.br) |
-| Catálogo (`/servidores/`, categorias Dell, HP e IBM e categorias de componentes) | `npm run sync:catalog` → `src/data/catalog.json` e `src/assets/catalog/` (ver abaixo) |
+| Catálogo e páginas de produto (`/servidores/`, categorias e `/servidor/slug/`) | `npm run sync:catalog` → `src/data/catalog.json`, `src/data/product-seo.json`, `src/assets/catalog/` e `src/assets/gallery/` (ver abaixo) |
 | Avaliações do Google ("O que os clientes dizem", em "Sobre nós") | `npm run sync:reviews` → `src/data/google-reviews.json` (ver abaixo) |
 | Menu, links, contatos, WhatsApp, vídeo, rastreamento | `src/config/site.ts` |
 | Metadados JSON-LD (cópia do All in One SEO) | `src/data/schema.json` |
@@ -69,12 +69,29 @@ categorias) usam um único componente (`src/components/catalog/CatalogPage.astro
 padrão e paginada como no WordPress (12 por página em `/servidores/`, 16 nas categorias);
 busca, filtro por categoria, ordenação e troca de página funcionam no navegador
 (`src/scripts/catalog.ts`), com o estado na URL (`/page/N/`, `?orderby=`, `?tipo=`, `?busca=`).
-Os cards de produto levam às páginas do produto no WordPress (variações, carrinho e compra
-continuam lá). A navegação do catálogo segue os dois grupos do menu do site (Servidores: todos,
+Os cards de produto levam às páginas de produto deste site (abaixo). A navegação do catálogo segue os dois grupos do menu do site (Servidores: todos,
 Dell, HP, IBM; Componentes: Componentes e suas subcategorias). O seletor "Categoria", ao lado da
 busca e do "Ordenar por", traz as categorias reais que separam parte dos produtos de cada página
 (em Fans, Baterias etc., todos os produtos têm as mesmas categorias, e o seletor não aparece). Se o sincronismo acusar diferença entre
 a contagem publicada de uma categoria e a listagem, ele para sem gravar nada.
+
+### Páginas de produto
+
+`/servidor/slug/` (o mesmo endereço do WooCommerce), uma para cada um dos 74 produtos, geradas por
+`src/pages/servidor/[slug].astro` com `src/components/product/ProductPage.astro`,
+`src/styles/product.css` (a abertura é a do catálogo, `src/styles/catalog-hero.css`) e
+`src/scripts/product.ts`. Tudo vem do mesmo sincronismo: todas as fotos da galeria (enquadradas em
+`src/assets/gallery/`), a descrição publicada (limpa no build por `src/lib/product-html.ts`), as
+variações com preço e disponibilidade de cada opção, os nomes dos campos do formulário do
+WooCommerce e o SEO da página publicada (`src/data/product-seo.json`: título, descrição e os dois
+blocos de JSON-LD). Os textos fixos do modelo (bloco de garantia) estão em `src/data/produto.ts`.
+
+Compra: o botão "Orçamento" envia (POST) ao carrinho do WooCommerce, `https://msserver.com.br/carrinho/`,
+exatamente os campos do formulário original (`add-to-cart`, `product_id`, `variation_id`,
+`attribute_*` e `quantity`); o WooCommerce adiciona o item e mostra o carrinho, e o checkout segue
+no WordPress. Só são oferecidas as opções que têm variação com preço (como no WordPress). Produtos
+sem preço publicado não têm formulário (como no WordPress); a página oferece "Fale com um
+consultor" (WhatsApp do site).
 
 ### Avaliações do Google
 
@@ -150,6 +167,15 @@ a busca, trilha, card que abre o produto, SEO, menu, layout (4 colunas no deskto
 no celular, nome completo, categoria atual à vista, sem rolagem lateral), console e
 acessibilidade (axe) com e sem resultados.
 
+Produto (`tests/e2e/produto.spec.ts`, 10): contra as 74 páginas publicadas
+(`tests/fixtures/original-products.json`, capturado do HTML): título, descrição, canonical e
+JSON-LD, nome, fotos na mesma ordem, preço, texto da descrição, bloco de garantia e o formulário
+(mesmos campos, opções, variações com ids e preços); escolha da memória (preço e variação), limpar,
+quantidade e o envio ao carrinho com os mesmos campos (o carrinho é respondido pelo próprio teste),
+atributo do próprio produto, opções sem preço fora da escolha, produto simples e sem preço,
+galeria e imagem ampliada, trilha e links do catálogo e da home, layout, console e acessibilidade
+(axe), imagens das 74 páginas.
+
 Capturas de QA: `node scripts/qa-screenshots.mjs http://localhost:4330/ 390,768,1024,1440`.
 
 ## Publicação
@@ -190,7 +216,8 @@ configurado no Elementor, no WordPress. Para funcionar:
 | `/servidores/` (e `/servidores/page/N/`) | Catálogo geral reconstruído; `?product-page=N` (endereço antigo) é convertido |
 | `/categoria-produto/dell/`, `/hp/`, `/ibm/` (e `/page/N/`) | Categorias de fabricante reconstruídas, nos mesmos endereços do WooCommerce |
 | `/categoria-produto/componentes/` (e `/page/2/`), `/baterias/`, `/dissipadores/`, `/fans/`, `/fontes/`, `/gavetas/`, `/placas-de-rede/` | Categorias de componentes reconstruídas, nos mesmos endereços do WooCommerce |
-| Páginas de produto (`/servidor/…`), carrinho e checkout | WordPress (WooCommerce) |
+| `/servidor/slug/` | Páginas de produto reconstruídas (74), no mesmo endereço do WooCommerce |
+| Carrinho (`/carrinho/`), checkout e conta | WordPress (WooCommerce): o "Orçamento" das páginas de produto envia ao carrinho |
 | Demais páginas (soluções, blog, suporte, cases, landings) | WordPress em `https://msserver.com.br` |
 
 Os links entre páginas já reconstruídas são internos (`ROUTES` em `src/config/site.ts`, com o
@@ -199,10 +226,11 @@ página, crie a rota em `src/pages/` e acrescente-a em `ROUTES`, para que menu e
 apontar para ela. `canonical`, Open Graph e JSON-LD continuam com as URLs de produção.
 
 A home atual é servida pelo WordPress. Para colocar esta versão no ar é preciso que o servidor
-entregue `/`, `/sobre/`, `/orcamento/`, `/servidores/` e
+entregue `/`, `/sobre/`, `/orcamento/`, `/servidores/`,
 `/categoria-produto/{dell,hp,ibm,componentes,baterias,dissipadores,fans,fontes,gavetas,placas-de-rede}/`
-(com as páginas `/page/N/`) a partir do `dist/` e mantenha o WordPress nas demais rotas,
-incluindo as páginas de produto, o carrinho e `/wp-admin/admin-ajax.php` (ou que o HTML/CSS seja portado para templates do
+(com as páginas `/page/N/`) e `/servidor/*/` (páginas de produto) a partir do `dist/` e mantenha o
+WordPress nas demais rotas, incluindo o carrinho (`/carrinho/`), o checkout, `/wp-json/`,
+`/wp-content/` e `/wp-admin/admin-ajax.php` (ou que o HTML/CSS seja portado para templates do
 tema). Essa etapa não foi feita: o repositório não tem configuração de deploy (há um preview em
 `msserver-home.vercel.app`, configurado fora do repositório) e nenhuma alteração foi aplicada ao
 WordPress ou à produção.

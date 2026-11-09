@@ -1,0 +1,140 @@
+/* ——— Abertura do catálogo e das páginas de produto ———
+   Faixa azul-marinho com luz azul e hachura, trilha, título com o losango laranja e a palavra em
+   contorno com brilho azul (como "SERVIDORES" e "LOCAÇÃO" nas artes da hero). Compartilhada pelas
+   listagens (CatalogPage) e pelas páginas de produto (ProductPage). Prefixo cat-. */
+
+.cat-hero {
+  position: relative;
+  padding-block: clamp(1.1rem, 0.7rem + 1.4vw, 1.85rem) clamp(3.9rem, 3rem + 2.2vw, 4.75rem);
+  background: linear-gradient(165deg, var(--c-navy-950) 0%, #04122d 60%, var(--c-navy-900) 100%);
+  overflow: hidden;
+}
+
+.cat-light {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(40% 70% at 12% 0%, rgb(46 110 210 / 0.32), transparent 72%),
+    radial-gradient(34% 60% at 88% 30%, rgb(46 110 210 / 0.2), transparent 70%);
+}
+
+/* Palavra em contorno com brilho azul, como "SERVIDORES" e "LOCAÇÃO" nas artes da hero. */
+.cat-wordmark {
+  position: absolute;
+  top: clamp(0.4rem, 0.2rem + 0.6vw, 0.9rem);
+  right: max(var(--gutter), calc((100% - var(--container)) / 2));
+  color: transparent;
+  font-family: var(--f-display);
+  font-size: clamp(4rem, 1.8rem + 6vw, 8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  white-space: nowrap;
+  -webkit-text-stroke: 1.5px rgb(98 150 255 / 0.42);
+  filter: drop-shadow(0 0 18px rgb(46 110 210 / 0.55));
+  user-select: none;
+  /* Some suavemente para a esquerda, atrás do título. */
+  mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
+}
+
+.cat-wordmark[data-length='long'],
+.cat-wordmark[data-length='xl'] {
+  font-size: clamp(3.4rem, 1.6rem + 4.6vw, 6.5rem);
+}
+
+/* Celular: palavras longas (COMPONENTES, DISSIPADORES, PLACAS DE REDE) ocupam toda a largura e,
+   como as trilhas longas das subcategorias de componentes, passariam por trás da trilha com força;
+   ficam mais sutis, como textura (as longas, também menores). */
+@media (max-width: 599px) {
+  .cat-wordmark[data-length='xl'] {
+    font-size: 2.9rem;
+  }
+
+  .cat-wordmark[data-quiet] {
+    -webkit-text-stroke-color: rgb(98 150 255 / 0.24);
+    filter: drop-shadow(0 0 12px rgb(46 110 210 / 0.35));
+  }
+}
+
+/* Desktop: a palavra fica no alto, acima dos botões de fabricante. */
+@media (min-width: 900px) {
+  .cat-wordmark {
+    mask-image: linear-gradient(90deg, transparent 0%, #000 40%);
+  }
+}
+
+.cat-hero-inner {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Título e contagem na mesma linha (a contagem desce quando o nome é longo). */
+.cat-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1.1rem;
+}
+
+.cat-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--c-on-dark-3);
+  font-size: 0.86rem;
+}
+
+/* O traço fica no fim do item: se a trilha quebrar, a linha nova começa por um nome. */
+.cat-crumbs li:not(:last-child)::after {
+  content: '/';
+  margin-left: 0.55rem;
+  color: rgb(255 255 255 / 0.25);
+}
+
+.cat-crumbs a {
+  color: var(--c-on-dark-2);
+  text-decoration: none;
+}
+
+.cat-crumbs a:hover {
+  color: var(--c-on-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cat-crumbs [aria-current] {
+  color: var(--c-on-dark);
+}
+
+.cat-title {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: clamp(2.1rem, 1.3rem + 2.6vw, 3.4rem);
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.cat-title::before {
+  content: '';
+  flex: none;
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  background: var(--c-orange);
+  transform: rotate(45deg);
+}
+
+.cat-sub {
+  color: var(--c-on-dark-2);
+  font-size: var(--t-lead);
+}
+
+.cat-sub b {
+  color: var(--c-on-dark);
+  font-weight: 600;
+}

@@ -22,6 +22,9 @@ const KEYS = Object.keys(PATH) as Key[];
 /** Título exibido: o publicado, com os fabricantes em caixa de marca (DELL → Dell). */
 const H1: Record<Key, string> = { servidores: 'Servidores', dell: 'Dell', hp: 'HP', ibm: 'IBM', componentes: 'Componentes', baterias: 'Baterias', dissipadores: 'Dissipadores', fans: 'Fans', fontes: 'Fontes', gavetas: 'Gavetas', 'placas-de-rede': 'Placas de Rede' };
 const NAV = 'Categorias do catálogo';
+/** Página do produto neste site (o mesmo endereço do WooCommerce, /servidor/slug/). */
+const local = (url: string) => url.replace(/^https:\/\/msserver\.com\.br(?=\/servidor\/)/, '');
+const CART = 'https://msserver.com.br/carrinho/';
 const pageUrl = (key: Key, n: number) => `${PATH[key]}${n > 1 ? `page/${n}/` : ''}`;
 const visibleIds = (page: Page) => page.locator('.pc:not([hidden])').evaluateAll((els) => els.map((e) => Number((e as HTMLElement).dataset.product)));
 const squash = (s: string) => s.replace(/\s+/g, '');
@@ -55,7 +58,8 @@ test.describe('catálogo: preservação do WordPress', () => {
           const o = L.products[String(id) as keyof typeof L.products] as { name: string; url: string; price: string; button: { text: string; href: string } };
           const card = page.locator(`.pc[data-product="${id}"]`);
           await expect(card.locator('.pc-title a')).toHaveText(o.name);
-          await expect(card.locator('.pc-title a')).toHaveAttribute('href', o.url);
+          // O card leva à página do produto reconstruída, no mesmo endereço do WordPress.
+          await expect(card.locator('.pc-title a')).toHaveAttribute('href', local(o.url));
           // Preço exatamente como no WordPress (sem preço publicado: "Sob consulta").
           const price = (await card.locator('.pc-price').textContent())!;
           if (o.price) expect(squash(price)).toBe(squash(o.price));
@@ -63,7 +67,9 @@ test.describe('catálogo: preservação do WordPress', () => {
           const btn = card.locator('.pc-btn');
           await expect(btn).toHaveText(o.button.text);
           // Mesmo destino: página do produto (variações) ou o mesmo "adicionar ao carrinho".
-          const href = o.button.href.startsWith('?') ? `${o.url}${o.button.href}` : o.button.href;
+          // "Adicionar ao carrinho" vai ao carrinho do WooCommerce (que continua no WordPress); os demais
+          // botões levam à página do produto.
+          const href = o.button.href.startsWith('?') ? `${CART}${o.button.href}` : local(o.button.href);
           await expect(btn).toHaveAttribute('href', href);
           await expect(card.locator('img')).toHaveAttribute('alt', o.name);
         }
@@ -261,18 +267,19 @@ test.describe('catálogo: busca, filtros, ordenação e paginação', () => {
     expect(await visibleIds(page)).toEqual(LISTINGS.componentes.pages[0]);
   });
 
-  test('componentes: card abre o produto; "Orçamento" mantém o destino do WordPress', async ({ page }) => {
+  test('componentes: card abre a página do produto; "Orçamento" adiciona ao carrinho do WooCommerce', async ({ page }) => {
     await page.goto('/categoria-produto/fans/');
     // Clique sobre a foto (o link do nome cobre o card inteiro) leva à página do produto.
     const card = page.locator('.pc[data-product="7854"]');
     const media = (await card.locator('.pc-media').boundingBox())!;
     const box = (await card.boundingBox())!;
-    const [req] = await Promise.all([page.waitForRequest(PRODUCTS['7854'].url), card.click({ position: { x: media.x - box.x + media.width / 2, y: media.y - box.y + media.height / 2 } })]);
-    expect(req.isNavigationRequest()).toBe(true);
+    await card.click({ position: { x: media.x - box.x + media.width / 2, y: media.y - box.y + media.height / 2 } });
+    await expect(page).toHaveURL(new RegExp(`${local(PRODUCTS['7854'].url)}$`));
+    await expect(page.locator('h1')).toHaveText('Fan Dell poweredge R620 R320 R630 gfc0412ds-hr6c0-0hr6c0');
     await page.goto('/categoria-produto/placas-de-rede/');
     const btn = page.locator('.pc[data-product="7828"] .pc-btn');
     await expect(btn).toHaveText('Orçamento');
-    await expect(btn).toHaveAttribute('href', `${PRODUCTS['7828'].url}?add-to-cart=7828`);
+    await expect(btn).toHaveAttribute('href', `${CART}?add-to-cart=7828`);
     await expect(btn).toHaveAttribute('rel', 'nofollow');
     await expect(page.locator('.pc[data-product="7828"] .pc-price')).toHaveText('R$ 950,00');
   });

@@ -1,0 +1,334 @@
+---
+// Página de produto (/servidor/slug/), no mesmo sistema visual do catálogo: abertura azul-marinho
+// (trilha, categorias e o nome), galeria em estúdio claro, caixa de compra com as opções reais de
+// variação, quantidade e "Orçamento", o bloco de garantia do modelo original e a descrição publicada.
+//
+// Compra: o formulário envia ao carrinho do WooCommerce (que continua no WordPress) exatamente os
+// campos do formulário original: add-to-cart, product_id, variation_id, attribute_* e quantity.
+import '../../styles/catalog-hero.css';
+import '../../styles/product.css';
+import { getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import WhatsAppFab from '../WhatsAppFab.astro';
+import Icon from '../Icon.astro';
+import { LINKS, ROUTES, whatsappUrl } from '../../config/site';
+import { BRANDS, LISTINGS, PRODUCT_SEO, availableVariations, categoryName, listingOf, priceParts, product, trailOf, variationOptions } from '../../data/catalog';
+import { BUY, GUARANTEE } from '../../data/produto';
+import { productDescription } from '../../lib/product-html';
+
+interface Props {
+  id: number;
+}
+
+const p = product(Astro.props.id);
+const seo = PRODUCT_SEO[String(p.id)];
+const listing = listingOf(p);
+const L = LISTINGS[listing];
+
+// Trilha: o caminho no catálogo deste site (o nome do produto é o título logo abaixo).
+const crumbs = [{ label: 'Início', href: ROUTES.home }, ...trailOf(listing).map((c) => ({ label: c.label, href: c.href }))];
+const quietWordmark = L.wordmark.length > 10 || trailOf(listing).length >= 3;
+
+// Categorias reais do produto: fabricante primeiro ("Sem categoria" não informa nada).
+const brand = p.categories.find((c) => c in BRANDS);
+const tags = [...(brand ? [{ text: BRANDS[brand], brand: true }] : []), ...p.categories.filter((c) => !(c in BRANDS) && c !== 'sem-categoria').map((c) => ({ text: categoryName(c), brand: false }))];
+
+// Galeria: as fotos do WooCommerce, enquadradas pelo sincronismo (src/assets/gallery/).
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/gallery/*.jpg', { eager: true });
+const shots = await Promise.all(
+  p.gallery.map(async (g, i) => {
+    const src = files[`../../assets/gallery/${g.file}`].default;
+    const widths = [480, 720, 960, 1280].filter((w) => w < src.width).concat(Math.min(src.width, 1600));
+    const [main, full, thumb] = await Promise.all([
+      getImage({ src, widths, format: 'webp', quality: 82 }),
+      getImage({ src, width: Math.min(src.width, 1600), format: 'webp', quality: 86 }),
+      getImage({ src, width: 176, format: 'webp', quality: 76 }),
+    ]);
+    return { i, main, full, thumb, width: src.width, height: src.height, original: g.src, alt: i === 0 ? p.name : `${p.name} (imagem ${i + 1} de ${p.gallery.length})` };
+  }),
+);
+const n = shots.length;
+
+// Compra, como no WooCommerce: produto variável (opções + quantidade), simples com preço
+// (quantidade), sem preço (o WordPress não mostra botão: aqui, o contato com um consultor).
+const options = variationOptions(p);
+const variants = availableVariations(p);
+const price = priceParts(p);
+const mode = !p.inStock ? 'out' : p.type === 'variable' && options.length && variants.length ? 'variable' : p.price && p.purchasable ? 'simple' : 'consult';
+const config = {
+  id: p.id,
+  fields: options.map((a) => a.field),
+  variations: variants.map((v) => ({ id: v.id, attributes: v.attributes, price: v.price, inStock: v.inStock })),
+  messages: { makeSelection: BUY.makeSelection, unavailable: BUY.unavailable, outOfStock: BUY.outOfStock },
+};
+const whatsapp = whatsappUrl();
+const description = productDescription(p.description);
+---
+
+<Base title={seo.title} description={seo.description} canonical={p.url} ogType="article" schema={seo.schema}>
+  <Header current={LINKS.servers} />
+  <main id="conteudo" class="product" data-product-page>
+    <section class="cat-hero pd-hero dark-surface on-dark" aria-labelledby="produto-title">
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="dark-surface__hatch"></div>
+        <div class="cat-light"></div>
+        <span class="cat-wordmark" data-length={L.wordmark.length > 10 ? 'xl' : L.wordmark.length > 4 ? 'long' : 'short'} data-quiet={quietWordmark ? '' : undefined}>
+          {L.wordmark}
+        </span>
+      </div>
+      <div class="container cat-hero-inner">
+        <nav class="cat-crumbs" aria-label="Você está em">
+          <ol>
+            {
+              crumbs.map((c) => (
+                <li>
+                  <a href={c.href}>{c.label}</a>
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+        <div class="pd-head">
+          {
+            tags.length > 0 && (
+              <ul class="pd-tags" aria-label="Categorias">
+                {tags.map((t) => (
+                  <li class:list={['pd-tag', { 'pd-tag--brand': t.brand }]}>{t.text}</li>
+                ))}
+              </ul>
+            )
+          }
+          <h1 id="produto-title" class="cat-title pd-title">{p.name}</h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="pd-body" aria-label="Produto">
+      <div class="container pd-grid">
+        {/* Galeria: foto principal (clique para ampliar) e miniaturas. */}
+        <div class="pd-gallery" data-pd-gallery>
+          <div class="pd-stage">
+            {
+              shots.map((s) => (
+                <button
+                  type="button"
+                  class:list={['pd-shot', { 'is-active': s.i === 0 }]}
+                  data-index={s.i}
+                  data-full={s.full.src}
+                  data-original={s.original}
+                  aria-label={n > 1 ? `Ampliar a imagem ${s.i + 1} de ${n}` : 'Ampliar a imagem'}
+                >
+                  <img
+                    src={s.main.src}
+                    srcset={s.main.srcSet.attribute}
+                    sizes="(max-width: 959px) 92vw, (max-width: 1279px) 52vw, 660px"
+                    alt={s.alt}
+                    width={s.width}
+                    height={s.height}
+                    loading={s.i === 0 ? 'eager' : 'lazy'}
+                    fetchpriority={s.i === 0 ? 'high' : undefined}
+                    decoding="async"
+                  />
+                </button>
+              ))
+            }
+            <span class="pd-zoom" aria-hidden="true">
+              <Icon name="zoom-in" size={18} />
+            </span>
+            {
+              n > 1 && (
+                <p class="pd-count" aria-hidden="true">
+                  <span data-pd-current>1</span> / {n}
+                </p>
+              )
+            }
+          </div>
+          {
+            n > 1 && (
+              <ul class="pd-thumbs" aria-label="Imagens do produto">
+                {shots.map((s) => (
+                  <li>
+                    <button type="button" class="pd-thumb" data-index={s.i} aria-pressed={s.i === 0 ? 'true' : 'false'} aria-label={`Ver a imagem ${s.i + 1} de ${n}`}>
+                      <img src={s.thumb.src} alt="" width="88" height="66" loading="lazy" decoding="async" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </div>
+
+        {/* Compra e garantia. */}
+        <div class="pd-buy" id="comprar">
+          <div class="pd-card">
+            {
+              price && mode !== 'consult' ? (
+                <p class="pd-price" data-pd-price aria-live="polite">
+                  <span data-pd-range>
+                    {price[0]}
+                    {price[1] && (
+                      <>
+                        <span class="pd-sep" aria-label="a">
+                          –
+                        </span>
+                        {price[1]}
+                      </>
+                    )}
+                  </span>
+                  <span data-pd-single hidden />
+                </p>
+              ) : (
+                <p class="pd-price pd-price--none">{BUY.noPrice}</p>
+              )
+            }
+
+            {
+              mode === 'variable' && (
+                <form class="pd-form" method="post" action={LINKS.cart} data-pd-form novalidate>
+                  {options.map((a) => (
+                    <fieldset class="pd-opts" data-pd-attr={a.field}>
+                      <legend>{a.name}</legend>
+                      <div class="pd-opt-list">
+                        {a.options.map((o) => (
+                          <label class="pd-opt">
+                            {/* Uma opção só: já vem marcada (não há o que escolher). */}
+                            <input type="radio" name={a.field} value={o.value} checked={a.options.length === 1} />
+                            <span>{o.label}</span>
+                          </label>
+                        ))}
+                      </div>
+                      <button type="button" class="pd-reset" data-pd-reset hidden>
+                        <Icon name="x" size={14} />
+                        {BUY.reset}
+                      </button>
+                    </fieldset>
+                  ))}
+                  <p class="pd-msg" role="alert" data-pd-msg hidden />
+                  <div class="pd-actions">
+                    <div class="pd-qty">
+                      <label for="pd-qty">{BUY.quantity}</label>
+                      <div class="pd-qty-field">
+                        <button type="button" data-pd-step="-1" aria-label="Diminuir a quantidade">
+                          <Icon name="minus" size={16} />
+                        </button>
+                        <input id="pd-qty" type="number" name="quantity" value="1" min="1" step="1" inputmode="numeric" autocomplete="off" />
+                        <button type="button" data-pd-step="1" aria-label="Aumentar a quantidade">
+                          <Icon name="plus" size={16} />
+                        </button>
+                      </div>
+                    </div>
+                    <button class="btn btn--dark pd-cta" type="submit">
+                      {BUY.button}
+                      <Icon name="arrow-right" class="btn-arrow" />
+                    </button>
+                  </div>
+                  <input type="hidden" name="add-to-cart" value={p.id} />
+                  <input type="hidden" name="product_id" value={p.id} />
+                  <input type="hidden" name="variation_id" value="0" data-pd-variation />
+                </form>
+              )
+            }
+
+            {
+              mode === 'simple' && (
+                <form class="pd-form" method="post" action={LINKS.cart} data-pd-form novalidate>
+                  <div class="pd-actions">
+                    <div class="pd-qty">
+                      <label for="pd-qty">{BUY.quantity}</label>
+                      <div class="pd-qty-field">
+                        <button type="button" data-pd-step="-1" aria-label="Diminuir a quantidade">
+                          <Icon name="minus" size={16} />
+                        </button>
+                        <input id="pd-qty" type="number" name="quantity" value="1" min="1" step="1" inputmode="numeric" autocomplete="off" />
+                        <button type="button" data-pd-step="1" aria-label="Aumentar a quantidade">
+                          <Icon name="plus" size={16} />
+                        </button>
+                      </div>
+                    </div>
+                    <button class="btn btn--dark pd-cta" type="submit">
+                      {BUY.button}
+                      <Icon name="arrow-right" class="btn-arrow" />
+                    </button>
+                  </div>
+                  <input type="hidden" name="add-to-cart" value={p.id} />
+                </form>
+              )
+            }
+
+            {mode === 'out' && <p class="pd-stock">{BUY.outOfStock}</p>}
+
+            {
+              mode === 'consult' && (
+                <a class="btn btn--dark pd-cta pd-cta--solo" href={whatsapp} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="produto">
+                  {BUY.consult}
+                  <Icon name="whatsapp" size={18} />
+                </a>
+              )
+            }
+
+            <div class="pd-guarantee">
+              <h2 class="pd-guarantee-title">
+                <Icon name="shield-check" size={18} />
+                {GUARANTEE.title}
+              </h2>
+              <ul>
+                {
+                  GUARANTEE.items.map((t) => (
+                    <li>
+                      <Icon name="circle-check" size={18} />
+                      {t}
+                    </li>
+                  ))
+                }
+              </ul>
+              <p class="pd-help">
+                {GUARANTEE.help.text}{' '}
+                <a href={whatsapp} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="produto-garantia">
+                  {GUARANTEE.help.cta}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Descrição publicada no WooCommerce. */}
+        <section class="pd-desc" aria-labelledby="descricao">
+          <h2 id="descricao" class="pd-desc-title">Descrição</h2>
+          <div class="pd-prose" set:html={description} />
+        </section>
+      </div>
+    </section>
+  </main>
+
+  {/* Imagem ampliada (como o zoom da galeria do WooCommerce). */}
+  <dialog class="pd-lightbox" aria-label={`Imagens: ${p.name}`} data-pd-lightbox>
+    <button type="button" class="pd-lb-close" aria-label="Fechar" data-pd-lb-close>
+      <Icon name="x" size={22} />
+    </button>
+    <img class="pd-lb-img" alt="" data-pd-lb-img />
+    {
+      n > 1 && (
+        <>
+          <button type="button" class="pd-lb-nav pd-lb-prev" aria-label="Imagem anterior" data-pd-lb-step="-1">
+            <Icon name="chevron-left" size={26} />
+          </button>
+          <button type="button" class="pd-lb-nav pd-lb-next" aria-label="Próxima imagem" data-pd-lb-step="1">
+            <Icon name="chevron-right" size={26} />
+          </button>
+          <p class="pd-lb-count" aria-live="polite" data-pd-lb-count />
+        </>
+      )
+    }
+  </dialog>
+
+  <Footer />
+  <WhatsAppFab />
+  <script type="application/json" data-pd-config set:html={JSON.stringify(config)} />
+</Base>
+
+<script>
+  import { initProduct } from '../../scripts/product';
+  initProduct();
+</script>

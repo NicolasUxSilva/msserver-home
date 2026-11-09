@@ -571,3 +571,79 @@ bloco do blog, rodapé, `<head>` e a configuração do navegador continuam idên
 - no celular, os 13 cards de componentes de `/servidores/page/5/` a `7/` mostram o nome completo
   (antes, os mais longos eram cortados na 3ª linha, escondendo o código da peça);
 - os links de componentes no menu (agora internos).
+
+# Páginas de produto (`/servidor/slug/`)
+
+Referência: as 74 páginas publicadas (lidas pelo endereço `http://` em 09/11/2026, com o HTTPS fora
+do ar) e a Store API do WooCommerce. O retrato usado nos testes está em
+`tests/fixtures/original-products.json`.
+
+## O que as páginas originais tinham
+
+Todas no mesmo modelo do Elementor (4844), com os mesmos blocos:
+
+- Galeria do WooCommerce (1 a 4 fotos; miniaturas e zoom), título, descrição do produto, preço.
+- Formulário do WooCommerce, com o botão "Orçamento" (o "Adicionar ao carrinho", renomeado pelo
+  plugin Woo Add to Cart Text Change), que adiciona ao carrinho (`/carrinho/`):
+  - 50 servidores variáveis: "Memoria RAM" (seletor "Choose an option" e "Clear"), quantidade e o
+    botão; envia `attribute_pa_memoria-ram` (num produto, `attribute_memoria-ram`), `quantity`,
+    `add-to-cart`, `product_id` e `variation_id`. O preço muda conforme a memória escolhida.
+  - 5 componentes com preço: quantidade e o botão (`quantity` e `add-to-cart`).
+  - 19 componentes sem preço: sem formulário nem botão.
+- Bloco "GARANTIA PADRÃO DE 1 ANO." com 3 itens e "Precisa de uma configuração especifica ou ficou
+  com duvida? Fale com um consultor." (sem link), repetido para o celular abaixo da descrição.
+- Breadcrumb do WooCommerce ("Home / Rack / …"), JSON-LD do All in One SEO (BreadcrumbList,
+  ItemPage, Organization, WebSite) e o BreadcrumbList do WooCommerce, em blocos separados.
+- Sem abas, avaliações, produtos relacionados, SKU ou descrição curta à vista.
+
+## O que foi preservado
+
+- As 74 páginas, nos mesmos endereços, com o mesmo título, meta description, canonical e os dois
+  blocos de JSON-LD.
+- Nome, fotos (as mesmas 157, na mesma ordem), preço ou faixa de preço, o texto da descrição (com
+  títulos, listas, tabelas e links) e o bloco de garantia, com os textos como publicados.
+- O formulário do WooCommerce: os mesmos campos, com os mesmos nomes e valores, enviados por POST
+  ao carrinho; as mesmas 157 variações (ids, opções e preços) que o WordPress oferece.
+- O comportamento de compra: escolher a memória mostra o preço dela; sem escolher, a mensagem do
+  WooCommerce; quantidade a partir de 1; produtos sem preço sem formulário.
+
+## O que mudou
+
+- **Visual** no sistema do site: abertura azul-marinho com trilha, categorias e o nome; galeria em
+  estúdio claro; caixa de compra ao lado (acompanha a rolagem no desktop); descrição em cartão.
+- **Memória em botões** (em vez da lista "Choose an option"), em ordem crescente, com "Limpar".
+  Opções sem variação com preço não aparecem — no WordPress, o script do WooCommerce também as
+  remove (ex.: HP DL380 G10 só tem 32GB à venda; 8GB e 16GB estão sem preço). Quando sobra uma
+  opção só, ela já vem marcada.
+- **Destino do formulário:** o carrinho (`/carrinho/`), que continua no WordPress, em vez da própria
+  página do produto (que agora é estática). O WooCommerce adiciona o item da mesma forma.
+- **Textos do WooCommerce traduzidos:** "Quantidade", "Limpar", "Selecione uma das opções do
+  produto antes de adicioná-lo ao carrinho.".
+- **Produtos sem preço:** além do texto do bloco de garantia, um botão "Fale com um consultor"
+  (WhatsApp do site), já que o WordPress não oferecia nenhuma ação na página. "Fale com um
+  consultor." no bloco de garantia passou a ser link para o mesmo WhatsApp.
+- **Trilha** do catálogo deste site ("Início / Servidores / Dell"), no lugar da categoria escolhida
+  pelo WooCommerce ("Home / Rack"); o JSON-LD continua o original.
+- **Fotos** enquadradas como as do catálogo (fundo branco aparado, sem cortar nem distorcer), na
+  resolução que o original permite; a imagem ampliada abre numa janela própria.
+- **Descrição:** marcação limpa no build (sem mudar o texto). Um `<h1>` vazio (gaveta 7872) foi
+  removido; títulos `<h1>`/`<h2>` da descrição viram `<h3>`; o link do R410 com endereço quebrado
+  (`http://Especificações do fabricante`) passou a usar o endereço que ele mostra (a ficha da Dell).
+- **Links do site:** cards do catálogo e da home levam às páginas novas; os 5 "Orçamento" com preço
+  do catálogo adicionam ao carrinho pelo endereço do carrinho (`/carrinho/?add-to-cart=ID`).
+
+## Correção no catálogo
+
+Os cards mostravam as opções de memória cadastradas no atributo, inclusive as que não têm variação
+à venda (ex.: R210 "8GB · 16GB · 32GB", mas o WordPress só oferece 8GB e 16GB). Agora card, busca
+e página do produto usam as mesmas opções reais. Mudou em 10 cards: R210, R230, T110 e ML310 G8
+(sem 32GB), R540, R640 (5632) e R740 (sem 8GB), DL360 G10 (16GB e 32GB), DL380 G10 e R640 (7502)
+(só 32GB).
+
+## Para revisar no WooCommerce (não alterado)
+
+- Textos do bloco de garantia com erros de digitação ("especifica", "duvida", "Todos equipamento").
+- Descrições de componentes com o texto de outra empresa: "Somos GPC | PECASDATACENTER — Maior
+  estoque de peças para seu DataCenter".
+- Variações sem preço (DL380 G10: 8GB e 16GB; DL360 G10: 8GB).
+- 21 das 23 imagens destacadas de componentes têm só 300 × 300 px (as fotos ficam ampliadas e um pouco suaves).

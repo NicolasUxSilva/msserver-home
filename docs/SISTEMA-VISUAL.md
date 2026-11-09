@@ -170,6 +170,22 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
   escura, "Página X de Y". Sem resultados: aviso tracejado com "Limpar busca e filtros" e "Buscar
   em todo o site".
 
+## Página de produto
+
+- **Mesma abertura do catálogo** (`catalog-hero.css`): trilha, categorias reais em etiquetas (o
+  fabricante em branco), o nome com o losango laranja e a palavra da listagem em contorno.
+- **Galeria** num cartão branco sobre a borda da abertura: foto em estúdio claro 4:3 com sombra de
+  piso, contador, ícone de ampliar e miniaturas (a atual com borda escura); clique abre a imagem
+  ampliada (janela com setas, contador e Esc); no celular, deslizar troca a foto.
+- **Caixa de compra** ao lado (desktop: acompanha a rolagem): preço em Sora (faixa até escolher a
+  memória), memória em botões (o escolhido em tinta escura), quantidade com − e +, o botão escuro
+  "Orçamento" e o bloco de garantia (escudo laranja, itens com check em índigo, link do consultor
+  sublinhado em laranja). Sem preço: "Sob consulta" e "Fale com um consultor".
+- **Descrição** num cartão: títulos em Sora, listas com o losango laranja pequeno, links em índigo,
+  tabelas com linhas finas.
+- **Grade:** a partir de 960 px, galeria e descrição à esquerda e compra à direita; abaixo, galeria,
+  compra e descrição em sequência. O WhatsApp flutuante sai da frente quando cobriria a compra.
+
 ## Breakpoints
 
 Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo; a partir de 1180, grade de 3 colunas em "Nossa linha"), 1360

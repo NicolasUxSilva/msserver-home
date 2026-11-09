@@ -1,0 +1,14 @@
+---
+// Páginas de produto, no mesmo endereço do WooCommerce (/servidor/slug/): uma para cada produto do
+// catálogo sincronizado (src/data/catalog.json).
+import ProductPage from '../../components/product/ProductPage.astro';
+import { PRODUCTS } from '../../data/catalog';
+
+export function getStaticPaths() {
+  return Object.values(PRODUCTS).map((p) => ({ params: { slug: p.slug }, props: { id: p.id } }));
+}
+
+const { id } = Astro.props;
+---
+
+<ProductPage id={id} />

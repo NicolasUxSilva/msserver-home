@@ -5,8 +5,12 @@
 // ordenação vêm do WooCommerce; nada aqui é digitado à mão.
 import data from './catalog.json';
 import schemas from './catalog-schema.json';
-import { ROUTES } from '../config/site';
+import productSeo from './product-seo.json';
+import { ROUTES, productRoute } from '../config/site';
 import { normalize, type OrderKey } from '../lib/catalog-shared';
+
+/** Valores do atributo em ordem crescente (8GB, 16GB, 32GB…), sem mudar como estão escritos. */
+export const sortedTerms = (terms: string[]) => [...terms].sort((a, b) => (parseFloat(a) || 0) - (parseFloat(b) || 0) || a.localeCompare(b));
 
 export type Product = {
   id: number;
@@ -27,8 +31,18 @@ export type Product = {
   reviews: number;
   attributes: { name: string; variations: boolean; terms: string[] }[];
   shortDescription: string;
+  /** Descrição publicada (HTML do WooCommerce, como cadastrado). */
+  description: string;
+  /** Galeria na ordem do WooCommerce (a primeira é a imagem destacada); file em src/assets/gallery/. */
+  gallery: { file: string; src: string; alt: string; width: number; height: number }[];
+  /** Atributos de variação: nome, campo do formulário do WooCommerce e opções que têm variação. */
+  variationAttributes: VariationAttribute[];
+  variations: Variation[];
   button: { text: string; kind: 'options' | 'link' | 'add-to-cart'; url: string; label: string };
 };
+
+export type VariationAttribute = { name: string; field: string; options: { value: string; label: string }[] };
+export type Variation = { id: number; attributes: Record<string, string>; price: number | null; regularPrice: number | null; inStock: boolean; purchasable: boolean };
 
 export type ListingKey = 'servidores' | 'dell' | 'hp' | 'ibm' | 'componentes' | 'baterias' | 'dissipadores' | 'fans' | 'fontes' | 'gavetas' | 'placas-de-rede';
 
@@ -151,13 +165,53 @@ export const NAV_GROUPS = (['servidores', 'componentes'] as const).map((group) =
 /** Trilha da listagem: Início › Servidores › Componentes › Baterias. */
 export const trailOf = (key: ListingKey) => [...LISTINGS[key].parents, key].map((k) => ({ key: k, label: LISTINGS[k].title, href: LISTINGS[k].path }));
 
-/** Texto em que a busca procura: nome, categorias, atributos e descrição curta. */
+/** Variações que o formulário do WooCommerce oferece: as compráveis (com preço). As sem preço ficam
+ *  de fora, como no WordPress. */
+export const availableVariations = (p: Product) => p.variations.filter((v) => v.purchasable && v.price !== null);
+
+/** Opções de cada atributo de variação que podem ser escolhidas de fato, em ordem crescente
+ *  (8GB, 16GB, 32GB…), sem mudar como estão escritas. */
+export function variationOptions(p: Product) {
+  const vars = availableVariations(p);
+  return p.variationAttributes
+    .map((a) => {
+      const used = new Set(vars.map((v) => v.attributes[a.field]));
+      const options = a.options.filter((o) => used.has(o.value));
+      const order = sortedTerms(options.map((o) => o.label));
+      return { ...a, options: options.sort((x, y) => order.indexOf(x.label) - order.indexOf(y.label)) };
+    })
+    .filter((a) => a.options.length);
+}
+
+/** Texto em que a busca procura: nome, categorias, opções que existem (memória) e descrição curta. */
 export const searchIndex = (p: Product) =>
-  normalize([p.name, ...p.categories.map(categoryName), ...p.attributes.flatMap((a) => [a.name, ...a.terms]), p.shortDescription].join(' '));
+  normalize(
+    [
+      p.name,
+      ...p.categories.map(categoryName),
+      ...p.attributes.filter((a) => !a.variations).flatMap((a) => [a.name, ...a.terms]),
+      ...variationOptions(p).flatMap((a) => [a.name, ...a.options.map((o) => o.label)]),
+      p.shortDescription,
+    ].join(' '),
+  );
+
+/** Listagem a que o produto pertence na navegação do site (para a trilha e a palavra da abertura):
+ *  o fabricante, a subcategoria de componentes, Componentes, ou o catálogo geral. */
+const PRIMARY: ListingKey[] = ['dell', 'hp', 'ibm', 'baterias', 'dissipadores', 'fans', 'fontes', 'gavetas', 'placas-de-rede', 'componentes'];
+export const listingOf = (p: Product): ListingKey => PRIMARY.find((k) => p.categories.includes(k)) ?? 'servidores';
+
+/** Endereço da página do produto neste site (a mesma rota do WooCommerce, /servidor/slug/). */
+const BY_URL = new Map(Object.values(data.products as unknown as Record<string, Product>).map((p) => [p.url, p]));
+export const productHref = (url: string) => {
+  const p = BY_URL.get(url);
+  return p ? productRoute(p.slug) : url;
+};
+
+/** Título, descrição e JSON-LD da página publicada do produto (All in One SEO). */
+export const PRODUCT_SEO = productSeo as unknown as Record<string, { title: string; description: string; schema: unknown }>;
 
 const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 /** Preço como o WooCommerce mostra: valor único ou faixa "mínimo – máximo". */
 export const priceParts = (p: Product) => (p.price ? (p.price.min === p.price.max ? [brl.format(p.price.min)] : [brl.format(p.price.min), brl.format(p.price.max)]) : null);
 
-/** Valores do atributo em ordem crescente (8GB, 16GB, 32GB…), sem mudar como estão escritos. */
-export const sortedTerms = (terms: string[]) => [...terms].sort((a, b) => (parseFloat(a) || 0) - (parseFloat(b) || 0) || a.localeCompare(b));
+
