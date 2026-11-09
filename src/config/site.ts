@@ -18,7 +18,7 @@ const U = SITE.origin;
 /**
  * Páginas já reconstruídas neste projeto: os links entre elas são internos (caminho na raiz do
  * site, respeitando o BASE_PATH do build), para que as páginas novas (Home, "Sobre nós",
- * Orçamento, o catálogo de servidores e as categorias de fabricante e de componentes) levem umas
+ * Orçamento, o catálogo de servidores, as categorias, as páginas de produto e o carrinho) levem umas
  * às outras em qualquer ambiente. As páginas ainda não reformuladas continuam apontando para o
  * WordPress em msserver.com.br até serem reconstruídas. Ao reconstruir outra página, acrescente-a aqui.
  */
@@ -38,6 +38,8 @@ export const ROUTES = {
   fontes: `${BASE}/categoria-produto/fontes/`,
   gavetas: `${BASE}/categoria-produto/gavetas/`,
   placasDeRede: `${BASE}/categoria-produto/placas-de-rede/`,
+  /** Carrinho (o mesmo endereço do WooCommerce); lido e alterado pela Store API do WooCommerce. */
+  cart: `${BASE}/carrinho/`,
 } as const;
 
 /** Página de um produto (/servidor/slug/, o mesmo endereço do WooCommerce). */
@@ -53,9 +55,14 @@ export const LINKS = {
   cases: `${U}/cases-de-sucesso/`,
   app: `${U}/aplicativo-ms-server/`,
   search: `${U}/`,
-  /** Carrinho do WooCommerce (continua no WordPress): o botão "Orçamento" adiciona o produto aqui. */
-  cart: `${U}/carrinho/`,
+  /** Finalização de compra do WooCommerce (continua no WordPress, com o mesmo carrinho). Também
+   *  recebe o "Orçamento" sem JavaScript: o WooCommerce adiciona o produto e mostra a finalização. */
+  checkout: `${U}/finalizar-compra/`,
 } as const;
+
+/** Store API do WooCommerce (mesmo domínio do site, com a sessão do carrinho em cookie). Em outro
+ *  ambiente, PUBLIC_STORE_API aponta para outra instalação. */
+export const STORE_API = (import.meta.env?.PUBLIC_STORE_API || '/wp-json/wc/store/v1').replace(/\/$/, '');
 
 export type NavLink = { label: string; href?: string; children?: NavLink[] };
 

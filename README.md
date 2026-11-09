@@ -86,12 +86,28 @@ variações com preço e disponibilidade de cada opção, os nomes dos campos do
 WooCommerce e o SEO da página publicada (`src/data/product-seo.json`: título, descrição e os dois
 blocos de JSON-LD). Os textos fixos do modelo (bloco de garantia) estão em `src/data/produto.ts`.
 
-Compra: o botão "Orçamento" envia (POST) ao carrinho do WooCommerce, `https://msserver.com.br/carrinho/`,
+Compra: o botão "Orçamento" adiciona ao carrinho pela Store API do WooCommerce (`POST
+/wp-json/wc/store/v1/cart/add-item` com a variação escolhida e a quantidade) e abre o carrinho deste
+site (`/carrinho/`, abaixo). Sem JavaScript, ou sem a loja no mesmo endereço, o formulário segue
+(POST) para a finalização de compra do WordPress, `https://msserver.com.br/finalizar-compra/`, com
 exatamente os campos do formulário original (`add-to-cart`, `product_id`, `variation_id`,
-`attribute_*` e `quantity`); o WooCommerce adiciona o item e mostra o carrinho, e o checkout segue
-no WordPress. Só são oferecidas as opções que têm variação com preço (como no WordPress). Produtos
-sem preço publicado não têm formulário (como no WordPress); a página oferece "Fale com um
-consultor" (WhatsApp do site).
+`attribute_*` e `quantity`): o WooCommerce adiciona o item e mostra a finalização. Só são oferecidas
+as opções que têm variação com preço (como no WordPress). Produtos sem preço publicado não têm
+formulário (como no WordPress); a página oferece "Fale com um consultor" (WhatsApp do site).
+
+### Carrinho
+
+`/carrinho/` (o mesmo endereço do WooCommerce): `src/pages/carrinho/index.astro` com
+`src/components/cart/CartPage.astro`, `src/styles/cart.css` e `src/scripts/cart.ts`. A página traz a
+estrutura (abertura, estados, resumo); os itens e valores são lidos no navegador pela Store API do
+WooCommerce (`src/scripts/store-api.ts`), na mesma sessão de carrinho (cookie do WooCommerce) que a
+finalização de compra do WordPress usa — por isso o carrinho só funciona servido no domínio da loja
+(`PUBLIC_STORE_API` aponta para outra instalação, se for o caso); em outro endereço, mostra que a
+loja está indisponível. Alterações (quantidade, remover, "Desfazer?") usam o nonce que a Store API
+devolve (renovado automaticamente quando vence). Os links do catálogo `/carrinho/?add-to-cart=ID`
+adicionam o produto ao abrir. "Avançar para o pagamento" leva à finalização do WordPress; "Orçamento
+pelo WhatsApp" monta a mensagem no formato do plugin do WordPress (`src/data/carrinho.ts`, com os
+textos do carrinho).
 
 ### Avaliações do Google
 
@@ -167,14 +183,21 @@ a busca, trilha, card que abre o produto, SEO, menu, layout (4 colunas no deskto
 no celular, nome completo, categoria atual à vista, sem rolagem lateral), console e
 acessibilidade (axe) com e sem resultados.
 
-Produto (`tests/e2e/produto.spec.ts`, 10): contra as 74 páginas publicadas
+Produto (`tests/e2e/produto.spec.ts`, 12): contra as 74 páginas publicadas
 (`tests/fixtures/original-products.json`, capturado do HTML): título, descrição, canonical e
 JSON-LD, nome, fotos na mesma ordem, preço, texto da descrição, bloco de garantia e o formulário
 (mesmos campos, opções, variações com ids e preços); escolha da memória (preço e variação), limpar,
-quantidade e o envio ao carrinho com os mesmos campos (o carrinho é respondido pelo próprio teste),
-atributo do próprio produto, opções sem preço fora da escolha, produto simples e sem preço,
-galeria e imagem ampliada, trilha e links do catálogo e da home, layout, console e acessibilidade
-(axe), imagens das 74 páginas.
+quantidade, "Orçamento" pela Store API (variação e quantidade, com o nonce) e, sem a loja, o envio à
+finalização do WordPress com os campos originais; erro da loja na página; atributo do próprio
+produto, opções sem preço fora da escolha, produto simples e sem preço, galeria e imagem ampliada,
+trilha e links do catálogo e da home, layout, console e acessibilidade (axe), imagens das 74 páginas.
+
+Carrinho (`tests/e2e/carrinho.spec.ts`, 11): com a Store API simulada em
+`tests/e2e/store-mock.ts` no formato do WooCommerce 8.2 (respostas, nonce e erros como os do
+WooCommerce; nada chega à loja real): itens, preços, quantidades e totais; SEO (`noindex`);
+quantidade (uma alteração por sequência de cliques, com o nonce), remover e "Desfazer?", vazio, loja
+indisponível, nonce vencido (repetido sem aviso), links do catálogo `?add-to-cart=`, mensagem do
+WhatsApp, do produto ao carrinho, layout e acessibilidade (axe).
 
 Capturas de QA: `node scripts/qa-screenshots.mjs http://localhost:4330/ 390,768,1024,1440`.
 
@@ -217,7 +240,8 @@ configurado no Elementor, no WordPress. Para funcionar:
 | `/categoria-produto/dell/`, `/hp/`, `/ibm/` (e `/page/N/`) | Categorias de fabricante reconstruídas, nos mesmos endereços do WooCommerce |
 | `/categoria-produto/componentes/` (e `/page/2/`), `/baterias/`, `/dissipadores/`, `/fans/`, `/fontes/`, `/gavetas/`, `/placas-de-rede/` | Categorias de componentes reconstruídas, nos mesmos endereços do WooCommerce |
 | `/servidor/slug/` | Páginas de produto reconstruídas (74), no mesmo endereço do WooCommerce |
-| Carrinho (`/carrinho/`), checkout e conta | WordPress (WooCommerce): o "Orçamento" das páginas de produto envia ao carrinho |
+| `/carrinho/` | Carrinho reconstruído; itens e valores pela Store API do WooCommerce (mesma sessão do WordPress) |
+| Finalização de compra (`/finalizar-compra/`), conta (`/minha-conta/`) e a Store API (`/wp-json/`) | WordPress (WooCommerce) |
 | Demais páginas (soluções, blog, suporte, cases, landings) | WordPress em `https://msserver.com.br` |
 
 Os links entre páginas já reconstruídas são internos (`ROUTES` em `src/config/site.ts`, com o
@@ -228,9 +252,10 @@ apontar para ela. `canonical`, Open Graph e JSON-LD continuam com as URLs de pro
 A home atual é servida pelo WordPress. Para colocar esta versão no ar é preciso que o servidor
 entregue `/`, `/sobre/`, `/orcamento/`, `/servidores/`,
 `/categoria-produto/{dell,hp,ibm,componentes,baterias,dissipadores,fans,fontes,gavetas,placas-de-rede}/`
-(com as páginas `/page/N/`) e `/servidor/*/` (páginas de produto) a partir do `dist/` e mantenha o
-WordPress nas demais rotas, incluindo o carrinho (`/carrinho/`), o checkout, `/wp-json/`,
-`/wp-content/` e `/wp-admin/admin-ajax.php` (ou que o HTML/CSS seja portado para templates do
+(com as páginas `/page/N/`), `/servidor/*/` (páginas de produto) e `/carrinho/` a partir do `dist/` e
+mantenha o WordPress nas demais rotas, incluindo a finalização de compra (`/finalizar-compra/`), a
+conta (`/minha-conta/`), `/wp-json/` (a Store API, usada pelo carrinho), `/wp-content/` e
+`/wp-admin/admin-ajax.php` (ou que o HTML/CSS seja portado para templates do
 tema). Essa etapa não foi feita: o repositório não tem configuração de deploy (há um preview em
 `msserver-home.vercel.app`, configurado fora do repositório) e nenhuma alteração foi aplicada ao
 WordPress ou à produção.

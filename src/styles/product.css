@@ -795,3 +795,19 @@
     transition: none;
   }
 }
+
+/* Adicionando ao carrinho. */
+.pd-cta.is-busy {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.pd-cta.is-busy .btn-arrow {
+  animation: pd-pulse 0.9s var(--ease-out) infinite alternate;
+}
+
+@keyframes pd-pulse {
+  to {
+    transform: translateX(4px);
+  }
+}

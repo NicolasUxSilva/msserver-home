@@ -647,3 +647,60 @@ e página do produto usam as mesmas opções reais. Mudou em 10 cards: R210, R23
   estoque de peças para seu DataCenter".
 - Variações sem preço (DL380 G10: 8GB e 16GB; DL360 G10: 8GB).
 - 21 das 23 imagens destacadas de componentes têm só 300 × 300 px (as fotos ficam ampliadas e um pouco suaves).
+
+# Carrinho (`/carrinho/`)
+
+Referência: a página publicada (lida pelo endereço `http://` em 09/11/2026, com o carrinho vazio), a
+Store API do WooCommerce (lista de rotas e o carrinho vazio, só leitura), o código da Store API do
+WooCommerce 8.2 e o do plugin "WooCommerce Order on WhatsApp" 2.3.2 (públicos). Nenhum produto foi
+adicionado a carrinho algum da loja real; as alterações foram validadas com a Store API simulada no
+formato do WooCommerce (`tests/e2e/store-mock.ts`).
+
+## O que a página original tinha
+
+- Página 5290 do WordPress ("Carrinho"), com o widget de carrinho do Elementor Pro (uma coluna):
+  o carrinho clássico do WooCommerce. Vazio: "Your cart is currently empty." e "Return to shop"
+  (para `/servidores/`).
+- Com itens (o All in One SEO guardou um retrato na descrição da página): colunas "Remover item,
+  Imagem de miniatura, Produto, Preço, Quantidade, Subtotal", "Atualizar o carrinho", o botão
+  "Orçamento pelo WhatsApp" (plugin "WooCommerce Order on WhatsApp"), "Total no carrinho" com
+  Subtotal e Total, e "Avançar para o pagamento" (para `/finalizar-compra/`). Sem campo de cupom e
+  sem cálculo de frete.
+- `noindex`, título "Carrinho - MSSERVER", canonical e JSON-LD (BreadcrumbList, Organization,
+  WebPage, WebSite).
+- Finalização de compra (`/finalizar-compra/`) no WordPress, com o meio de pagamento
+  `woo_paypal_stripe_gateway_set`.
+
+## O que foi preservado
+
+- O endereço, o título, o `noindex`, o canonical e o JSON-LD.
+- O mesmo carrinho: os itens são os da sessão do WooCommerce (a mesma da finalização de compra),
+  lidos e alterados pela Store API; preços, subtotais e total são os que o WooCommerce calcula.
+- As colunas (Produto, Preço, Quantidade, Subtotal, remover), "Total no carrinho" com Subtotal e
+  Total, "Avançar para o pagamento" (finalização do WordPress), "Orçamento pelo WhatsApp" e, vazio,
+  a mensagem e o caminho para `/servidores/`, com os textos do WooCommerce em português.
+- Sem cupom e sem frete na tela, como no original (se a loja passar a aplicar cupom, taxa, frete ou
+  imposto, as linhas aparecem no total com os valores do WooCommerce).
+
+## O que mudou
+
+- **Visual** no sistema do site: abertura azul-marinho, lista em cartão (tabela no desktop, cartões
+  no celular), resumo ao lado que acompanha a rolagem, estados de carregando, vazio e loja
+  indisponível.
+- **Quantidade e remoção sem "Atualizar o carrinho":** a alteração vai à loja ao parar de clicar, e
+  os totais voltam dela; remover mostra "“Produto” removido. Desfazer?", como no WooCommerce.
+- **Itens levam às páginas de produto deste site**, com a foto do catálogo.
+- **"Orçamento pelo WhatsApp":** a mensagem no formato do plugin ("-> quantidade x produto = preço"
+  por item e o total). O número e a mensagem de abertura configurados no plugin não são públicos;
+  foram usados o WhatsApp e a mensagem que o site já usa ("Ola! Mensagem vinda do site.") —
+  confirmar com a MSSERVER (`src/data/carrinho.ts`). O rótulo do total ficou em português ("Total do
+  carrinho:"; o plugin escreve "Cart Total:") e a opção vai uma vez só ("R210 - 16GB", em vez de
+  "R210 - 16GB 16gb").
+- **"Orçamento" nas páginas de produto:** adiciona pela Store API e abre o carrinho (com o aviso
+  "“Produto” foi adicionado ao seu carrinho."). Sem JavaScript, ou sem a loja no mesmo endereço, o
+  formulário original vai para a finalização de compra do WordPress (que adiciona e mostra a
+  finalização), já que `/carrinho/` passa a ser esta página.
+- **"Orçamento" do catálogo** (5 produtos com preço): `/carrinho/?add-to-cart=ID` neste site; o
+  carrinho adiciona ao abrir e limpa o endereço (recarregar não adiciona de novo).
+- **Descrição de SEO:** a do All in One SEO era o retrato de um carrinho antigo ("Rack Dell r610 -
+  8GB R$ 1.200,00…"), com produto e preço de outra época; saiu da meta description e do JSON-LD.

@@ -1,0 +1,568 @@
+/* ——— Carrinho (/carrinho/) ———
+   Mesma linguagem do catálogo e das páginas de produto: abertura azul-marinho (catalog-hero.css),
+   cartões brancos sobre a borda da abertura, fotos em estúdio claro, valores em Sora, botão escuro e o
+   laranja só como destaque. Prefixo cart-. */
+
+.cart-hero {
+  padding-bottom: clamp(4.5rem, 3.5rem + 3vw, 6rem);
+}
+
+.cart-body {
+  padding-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  background: var(--c-paper);
+}
+
+.cart-body > .container {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: clamp(0.85rem, 0.6rem + 0.8vw, 1.25rem);
+  margin-top: calc(clamp(3.25rem, 2.5rem + 2.4vw, 4.5rem) * -1);
+}
+
+.cart-card {
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  box-shadow: 0 30px 60px -40px rgb(14 13 34 / 0.45);
+}
+
+/* ——— Estados: carregando, vazio, loja indisponível, carrinho ——— */
+.cart-loading,
+.cart-empty-state,
+.cart-unavailable,
+.cart-grid {
+  display: none;
+}
+
+.cart[data-state='loading'] .cart-loading,
+.cart[data-state='ready'] .cart-grid {
+  display: grid;
+}
+
+.cart[data-state='empty'] .cart-empty-state,
+.cart[data-state='unavailable'] .cart-unavailable {
+  display: grid;
+}
+
+.cart-state {
+  justify-items: center;
+  gap: 0.85rem;
+  padding: clamp(2.5rem, 2rem + 3vw, 4rem) 1.25rem;
+  text-align: center;
+}
+
+.cart-noscript {
+  display: grid;
+}
+
+.cart-state h2 {
+  font-size: var(--t-h3);
+  letter-spacing: -0.03em;
+}
+
+.cart-state p {
+  max-width: 48ch;
+  color: var(--c-ink-2);
+}
+
+.cart-state-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--c-paper);
+  color: var(--c-ink-2);
+}
+
+.cart-state-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+}
+
+/* Carregando: o lugar do carrinho já reservado, com brilho suave. */
+.cart-loading {
+  gap: clamp(0.85rem, 0.6rem + 0.8vw, 1.25rem);
+}
+
+.cart-skeleton {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.cart-skeleton span {
+  height: 72px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--c-paper) 25%, #fff 50%, var(--c-paper) 75%) 0 0 / 200% 100%;
+  animation: cart-shimmer 1.3s linear infinite;
+}
+
+.cart-skeleton--summary span:first-child {
+  height: 28px;
+  width: 60%;
+}
+
+@keyframes cart-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cart-loading {
+    grid-template-columns: minmax(0, 1fr) clamp(300px, 26vw, 370px);
+    align-items: start;
+  }
+}
+
+/* ——— Avisos (adicionado, removido com "Desfazer?", erros da loja) ——— */
+.cart-notices:empty {
+  display: none;
+}
+
+.cart-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1rem;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid var(--c-line);
+  border-left: 4px solid var(--c-indigo-600);
+  border-radius: 12px;
+  background: var(--c-surface);
+  box-shadow: 0 20px 40px -32px rgb(14 13 34 / 0.5);
+  color: var(--c-ink);
+  font-weight: 500;
+}
+
+.cart-notice--error {
+  border-left-color: var(--c-danger);
+  background: var(--c-danger-bg);
+  color: var(--c-danger);
+}
+
+.cart-notice button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--c-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--c-orange);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* ——— Itens e total ——— */
+.cart-grid {
+  gap: clamp(0.85rem, 0.6rem + 0.8vw, 1.25rem);
+}
+
+/* Resumo ao lado a partir de 1200 px (abaixo disso, embaixo da lista, que fica com toda a largura). */
+@media (min-width: 1200px) {
+  .cart-grid {
+    grid-template-columns: minmax(0, 1fr) clamp(300px, 26vw, 370px);
+    align-items: start;
+    column-gap: clamp(1.25rem, 0.5rem + 2vw, 2rem);
+  }
+
+  .cart-summary {
+    position: sticky;
+    top: calc(var(--header-h) + 1.25rem);
+  }
+}
+
+.cart-list {
+  padding: 0.5rem clamp(1rem, 0.6rem + 1.2vw, 1.5rem) 1.25rem;
+}
+
+/* Colunas do carrinho do WooCommerce: Produto, Preço, Quantidade, Subtotal. */
+.cart-head,
+.cart-item {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) 6.5rem 7.25rem 6.75rem 2.5rem;
+  align-items: center;
+  column-gap: 0.9rem;
+}
+
+.cart-head {
+  padding: 0.9rem 0 0.75rem;
+  border-bottom: 1px solid var(--c-line);
+  color: var(--c-ink-3);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cart-head span:first-child {
+  grid-column: span 2;
+}
+
+.cart-head span:nth-child(4) {
+  text-align: right;
+}
+
+.cart-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cart-item {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--c-line);
+  transition: opacity var(--dur-1) var(--ease-out);
+}
+
+.cart-item.is-busy {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.cart-thumb {
+  display: block;
+  width: 96px;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  background: radial-gradient(70% 62% at 50% 44%, #fff 42%, var(--c-paper) 100%);
+  overflow: hidden;
+}
+
+.cart-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.cart-thumb.is-empty img {
+  display: none;
+}
+
+.cart-info {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.cart-name {
+  font-size: 1rem;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.cart-name a {
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size var(--dur-2) var(--ease-out);
+}
+
+.cart-name a:hover {
+  background-size: 100% 1px;
+}
+
+.cart-variation {
+  color: var(--c-ink-2);
+  font-size: 0.86rem;
+}
+
+.cart-badge {
+  justify-self: start;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  background: var(--c-paper);
+  color: var(--c-ink-2);
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.cart-price,
+.cart-line {
+  font-family: var(--f-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.cart-price {
+  color: var(--c-ink-2);
+  font-size: 0.95rem;
+}
+
+.cart-line {
+  font-size: 1.05rem;
+  text-align: right;
+}
+
+.cart-label {
+  display: none;
+}
+
+.cart-qty-field {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: 44px;
+  border: 1.5px solid var(--c-line-2);
+  border-radius: 12px;
+  background: var(--c-surface);
+}
+
+.cart-qty-field:focus-within {
+  border-color: var(--c-indigo-600);
+  box-shadow: 0 0 0 4px rgb(61 58 134 / 0.16);
+}
+
+.cart-qty-field button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 100%;
+  border: 0;
+  background: none;
+  color: var(--c-ink-2);
+}
+
+.cart-qty-field button:hover:not(:disabled) {
+  color: var(--c-ink);
+}
+
+.cart-qty-field button:disabled {
+  color: var(--c-line-2);
+  cursor: default;
+}
+
+.cart-qty-field input {
+  width: 2.5rem;
+  height: 100%;
+  border: 0;
+  background: none;
+  font-family: var(--f-display);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.cart-qty-field input:focus {
+  outline: none;
+}
+
+.cart-qty-field input::-webkit-outer-spin-button,
+.cart-qty-field input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+.cart-qty.is-fixed .cart-qty-field {
+  border-color: var(--c-line);
+}
+
+.cart-qty.is-fixed button {
+  visibility: hidden;
+}
+
+.cart-remove {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: none;
+  color: var(--c-ink-3);
+  transition:
+    color var(--dur-1) var(--ease-out),
+    background-color var(--dur-1) var(--ease-out);
+}
+
+.cart-remove:hover {
+  background: var(--c-danger-bg);
+  color: var(--c-danger);
+}
+
+.cart-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.1rem;
+  color: var(--c-ink-2);
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cart-back:hover {
+  color: var(--c-ink);
+}
+
+/* ——— Total no carrinho ——— */
+.cart-summary {
+  padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+}
+
+.cart-summary-title {
+  margin-bottom: 1rem;
+  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.4rem);
+  letter-spacing: -0.03em;
+}
+
+.cart-totals {
+  display: grid;
+  margin: 0;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--c-line);
+  color: var(--c-ink-2);
+}
+
+.cart-total dd {
+  margin: 0;
+  color: var(--c-ink);
+  font-weight: 600;
+  text-align: right;
+}
+
+.cart-total.is-discount dd {
+  color: var(--c-indigo-700);
+}
+
+.cart-total.is-total {
+  align-items: baseline;
+  padding-top: 1rem;
+  border-bottom: 0;
+  color: var(--c-ink);
+  font-weight: 600;
+}
+
+.cart-total.is-total dd {
+  font-family: var(--f-display);
+  font-size: clamp(1.45rem, 1.2rem + 0.9vw, 1.85rem);
+  letter-spacing: -0.035em;
+}
+
+.cart-actions {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+}
+
+.cart-actions .btn {
+  width: 100%;
+  min-height: 52px;
+}
+
+.cart-checkout {
+  justify-content: space-between;
+}
+
+.cart-whatsapp {
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.cart-whatsapp .icon {
+  color: #1da851;
+}
+
+/* ——— Até 899 px: cada item vira um cartão — foto e nome (com a opção e o preço) em cima; quantidade,
+   subtotal e remover embaixo ——— */
+@media (max-width: 899px) {
+  .cart-head {
+    display: none;
+  }
+
+  .cart-list {
+    padding-top: 0.25rem;
+  }
+
+  .cart-item {
+    grid-template-columns: 84px minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      'thumb info info info'
+      'thumb price price price'
+      'qty qty line remove';
+    row-gap: 0.7rem;
+    column-gap: 0.85rem;
+  }
+
+  .cart-thumb {
+    grid-area: thumb;
+    align-self: start;
+    width: 84px;
+  }
+
+  .cart-info {
+    grid-area: info;
+  }
+
+  .cart-price {
+    grid-area: price;
+    align-self: start;
+    font-size: 0.9rem;
+  }
+
+  .cart-qty {
+    grid-area: qty;
+  }
+
+  .cart-line {
+    grid-area: line;
+    display: grid;
+    justify-items: end;
+    gap: 0.1rem;
+  }
+
+  .cart-remove {
+    grid-area: remove;
+  }
+
+  .cart-label {
+    display: block;
+    color: var(--c-ink-3);
+    font-family: var(--f-text);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .cart-price .cart-label,
+  .cart-qty .cart-label {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-skeleton span {
+    animation: none;
+  }
+
+  .cart-item,
+  .cart-remove {
+    transition: none;
+  }
+}
+
+/* Tablet: o total fica à direita, embaixo da lista, na largura de um resumo (como sob uma tabela). */
+@media (min-width: 760px) and (max-width: 1199px) {
+  .cart-summary {
+    justify-self: end;
+    width: min(100%, 440px);
+  }
+}

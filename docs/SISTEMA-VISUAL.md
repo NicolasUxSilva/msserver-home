@@ -186,6 +186,20 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 - **Grade:** a partir de 960 px, galeria e descrição à esquerda e compra à direita; abaixo, galeria,
   compra e descrição em sequência. O WhatsApp flutuante sai da frente quando cobriria a compra.
 
+## Carrinho
+
+- **Mesma abertura** (trilha, "Carrinho" com o losango e a quantidade de itens, a palavra em contorno).
+- **Lista** num cartão branco sobre a borda da abertura: no desktop, as colunas do carrinho do
+  WooCommerce (Produto, Preço, Quantidade, Subtotal) com foto em estúdio, nome, opção, quantidade
+  com − e + e remover (lixeira, vermelho no hover); abaixo de 900 px, cada item vira um cartão (foto e
+  nome em cima; quantidade, subtotal e remover embaixo). "Retornar para a loja" no fim.
+- **Total no carrinho** num cartão: linhas finas, total em Sora grande, "Avançar para o pagamento"
+  (botão escuro) e "Orçamento pelo WhatsApp" (contorno, ícone verde). Ao lado a partir de 1200 px
+  (acompanha a rolagem); no tablet, à direita embaixo da lista; no celular, na largura toda.
+- **Estados:** carregando (o lugar já reservado, com brilho suave), vazio e loja indisponível
+  (ícone em círculo, título, texto e ações); avisos com borda à esquerda (índigo; erro em vermelho) e
+  "Desfazer?" sublinhado em laranja.
+
 ## Breakpoints
 
 Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo; a partir de 1180, grade de 3 colunas em "Nossa linha"), 1360

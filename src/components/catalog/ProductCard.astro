@@ -4,7 +4,7 @@
 // informações reais do WooCommerce: fabricante, tipo, configurações de memória e o botão do produto.
 import { getImage } from 'astro:assets';
 import Icon from '../Icon.astro';
-import { LINKS } from '../../config/site';
+import { ROUTES } from '../../config/site';
 import { BRANDS, categoryName, priceParts, productHref, variationOptions, type Product } from '../../data/catalog';
 
 interface Props {
@@ -31,10 +31,10 @@ const tags = [
 const price = priceParts(p);
 // Opções que podem ser escolhidas de fato (as variações com preço), como no formulário do produto.
 const specs = variationOptions(p);
-// O card leva à página do produto neste site; "adicionar ao carrinho" vai ao carrinho do WooCommerce
-// (o mesmo ?add-to-cart=ID, agora no endereço que continua no WordPress).
+// O card leva à página do produto neste site; "adicionar ao carrinho" abre o carrinho deste site com o
+// mesmo ?add-to-cart=ID do WooCommerce (o carrinho adiciona pela Store API).
 const href = productHref(p.url);
-const buttonHref = p.button.kind === 'add-to-cart' ? `${LINKS.cart}?add-to-cart=${p.id}` : productHref(p.button.url);
+const buttonHref = p.button.kind === 'add-to-cart' ? `${ROUTES.cart}?add-to-cart=${p.id}` : productHref(p.button.url);
 const ratingPct = Math.round((p.rating / 5) * 100);
 ---
 

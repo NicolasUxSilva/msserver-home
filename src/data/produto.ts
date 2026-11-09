@@ -27,4 +27,6 @@ export const BUY = {
   makeSelection: 'Selecione uma das opções do produto antes de adicioná-lo ao carrinho.',
   unavailable: 'Desculpe, este produto não está disponível. Escolha uma combinação diferente.',
   outOfStock: 'Fora de estoque',
+  /** Enquanto o produto é adicionado ao carrinho. */
+  adding: 'Adicionando ao carrinho…',
 } as const;

@@ -2,12 +2,14 @@ import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import original from '../fixtures/original-products.json' with { type: 'json' };
 import catalog from '../../src/data/catalog.json' with { type: 'json' };
+import { mockStore } from './store-mock';
 
 // Páginas de produto (/servidor/slug/). A referência são as 74 páginas publicadas no WordPress
 // (tests/fixtures/original-products.json, capturado do HTML): mesmo nome, título, descrição e JSON-LD,
 // mesmas fotos na mesma ordem, mesmo preço, mesmas opções e variações (ids e preços) e o mesmo
-// formulário do WooCommerce (os mesmos campos enviados ao carrinho). Nenhuma requisição sai para o
-// site de produção: o carrinho do WooCommerce é respondido pelo próprio teste.
+// formulário do WooCommerce (os mesmos campos). "Orçamento" adiciona pela Store API do WooCommerce
+// (simulada em ./store-mock.ts) e abre o carrinho; sem a loja, o formulário vai à finalização de
+// compra do WordPress (respondida pelo próprio teste). Nenhuma requisição sai para a produção.
 test.beforeEach(async ({ page }) => {
   await page.route(/msserver\.com\.br|youtube\.com|ytimg|googletag|facebook|clarity|cloudfront|wa\.me/, (r) => r.abort());
 });
@@ -36,12 +38,12 @@ const PRODUCTS = catalog.products as unknown as Record<string, { slug: string; u
 const path = (id: number | string) => `/servidor/${PRODUCTS[id].slug}/`;
 const squash = (s: string) => s.replace(/\s+/g, '');
 const IDS = Object.keys(ORIG);
-const CART = 'https://msserver.com.br/carrinho/';
+const CHECKOUT = 'https://msserver.com.br/finalizar-compra/';
 
-/** Responde o carrinho do WooCommerce no próprio teste e guarda o que o formulário enviou. */
-async function catchCart(page: Page) {
+/** Responde a finalização de compra do WordPress no próprio teste e guarda o que o formulário enviou. */
+async function catchCheckout(page: Page) {
   const sent: { method: string; body: string }[] = [];
-  await page.route(CART, async (r) => {
+  await page.route(CHECKOUT, async (r) => {
     sent.push({ method: r.request().method(), body: r.request().postData() ?? '' });
     await r.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>Carrinho</title>' });
   });
@@ -89,7 +91,8 @@ test.describe('produto: preservação do WordPress', () => {
         await expect(page.locator('.pd-cta')).toHaveText('Fale com um consultor');
         continue;
       }
-      await expect(form).toHaveAttribute('action', CART);
+      // Sem JavaScript (ou sem a loja), o formulário original vai à finalização de compra do WordPress.
+      await expect(form).toHaveAttribute('action', CHECKOUT);
       await expect(form).toHaveAttribute('method', 'post');
       await expect(form.locator('.pd-cta')).toHaveText(o.form.button);
       const names = new Set(await form.locator('input[name]').evaluateAll((els) => els.map((e) => (e as HTMLInputElement).name)));
@@ -125,9 +128,9 @@ test.describe('produto: preservação do WordPress', () => {
   });
 });
 
-test.describe('produto: compra (formulário do WooCommerce)', () => {
-  test('variável: escolher a memória mostra o preço dela e envia a variação ao carrinho', async ({ page }) => {
-    const sent = await catchCart(page);
+test.describe('produto: compra (Store API do WooCommerce e o formulário original)', () => {
+  test('variável: escolher a memória mostra o preço dela; "Orçamento" adiciona a variação e abre o carrinho', async ({ page }) => {
+    const store = await mockStore(page);
     await page.goto(path(4827));
     const price = page.locator('[data-pd-price]');
     await expect(price).toContainText('R$ 3.100,00');
@@ -135,7 +138,7 @@ test.describe('produto: compra (formulário do WooCommerce)', () => {
     // Sem escolher: a mensagem do WooCommerce e nada é enviado.
     await page.locator('.pd-cta').click();
     await expect(page.locator('[data-pd-msg]')).toHaveText('Selecione uma das opções do produto antes de adicioná-lo ao carrinho.');
-    expect(sent).toEqual([]);
+    expect(store.requests).toEqual([]);
     // Opções em ordem crescente; escolher 16GB.
     await expect(page.locator('.pd-opt')).toHaveText(['8GB', '16GB']);
     await page.locator('.pd-opt', { hasText: '16GB' }).click();
@@ -155,20 +158,24 @@ test.describe('produto: compra (formulário do WooCommerce)', () => {
     await expect(page.locator('#pd-qty')).toHaveValue('1');
     await page.locator('[data-pd-step="1"]').click();
     await page.locator('[data-pd-step="1"]').click();
-    await Promise.all([page.waitForURL(CART), page.locator('.pd-cta').click()]);
-    expect(sent).toHaveLength(1);
-    expect(sent[0].method).toBe('POST');
-    expect(Object.fromEntries(new URLSearchParams(sent[0].body))).toEqual({ 'attribute_pa_memoria-ram': '8gb', quantity: '3', 'add-to-cart': '4827', product_id: '4827', variation_id: '5423' });
+    await Promise.all([page.waitForURL(/\/carrinho\/$/), page.locator('.pd-cta').click()]);
+    // Store API: a variação e a quantidade (o WooCommerce completa as opções pela variação), com o nonce.
+    const add = store.requests.find((r) => r.path === '/cart/add-item')!;
+    expect(add.body).toEqual({ id: 5423, quantity: 3 });
+    expect(add.nonce).toBeTruthy();
+    // O carrinho abre com o aviso do WooCommerce e o item.
+    await expect(page.locator('.cart-notice')).toHaveText('“Servidor Dell PowerEdge R210” foi adicionado ao seu carrinho.');
+    await expect(page.locator('.cart-item')).toHaveCount(1);
+    await expect(page.locator('.cart-item .cart-variation')).toHaveText('Memoria RAM: 8GB');
+    await expect(page.locator('.cart-item .cart-qty input')).toHaveValue('3');
   });
 
-  test('atributo do próprio produto (attribute_memoria-ram) e opções sem preço fora da escolha', async ({ page }) => {
-    const sent = await catchCart(page);
-    // Atributo cadastrado no produto: o valor enviado é o próprio texto ("16GB"), como no original.
+  test('atributo do próprio produto e opções sem preço fora da escolha', async ({ page }) => {
+    const store = await mockStore(page);
     await page.goto(path(4994));
     await page.locator('.pd-opt', { hasText: '16GB' }).click();
-    await Promise.all([page.waitForURL(CART), page.locator('.pd-cta').click()]);
-    expect(new URLSearchParams(sent[0].body).get('attribute_memoria-ram')).toBe('16GB');
-    expect(new URLSearchParams(sent[0].body).get('variation_id')).toBe('5277');
+    await Promise.all([page.waitForURL(/\/carrinho\/$/), page.locator('.pd-cta').click()]);
+    expect(store.requests.find((r) => r.path === '/cart/add-item')!.body).toEqual({ id: 5277, quantity: 1 });
     // HP DL380 G10: 8GB e 16GB não têm preço no WooCommerce (o WordPress não as oferece).
     await page.goto(path(8141));
     await expect(page.locator('.pd-opt')).toHaveText(['32GB']);
@@ -177,13 +184,43 @@ test.describe('produto: compra (formulário do WooCommerce)', () => {
     await expect(page.locator('[data-pd-variation]')).not.toHaveValue('0');
   });
 
-  test('simples com preço: quantidade e "Orçamento" enviam ao carrinho como o botão original', async ({ page }) => {
-    const sent = await catchCart(page);
+  test('simples com preço: quantidade e "Orçamento" adicionam o produto', async ({ page }) => {
+    const store = await mockStore(page);
     await page.goto(path(7820));
     await expect(page.locator('.pd-opts')).toHaveCount(0);
     await page.locator('#pd-qty').fill('2');
-    await Promise.all([page.waitForURL(CART), page.locator('.pd-cta').click()]);
-    expect(Object.fromEntries(new URLSearchParams(sent[0].body))).toEqual({ quantity: '2', 'add-to-cart': '7820' });
+    await Promise.all([page.waitForURL(/\/carrinho\/$/), page.locator('.pd-cta').click()]);
+    expect(store.requests.find((r) => r.path === '/cart/add-item')!.body).toEqual({ id: 7820, quantity: 2 });
+    await expect(page.locator('.cart-item .cart-line [data-v]')).toHaveText('R$\u00a0700,00');
+  });
+
+  test('sem a loja neste endereço: o formulário original segue para a finalização de compra do WordPress', async ({ page }) => {
+    await mockStore(page, { down: true });
+    const sent = await catchCheckout(page);
+    await page.goto(path(4827));
+    await page.locator('.pd-opt', { hasText: '8GB' }).click();
+    await page.locator('[data-pd-step="1"]').click();
+    await page.locator('[data-pd-step="1"]').click();
+    await Promise.all([page.waitForURL(CHECKOUT), page.locator('.pd-cta').click()]);
+    expect(sent).toHaveLength(1);
+    expect(sent[0].method).toBe('POST');
+    expect(Object.fromEntries(new URLSearchParams(sent[0].body))).toEqual({ 'attribute_pa_memoria-ram': '8gb', quantity: '3', 'add-to-cart': '4827', product_id: '4827', variation_id: '5423' });
+    // Simples: os mesmos campos do botão original.
+    await page.goto(path(7820));
+    await Promise.all([page.waitForURL(CHECKOUT), page.locator('.pd-cta').click()]);
+    expect(Object.fromEntries(new URLSearchParams(sent[1].body))).toEqual({ quantity: '1', 'add-to-cart': '7820' });
+  });
+
+  test('erro da loja (ex.: produto indisponível) aparece na página, sem sair dela', async ({ page }) => {
+    await mockStore(page);
+    await page.route('**/wp-json/wc/store/v1/cart/add-item', (r) =>
+      r.fulfill({ status: 400, contentType: 'application/json', headers: { Nonce: 'n9' }, body: JSON.stringify({ code: 'woocommerce_rest_product_out_of_stock', message: 'Você não pode adicionar &quot;Bateria&quot; ao carrinho porque o produto está fora de estoque.', data: { status: 400 } }) }),
+    );
+    await page.goto(path(7820));
+    await page.locator('.pd-cta').click();
+    await expect(page.locator('[data-pd-msg]')).toHaveText('Você não pode adicionar "Bateria" ao carrinho porque o produto está fora de estoque.');
+    await expect(page).toHaveURL(new RegExp(`${path(7820)}$`));
+    await expect(page.locator('.pd-cta')).not.toHaveClass(/is-busy/);
   });
 
   test('sem preço: sem formulário (como no WordPress) e o contato com um consultor', async ({ page }) => {

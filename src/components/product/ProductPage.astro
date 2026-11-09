@@ -3,8 +3,11 @@
 // (trilha, categorias e o nome), galeria em estúdio claro, caixa de compra com as opções reais de
 // variação, quantidade e "Orçamento", o bloco de garantia do modelo original e a descrição publicada.
 //
-// Compra: o formulário envia ao carrinho do WooCommerce (que continua no WordPress) exatamente os
-// campos do formulário original: add-to-cart, product_id, variation_id, attribute_* e quantity.
+// Compra: "Orçamento" adiciona ao carrinho pela Store API do WooCommerce (a variação escolhida e a
+// quantidade) e abre o carrinho deste site. Sem JavaScript, ou sem a loja neste endereço, o formulário
+// vai para a finalização de compra do WordPress com os mesmos campos do formulário original
+// (add-to-cart, product_id, variation_id, attribute_* e quantity): o WooCommerce adiciona e mostra a
+// finalização, com o mesmo carrinho.
 import '../../styles/catalog-hero.css';
 import '../../styles/product.css';
 import { getImage } from 'astro:assets';
@@ -59,9 +62,11 @@ const price = priceParts(p);
 const mode = !p.inStock ? 'out' : p.type === 'variable' && options.length && variants.length ? 'variable' : p.price && p.purchasable ? 'simple' : 'consult';
 const config = {
   id: p.id,
+  name: p.name,
+  cart: ROUTES.cart,
   fields: options.map((a) => a.field),
   variations: variants.map((v) => ({ id: v.id, attributes: v.attributes, price: v.price, inStock: v.inStock })),
-  messages: { makeSelection: BUY.makeSelection, unavailable: BUY.unavailable, outOfStock: BUY.outOfStock },
+  messages: { makeSelection: BUY.makeSelection, unavailable: BUY.unavailable, outOfStock: BUY.outOfStock, adding: BUY.adding },
 };
 const whatsapp = whatsappUrl();
 const description = productDescription(p.description);
@@ -186,7 +191,7 @@ const description = productDescription(p.description);
 
             {
               mode === 'variable' && (
-                <form class="pd-form" method="post" action={LINKS.cart} data-pd-form novalidate>
+                <form class="pd-form" method="post" action={LINKS.checkout} data-pd-form novalidate>
                   {options.map((a) => (
                     <fieldset class="pd-opts" data-pd-attr={a.field}>
                       <legend>{a.name}</legend>
@@ -220,7 +225,7 @@ const description = productDescription(p.description);
                       </div>
                     </div>
                     <button class="btn btn--dark pd-cta" type="submit">
-                      {BUY.button}
+                      <span data-pd-label>{BUY.button}</span>
                       <Icon name="arrow-right" class="btn-arrow" />
                     </button>
                   </div>
@@ -233,7 +238,8 @@ const description = productDescription(p.description);
 
             {
               mode === 'simple' && (
-                <form class="pd-form" method="post" action={LINKS.cart} data-pd-form novalidate>
+                <form class="pd-form" method="post" action={LINKS.checkout} data-pd-form novalidate>
+                  <p class="pd-msg" role="alert" data-pd-msg hidden />
                   <div class="pd-actions">
                     <div class="pd-qty">
                       <label for="pd-qty">{BUY.quantity}</label>
@@ -248,7 +254,7 @@ const description = productDescription(p.description);
                       </div>
                     </div>
                     <button class="btn btn--dark pd-cta" type="submit">
-                      {BUY.button}
+                      <span data-pd-label>{BUY.button}</span>
                       <Icon name="arrow-right" class="btn-arrow" />
                     </button>
                   </div>

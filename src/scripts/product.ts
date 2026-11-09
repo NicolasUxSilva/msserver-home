@@ -1,16 +1,20 @@
 import { track } from './analytics';
 import { guardFab } from './fab-guard';
+import { ADDED_KEY, addItem, StoreError, StoreUnavailable } from './store-api';
 
 // Página de produto no navegador: galeria (miniaturas, deslizar no celular e imagem ampliada) e o
 // formulário de compra (opções de variação → variação do WooCommerce, preço da opção escolhida,
-// quantidade e o envio ao carrinho). Sem JavaScript, a página mostra a primeira foto e o formulário
-// continua funcionando: o WooCommerce encontra a variação pelas opções enviadas.
+// quantidade). "Orçamento" adiciona ao carrinho pela Store API e abre o carrinho deste site. Sem
+// JavaScript, ou sem a loja neste endereço, o formulário segue para a finalização de compra do
+// WordPress com os campos originais (o WooCommerce encontra a variação pelas opções enviadas).
 
 type Config = {
   id: number;
+  name: string;
+  cart: string;
   fields: string[];
   variations: { id: number; attributes: Record<string, string>; price: number | null; inStock: boolean }[];
-  messages: { makeSelection: string; unavailable: string; outOfStock: string };
+  messages: { makeSelection: string; unavailable: string; outOfStock: string; adding: string };
 };
 
 const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -157,18 +161,59 @@ function initForm(root: HTMLElement, cfg: Config) {
     }),
   );
 
-  form.addEventListener('submit', (e) => {
+  let busy = false;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (busy) return;
+    let id = cfg.id;
     if (variationInput) {
       const { complete, variation } = match();
       if (!complete || !variation || !variation.inStock) {
-        e.preventDefault();
         say(!complete ? cfg.messages.makeSelection : !variation ? cfg.messages.unavailable : cfg.messages.outOfStock);
         const first = form.querySelector<HTMLInputElement>('input[type="radio"]:not(:checked)');
         if (!complete) first?.focus();
         return;
       }
+      id = variation.id;
     }
-    track('product_quote_submit', { product: cfg.id, variation: variationInput ? Number(variationInput.value) : undefined, quantity: Number(qty.value) });
+    const quantity = Math.max(1, parseInt(qty.value, 10) || 1);
+    track('product_quote_submit', { product: cfg.id, variation: variationInput ? id : undefined, quantity });
+    busy = true;
+    submit.classList.add('is-busy');
+    submit.setAttribute('aria-busy', 'true');
+    say('');
+    if (msg) {
+      msg.hidden = true;
+    }
+    const label = submit.querySelector<HTMLElement>('[data-pd-label]');
+    const original = label?.textContent;
+    if (label) label.textContent = cfg.messages.adding;
+    const done = () => {
+      busy = false;
+      submit.classList.remove('is-busy');
+      submit.removeAttribute('aria-busy');
+      if (label && original) label.textContent = original;
+    };
+    try {
+      await addItem(id, quantity);
+      try {
+        sessionStorage.setItem(ADDED_KEY, cfg.name);
+      } catch {
+        /* armazenamento indisponível: o carrinho abre sem o aviso */
+      }
+      location.assign(cfg.cart);
+    } catch (err) {
+      done();
+      // Loja fora deste endereço (ou fora do ar): o WooCommerce do WordPress recebe o formulário.
+      if (err instanceof StoreUnavailable) form.submit();
+      else say(err instanceof StoreError ? err.message : cfg.messages.unavailable);
+    }
+  });
+  // Ao voltar do carrinho pelo histórico, o botão volta ao normal.
+  window.addEventListener('pageshow', () => {
+    busy = false;
+    submit.classList.remove('is-busy');
+    submit.removeAttribute('aria-busy');
   });
 
   // Ao voltar para a página pelo histórico, o estado do formulário é restaurado pelo navegador.

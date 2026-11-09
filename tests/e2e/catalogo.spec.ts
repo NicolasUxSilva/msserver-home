@@ -24,7 +24,7 @@ const H1: Record<Key, string> = { servidores: 'Servidores', dell: 'Dell', hp: 'H
 const NAV = 'Categorias do catálogo';
 /** Página do produto neste site (o mesmo endereço do WooCommerce, /servidor/slug/). */
 const local = (url: string) => url.replace(/^https:\/\/msserver\.com\.br(?=\/servidor\/)/, '');
-const CART = 'https://msserver.com.br/carrinho/';
+const CART = '/carrinho/';
 const pageUrl = (key: Key, n: number) => `${PATH[key]}${n > 1 ? `page/${n}/` : ''}`;
 const visibleIds = (page: Page) => page.locator('.pc:not([hidden])').evaluateAll((els) => els.map((e) => Number((e as HTMLElement).dataset.product)));
 const squash = (s: string) => s.replace(/\s+/g, '');
@@ -67,7 +67,7 @@ test.describe('catálogo: preservação do WordPress', () => {
           const btn = card.locator('.pc-btn');
           await expect(btn).toHaveText(o.button.text);
           // Mesmo destino: página do produto (variações) ou o mesmo "adicionar ao carrinho".
-          // "Adicionar ao carrinho" vai ao carrinho do WooCommerce (que continua no WordPress); os demais
+          // "Adicionar ao carrinho" abre o carrinho deste site com o mesmo ?add-to-cart=ID; os demais
           // botões levam à página do produto.
           const href = o.button.href.startsWith('?') ? `${CART}${o.button.href}` : local(o.button.href);
           await expect(btn).toHaveAttribute('href', href);
@@ -267,7 +267,7 @@ test.describe('catálogo: busca, filtros, ordenação e paginação', () => {
     expect(await visibleIds(page)).toEqual(LISTINGS.componentes.pages[0]);
   });
 
-  test('componentes: card abre a página do produto; "Orçamento" adiciona ao carrinho do WooCommerce', async ({ page }) => {
+  test('componentes: card abre a página do produto; "Orçamento" adiciona pelo carrinho', async ({ page }) => {
     await page.goto('/categoria-produto/fans/');
     // Clique sobre a foto (o link do nome cobre o card inteiro) leva à página do produto.
     const card = page.locator('.pc[data-product="7854"]');
