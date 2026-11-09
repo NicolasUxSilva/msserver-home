@@ -137,25 +137,18 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 - **Um componente para as 11 listagens** (catálogo geral, Dell, HP, IBM e as 7 categorias de
   componentes: `CatalogPage.astro`) e uma folha (`styles/catalog.css`, prefixos `cat-` e `pc-`). Regras compartilhadas entre a página gerada e o navegador em
   `lib/catalog-shared.ts` (contagem, paginação, endereços, busca sem acentos).
-- **Abertura compacta:** azul-marinho com luz azul e hachura, breadcrumb, título com o losango
-  laranja e a contagem ao lado, e a palavra da listagem em contorno com brilho azul (como
-  "SERVIDORES" e "LOCAÇÃO" nas artes da hero), no alto à direita. No celular, palavras com mais de
-  10 letras (COMPONENTES, DISSIPADORES, PLACAS DE REDE) ficam menores e mais sutis, para não
-  disputar com a trilha.
+- **Abertura compacta:** só a cor — azul-marinho com a luz azul suave e a hachura das superfícies
+  escuras do site, sem palavra ao fundo —, breadcrumb e título com o losango laranja e a contagem ao
+  lado (a mesma abertura nas páginas de produto e no carrinho).
 - **Navegação entre as listagens** em pílulas (contagem em mono; a atual em branco com a contagem
-  em laranja), nos dois grupos do menu do site: Servidores (Todos, Dell, HP, IBM) e Componentes
-  (7). Uma linha por grupo abaixo do título; o nome do grupo à esquerda a partir de 1200 px; de
-  768 a 1099 px a linha de Componentes quebra (tudo à vista). No celular, uma só linha que desliza
-  até a borda, com um traço entre os grupos e a listagem atual centralizada antes da primeira
-  pintura.
-- **Ferramentas** num cartão branco e enxuto sobre a borda da abertura, numa linha a partir de
-  1100 px: busca (com limpar; o texto de exemplo termina em reticências em telas estreitas),
-  "Categoria" e "Ordenar por", os dois como seletores que abrem a lista (mesmo desenho). O seletor
-  de categoria traz só categorias que separam parte da lista, com a contagem que acompanha a busca
-  (sem produtos, a opção fica indisponível) e os grupos Servidores/Componentes quando há os dois;
-  escolhida uma categoria, ele fica marcado e o filtro aparece como etiqueta removível acima da
-  grade. Sem categoria útil (Fans, Baterias…), só a ordenação. Abaixo de 1100 px a busca ocupa a
-  linha e os seletores ficam lado a lado embaixo; no celular, com o nome de cada um em cima.
+  em laranja), só com as categorias do grupo da página: nos servidores, Todos, Dell, HP e IBM; nos
+  componentes, Componentes, Baterias, Dissipadores, Fans, Fontes, Gavetas e Placas de Rede. Uma
+  linha abaixo do título (quebra quando não cabe); no celular, uma linha que desliza até a borda,
+  com a listagem atual centralizada antes da primeira pintura.
+- **Ferramentas** num cartão branco e enxuto sobre a borda da abertura, numa linha: busca (com
+  limpar; o texto de exemplo termina em reticências em telas estreitas) e "Ordenar por". No
+  celular, a busca em cima e "Ordenar por" embaixo. A busca ativa aparece como etiqueta removível
+  acima da grade.
 - **Card de produto:** o de "Nossa linha" evoluído: foto em estúdio claro 4:3 com sombra de piso,
   etiquetas (fabricante em índigo, tipo em branco; não repetem uma categoria comum a todos os
   produtos da página), nome completo em Sora (sem corte: nas peças, o código no fim do nome é o que
@@ -173,7 +166,7 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 ## Página de produto
 
 - **Mesma abertura do catálogo** (`catalog-hero.css`): trilha, categorias reais em etiquetas (o
-  fabricante em branco), o nome com o losango laranja e a palavra da listagem em contorno.
+  fabricante em branco) e o nome com o losango laranja.
 - **Galeria** num cartão branco sobre a borda da abertura: foto em estúdio claro 4:3 com sombra de
   piso, contador, ícone de ampliar e miniaturas (a atual com borda escura); clique abre a imagem
   ampliada (janela com setas, contador e Esc); no celular, deslizar troca a foto.
@@ -188,7 +181,7 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 
 ## Carrinho
 
-- **Mesma abertura** (trilha, "Carrinho" com o losango e a quantidade de itens, a palavra em contorno).
+- **Mesma abertura** (trilha, "Carrinho" com o losango e a quantidade de itens).
 - **Lista** num cartão branco sobre a borda da abertura: no desktop, as colunas do carrinho do
   WooCommerce (Produto, Preço, Quantidade, Subtotal) com foto em estúdio, nome, opção, quantidade
   com − e + e remover (lixeira, vermelho no hover); abaixo de 900 px, cada item vira um cartão (foto e

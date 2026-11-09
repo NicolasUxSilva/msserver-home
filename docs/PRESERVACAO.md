@@ -466,8 +466,7 @@ site fora do ar) e a Store API do WooCommerce. O retrato usado nos testes, gerad
 - **Títulos** em caixa de frase, como no resto do site: "Servidores", "Dell", "HP", "IBM".
 - **Novos recursos sobre os mesmos dados:** busca instantânea no catálogo (nome, categorias,
   memória), filtro pelas categorias reais do WooCommerce (Rack, Torre, Escala nuvem e as de
-  componentes, com a contagem; desde 09/11/2026 num seletor "Categoria" ao lado da busca, no lugar
-  da linha de chips), ordenação também no catálogo geral (padrão "Mais recentes", a
+  componentes, com a contagem; retirado depois — ver "Ferramentas mais enxutas"), ordenação também no catálogo geral (padrão "Mais recentes", a
   ordem original dele) e navegação entre Todos, Dell, HP e IBM em todas as páginas.
 - **Paginação do catálogo geral:** `/servidores/page/N/`, como nas categorias. O endereço antigo
   (`/servidores/?product-page=N`) continua funcionando e é convertido.
@@ -535,23 +534,31 @@ Elementor 4851): título da categoria, breadcrumb "Home / Fans", contagem e orde
 
 - **Textos traduzidos** como nas demais listagens; trilha como no menu do site: "Início /
   Servidores / Componentes / Baterias".
-- **Navegação do catálogo em dois grupos**, os mesmos do menu do site, em todas as 11 listagens:
+- **Navegação do catálogo em dois grupos** (depois, só o grupo da página — ver "Ferramentas mais
+  enxutas"), os mesmos do menu do site, em todas as 11 listagens:
   Servidores (Todos, Dell, HP, IBM) e Componentes (Componentes, Baterias, Dissipadores, Fans,
   Fontes, Gavetas, Placas de Rede), com a contagem e a atual em destaque. No desktop, uma linha
   por grupo (com o nome do grupo a partir de 1200 px); no celular, uma linha que desliza, já
   posicionada na categoria atual. Trocar de categoria mantém a busca digitada.
-- **Filtros só quando filtram:** em Componentes, o seletor "Categoria" traz as 4 subcategorias
+- **Filtros só quando filtram** (depois retirados — ver "Ferramentas mais enxutas"): em Componentes, o seletor "Categoria" trazia as 4 subcategorias
   (Dissipadores 5, Fans 5, Fontes 4, Gavetas 4). Nas outras 6, todos os produtos têm as mesmas
   categorias; um filtro "Fans" dentro de Fans não mudaria nada, então a página não mostra o
   seletor. A busca e as 6 ordenações funcionam em todas.
 
 ## Ferramentas mais enxutas (09/11/2026)
 
-A pedido da MSSERVER, a linha de categorias em chips do cartão de busca saiu, em todas as 11
-listagens: a escolha da categoria passou para um seletor "Categoria" ao lado da busca e do
-"Ordenar por" (as mesmas categorias reais, com a contagem que acompanha a busca, e o mesmo
-endereço `?tipo=`). A abertura (título, palavra em contorno e a navegação entre Servidores e
-Componentes) não mudou; cards, ordenação, paginação e dados também não.
+A pedido da MSSERVER, nas 11 listagens:
+
+- A linha de categorias em chips do cartão de busca saiu; depois, o seletor "Categoria" que a
+  substituiu também saiu. O cartão tem só a busca e "Ordenar por". Endereços antigos com `?tipo=`
+  abrem a listagem inteira (o parâmetro é ignorado e sai do endereço).
+- A navegação da abertura mostra só as categorias do grupo da página: nos servidores (`/servidores/`,
+  Dell, HP, IBM), Todos, Dell, HP e IBM; nos componentes, Componentes e as 6 subcategorias. Os dois
+  grupos continuam no menu do site (Servidores › Componentes).
+- A palavra em contorno ao fundo da abertura ("SERVIDORES", "DELL", "FANS"…) saiu — também das
+  páginas de produto e do carrinho, que usam a mesma abertura: o fundo fica só com a cor.
+
+Cards, busca, ordenação, paginação e dados não mudaram.
 - **Card:** o mesmo dos servidores. A etiqueta de categoria aparece só quando informa algo (em
   Componentes, a subcategoria; em Fans, nenhuma, já que todos são fans e componentes). "Sob
   consulta" no lugar do preço vazio, como no restante do catálogo.

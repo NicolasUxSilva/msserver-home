@@ -67,12 +67,11 @@ de novo e gere o site. Enquanto o HTTPS de msserver.com.br estiver fora do ar, u
 As páginas (`src/pages/servidores/` e `src/pages/categoria-produto/[categoria]/`, que gera as 10
 categorias) usam um único componente (`src/components/catalog/CatalogPage.astro`). Cada página já vem gerada na ordem
 padrão e paginada como no WordPress (12 por página em `/servidores/`, 16 nas categorias);
-busca, filtro por categoria, ordenação e troca de página funcionam no navegador
-(`src/scripts/catalog.ts`), com o estado na URL (`/page/N/`, `?orderby=`, `?tipo=`, `?busca=`).
-Os cards de produto levam às páginas de produto deste site (abaixo). A navegação do catálogo segue os dois grupos do menu do site (Servidores: todos,
-Dell, HP, IBM; Componentes: Componentes e suas subcategorias). O seletor "Categoria", ao lado da
-busca e do "Ordenar por", traz as categorias reais que separam parte dos produtos de cada página
-(em Fans, Baterias etc., todos os produtos têm as mesmas categorias, e o seletor não aparece). Se o sincronismo acusar diferença entre
+busca, ordenação e troca de página funcionam no navegador (`src/scripts/catalog.ts`), com o
+estado na URL (`/page/N/`, `?orderby=`, `?busca=`).
+Os cards de produto levam às páginas de produto deste site (abaixo). A navegação de cada listagem mostra só as categorias do seu grupo no menu do site
+(nos servidores: Todos, Dell, HP, IBM; nos componentes: Componentes e suas subcategorias); as
+ferramentas são a busca e "Ordenar por". Se o sincronismo acusar diferença entre
 a contagem publicada de uma categoria e a listagem, ele para sem gravar nada.
 
 ### Páginas de produto
@@ -177,9 +176,9 @@ Catálogo (`tests/e2e/catalogo.spec.ts`, 28): contra o catálogo publicado no Wo
 nomes, links, preços, textos e destinos dos botões, imagem destacada original de cada produto e as
 6 ordenações iguais às do WordPress (`?orderby=`) em todas as listagens; inventário completo de
 cada categoria de componentes, sem misturar categorias; busca (sem acentos, também nos atributos e
-por código de peça), filtros só com categorias reais, estado na URL e no histórico, paginação que
-mantém busca e filtro, endereço antigo `?product-page=N`, navegação entre as 11 listagens mantendo
-a busca, trilha, card que abre o produto, SEO, menu, layout (4 colunas no desktop, card horizontal
+por código de peça), estado na URL e no histórico, paginação que mantém a busca, endereço antigo
+`?product-page=N`, navegação só com as categorias do grupo da página (mantendo a busca), ferramentas
+só com busca e ordenação, abertura sem a palavra ao fundo, trilha, card que abre o produto, SEO, menu, layout (4 colunas no desktop, card horizontal
 no celular, nome completo, categoria atual à vista, sem rolagem lateral), console e
 acessibilidade (axe) com e sem resultados.
 

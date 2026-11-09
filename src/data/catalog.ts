@@ -50,8 +50,6 @@ type Listing = {
   key: ListingKey;
   /** Nome exibido (título publicado em caixa de frase, como no resto do site). */
   title: string;
-  /** Palavra desenhada em contorno no fundo da abertura (como nas artes da hero). */
-  wordmark: string;
   /** Rótulo na navegação entre as categorias do catálogo. */
   navLabel: string;
   /** Grupo na navegação, como no menu do site: Servidores (todos e fabricantes) e Componentes. */
@@ -74,7 +72,6 @@ function category(key: Exclude<ListingKey, 'servidores'>, title: string, publish
   return {
     key,
     title,
-    wordmark: published.toUpperCase(),
     navLabel: title,
     group,
     // As subcategorias de componentes ficam sob "Componentes", como no menu do site.
@@ -91,7 +88,6 @@ export const LISTINGS: Record<ListingKey, Listing> = {
   servidores: {
     key: 'servidores',
     title: 'Servidores',
-    wordmark: 'SERVIDORES',
     navLabel: 'Todos',
     group: 'servidores',
     parents: [],
@@ -129,24 +125,7 @@ export const pagesOf = (key: ListingKey) => Math.max(1, Math.ceil(totalOf(key) /
 /** Fabricantes (categorias do WooCommerce) e como aparecem no site. */
 export const BRANDS: Record<string, string> = { dell: 'Dell', hp: 'HP', ibm: 'IBM' };
 
-/** Categorias usadas como filtro, na ordem exibida: formato/linha dos servidores e componentes.
- *  "Sem categoria" (categoria padrão do WooCommerce) não informa nada e fica de fora. */
-export const FILTER_GROUPS: { label: string; slugs: string[] }[] = [
-  { label: 'Servidores', slugs: ['rack', 'torre', 'escala-nuvem'] },
-  { label: 'Componentes', slugs: ['componentes', 'baterias', 'dissipadores', 'fans', 'fontes', 'gavetas', 'placas-de-rede'] },
-];
 export const categoryName = (slug: string) => BRANDS[slug] ?? (data.categories as Record<string, { name: string }>)[slug]?.name ?? slug;
-
-/** Filtros desta listagem, com a contagem: só categorias que separam parte dos produtos. Uma
- *  categoria que reúne todos eles (Fans dentro de Fans) não filtra nada e fica de fora; sem nenhuma
- *  categoria útil, a página não mostra a linha de filtros. */
-export function filtersFor(key: ListingKey) {
-  const ids = orderOf(key, 'menu_order');
-  return FILTER_GROUPS.map((g) => ({
-    label: g.label,
-    items: g.slugs.map((slug) => ({ slug, name: categoryName(slug), count: ids.filter((id) => product(id).categories.includes(slug)).length })).filter((x) => x.count > 0 && x.count < ids.length),
-  })).filter((g) => g.items.length);
-}
 
 /** Categorias que todos os produtos da listagem têm (a própria categoria da página, e "Componentes"
  *  dentro de Fans): no card, a etiqueta não informaria nada e não é repetida. */
@@ -155,7 +134,7 @@ export function sharedCategories(key: ListingKey) {
   return [...new Set(ids.flatMap((id) => product(id).categories))].filter((c) => ids.every((id) => product(id).categories.includes(c)));
 }
 
-/** Navegação do catálogo nos dois grupos do menu do site: Servidores e Componentes. */
+/** Grupos do menu do site (Servidores e Componentes): cada listagem mostra a navegação do seu. */
 export const NAV_GROUPS = (['servidores', 'componentes'] as const).map((group) => ({
   key: group,
   label: group === 'servidores' ? 'Servidores' : 'Componentes',

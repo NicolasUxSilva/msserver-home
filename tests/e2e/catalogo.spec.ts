@@ -2,6 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import original from '../fixtures/original-catalog.json' with { type: 'json' };
 import catalog from '../../src/data/catalog.json' with { type: 'json' };
+import { matches } from '../../src/lib/catalog-shared';
 
 // Catálogo: /servidores/, categorias de fabricante (Dell, HP, IBM) e de componentes (Componentes,
 // Baterias, Dissipadores, Fans, Fontes, Gavetas, Placas de Rede). A referência é o catálogo
@@ -21,7 +22,7 @@ const PATH = Object.fromEntries(Object.keys(LISTINGS).map((k) => [k, k === 'serv
 const KEYS = Object.keys(PATH) as Key[];
 /** Título exibido: o publicado, com os fabricantes em caixa de marca (DELL → Dell). */
 const H1: Record<Key, string> = { servidores: 'Servidores', dell: 'Dell', hp: 'HP', ibm: 'IBM', componentes: 'Componentes', baterias: 'Baterias', dissipadores: 'Dissipadores', fans: 'Fans', fontes: 'Fontes', gavetas: 'Gavetas', 'placas-de-rede': 'Placas de Rede' };
-const NAV = 'Categorias do catálogo';
+
 /** Página do produto neste site (o mesmo endereço do WooCommerce, /servidor/slug/). */
 const local = (url: string) => url.replace(/^https:\/\/msserver\.com\.br(?=\/servidor\/)/, '');
 const CART = '/carrinho/';
@@ -127,27 +128,20 @@ test.describe('catálogo: preservação do WordPress', () => {
   });
 });
 
-test.describe('catálogo: busca, filtros, ordenação e paginação', () => {
-  test('busca, filtro por categoria e limpeza, com o estado na URL e no histórico', async ({ page }) => {
+test.describe('catálogo: busca, ordenação, navegação e paginação', () => {
+  test('busca e limpeza, com o estado na URL e no histórico', async ({ page }) => {
     await page.goto('/servidores/');
     await page.fill('#cat-q', 'r740');
     await expect(page).toHaveURL(/\?busca=r740$/);
     const ids = await visibleIds(page);
     expect(ids.length).toBeGreaterThan(0);
     for (const name of await page.locator('.pc:not([hidden]) .pc-title a').allTextContents()) expect(name.toLowerCase()).toContain('r740');
-    // Categoria escolhida no seletor (só categorias reais; a contagem de cada opção acompanha a busca).
-    await expect(page.locator('#cat-tipo option[value="fans"]')).toHaveText(/^Fans \(\d+\)$/);
-    await expect(page.locator('#cat-tipo option[value="placas-de-rede"]')).toBeDisabled();
-    await page.selectOption('#cat-tipo', 'fans');
-    await expect(page).toHaveURL(/tipo=fans/);
-    for (const tags of await page.locator('.pc:not([hidden]) .pc-tags').allTextContents()) expect(tags).toContain('Fans');
-    await expect(page.locator('#cat-tipo')).toHaveValue('fans');
-    await expect(page.locator('[data-cat-active]')).toContainText('Fans');
+    await expect(page.locator('[data-cat-active]')).toContainText('Busca: “r740”');
     // Sem resultados: aviso e saída.
     await page.fill('#cat-q', 'modelo que não existe');
     await expect(page.locator('[data-cat-empty]')).toBeVisible();
     await expect(page.locator('[data-cat-count]')).toHaveText('Nenhum resultado');
-    await page.locator('[data-cat-reset]').click();
+    await page.getByRole('button', { name: 'Limpar busca', exact: true }).last().click();
     await expect(page.locator('[data-cat-count]')).toHaveText('Mostrando 1–12 de 74 resultados');
     await expect(page).toHaveURL(/\/servidores\/$/);
     // Voltar no navegador restaura o estado anterior.
@@ -163,16 +157,18 @@ test.describe('catálogo: busca, filtros, ordenação e paginação', () => {
     for (const card of await page.locator('.pc:not([hidden])').all()) await expect(card.locator('.pc-spec')).toContainText('128');
   });
 
-  test('ordenação e paginação mantêm busca e filtro nos links', async ({ page }) => {
-    await page.goto('/servidores/?tipo=rack&orderby=price');
+  test('ordenação e paginação mantêm a busca nos links', async ({ page }) => {
+    await page.goto('/servidores/?busca=dell&orderby=price');
     await expect(page.locator('#cat-order')).toHaveValue('price');
-    const p1 = await visibleIds(page);
-    expect(p1).toEqual(catalog.listings.servidores.orders.price.filter((id) => (catalog.products as Record<string, { categories: string[] }>)[id].categories.includes('rack')).slice(0, 12));
+    // A lista esperada: a ordem de preço do WooCommerce, só com o que a busca encontra.
+    const cfg = JSON.parse((await page.locator('[data-cat-config]').textContent())!);
+    const expected = (cfg.orders.price as number[]).filter((id) => matches(cfg.products[id].s, 'dell'));
+    await expect.poll(() => visibleIds(page)).toEqual(expected.slice(0, 12));
     const next = page.getByRole('link', { name: 'Próxima página' });
-    await expect(next).toHaveAttribute('href', '/servidores/page/2/?orderby=price&tipo=rack');
+    await expect(next).toHaveAttribute('href', '/servidores/page/2/?orderby=price&busca=dell');
     await next.click();
-    await expect(page).toHaveURL(/\/servidores\/page\/2\/\?orderby=price&tipo=rack$/);
-    await expect(page.locator('[data-cat-count]')).toContainText('Mostrando 13–24 de 37 resultados');
+    await expect(page).toHaveURL(/\/servidores\/page\/2\/\?orderby=price&busca=dell$/);
+    await expect(page.locator('[data-cat-count]')).toContainText(`Mostrando 13–${Math.min(24, expected.length)} de ${expected.length} resultados`);
     await expect(page.locator('[data-cat-count]')).toBeFocused();
   });
 
@@ -182,28 +178,30 @@ test.describe('catálogo: busca, filtros, ordenação e paginação', () => {
     expect(await visibleIds(page)).toEqual(LISTINGS.servidores.pages[2]);
   });
 
-  test('navegação entre as 11 listagens em todas as páginas, com a atual marcada e a busca mantida', async ({ page }) => {
+  test('navegação só com as categorias do grupo da página, a atual marcada e a busca mantida', async ({ page }) => {
+    const SERVERS = ['servidores', 'dell', 'hp', 'ibm'] as Key[];
     for (const key of KEYS) {
       await page.goto(PATH[key]);
-      const nav = page.getByRole('navigation', { name: NAV });
-      await expect(nav.locator('[aria-current="page"]')).toHaveCount(1);
+      const own = SERVERS.includes(key) ? SERVERS : (COMPONENTS as readonly Key[]);
+      const other = KEYS.filter((k) => !own.includes(k));
+      const nav = page.getByRole('navigation', { name: SERVERS.includes(key) ? 'Categorias: Servidores' : 'Categorias: Componentes' });
       await expect(nav.locator('[aria-current="page"]')).toHaveAttribute('href', PATH[key]);
-      // Dois grupos, como no menu do site: Servidores (todos e fabricantes) e Componentes.
-      await expect(nav.getByRole('list', { name: 'Servidores' }).getByRole('link')).toHaveCount(4);
-      await expect(nav.getByRole('list', { name: 'Componentes' }).getByRole('link')).toHaveCount(7);
-      for (const k of KEYS) await expect(nav.locator(`a[href="${PATH[k]}"]`)).toContainText(String(LISTINGS[k].total));
+      // Nos servidores: Todos, Dell, HP e IBM. Nos componentes: Componentes e as subcategorias.
+      await expect(nav.getByRole('link')).toHaveCount(own.length);
+      for (const k of own) await expect(nav.locator(`a[href="${PATH[k]}"]`)).toContainText(String(LISTINGS[k].total));
+      for (const k of other) await expect(nav.locator(`a[href="${PATH[k]}"]`)).toHaveCount(0);
     }
     await page.goto('/servidores/');
     await page.fill('#cat-q', 'r640');
-    await page.getByRole('navigation', { name: NAV }).getByRole('link', { name: /^Dell/ }).click();
+    await page.getByRole('navigation', { name: 'Categorias: Servidores' }).getByRole('link', { name: /^Dell/ }).click();
     await expect(page).toHaveURL(/\/categoria-produto\/dell\/\?busca=r640$/);
     await expect(page.locator('#cat-q')).toHaveValue('r640');
     expect((await visibleIds(page)).length).toBeGreaterThan(0);
-    // De um fabricante para uma categoria de componentes, e entre componentes, a busca segue junto.
-    await page.getByRole('navigation', { name: NAV }).getByRole('link', { name: /^Fans/ }).click();
-    await expect(page).toHaveURL(/\/categoria-produto\/fans\/\?busca=r640$/);
+    // Entre as categorias de componentes, a busca também segue junto.
+    await page.goto('/categoria-produto/fans/');
+    await page.fill('#cat-q', 'r640');
     await expect.poll(() => visibleIds(page)).toEqual([7858]);
-    await page.getByRole('navigation', { name: NAV }).getByRole('link', { name: /^Dissipadores/ }).click();
+    await page.getByRole('navigation', { name: 'Categorias: Componentes' }).getByRole('link', { name: /^Dissipadores/ }).click();
     await expect(page).toHaveURL(/\/categoria-produto\/dissipadores\/\?busca=r640$/);
     await expect.poll(() => visibleIds(page)).toEqual([7850]);
   });
@@ -220,20 +218,23 @@ test.describe('catálogo: busca, filtros, ordenação e paginação', () => {
     await expect(trail.getByRole('link', { name: 'Componentes' })).toHaveAttribute('href', '/categoria-produto/componentes/');
   });
 
-  test('componentes: seletor de categoria só com subcategorias reais; categorias de um tipo só, sem seletor', async ({ page }) => {
-    await page.goto('/categoria-produto/componentes/');
-    await expect(page.locator('#cat-tipo option')).toHaveText(['Todas', 'Dissipadores (5)', 'Fans (5)', 'Fontes (4)', 'Gavetas (4)']);
-    await page.selectOption('#cat-tipo', 'fans');
-    await expect(page).toHaveURL(/\/categoria-produto\/componentes\/\?tipo=fans$/);
-    // O filtro mostra exatamente os produtos da categoria Fans, na ordem padrão da loja.
-    expect(await visibleIds(page)).toEqual(LISTINGS.fans.pages.flat());
-    await expect(page.locator('[data-cat-count]')).toHaveText('Mostrando todos os 5 resultados');
-    await expect(page.locator('[data-cat-pages]')).toBeHidden();
-    // Em Fans, Baterias etc. todos os produtos têm as mesmas categorias: nenhum filtro que não filtra.
-    for (const key of COMPONENTS.filter((k) => k !== 'componentes')) {
+  test('ferramentas enxutas: só busca e ordenação; abertura só com a cor (sem palavra ao fundo)', async ({ page }) => {
+    for (const key of KEYS) {
       await page.goto(PATH[key]);
+      await expect(page.locator('.cat-tools > *')).toHaveCount(2);
       await expect(page.locator('#cat-tipo')).toHaveCount(0);
       await expect(page.locator('#cat-order option')).toHaveCount(6);
+      await expect(page.locator('.cat-wordmark')).toHaveCount(0);
+    }
+    // Endereço com o filtro de categoria antigo (?tipo=): ignorado, com todos os produtos.
+    await page.goto('/servidores/?tipo=rack');
+    await expect(page).toHaveURL(/\/servidores\/$/);
+    await expect(page.locator('[data-cat-count]')).toHaveText('Mostrando 1–12 de 74 resultados');
+    // Páginas de produto e carrinho: a mesma abertura, sem a palavra ao fundo.
+    for (const path of ['/servidor/servidor-dell-r210/', '/carrinho/']) {
+      await page.goto(path);
+      await expect(page.locator('.cat-hero')).toHaveCount(1);
+      await expect(page.locator('.cat-wordmark')).toHaveCount(0);
     }
   });
 
@@ -319,7 +320,7 @@ test.describe('catálogo: página, telas e acessibilidade', () => {
       // Nome completo de cada produto, sem corte (nas peças, o código no fim do nome identifica o item).
       expect(await page.locator('.pc:not([hidden]) .pc-title').evaluateAll((ts) => ts.filter((t) => t.scrollHeight > t.clientHeight + 1).length)).toBe(0);
       // A categoria atual fica à vista na navegação (no celular, a linha desliza até ela).
-      const cur = (await page.getByRole('navigation', { name: NAV }).locator('[aria-current="page"]').boundingBox())!;
+      const cur = (await page.locator('[data-cat-nav] [aria-current="page"]').boundingBox())!;
       expect(cur.x).toBeGreaterThanOrEqual(0);
       expect(cur.x + cur.width).toBeLessThanOrEqual(page.viewportSize()!.width);
       // Ferramentas enxutas: busca, categoria e ordenação, sem linha de chips. No desktop, numa linha só.

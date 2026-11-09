@@ -1,7 +1,7 @@
 /* ——— Abertura do catálogo e das páginas de produto ———
-   Faixa azul-marinho com luz azul e hachura, trilha, título com o losango laranja e a palavra em
-   contorno com brilho azul (como "SERVIDORES" e "LOCAÇÃO" nas artes da hero). Compartilhada pelas
-   listagens (CatalogPage) e pelas páginas de produto (ProductPage). Prefixo cat-. */
+   Faixa azul-marinho (só a cor, com a luz azul suave das superfícies escuras do site), trilha e
+   título com o losango laranja. Compartilhada pelas listagens (CatalogPage), pelas páginas de produto
+   (ProductPage) e pelo carrinho (CartPage). Prefixo cat-. */
 
 .cat-hero {
   position: relative;
@@ -16,51 +16,6 @@
   background:
     radial-gradient(40% 70% at 12% 0%, rgb(46 110 210 / 0.32), transparent 72%),
     radial-gradient(34% 60% at 88% 30%, rgb(46 110 210 / 0.2), transparent 70%);
-}
-
-/* Palavra em contorno com brilho azul, como "SERVIDORES" e "LOCAÇÃO" nas artes da hero. */
-.cat-wordmark {
-  position: absolute;
-  top: clamp(0.4rem, 0.2rem + 0.6vw, 0.9rem);
-  right: max(var(--gutter), calc((100% - var(--container)) / 2));
-  color: transparent;
-  font-family: var(--f-display);
-  font-size: clamp(4rem, 1.8rem + 6vw, 8rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  white-space: nowrap;
-  -webkit-text-stroke: 1.5px rgb(98 150 255 / 0.42);
-  filter: drop-shadow(0 0 18px rgb(46 110 210 / 0.55));
-  user-select: none;
-  /* Some suavemente para a esquerda, atrás do título. */
-  mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
-}
-
-.cat-wordmark[data-length='long'],
-.cat-wordmark[data-length='xl'] {
-  font-size: clamp(3.4rem, 1.6rem + 4.6vw, 6.5rem);
-}
-
-/* Celular: palavras longas (COMPONENTES, DISSIPADORES, PLACAS DE REDE) ocupam toda a largura e,
-   como as trilhas longas das subcategorias de componentes, passariam por trás da trilha com força;
-   ficam mais sutis, como textura (as longas, também menores). */
-@media (max-width: 599px) {
-  .cat-wordmark[data-length='xl'] {
-    font-size: 2.9rem;
-  }
-
-  .cat-wordmark[data-quiet] {
-    -webkit-text-stroke-color: rgb(98 150 255 / 0.24);
-    filter: drop-shadow(0 0 12px rgb(46 110 210 / 0.35));
-  }
-}
-
-/* Desktop: a palavra fica no alto, acima dos botões de fabricante. */
-@media (min-width: 900px) {
-  .cat-wordmark {
-    mask-image: linear-gradient(90deg, transparent 0%, #000 40%);
-  }
 }
 
 .cat-hero-inner {

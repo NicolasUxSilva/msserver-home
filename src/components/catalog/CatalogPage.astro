@@ -2,7 +2,7 @@
 // Página do catálogo: um único componente para /servidores/, para as categorias de fabricante (Dell,
 // HP, IBM) e para as de componentes (Componentes, Baterias, Dissipadores, Fans, Fontes, Gavetas,
 // Placas de Rede), com a mesma estrutura e os mesmos controles. A página gerada traz a
-// listagem na ordem padrão, já paginada (como no WordPress); busca, filtros, ordenação e troca de
+// listagem na ordem padrão, já paginada (como no WordPress); busca, ordenação e troca de
 // página funcionam no navegador sobre os mesmos cards (src/scripts/catalog.ts).
 import '../../styles/catalog-hero.css';
 import '../../styles/catalog.css';
@@ -13,7 +13,7 @@ import WhatsAppFab from '../WhatsAppFab.astro';
 import Icon from '../Icon.astro';
 import ProductCard from './ProductCard.astro';
 import { LINKS, ROUTES } from '../../config/site';
-import { BLOG, LISTINGS, NAV_GROUPS, SCHEMAS, filtersFor, orderOf, pagesOf, product, searchIndex, sharedCategories, totalOf, trailOf, type ListingKey } from '../../data/catalog';
+import { BLOG, LISTINGS, NAV_GROUPS, SCHEMAS, orderOf, pagesOf, product, searchIndex, sharedCategories, totalOf, trailOf, type ListingKey } from '../../data/catalog';
 import { ORDER_OPTIONS, pageItems, resultCount, stateUrl } from '../../lib/catalog-shared';
 
 interface Props {
@@ -28,11 +28,13 @@ const total = ids.length;
 const pages = pagesOf(key);
 const start = (page - 1) * L.perPage;
 const visible = ids.slice(start, start + L.perPage);
-const filters = filtersFor(key);
 const shared = sharedCategories(key);
-const pageUrl = (n: number) => stateUrl(L.path, { page: n, orderby: L.defaultOrder, busca: '', tipo: '' }, L.defaultOrder);
+const pageUrl = (n: number) => stateUrl(L.path, { page: n, orderby: L.defaultOrder, busca: '' }, L.defaultOrder);
+// Navegação: só o grupo da página — nos servidores, Todos, Dell, HP e IBM; nos componentes,
+// Componentes e as subcategorias.
+const navGroup = NAV_GROUPS.find((g) => g.key === L.group)!;
 
-// Dados para o navegador: só o necessário para ordenar, buscar e filtrar os cards da página.
+// Dados para o navegador: só o necessário para ordenar e buscar os cards da página.
 const config = {
   key,
   base: L.path,
@@ -40,7 +42,7 @@ const config = {
   defaultOrder: L.defaultOrder,
   legacyParam: L.legacyPageParam ?? null,
   orders: Object.fromEntries(ORDER_OPTIONS.map((o) => [o.key, orderOf(key, o.key)])),
-  products: Object.fromEntries(ids.map((id) => [id, { s: searchIndex(product(id)), c: product(id).categories }])),
+  products: Object.fromEntries(ids.map((id) => [id, { s: searchIndex(product(id)) }])),
   searchAll: 'https://msserver.com.br/?post_type=product&s=',
 };
 
@@ -50,9 +52,6 @@ const crumbs = [
   ...trailOf(key).map((c) => ({ label: c.label, href: c.key !== key || page > 1 ? c.href : undefined })),
   ...(page > 1 ? [{ label: `Página ${page}`, href: undefined }] : []),
 ];
-// No celular, a palavra em contorno fica mais sutil quando passaria com força por trás da trilha:
-// palavras longas (COMPONENTES, DISSIPADORES) e trilhas de 3 níveis (Servidores › Componentes › Fans).
-const quietWordmark = L.wordmark.length > 10 || trailOf(key).length >= 3;
 const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${L.title}`;
 ---
 
@@ -64,9 +63,6 @@ const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${
       <div class="dark-surface__bg" aria-hidden="true">
         <div class="dark-surface__hatch"></div>
         <div class="cat-light"></div>
-        <span class="cat-wordmark" data-length={L.wordmark.length > 10 ? 'xl' : L.wordmark.length > 4 ? 'long' : 'short'} data-quiet={quietWordmark ? '' : undefined}>
-          {L.wordmark}
-        </span>
       </div>
       <div class="container cat-hero-inner">
         <nav class="cat-crumbs" aria-label="Você está em">
@@ -80,30 +76,23 @@ const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${
             <b>{total}</b> {total === 1 ? 'produto' : 'produtos'}
           </p>
         </div>
-        {/* Navegação entre as listagens, nos dois grupos do menu do site: Servidores (todos e
-            fabricantes) e Componentes. No celular, uma linha que desliza, já na categoria atual. */}
-        <nav class="cat-brands" aria-label="Categorias do catálogo" data-cat-nav>
-          {
-            NAV_GROUPS.map((g) => (
-              <div class="cat-brands-row">
-                <span class="cat-brands-label" aria-hidden="true">
-                  {g.label}
-                </span>
-                <ul aria-label={g.label}>
-                  {g.items.map((k) => (
-                    <li>
-                      <a class="cat-brand" href={LISTINGS[k].path} aria-current={k === key ? 'page' : undefined}>
-                        {LISTINGS[k].navLabel}
-                        <span class="cat-brand-count" aria-label={`${totalOf(k)} produtos`}>
-                          {totalOf(k)}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))
-          }
+        {/* Navegação entre as listagens do grupo da página. No celular, uma linha que desliza, já na
+            categoria atual. */}
+        <nav class="cat-brands" aria-label={`Categorias: ${navGroup.label}`} data-cat-nav>
+          <ul>
+            {
+              navGroup.items.map((k) => (
+                <li>
+                  <a class="cat-brand" href={LISTINGS[k].path} aria-current={k === key ? 'page' : undefined}>
+                    {LISTINGS[k].navLabel}
+                    <span class="cat-brand-count" aria-label={`${totalOf(k)} produtos`}>
+                      {totalOf(k)}
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
         </nav>
         <script is:inline>
           // Antes da primeira pintura: na linha deslizante (celular), a categoria atual fica à vista.
@@ -118,8 +107,8 @@ const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${
 
     <section class="cat-body" aria-labelledby="resultados">
       <div class="container">
-        {/* Ferramentas, numa linha só: busca, categoria (seletor que abre a lista) e ordenação. Sem
-            JavaScript, a busca vai para a busca de produtos do WordPress (a mesma do widget original). */}
+        {/* Ferramentas, numa linha só: busca e ordenação. Sem JavaScript, a busca vai para a busca de
+            produtos do WordPress (a mesma do widget original). */}
         <div class="cat-tools">
           <form class="cat-search" action="https://msserver.com.br/" method="get" role="search" data-cat-search>
             <label class="sr-only" for="cat-q">{searchLabel}</label>
@@ -130,39 +119,6 @@ const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${
               <Icon name="x" size={18} />
             </button>
           </form>
-
-          {
-            /* Categorias reais que separam parte da lista (com a contagem, que acompanha a busca);
-               nas páginas em que todos os produtos têm as mesmas categorias, o seletor não aparece. */
-            filters.length > 0 && (
-              <div class="cat-field">
-                <label for="cat-tipo">Categoria</label>
-                <div class="cat-select">
-                  <select id="cat-tipo" name="tipo" data-cat-tipo>
-                    <option value="" data-name="Todas">
-                      Todas
-                    </option>
-                    {filters.length > 1
-                      ? filters.map((g) => (
-                          <optgroup label={g.label}>
-                            {g.items.map((f) => (
-                              <option value={f.slug} data-name={f.name}>
-                                {`${f.name} (${f.count})`}
-                              </option>
-                            ))}
-                          </optgroup>
-                        ))
-                      : filters[0].items.map((f) => (
-                          <option value={f.slug} data-name={f.name}>
-                            {`${f.name} (${f.count})`}
-                          </option>
-                        ))}
-                  </select>
-                  <Icon name="chevron-down" size={18} />
-                </div>
-              </div>
-            )
-          }
 
           <div class="cat-field">
             <label for="cat-order">Ordenar por</label>
@@ -190,11 +146,11 @@ const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${
         <div class="cat-empty" hidden data-cat-empty>
           <Icon name="package-search" size={40} />
           <h3>Nenhum produto encontrado</h3>
-          <p data-cat-empty-text>Nenhum produto corresponde aos filtros escolhidos.</p>
+          <p data-cat-empty-text>Nenhum produto corresponde a esta busca.</p>
           <div class="cat-empty-actions">
             <button class="btn btn--outline" type="button" data-cat-reset>
               <Icon name="x" size={18} />
-              Limpar busca e filtros
+              Limpar busca
             </button>
             <a class="btn btn--dark" href={`${config.searchAll}`} data-cat-search-all>
               Buscar em todo o site

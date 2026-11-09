@@ -52,13 +52,12 @@ export function pageItems(current: number, pages: number): PageItem[] {
   return out;
 }
 
-export type CatalogState = { page: number; orderby: OrderKey; busca: string; tipo: string };
+export type CatalogState = { page: number; orderby: OrderKey; busca: string };
 
 /** Endereço de um estado: página no caminho (/page/2/, como no WooCommerce) e o resto na busca. */
 export function stateUrl(base: string, s: CatalogState, defaultOrder: OrderKey) {
   const q = new URLSearchParams();
   if (s.orderby !== defaultOrder) q.set('orderby', s.orderby);
-  if (s.tipo) q.set('tipo', s.tipo);
   if (s.busca.trim()) q.set('busca', s.busca.trim());
   const qs = q.toString();
   return `${base}${s.page > 1 ? `page/${s.page}/` : ''}${qs ? `?${qs}` : ''}`;

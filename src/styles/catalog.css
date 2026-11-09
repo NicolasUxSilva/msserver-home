@@ -1,40 +1,13 @@
 /* ——— Catálogo (/servidores/, categorias Dell, HP e IBM e categorias de componentes) ———
-   Uma folha para todas as listagens: navegação entre as categorias, ferramentas (busca, categoria e
+   Uma folha para todas as listagens: navegação entre as categorias do grupo, ferramentas (busca e
    ordenação), grade de cards no padrão de "Nossa linha" da home, paginação e o bloco do blog. A
-   abertura escura (com a palavra em contorno) está em catalog-hero.css, compartilhada com as páginas
-   de produto. Classes com prefixo cat- e pc-. */
+   abertura escura está em catalog-hero.css, compartilhada com as páginas de produto e o carrinho.
+   Classes com prefixo cat- e pc-. */
 
-/* Navegação entre as categorias, nos dois grupos do menu do site: Servidores (todos e fabricantes)
-   e Componentes (e suas subcategorias). Uma linha por grupo; com espaço, o nome do grupo à esquerda. */
+/* Navegação entre as listagens do grupo da página: nos servidores, Todos, Dell, HP e IBM; nos
+   componentes, Componentes e as subcategorias. */
 .cat-brands {
-  display: grid;
-  gap: 0.45rem;
   margin-top: 0.25rem;
-}
-
-.cat-brands-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.cat-brands-label {
-  display: none;
-  flex: none;
-  width: 7rem;
-  padding-top: 0.8rem;
-  color: var(--c-on-dark-3);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
-@media (min-width: 1200px) {
-  .cat-brands-label {
-    display: block;
-  }
 }
 
 .cat-brands ul {
@@ -46,11 +19,9 @@
   list-style: none;
 }
 
-/* Celular: os dois grupos numa só linha que desliza até a borda da tela, separados por um traço; a
-   categoria atual já aparece centralizada. Do tablet em diante, as linhas quebram e tudo fica à vista. */
+/* Celular: uma linha que desliza até a borda da tela, com a categoria atual já à vista. */
 @media (max-width: 767px) {
   .cat-brands {
-    display: flex;
     margin-inline: calc(var(--gutter) * -1);
     padding-inline: var(--gutter);
     overflow-x: auto;
@@ -63,26 +34,13 @@
     display: none;
   }
 
-  .cat-brands-row {
-    flex: none;
-  }
-
   .cat-brands ul {
     flex-wrap: nowrap;
+    width: max-content;
   }
 
   .cat-brand {
     min-height: 44px;
-  }
-
-  .cat-brands-row + .cat-brands-row ul::before {
-    content: '';
-    flex: none;
-    align-self: center;
-    width: 1px;
-    height: 24px;
-    margin-inline: 0.15rem 0.2rem;
-    background: var(--c-line-dark-2);
   }
 }
 
@@ -151,13 +109,12 @@
   background: var(--c-paper);
 }
 
-/* Busca, categoria e ordenação numa linha (a partir de 1100 px); abaixo disso, a busca em cima e os
-   dois seletores lado a lado. */
+/* Busca e ordenação numa linha; no celular, a busca em cima e "Ordenar por" embaixo. */
 .cat-tools {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.75rem 1rem;
   margin-top: calc(clamp(2.75rem, 2rem + 2vw, 3.5rem) * -1);
@@ -240,10 +197,6 @@
   display: none;
 }
 
-.cat-tools:not(:has(.cat-field + .cat-field)) {
-  grid-template-columns: minmax(0, 1fr) auto;
-}
-
 .cat-field {
   display: flex;
   align-items: center;
@@ -257,15 +210,13 @@
   white-space: nowrap;
 }
 
-@media (max-width: 1099px) {
-  .cat-tools,
-  .cat-tools:not(:has(.cat-field + .cat-field)) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 767px) {
+  .cat-tools {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .cat-search,
-  .cat-field:only-of-type {
-    grid-column: 1 / -1;
+  .cat-field {
+    justify-content: space-between;
   }
 
   .cat-select,
@@ -309,12 +260,6 @@
   right: 0.85rem;
   color: var(--c-ink-3);
   pointer-events: none;
-}
-
-/* Categoria escolhida: o seletor fica marcado, como o filtro ativo logo abaixo da busca. */
-.cat-select select.is-set {
-  border-color: var(--c-ink);
-  font-weight: 600;
 }
 
 /* ——— Contagem ——— */
@@ -946,21 +891,11 @@
 
 /* ——— Telas menores ——— */
 @media (max-width: 599px) {
-  /* Dois seletores lado a lado: o nome de cada um em cima. */
-  .cat-field {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.3rem;
-  }
-
   .cat-field label {
-    font-size: 0.78rem;
-    font-weight: 500;
+    font-size: 0.82rem;
   }
 
   .cat-select select {
-    min-height: 48px;
-    padding-left: 0.85rem;
     font-size: 0.9rem;
     text-overflow: ellipsis;
   }

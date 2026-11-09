@@ -17,7 +17,7 @@ import Footer from '../Footer.astro';
 import WhatsAppFab from '../WhatsAppFab.astro';
 import Icon from '../Icon.astro';
 import { LINKS, ROUTES, whatsappUrl } from '../../config/site';
-import { BRANDS, LISTINGS, PRODUCT_SEO, availableVariations, categoryName, listingOf, priceParts, product, trailOf, variationOptions } from '../../data/catalog';
+import { BRANDS, PRODUCT_SEO, availableVariations, categoryName, listingOf, priceParts, product, trailOf, variationOptions } from '../../data/catalog';
 import { BUY, GUARANTEE } from '../../data/produto';
 import { productDescription } from '../../lib/product-html';
 
@@ -28,11 +28,9 @@ interface Props {
 const p = product(Astro.props.id);
 const seo = PRODUCT_SEO[String(p.id)];
 const listing = listingOf(p);
-const L = LISTINGS[listing];
 
 // Trilha: o caminho no catálogo deste site (o nome do produto é o título logo abaixo).
 const crumbs = [{ label: 'Início', href: ROUTES.home }, ...trailOf(listing).map((c) => ({ label: c.label, href: c.href }))];
-const quietWordmark = L.wordmark.length > 10 || trailOf(listing).length >= 3;
 
 // Categorias reais do produto: fabricante primeiro ("Sem categoria" não informa nada).
 const brand = p.categories.find((c) => c in BRANDS);
@@ -79,9 +77,6 @@ const description = productDescription(p.description);
       <div class="dark-surface__bg" aria-hidden="true">
         <div class="dark-surface__hatch"></div>
         <div class="cat-light"></div>
-        <span class="cat-wordmark" data-length={L.wordmark.length > 10 ? 'xl' : L.wordmark.length > 4 ? 'long' : 'short'} data-quiet={quietWordmark ? '' : undefined}>
-          {L.wordmark}
-        </span>
       </div>
       <div class="container cat-hero-inner">
         <nav class="cat-crumbs" aria-label="Você está em">
