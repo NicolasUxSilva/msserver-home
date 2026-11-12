@@ -193,6 +193,26 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
   (ícone em círculo, título, texto e ações); avisos com borda à esquerda (índigo; erro em vermelho) e
   "Desfazer?" sublinhado em laranja.
 
+## Finalização de compra
+
+- **Mesma abertura**, com as etapas da compra à direita do título (Carrinho com ✓, "Dados e
+  pagamento" com o número em laranja, "Pedido recebido"); no celular, só o nome da etapa atual.
+- **Formulário em seções numeradas** (círculo azul-marinho), cada uma num cartão branco: campos de
+  52 px com borda de 1,5 px e foco índigo, rótulo em negrito, `*` vermelho nos obrigatórios e
+  "(opcional)" em cinza; pares lado a lado (nome e sobrenome, cidade e estado, CEP e telefone) a
+  partir de 480 px. Erro: borda e fundo avermelhados e a mensagem com ícone embaixo do campo; no alto,
+  um quadro vermelho com a lista de erros (cada um leva ao campo).
+- **Pagamento:** cada forma num cartão com rádio, ícone, nome e bandeiras (a bandeira do número
+  digitado fica em destaque, as outras apagadas); os campos do cartão num fundo papel dentro do
+  cartão. Texto de privacidade pequeno, total em Sora grande e "Finalizar pedido" em laranja (o
+  único laranja da página, com cadeado; durante o envio, "Processando…" com o ícone girando).
+- **Resumo do pedido** (cartão do carrinho): foto com a quantidade num selo azul-marinho, nome,
+  opção e valor; "Editar carrinho"; "Você tem um cupom de desconto?" sublinhado em laranja, que abre
+  o campo; as linhas de total do carrinho (cupom em índigo com "Remover"). Ao lado a partir de
+  1100 px (acompanha a rolagem); abaixo disso, uma barra recolhida no alto com o total.
+- **Estados** do carrinho (carregando, vazio, loja indisponível) e avisos curtos (`co-note`, em
+  amarelo quando é alerta: sem HTTPS, sem forma de pagamento).
+
 ## Breakpoints
 
 Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo; a partir de 1180, grade de 3 colunas em "Nossa linha"), 1360

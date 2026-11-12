@@ -1,6 +1,7 @@
 import { ADDED_KEY, addItem, decodeEntities, getCart, money, removeItem, StoreError, StoreUnavailable, updateItem, type Cart, type CartItem, type Money } from './store-api';
 import { track } from './analytics';
 import { guardFab } from './fab-guard';
+import { totalsHtml, type TotalsText } from './cart-totals';
 
 // Carrinho no navegador: lê o carrinho da Store API do WooCommerce (a mesma sessão da finalização de
 // compra) e permite mudar quantidades e remover itens; os totais são sempre os que o WooCommerce
@@ -10,7 +11,7 @@ type Config = {
   products: Record<string, { path: string; image: string | null; srcset: string | null }>;
   routes: { cart: string; shop: string; checkout: string };
   whatsapp: { number: string; intro: string; totalLabel: string };
-  texts: Record<string, string> & { columns: Record<string, string> };
+  texts: Record<string, string> & TotalsText & { columns: Record<string, string> };
 };
 
 export function initCart() {
@@ -57,10 +58,6 @@ export function initCart() {
   const productOf = (item: CartItem) => cfg.products[item.permalink.split('?')[0]];
   const nameOf = (item: CartItem) => decodeEntities(item.name);
   const optionsOf = (item: CartItem) => [...item.variation.map((v) => [v.attribute, v.value]), ...item.item_data.map((d) => [d.name ?? d.key ?? '', d.display ?? d.value ?? ''])].map(([k, v]) => [decodeEntities(k), decodeEntities(v)]);
-
-  /** Preços exibidos com imposto? (o WooCommerce manda a preferência embutida no preço da unidade). */
-  const pricesIncludeTax = (c: Cart) =>
-    c.items.some((i) => Number(i.totals.line_subtotal_tax) > 0 && Math.abs(Number(i.prices.price) * i.quantity - (Number(i.totals.line_subtotal) + Number(i.totals.line_subtotal_tax))) <= i.quantity);
 
   // ——— Desenho ———
   const renderRow = (item: CartItem) => {
@@ -112,18 +109,8 @@ export function initCart() {
     return li;
   };
 
-  const row = (dt: string, dd: string, cls = '') => `<div class="cart-total${cls ? ` ${cls}` : ''}"><dt>${escapeHtml(dt)}</dt><dd>${escapeHtml(dd)}</dd></div>`;
-
   const renderTotals = (c: Cart) => {
-    const t = c.totals;
-    const incl = pricesIncludeTax(c);
-    const parts = [row(T.subtotal, money(Number(t.total_items) + (incl ? Number(t.total_items_tax) : 0), t))];
-    for (const cp of c.coupons) parts.push(row(fill(T.coupon, cp.code.toUpperCase()), money(-(Number(cp.totals.total_discount) + (incl ? Number(cp.totals.total_discount_tax) : 0)), cp.totals), 'is-discount'));
-    for (const f of c.fees) parts.push(row(decodeEntities(f.name), money(Number(f.totals.total) + (incl ? Number(f.totals.total_tax) : 0), f.totals)));
-    if (c.needs_shipping) parts.push(row(T.shipping, c.has_calculated_shipping && t.total_shipping !== null ? money(t.total_shipping, t) : T.shippingLater));
-    if (!incl && Number(t.total_tax) > 0) parts.push(row(T.tax, money(t.total_tax, t)));
-    parts.push(row(T.total, money(t.total_price, t), 'is-total'));
-    totalsEl.innerHTML = parts.join('');
+    totalsEl.innerHTML = totalsHtml(c, T);
   };
 
   /** Mensagem no formato do plugin "WooCommerce Order on WhatsApp" do WordPress. */
@@ -281,8 +268,4 @@ export function initCart() {
   // O WhatsApp flutuante não cobre o total nem os botões de compra.
   guardFab(() => [...root.querySelectorAll('.cart-actions, .cart-remove, .cart-qty-field')]);
   load();
-}
-
-function escapeHtml(s: string) {
-  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 }

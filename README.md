@@ -1,4 +1,4 @@
-# Site MSSERVER · reformulação visual (home, "Sobre nós", Orçamento e catálogo)
+# Site MSSERVER · reformulação visual (home, "Sobre nós", Orçamento, catálogo e compra)
 
 Home institucional de [msserver.com.br](https://msserver.com.br/) reconstruída na identidade
 visual das landings de servidores físicos e de Cloud, **com a mesma estrutura, os mesmos
@@ -42,6 +42,7 @@ npm run build
 | Fotos, ícones e fundos da página "Sobre nós" | `node scripts/prepare-sobre-assets.mjs` (baixa de msserver.com.br) |
 | Catálogo e páginas de produto (`/servidores/`, categorias e `/servidor/slug/`) | `npm run sync:catalog` → `src/data/catalog.json`, `src/data/product-seo.json`, `src/assets/catalog/` e `src/assets/gallery/` (ver abaixo) |
 | Avaliações do Google ("O que os clientes dizem", em "Sobre nós") | `npm run sync:reviews` → `src/data/google-reviews.json` (ver abaixo) |
+| Finalização de compra (campos, países, estados, regras de endereço, forma de pagamento, privacidade e SEO) | `CHECKOUT_HTML=cópia.html npm run sync:checkout` → `src/data/checkout-wc.json` e `src/assets/cards/` (ver "Finalização de compra") |
 | Menu, links, contatos, WhatsApp, vídeo, rastreamento | `src/config/site.ts` |
 | Metadados JSON-LD (cópia do All in One SEO) | `src/data/schema.json` |
 
@@ -104,9 +105,40 @@ finalização de compra do WordPress usa — por isso o carrinho só funciona se
 (`PUBLIC_STORE_API` aponta para outra instalação, se for o caso); em outro endereço, mostra que a
 loja está indisponível. Alterações (quantidade, remover, "Desfazer?") usam o nonce que a Store API
 devolve (renovado automaticamente quando vence). Os links do catálogo `/carrinho/?add-to-cart=ID`
-adicionam o produto ao abrir. "Avançar para o pagamento" leva à finalização do WordPress; "Orçamento
-pelo WhatsApp" monta a mensagem no formato do plugin do WordPress (`src/data/carrinho.ts`, com os
-textos do carrinho).
+adicionam o produto ao abrir. "Avançar para o pagamento" leva à finalização de compra deste site
+(abaixo); "Orçamento pelo WhatsApp" monta a mensagem no formato do plugin do WordPress
+(`src/data/carrinho.ts`, com os textos do carrinho). As linhas de total (`src/scripts/cart-totals.ts`)
+são as mesmas no carrinho e na finalização.
+
+### Finalização de compra
+
+`/finalizar-compra/` (o mesmo endereço do WooCommerce): `src/pages/finalizar-compra/index.astro` com
+`src/components/checkout/CheckoutPage.astro` (e `AddressFields.astro`), `src/styles/checkout.css`
+(sobre `cart.css`) e `src/scripts/checkout.ts`. Tudo o que é comercial continua com o WooCommerce, pela
+Store API, na mesma sessão do carrinho:
+
+- **Itens, totais, cupons, impostos e frete:** `GET /cart`, `apply-coupon`/`remove-coupon`,
+  `update-customer` (o endereço na sessão ao trocar país, estado, CEP ou cidade, como a finalização
+  clássica faz para recalcular) e `select-shipping-rate` (se a loja passar a cobrar frete).
+- **Pedido:** `POST /checkout` cria o pedido, valida o endereço e chama a forma de pagamento da loja
+  pela camada de compatibilidade do WooCommerce, que entrega à forma de pagamento os mesmos campos do
+  formulário original (`$_POST`: `card-number`, `card-expiry` "MM / AA", `card-cvc`, `payment_method`,
+  `billing_*`, `order_comments`). Aprovado → a página "pedido recebido" do WordPress
+  (`/finalizar-compra/order-received/…`); recusado → aviso na página, com os dados mantidos.
+- **Campos e regras:** os de cobrança da página publicada (mesmos nomes, ordem e obrigatoriedade,
+  telefone e e-mail inclusive), os 249 países aceitos, os estados de cada país e as regras de endereço
+  do WooCommerce para cada país (nomes, obrigatórios, ocultos, ordem), em
+  `src/data/checkout-wc.json`, gerado por `npm run sync:checkout` a partir de uma cópia salva da
+  finalização do WordPress (o formulário só aparece com item no carrinho; ver o cabeçalho de
+  `scripts/sync-checkout.mjs`). Textos em `src/data/finalizar-compra.ts` (traduções oficiais do
+  WooCommerce; a loja mostra esses textos em inglês).
+- **Cartão:** conferido no navegador (número com Luhn, validade, código) e enviado só no pedido, sem
+  `name` no formulário, sem guardar e sem ir para o `dataLayer`. Sem HTTPS (`isSecureContext`), a
+  página não envia o cartão e oferece o endereço `https://`.
+
+Só funciona servida no domínio da loja (como o carrinho). Antes de publicar, leia "Finalização de
+compra" em [docs/PRESERVACAO.md](docs/PRESERVACAO.md): a forma de pagamento da loja precisa de
+verificação.
 
 ### Avaliações do Google
 
@@ -198,6 +230,17 @@ quantidade (uma alteração por sequência de cliques, com o nonce), remover e "
 indisponível, nonce vencido (repetido sem aviso), links do catálogo `?add-to-cart=`, mensagem do
 WhatsApp, do produto ao carrinho, layout e acessibilidade (axe).
 
+Finalização (`tests/e2e/finalizacao.spec.ts`, 20): com a mesma Store API simulada, agora com
+cupons, endereço na sessão, frete e `POST /checkout` (pedido aprovado, recusado com `payment_result`,
+erro 402 da forma de pagamento e a resposta no formato clássico que a forma de pagamento da loja
+devolveu no teste real, em `tests/fixtures/finalizacao-resposta-pagamento.json`): SEO, campos e nomes
+do formulário original, países e estados, resumo; todos os campos obrigatórios e formatos (e-mail,
+telefone, CEP, cartão, validade, código), com a lista de erros que leva a cada campo; regras de país
+(EUA, Portugal, Alemanha, Reino Unido); o que vai ao WooCommerce (endereços, nota, `payment_data`);
+erros de endereço devolvidos pela loja; nonce vencido sem pedido duplicado; loja sem resposta; envio
+travado enquanto processa; cartão e dados pessoais fora do `dataLayer` e do armazenamento; sem HTTPS;
+cupom (aplicar, inválido, remover); pedido sem valor a pagar; frete e outro endereço; layout e axe.
+
 Capturas de QA: `node scripts/qa-screenshots.mjs http://localhost:4330/ 390,768,1024,1440`.
 
 ## Publicação
@@ -240,7 +283,8 @@ configurado no Elementor, no WordPress. Para funcionar:
 | `/categoria-produto/componentes/` (e `/page/2/`), `/baterias/`, `/dissipadores/`, `/fans/`, `/fontes/`, `/gavetas/`, `/placas-de-rede/` | Categorias de componentes reconstruídas, nos mesmos endereços do WooCommerce |
 | `/servidor/slug/` | Páginas de produto reconstruídas (74), no mesmo endereço do WooCommerce |
 | `/carrinho/` | Carrinho reconstruído; itens e valores pela Store API do WooCommerce (mesma sessão do WordPress) |
-| Finalização de compra (`/finalizar-compra/`), conta (`/minha-conta/`) e a Store API (`/wp-json/`) | WordPress (WooCommerce) |
+| `/finalizar-compra/` (só esse endereço, em GET) | Finalização reconstruída; o pedido é feito pela Store API do WooCommerce |
+| `/finalizar-compra/order-received/…` e `/order-pay/…`, POST em `/finalizar-compra/`, conta (`/minha-conta/`) e a Store API (`/wp-json/`) | WordPress (WooCommerce) |
 | Demais páginas (soluções, blog, suporte, cases, landings) | WordPress em `https://msserver.com.br` |
 
 Os links entre páginas já reconstruídas são internos (`ROUTES` em `src/config/site.ts`, com o
@@ -251,9 +295,11 @@ apontar para ela. `canonical`, Open Graph e JSON-LD continuam com as URLs de pro
 A home atual é servida pelo WordPress. Para colocar esta versão no ar é preciso que o servidor
 entregue `/`, `/sobre/`, `/orcamento/`, `/servidores/`,
 `/categoria-produto/{dell,hp,ibm,componentes,baterias,dissipadores,fans,fontes,gavetas,placas-de-rede}/`
-(com as páginas `/page/N/`), `/servidor/*/` (páginas de produto) e `/carrinho/` a partir do `dist/` e
-mantenha o WordPress nas demais rotas, incluindo a finalização de compra (`/finalizar-compra/`), a
-conta (`/minha-conta/`), `/wp-json/` (a Store API, usada pelo carrinho), `/wp-content/` e
+(com as páginas `/page/N/`), `/servidor/*/` (páginas de produto), `/carrinho/` e `/finalizar-compra/`
+(só o endereço exato, em GET) a partir do `dist/` e mantenha o WordPress nas demais rotas, incluindo as
+páginas seguintes da compra (`/finalizar-compra/order-received/…` e `/finalizar-compra/order-pay/…`),
+o POST em `/finalizar-compra/` (o "Orçamento" das páginas de produto sem JavaScript), a
+conta (`/minha-conta/`), `/wp-json/` (a Store API, usada pelo carrinho e pela finalização), `/wp-content/` e
 `/wp-admin/admin-ajax.php` (ou que o HTML/CSS seja portado para templates do
 tema). Essa etapa não foi feita: o repositório não tem configuração de deploy (há um preview em
 `msserver-home.vercel.app`, configurado fora do repositório) e nenhuma alteração foi aplicada ao

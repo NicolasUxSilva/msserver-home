@@ -1,0 +1,414 @@
+---
+// Finalização de compra (/finalizar-compra/), na sequência do catálogo, das páginas de produto e do
+// carrinho: mesma abertura azul-marinho, cartões brancos e o laranja só no botão de concluir.
+//
+// O processo de compra é o do WooCommerce: o carrinho, os totais, os cupons, o frete e o pedido são
+// lidos e enviados pela Store API (src/scripts/checkout.ts), na mesma sessão do carrinho. Os campos,
+// as regras de endereço de cada país, a forma de pagamento e os textos legais são os da página
+// publicada (src/data/checkout-wc.json). Os dados do cartão seguem para a forma de pagamento da loja
+// com os mesmos nomes de campo do formulário original.
+import '../../styles/catalog-hero.css';
+import '../../styles/cart.css';
+import '../../styles/checkout.css';
+import { getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import WhatsAppFab from '../WhatsAppFab.astro';
+import Icon from '../Icon.astro';
+import AddressFields from './AddressFields.astro';
+import { ROUTES, STORE_API, productRoute, whatsappUrl } from '../../config/site';
+import { PRODUCTS } from '../../data/catalog';
+import { CHECKOUT as T, WC, PRIVACY_HTML, pt } from '../../data/finalizar-compra';
+
+// Fotos e páginas deste site para os itens do carrinho (como no carrinho).
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/catalog/*.jpg', { eager: true });
+const products = Object.fromEntries(
+  await Promise.all(
+    Object.values(PRODUCTS).map(async (p) => {
+      const src = p.image ? files[`../../assets/catalog/${p.image}`]?.default : null;
+      const img = src ? await getImage({ src, widths: [80, 160], format: 'webp', quality: 80 }) : null;
+      return [p.url, { path: productRoute(p.slug), image: img?.src ?? null, srcset: img?.srcSet.attribute ?? null }];
+    }),
+  ),
+);
+
+const cardIcons = import.meta.glob<string>('../../assets/cards/*.svg', { eager: true, query: '?url', import: 'default' });
+
+// Campos: os de cobrança da página original (com telefone e e-mail); os de entrega, os mesmos sem eles.
+const ADDRESS_KEYS = ['first_name', 'last_name', 'company', 'country', 'address_1', 'address_2', 'city', 'state', 'postcode'];
+const billing = WC.fields;
+const shipping = WC.fields.filter((f) => ADDRESS_KEYS.includes(f.key));
+
+const gateways = WC.gateways.map((g) => ({
+  id: g.id,
+  title: pt(g.title),
+  icons: g.icons.map((i) => ({ alt: i.alt, src: cardIcons[`../../assets/cards/${i.file}`] })),
+  card: ['card-number', 'card-expiry', 'card-cvc'].every((n) => g.fields.some((f) => f.name === n)),
+}));
+
+const config = {
+  products,
+  routes: { cart: ROUTES.cart, shop: ROUTES.servers, checkout: ROUTES.checkout },
+  labels: Object.fromEntries(
+    Object.values(WC.locale)
+      .flatMap((f) => Object.values(f as Record<string, { label?: string; placeholder?: string }>))
+      .flatMap((r) => [r.label, r.placeholder])
+      .filter((s): s is string => !!s)
+      .map((s) => [s, pt(s)]),
+  ),
+  gateways: gateways.map((g) => ({ id: g.id, card: g.card })),
+  coupons: WC.coupons,
+  texts: { ...T, removeCoupon: T.couponRemove },
+};
+
+const wa = whatsappUrl();
+---
+
+<Base title={T.seoTitle} description={WC.seo.description} canonical={T.canonical} ogType="article" robots={T.robots} schema={WC.seo.schema}>
+  {/* A finalização de compra não é item do menu: nenhum item marcado. */}
+  <Header current={ROUTES.checkout} />
+  <main id="conteudo" class="cart co" data-co data-state="loading" data-api={STORE_API}>
+    <section class="cat-hero cart-hero co-hero dark-surface on-dark" aria-labelledby="co-title">
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="dark-surface__hatch"></div>
+        <div class="cat-light"></div>
+      </div>
+      <div class="container cat-hero-inner">
+        <nav class="cat-crumbs" aria-label="Você está em">
+          <ol>
+            <li><a href={ROUTES.home}>Início</a></li>
+            <li><a href={ROUTES.cart}>{T.cart}</a></li>
+            <li><span aria-current="page">{T.title}</span></li>
+          </ol>
+        </nav>
+        <div class="cat-head co-head">
+          <h1 id="co-title" class="cat-title">{T.title}</h1>
+          <ol class="co-steps" aria-label="Etapas da compra">
+            <li class="is-done">
+              <a href={ROUTES.cart}>
+                <span class="co-step-dot" aria-hidden="true"><Icon name="check" size={14} strokeWidth={2.75} /></span>
+                <span>{T.steps[0]}</span>
+                <span class="sr-only">(concluída)</span>
+              </a>
+            </li>
+            <li class="is-current" aria-current="step">
+              <span class="co-step-dot" aria-hidden="true">2</span>
+              <span>{T.steps[1]}</span>
+            </li>
+            <li>
+              <span class="co-step-dot" aria-hidden="true">3</span>
+              <span>{T.steps[2]}</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="cart-body co-body" aria-labelledby="co-title">
+      <div class="container">
+        <p class="sr-only" aria-live="polite" data-co-live></p>
+        <noscript>
+          <div class="cart-card cart-state cart-noscript">
+            <h2>{T.noScriptTitle}</h2>
+            <p>{T.noScriptText}</p>
+            <a class="btn btn--dark" href={wa} target="_blank" rel="noopener">{T.consult}</a>
+          </div>
+        </noscript>
+        <div class="cart-notices" data-co-notices></div>
+
+        {/* Carregando: o espaço já reservado. */}
+        <div class="cart-loading co-loading" aria-hidden="true">
+          <div class="cart-card cart-skeleton">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="cart-card cart-skeleton cart-skeleton--summary">
+            <span></span><span></span>
+          </div>
+          <p class="sr-only">{T.loading}</p>
+        </div>
+
+        {/* Carrinho vazio. */}
+        <div class="cart-card cart-state cart-empty-state" data-co-empty>
+          <span class="cart-state-icon"><Icon name="shopping-cart" size={30} /></span>
+          <h2>{T.empty}</h2>
+          <a class="btn btn--dark" href={ROUTES.servers}>
+            {T.returnToShop}
+            <Icon name="arrow-right" class="btn-arrow" />
+          </a>
+        </div>
+
+        {/* A loja não respondeu. */}
+        <div class="cart-card cart-state cart-unavailable" data-co-unavailable>
+          <span class="cart-state-icon"><Icon name="cloud-off" size={30} /></span>
+          <h2>{T.unavailableTitle}</h2>
+          <p>{T.unavailableText}</p>
+          <div class="cart-state-actions">
+            <button class="btn btn--dark" type="button" data-co-retry>
+              <Icon name="rotate-cw" size={18} />
+              {T.retry}
+            </button>
+            <a class="btn btn--outline" href={wa} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="finalizar-compra">
+              <Icon name="whatsapp" size={18} />
+              {T.consult}
+            </a>
+          </div>
+        </div>
+
+        <div class="co-grid" data-co-ready>
+          {/* Resumo do pedido: ao lado no computador; no celular, recolhido no alto (com o total). */}
+          <aside class="cart-card co-summary" aria-labelledby="co-summary-title" data-co-summary>
+            <button class="co-summary-toggle" type="button" aria-expanded="false" aria-controls="co-summary-body" data-co-summary-toggle>
+              <span class="co-summary-toggle-label">
+                <Icon name="shopping-cart" size={18} />
+                <span>{T.summaryToggle}</span>
+                <span class="co-summary-count" data-co-count></span>
+              </span>
+              <span class="co-summary-toggle-total">
+                <b data-co-toggle-total></b>
+                <Icon name="chevron-down" size={18} class="co-chevron" />
+              </span>
+            </button>
+            <div class="co-summary-body" id="co-summary-body">
+              <div class="co-summary-head">
+                <h2 id="co-summary-title" class="cart-summary-title">{T.orderTitle}</h2>
+                <a class="co-edit" href={ROUTES.cart}>{T.editCart}</a>
+              </div>
+              <ul class="co-items" data-co-items></ul>
+
+              {
+                config.coupons && (
+                  <div class="co-coupon" data-co-coupon>
+                    <button class="co-coupon-toggle" type="button" aria-expanded="false" aria-controls="co-coupon-form" data-co-coupon-toggle>
+                      <Icon name="ticket-percent" size={18} />
+                      {T.couponToggle}
+                      <Icon name="chevron-down" size={16} class="co-chevron" />
+                    </button>
+                    <form class="co-coupon-form" id="co-coupon-form" novalidate hidden data-co-coupon-form>
+                      <label class="sr-only" for="coupon_code">
+                        {T.couponLabel}
+                      </label>
+                      <input class="co-input" id="coupon_code" type="text" placeholder={T.couponLabel} autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="coupon_code-msg" />
+                      <button class="btn btn--outline" type="submit">
+                        {T.couponApply}
+                      </button>
+                      <p class="co-coupon-msg" id="coupon_code-msg" role="status" data-co-coupon-msg></p>
+                    </form>
+                  </div>
+                )
+              }
+
+              <dl class="cart-totals co-totals" data-co-totals></dl>
+            </div>
+          </aside>
+
+          {/* method="post" e campos do cartão sem "name": nada do cartão vai para um endereço ou formulário comum. */}
+          <form class="co-form" method="post" action={ROUTES.checkout} novalidate aria-labelledby="co-title" data-co-form>
+            <fieldset class="co-lock" data-co-lock>
+              <legend class="sr-only">{T.title}</legend>
+
+              <div class="co-alert" role="alert" tabindex="-1" hidden data-co-alert>
+                <Icon name="circle-alert" size={20} class="co-alert-icon" />
+                <div>
+                  <p class="co-alert-title" data-co-alert-title></p>
+                  <ul class="co-alert-list" data-co-alert-list></ul>
+                  <p class="co-alert-help">
+                    {T.help}
+                    <a href={wa} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="finalizar-compra-erro">{T.helpLink}</a>
+                  </p>
+                </div>
+              </div>
+
+              {/* 1. Cobrança */}
+              <section class="cart-card co-section" aria-labelledby="co-billing-title">
+                <h2 id="co-billing-title" class="co-section-title"><span class="co-num" aria-hidden="true">1</span>{T.billingTitle}</h2>
+                <AddressFields group="billing" fields={billing} />
+              </section>
+
+              {/* Entrega: só quando o carrinho precisa de entrega (hoje a loja não cobra frete). */}
+              <section class="cart-card co-section" aria-labelledby="co-shipping-title" hidden data-co-shipping>
+                <h2 id="co-shipping-title" class="co-section-title"><span class="co-num" aria-hidden="true" data-co-num></span>{T.shippingTitle}</h2>
+                <label class="co-check">
+                  <input type="checkbox" name="ship_to_different_address" data-co-ship-different />
+                  <span>{T.shipToDifferent}</span>
+                </label>
+                <AddressFields group="shipping" fields={shipping} hidden />
+                <fieldset class="co-rates" hidden data-co-rates>
+                  <legend class="co-label">{T.shippingRates}</legend>
+                  <div data-co-rates-list></div>
+                </fieldset>
+              </section>
+
+              {/* Informação adicional */}
+              {
+                WC.notes && (
+                  <section class="cart-card co-section" aria-labelledby="co-notes-title">
+                    <h2 id="co-notes-title" class="co-section-title">
+                      <span class="co-num" aria-hidden="true" data-co-num />
+                      {T.additionalTitle}
+                    </h2>
+                    <div class="co-field">
+                      <label class="co-label" for="order_comments">
+                        {T.notesLabel}<span class="co-opt">{T.optional}</span>
+                      </label>
+                      <textarea class="co-input" id="order_comments" name="order_comments" rows="3" placeholder={T.notesPlaceholder} />
+                    </div>
+                  </section>
+                )
+              }
+
+              {/* Pagamento e conclusão */}
+              <section class="cart-card co-section co-payment" aria-labelledby="co-payment-title">
+                <h2 id="co-payment-title" class="co-section-title"><span class="co-num" aria-hidden="true" data-co-num></span>{T.paymentTitle}</h2>
+
+                <p class="co-note co-note--warn" hidden data-co-insecure>
+                  <Icon name="lock" size={18} />
+                  <span>
+                    {T.insecure} <a href="#" data-co-secure-link>{T.insecureLink}</a>
+                  </span>
+                </p>
+                <p class="co-note" hidden data-co-no-payment>{T.noPayment}</p>
+                <p class="co-note co-note--warn" hidden data-co-no-gateway>{T.noGateway}</p>
+
+                <div class="co-methods" role="radiogroup" aria-labelledby="co-payment-title" data-co-methods>
+                  {
+                    gateways.map((g, i) => (
+                      <div class="co-method" data-gateway={g.id} hidden>
+                        <label class="co-method-head">
+                          <input type="radio" name="payment_method" value={g.id} checked={i === 0} />
+                          <span class="co-method-title">
+                            <Icon name="credit-card" size={20} />
+                            {g.title}
+                          </span>
+                          <span class="co-brands" data-co-brands>
+                            {g.icons.map((icon) => (
+                              <img src={icon.src} alt={icon.alt} width="38" height="24" data-brand={icon.alt.toLowerCase()} />
+                            ))}
+                          </span>
+                        </label>
+                        {g.card && (
+                          <div class="co-card-fields" data-co-card>
+                            <div class="co-field co-field--card" data-key="card-number">
+                              <label class="co-label" for={`${g.id}-card-number`}>
+                                {T.cardNumber}<span class="co-req" aria-hidden="true">*</span>
+                              </label>
+                              <div class="co-card-input">
+                                <input
+                                  class="co-input"
+                                  id={`${g.id}-card-number`}
+                                  type="text"
+                                  inputmode="numeric"
+                                  autocomplete="cc-number"
+                                  autocorrect="off"
+                                  autocapitalize="off"
+                                  spellcheck="false"
+                                  placeholder={T.cardNumberPlaceholder}
+                                  required
+                                  maxlength="23"
+                                  aria-describedby={`${g.id}-card-number-error`}
+                                  data-card="number"
+                                />
+                                <Icon name="lock" size={16} class="co-card-lock" />
+                              </div>
+                              <p class="co-error" id={`${g.id}-card-number-error`} hidden>
+                                <Icon name="circle-alert" size={16} />
+                                <span data-co-error />
+                              </p>
+                            </div>
+                            <div class="co-field co-field--half" data-key="card-expiry">
+                              <label class="co-label" for={`${g.id}-card-expiry`}>
+                                {T.cardExpiry}<span class="co-req" aria-hidden="true">*</span>
+                              </label>
+                              <input
+                                class="co-input"
+                                id={`${g.id}-card-expiry`}
+                                type="text"
+                                inputmode="numeric"
+                                autocomplete="cc-exp"
+                                autocorrect="off"
+                                autocapitalize="off"
+                                spellcheck="false"
+                                placeholder={T.cardExpiryPlaceholder}
+                                required
+                                maxlength="9"
+                                aria-describedby={`${g.id}-card-expiry-error`}
+                                data-card="expiry"
+                              />
+                              <p class="co-error" id={`${g.id}-card-expiry-error`} hidden>
+                                <Icon name="circle-alert" size={16} />
+                                <span data-co-error />
+                              </p>
+                            </div>
+                            <div class="co-field co-field--half" data-key="card-cvc">
+                              <label class="co-label" for={`${g.id}-card-cvc`}>
+                                {T.cardCvc}<span class="co-req" aria-hidden="true">*</span>
+                              </label>
+                              <input
+                                class="co-input"
+                                id={`${g.id}-card-cvc`}
+                                type="text"
+                                inputmode="numeric"
+                                autocomplete="cc-csc"
+                                autocorrect="off"
+                                autocapitalize="off"
+                                spellcheck="false"
+                                placeholder={T.cardCvcPlaceholder}
+                                required
+                                maxlength="4"
+                                aria-describedby={`${g.id}-card-cvc-error`}
+                                data-card="cvc"
+                              />
+                              <p class="co-error" id={`${g.id}-card-cvc-error`} hidden>
+                                <Icon name="circle-alert" size={16} />
+                                <span data-co-error />
+                              </p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  }
+                </div>
+
+                <p class="co-privacy" set:html={PRIVACY_HTML} />
+
+                <div class="co-place">
+                  <p class="co-place-total">
+                    <span>{T.total}</span>
+                    <b data-co-place-total></b>
+                  </p>
+                  <button class="btn btn--primary btn--lg co-submit" type="submit" data-co-submit>
+                    <Icon name="lock" size={18} class="co-submit-lock" />
+                    <span data-co-submit-label>{T.placeOrder}</span>
+                    <Icon name="loader-circle" size={18} class="co-spin" />
+                  </button>
+                </div>
+              </section>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  {/* Modelo de um item do resumo (preenchido pelo navegador). */}
+  <template data-co-row>
+    <li class="co-item">
+      <span class="cart-thumb co-thumb"><img alt="" width="64" height="48" loading="lazy" decoding="async" /><span class="co-qty" data-co-qty></span></span>
+      <div class="co-item-info">
+        <p class="co-item-name"></p>
+        <p class="co-item-variation"></p>
+      </div>
+      <p class="co-item-total"></p>
+    </li>
+  </template>
+
+  <Footer />
+  <WhatsAppFab />
+  <script type="application/json" data-co-config set:html={JSON.stringify(config)} />
+</Base>
+
+<script>
+  import { initCheckout } from '../../scripts/checkout';
+  initCheckout();
+</script>

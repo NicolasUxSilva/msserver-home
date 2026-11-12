@@ -711,3 +711,129 @@ formato do WooCommerce (`tests/e2e/store-mock.ts`).
   carrinho adiciona ao abrir e limpa o endereço (recarregar não adiciona de novo).
 - **Descrição de SEO:** a do All in One SEO era o retrato de um carrinho antigo ("Rack Dell r610 -
   8GB R$ 1.200,00…"), com produto e preço de outra época; saiu da meta description e do JSON-LD.
+
+# Finalização de compra (`/finalizar-compra/`)
+
+Referência: a finalização publicada (lida pelo endereço `http://` em 12/11/2026, vazia e com um item
+no carrinho: 1 sessão de carrinho com a Bateria Dell nu209, autorizada para isso), a Store API do
+WooCommerce (rotas, só leitura) e o código da Store API do WooCommerce 8.2 (`Checkout`,
+`CheckoutTrait`, `Legacy`, `OrderController`, endereços). Validada com a Store API simulada
+(`tests/e2e/store-mock.ts`) e com **um pedido de teste real** (ver abaixo).
+
+## O que a página original tinha
+
+- Página 4822 do WordPress ("Finalização de compra"), com a finalização clássica do WooCommerce
+  (shortcode), textos do WooCommerce em inglês (a tradução não está carregada na loja).
+- "Have a coupon? Click here to enter your code" (cupom em formulário à parte).
+- **Billing details:** First name, Last name, Company name (opcional), Country / Region (249 países,
+  Brasil marcado), Street address (+ "Apartment, suite, unit, etc.", opcional), Town / City,
+  State / County (27 estados, São Paulo marcado), Postcode / ZIP, Phone, Email address — todos
+  obrigatórios, menos empresa e complemento. Ao trocar de país, nomes, obrigatórios e ordem mudam
+  pelas regras do WooCommerce, e os totais são recalculados.
+- **Additional information:** Order notes (opcional).
+- Sem entrega ("Ship to a different address?" não aparece: a loja não cobra frete), sem criar conta
+  (compra como visitante) e sem termos para aceitar.
+- **Your order:** Product / Subtotal por item, Subtotal e Total.
+- **Pagamento:** uma forma, `woo_paypal_stripe_gateway_set`, "Credit Card", com as bandeiras Visa,
+  Mastercard e Discover e os campos Card number, Expiry (MM/YY) e Card code, enviados ao servidor da
+  loja (`card-number`, `card-expiry`, `card-cvc`).
+- Texto de privacidade ("Os seus dados pessoais serão utilizados para processar a sua compra…", com o
+  link `https://msserver.com.br/?page_id=3`) e o botão "Place order".
+- Título "Finalização de compra - MSSERVER", robots `max-image-preview:large`, canonical e JSON-LD.
+
+## O que foi preservado
+
+- O endereço, o título, o robots, o canonical e o JSON-LD.
+- **Todo o processo comercial é o do WooCommerce, na mesma sessão do carrinho:** itens e totais,
+  cupons (aplicar e remover), o endereço na sessão ao trocar país, estado, CEP ou cidade (impostos e
+  frete recalculados pela loja), a forma de entrega (se a loja passar a cobrar frete, com "Enviar
+  para um endereço diferente?"), a validação do pedido e a forma de pagamento da loja. Nada é
+  calculado aqui: os valores exibidos são sempre os que o WooCommerce devolve.
+- Os mesmos campos, com os mesmos nomes (`billing_*`, `order_comments`), a mesma ordem, os mesmos
+  obrigatórios (telefone e e-mail inclusive), os 249 países, os estados e as regras de endereço de
+  cada país (com a ordem dos campos), o país e o estado da sessão (Brasil, São Paulo).
+- A forma de pagamento recebe o mesmo que no formulário original: `card-number` (em grupos de 4),
+  `card-expiry` ("MM / AA"), `card-cvc`, `payment_method` e os campos de cobrança e a nota.
+- Pedido sem entrega fica sem endereço de entrega, como na finalização clássica.
+- O texto de privacidade com o mesmo link; sem termos e sem criar conta, como no original.
+
+## O que mudou
+
+- **Visual e navegação** no sistema do site, na sequência do carrinho: abertura com as etapas
+  (Carrinho → Dados e pagamento → Pedido recebido), seções numeradas em cartões, resumo do pedido ao
+  lado (acompanha a rolagem; no celular, recolhido no alto com o total), cupom dentro do resumo,
+  forma de pagamento com as bandeiras (a do número digitado em destaque), total repetido junto do
+  botão "Finalizar pedido" (laranja).
+- **Textos em português** (traduções oficiais do WooCommerce: "Detalhes de faturamento", "Finalizar
+  pedido"…); países em português; o link de privacidade como "política de privacidade".
+- **Conferência antes do envio:** obrigatórios, e-mail, telefone (a regra do WooCommerce), CEP
+  (00000-000, com máscara), estado da lista, cartão (Luhn), validade (vencido) e código, com a
+  mensagem em cada campo e uma lista no alto que leva a cada um e se atualiza ao corrigir. Os erros
+  que a loja devolve (endereço, pagamento) aparecem do mesmo jeito.
+- **Envio pela Store API do WooCommerce** (`POST /wp-json/wc/store/v1/checkout`), e não pelo
+  `/?wc-ajax=checkout` da finalização clássica: este exige um nonce que só a página do WordPress
+  traz, e a Store API é o caminho do próprio WooCommerce para finalizações fora do tema (é o que o
+  bloco de finalização usa). Consequências: o pedido é registrado com origem `store-api` (e não
+  `checkout`); a forma de pagamento é chamada pela camada de compatibilidade do WooCommerce, que
+  monta o `$_POST` com os mesmos campos e chama `validate_fields()` e `process_payment()`; plugins
+  que só escutam ganchos da finalização clássica (`woocommerce_checkout_process`,
+  `woocommerce_checkout_order_processed`) não rodam — nenhum dos plugins da página publicada depende
+  disso para a compra (o Google Listings & Ads registra a compra na página "pedido recebido", que
+  continua no WordPress). A Store API não exige telefone no servidor: a página exige, como antes.
+- **Proteções:** envio travado enquanto processa (sem pedido duplicado; o nonce vencido é renovado
+  e o pedido repetido uma vez, com um pedido só); os campos do cartão não têm `name` (não entram num
+  envio comum do formulário), não são guardados e não vão para o `dataLayer`; **sem HTTPS a página
+  não envia o cartão** e oferece o endereço `https://` (a finalização clássica enviava por `http`).
+- **E-mail:** `autocomplete="email"` (o WooCommerce usa "email username", combinação inválida).
+- **Carrinho:** "Avançar para o pagamento" passou a levar a esta página (`/finalizar-compra/` neste
+  site). Os caminhos sem a loja ou sem JavaScript (o "Orçamento" das páginas de produto e o
+  `?add-to-cart=` do catálogo) continuam indo à finalização do WordPress, como antes.
+- **Sem JavaScript**, a página avisa que precisa dele e oferece o WhatsApp (a finalização clássica
+  funcionava sem JavaScript; a Store API exige o navegador).
+
+## Teste real (12/11/2026)
+
+Com as páginas novas servidas localmente e a Store API de produção (`http://msserver.com.br`), num
+navegador sem rastreadores:
+
+1. Página do produto Bateria Dell nu209 → "Orçamento": o WooCommerce adicionou (`add-item` 201) e o
+   carrinho novo mostrou o item e R$ 350,00.
+2. "Avançar para o pagamento" → a finalização nova mostrou o mesmo item e total, Brasil/São Paulo da
+   sessão e a forma de pagamento `woo_paypal_stripe_gateway_set` (vinda do carrinho).
+3. Enviar sem preencher: 10 erros na página, nada enviado. Cupom inexistente: a resposta real do
+   WooCommerce ("Coupon "teste-inexistente" does not exist!") na página.
+4. **Um pedido de teste** (autorizado: "Pedido teste sem pagar"), enviado uma vez, às 09:47 de
+   12/11/2026 (horário de Brasília), com o cartão de teste de recusa 4000 0000 0000 0002:
+   - Nome "TESTE", sobrenome "NOVA FINALIZACAO – NAO PROCESSAR", empresa "MSSERVER (teste interno)",
+     Rua Salvador de Sá, 182, Santo André/SP, 09090-000, (11) 4858-5358,
+     `teste-finalizacao@example.com` (domínio que não recebe e-mail); nota "PEDIDO DE TESTE da nova
+     página de finalização de compra (cartão de teste recusado). Não processar; pode cancelar.";
+     1 × Bateria Dell nu209, R$ 350,00.
+   - O WooCommerce recebeu o pedido com todos os campos e chamou a forma de pagamento. Ela não
+     devolveu um resultado ao WooCommerce: encerrou a resposta por conta própria, no formato da
+     finalização clássica (`{"result":"failure","messages":"…Error processing checkout. Please try
+     again.…","refresh":true,"reload":true}`), sem número de pedido. A página mostrou "Erro ao
+     processar o pedido. Por favor, tente novamente." (a mesma mensagem, em português), manteve os
+     dados e o carrinho (1 item, R$ 350,00, relido da loja).
+   - **Para a equipe:** o pedido deve estar em WooCommerce → Pedidos como "Pendente" (ou "Malsucedido",
+     se a forma de pagamento o marcou assim), no nome "TESTE NOVA FINALIZACAO – NAO PROCESSAR".
+     Cancele ou exclua. Como a resposta não trouxe o número, ele não pôde ser anotado aqui.
+
+## Atenção: forma de pagamento `woo_paypal_stripe_gateway_set` (verificar antes de publicar)
+
+- O nome sugere PayPal/Stripe, mas a página não carrega nenhum script do Stripe nem do PayPal: número
+  do cartão, validade e código vão **direto para o servidor da loja** (assim já era na finalização
+  clássica). Integrações oficiais do Stripe não recebem o número do cartão no servidor da loja.
+- O plugin que registra essa forma de pagamento não carrega arquivos na página, então não foi
+  possível identificá-lo de fora.
+- No teste, ela respondeu sozinha com uma mensagem genérica, sem motivo de recusa, em vez de devolver
+  o resultado ao WooCommerce.
+- Com o certificado HTTPS vencido, quem compra pelo endereço `http://` envia os dados do cartão sem
+  criptografia.
+
+**Recomendação:** antes de publicar esta página (e independentemente dela), quem administra o
+WordPress deve identificar o plugin de `woo_paypal_stripe_gateway_set`, confirmar que é legítimo e que
+os pagamentos chegam à conta da MSSERVER (pedidos pagos recentes, painel do Stripe/PayPal), verificar
+se o site tem código malicioso e renovar o certificado HTTPS. A página nova envia exatamente o que a
+antiga enviava, só por HTTPS; se a forma de pagamento for trocada, os campos vêm de
+`npm run sync:checkout`.

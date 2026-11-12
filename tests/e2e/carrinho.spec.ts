@@ -4,7 +4,8 @@ import { line, mockStore } from './store-mock';
 
 // Carrinho (/carrinho/): lido e alterado pela Store API do WooCommerce, simulada em ./store-mock.ts
 // no formato do WooCommerce 8.2 (nada chega à loja real). Textos do carrinho do WooCommerce em
-// português, como no carrinho publicado; "Avançar para o pagamento" leva à finalização do WordPress.
+// português, como no carrinho publicado; "Avançar para o pagamento" leva à finalização de compra
+// deste site (/finalizar-compra/, finalizacao.spec.ts).
 test.beforeEach(async ({ page }) => {
   await page.route(/msserver\.com\.br|youtube\.com|ytimg|googletag|facebook|clarity|cloudfront|wa\.me/, (r) => r.abort());
 });
@@ -48,7 +49,7 @@ test.describe('carrinho: itens e totais da loja', () => {
     await expect(totals.locator('.cart-total').nth(0)).toHaveText(nb('SubtotalR$ 13.500,00'));
     await expect(totals.locator('.is-total')).toHaveText(nb('TotalR$ 13.500,00'));
     await expect(page.getByRole('heading', { name: 'Total no carrinho' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Avançar para o pagamento' })).toHaveAttribute('href', CHECKOUT);
+    await expect(page.getByRole('link', { name: 'Avançar para o pagamento' })).toHaveAttribute('href', '/finalizar-compra/');
   });
 
   test('quantidade: muda pela Store API (com o nonce) e os totais acompanham', async ({ page }) => {
