@@ -14,7 +14,6 @@
     "sync": "node scripts/sync-content.mjs",
     "sync:reviews": "node --env-file-if-exists=.env scripts/sync-google-reviews.mjs",
     "sync:catalog": "node scripts/sync-catalog.mjs",
-    "sync:checkout": "node scripts/sync-checkout.mjs",
     "assets": "node scripts/prepare-assets.mjs"
   },
   "engines": {

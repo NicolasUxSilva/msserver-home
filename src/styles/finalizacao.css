@@ -1,0 +1,674 @@
+/* ——— Finalização de orçamento (/finalizar-compra/) ———
+   Continuação do carrinho: a mesma abertura azul-marinho (catalog-hero.css) e os mesmos cartões,
+   estados, avisos e totais (cart.css). Aqui ficam as etapas, o resumo da solicitação, os dados de
+   contato e o envio pelo WhatsApp (o laranja do botão de envio é o destaque da página). Prefixo fo-. */
+
+/* ——— Etapas (na abertura) ——— */
+.fo-head {
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 1rem;
+}
+
+.fo-lead {
+  max-width: 62ch;
+}
+
+.fo-steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--c-on-dark-3);
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.fo-steps li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.fo-steps li:not(:last-child)::after {
+  content: '';
+  width: clamp(14px, 2.5vw, 28px);
+  height: 1px;
+  margin-left: 0.15rem;
+  background: rgb(255 255 255 / 0.22);
+}
+
+.fo-steps a {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--c-on-dark-2);
+  text-decoration: none;
+}
+
+.fo-steps a:hover {
+  color: var(--c-on-dark);
+}
+
+.fo-step-dot {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 50%;
+  font-family: var(--f-display);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.fo-steps .is-done .fo-step-dot {
+  border-color: transparent;
+  background: rgb(255 255 255 / 0.14);
+  color: var(--c-on-dark);
+}
+
+.fo-steps .is-current {
+  color: var(--c-on-dark);
+}
+
+.fo-steps .is-current .fo-step-dot {
+  border-color: var(--c-orange);
+  background: var(--c-orange);
+  color: #1a0f02;
+}
+
+@media (max-width: 599px) {
+  /* No celular, só o nome da etapa atual (as outras ficam nos números). */
+  .fo-steps li:not(.is-current) .fo-step-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+/* ——— Estrutura: resumo à esquerda, dados e envio à direita (a partir de 1024 px) ——— */
+.fo-grid {
+  display: none;
+  gap: clamp(0.85rem, 0.6rem + 0.8vw, 1.25rem);
+}
+
+.fo[data-state='ready'] .fo-grid {
+  display: grid;
+}
+
+@media (min-width: 1024px) {
+  .fo-grid,
+  .fo-loading {
+    grid-template-columns: minmax(0, 1fr) clamp(340px, 32vw, 410px);
+    align-items: start;
+    column-gap: clamp(1.25rem, 0.5rem + 2vw, 2rem);
+  }
+}
+
+/* O lado do envio acompanha a rolagem quando cabe inteiro na tela. */
+@media (min-width: 1024px) and (min-height: 860px) {
+  .fo-side {
+    position: sticky;
+    top: calc(var(--header-h) + 1.25rem);
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .fo-grid,
+  .fo-loading {
+    margin-inline: auto;
+    width: min(100%, 760px);
+  }
+}
+
+.fo-title {
+  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+  letter-spacing: -0.03em;
+}
+
+/* ——— Resumo da solicitação ——— */
+.fo-summary {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: clamp(1.25rem, 0.95rem + 1.1vw, 1.9rem);
+}
+
+.fo-summary-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.fo-count {
+  margin-top: 0.2rem;
+  color: var(--c-ink-2);
+  font-size: 0.92rem;
+}
+
+.fo-edit {
+  gap: 0.45rem;
+}
+
+.fo-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fo-item {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.6rem 1.25rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--c-line);
+}
+
+/* A miniatura é a do carrinho (cart-thumb), fora da grade de linhas do carrinho. */
+.fo-item .fo-thumb {
+  grid-area: auto;
+  align-self: center;
+  width: 112px;
+}
+
+.fo-item-main {
+  display: grid;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.fo-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.fo-tag {
+  padding: 0.12rem 0.5rem;
+  border-radius: 6px;
+  background: var(--c-indigo-100);
+  color: var(--c-indigo-700);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fo-item-name {
+  font-size: 1.02rem;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.fo-item-name a {
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size var(--dur-2) var(--ease-out);
+}
+
+.fo-item-name a:hover {
+  background-size: 100% 1px;
+}
+
+.fo-item-options {
+  color: var(--c-ink-2);
+  font-size: 0.88rem;
+}
+
+/* Valor unitário, quantidade e subtotal: três colunas alinhadas à direita. */
+.fo-figures {
+  display: grid;
+  grid-template-columns: 7.25rem 5.5rem 7.75rem;
+  gap: 1rem;
+  margin: 0;
+}
+
+@media (min-width: 1024px) and (max-width: 1239px) {
+  .fo-figures {
+    grid-template-columns: 6.75rem 5.25rem 7.25rem;
+    gap: 0.75rem;
+  }
+}
+
+.fo-figure {
+  display: grid;
+  justify-items: end;
+  gap: 0.2rem;
+  min-width: 4.5rem;
+}
+
+.fo-figure dt {
+  color: var(--c-ink-3);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.fo-figure dd {
+  margin: 0;
+  color: var(--c-ink-2);
+  font-family: var(--f-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.fo-figure.is-line dd {
+  color: var(--c-ink);
+  font-size: 1.08rem;
+}
+
+/* Até 759 px: foto e nome em cima; valores numa faixa embaixo. */
+@media (max-width: 759px) {
+  .fo-item {
+    grid-template-columns: 84px minmax(0, 1fr);
+  }
+
+  .fo-item .fo-thumb {
+    align-self: start;
+    width: 84px;
+  }
+
+  /* Valores em lista: rótulo à esquerda, valor à direita. */
+  .fo-figures {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: 12px;
+    background: var(--c-paper);
+  }
+
+  .fo-figure {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .fo-figure.is-line {
+    margin-top: 0.15rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid var(--c-line);
+  }
+}
+
+.fo-summary-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+
+.fo-summary-foot .cart-back {
+  margin-top: 1.2rem;
+}
+
+.fo-totals-box {
+  display: grid;
+  gap: 0.6rem;
+  width: min(100%, 380px);
+  margin-left: auto;
+}
+
+.fo-estimate {
+  color: var(--c-ink-3);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 759px) {
+  .fo-summary-foot {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .fo-totals-box {
+    width: 100%;
+  }
+
+  .fo-summary-foot .cart-back {
+    margin-top: 0;
+  }
+}
+
+/* ——— Dados de contato e envio ——— */
+.fo-side {
+  display: grid;
+  gap: clamp(0.85rem, 0.6rem + 0.8vw, 1.25rem);
+  min-width: 0;
+}
+
+.fo-contact {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.25rem, 0.95rem + 1.1vw, 1.75rem);
+}
+
+.fo-contact-lead {
+  margin-top: -0.6rem;
+  color: var(--c-ink-2);
+  font-size: 0.92rem;
+}
+
+.fo-fields {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.fo-field {
+  display: grid;
+  gap: 0.4rem;
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+}
+
+.fo-label {
+  color: var(--c-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.fo-req {
+  margin-left: 0.15em;
+  color: var(--c-danger);
+}
+
+.fo-opt {
+  margin-left: 0.3em;
+  color: var(--c-ink-3);
+  font-weight: 400;
+}
+
+.fo-input {
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  padding: 0 1rem;
+  border: 1.5px solid var(--c-line-2);
+  border-radius: 12px;
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font-size: 1rem;
+  line-height: 1.4;
+  transition:
+    border-color var(--dur-1) var(--ease-out),
+    box-shadow var(--dur-1) var(--ease-out);
+}
+
+textarea.fo-input {
+  min-height: 92px;
+  padding-block: 0.75rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.fo-input::placeholder {
+  color: var(--c-ink-3);
+  opacity: 1;
+}
+
+.fo-input:hover {
+  border-color: var(--c-ink-3);
+}
+
+.fo-input:focus {
+  border-color: var(--c-indigo-600);
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(61 58 134 / 0.16);
+}
+
+.fo-field.is-invalid .fo-input {
+  border-color: var(--c-danger);
+  background: #fffafa;
+}
+
+.fo-field.is-invalid .fo-input:focus {
+  box-shadow: 0 0 0 4px rgb(180 47 37 / 0.14);
+}
+
+.fo-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  color: var(--c-danger);
+  font-size: 0.86rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.fo-error[hidden] {
+  display: none;
+}
+
+.fo-error svg {
+  flex: none;
+  margin-top: 0.1rem;
+}
+
+/* Lista de erros no alto do formulário (cada item leva ao campo). */
+.fo-alert {
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgb(180 47 37 / 0.25);
+  border-left: 4px solid var(--c-danger);
+  border-radius: 14px;
+  background: var(--c-danger-bg);
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+}
+
+.fo-alert[hidden] {
+  display: none;
+}
+
+.fo-alert:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(180 47 37 / 0.14);
+}
+
+.fo-alert-icon {
+  flex: none;
+  margin-top: 0.1rem;
+  color: var(--c-danger);
+}
+
+.fo-alert-title {
+  color: var(--c-danger);
+  font-weight: 600;
+}
+
+.fo-alert-list {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0.4rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+}
+
+.fo-alert-list a {
+  color: var(--c-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fo-send {
+  display: grid;
+  gap: 0.8rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--c-line);
+}
+
+.fo-send-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 600;
+}
+
+.fo-send-total b {
+  font-family: var(--f-display);
+  font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.75rem);
+  letter-spacing: -0.035em;
+}
+
+/* O texto do botão quebra em duas linhas equilibradas quando falta espaço (celular estreito). */
+.fo-contact .fo-cta {
+  width: 100%;
+  min-height: 58px;
+  padding: 0.6rem 1rem;
+  white-space: normal;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.fo-contact,
+.fo-summary {
+  min-width: 0;
+}
+
+.fo-cta-note {
+  color: var(--c-ink-3);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Depois de abrir o WhatsApp. */
+.fo-sent {
+  display: flex;
+  gap: 0.85rem;
+  padding: 1.15rem 1.25rem;
+  border-color: rgb(21 122 76 / 0.3);
+  background: var(--c-success-bg);
+}
+
+.fo-sent[hidden] {
+  display: none;
+}
+
+.fo-sent:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(21 122 76 / 0.18);
+}
+
+.fo-sent-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--c-success);
+  color: #fff;
+}
+
+.fo-sent-title {
+  margin-bottom: 0.3rem;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.fo-sent p {
+  color: var(--c-ink-2);
+  font-size: 0.92rem;
+}
+
+.fo-sent-again {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  color: var(--c-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--c-orange);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* ——— Barra de envio (celular e tablet) ——— */
+.fo-bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  padding: 0.7rem max(1rem, env(safe-area-inset-right)) calc(0.7rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  border-top: 1px solid var(--c-line);
+  background: rgb(255 255 255 / 0.96);
+  box-shadow: 0 -16px 32px -24px rgb(14 13 34 / 0.45);
+  backdrop-filter: blur(8px);
+}
+
+.fo-bar[hidden] {
+  display: none;
+}
+
+.fo-bar-total {
+  display: grid;
+  line-height: 1.15;
+}
+
+.fo-bar-total span {
+  color: var(--c-ink-3);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.fo-bar-total b {
+  font-family: var(--f-display);
+  font-size: 1.08rem;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.fo-bar .fo-bar-cta {
+  flex: 0 1 auto;
+  min-width: 0;
+  min-height: 50px;
+  padding-inline: 0.95rem;
+  gap: 0.45rem;
+  font-size: 0.92rem;
+  white-space: normal;
+  text-align: center;
+  text-wrap: balance;
+}
+
+@media (min-width: 1024px) {
+  .fo-bar {
+    display: none !important;
+  }
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  .fo-item-name a,
+  .fo-input {
+    transition: none;
+  }
+}

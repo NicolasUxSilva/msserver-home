@@ -40,9 +40,8 @@ export const ROUTES = {
   placasDeRede: `${BASE}/categoria-produto/placas-de-rede/`,
   /** Carrinho (o mesmo endereço do WooCommerce); lido e alterado pela Store API do WooCommerce. */
   cart: `${BASE}/carrinho/`,
-  /** Finalização de compra (o mesmo endereço do WooCommerce); o pedido é feito pela Store API. As
-   *  páginas seguintes (pedido recebido e pagamento de pedido, /finalizar-compra/order-received/… e
-   *  /finalizar-compra/order-pay/…) continuam no WordPress. */
+  /** Finalização de orçamento, no endereço da finalização de compra do WooCommerce: revisão do
+   *  carrinho e envio da solicitação ao comercial pelo WhatsApp (o site não recebe pagamentos). */
   checkout: `${BASE}/finalizar-compra/`,
 } as const;
 

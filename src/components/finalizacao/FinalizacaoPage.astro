@@ -1,0 +1,291 @@
+---
+// Finalização de orçamento (/finalizar-compra/), na sequência do catálogo, das páginas de produto e do
+// carrinho. A MSSERVER não recebe pagamentos pelo site: aqui não há pagamento nem pedido. A página
+// mostra o resumo do carrinho do WooCommerce (lido pela Store API no navegador, src/scripts/finalizacao.ts),
+// pede os dados de contato e abre o WhatsApp do comercial com a solicitação montada.
+import '../../styles/catalog-hero.css';
+import '../../styles/cart.css';
+import '../../styles/finalizacao.css';
+import { getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import WhatsAppFab from '../WhatsAppFab.astro';
+import Icon from '../Icon.astro';
+import { ROUTES, productRoute, whatsappUrl } from '../../config/site';
+import { BRANDS, PRODUCTS } from '../../data/catalog';
+import { QUOTE as T, QUOTE_WHATSAPP } from '../../data/finalizacao';
+
+// Fotos, páginas e marca (categoria Dell, HP ou IBM no WooCommerce) dos produtos deste site, pelo
+// endereço do produto que o carrinho devolve.
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/catalog/*.jpg', { eager: true });
+const products = Object.fromEntries(
+  await Promise.all(
+    Object.values(PRODUCTS).map(async (p) => {
+      const src = p.image ? files[`../../assets/catalog/${p.image}`]?.default : null;
+      const img = src ? await getImage({ src, widths: [112, 224], format: 'webp', quality: 80 }) : null;
+      const brand = p.categories.map((c) => BRANDS[c]).find(Boolean) ?? null;
+      return [p.url, { path: productRoute(p.slug), image: img?.src ?? null, srcset: img?.srcSet.attribute ?? null, brand }];
+    }),
+  ),
+);
+
+const config = {
+  products,
+  whatsapp: QUOTE_WHATSAPP.number,
+  texts: { ...T, schema: undefined, fields: undefined },
+  fields: T.fields,
+};
+
+const wa = whatsappUrl();
+const F = T.fields;
+type ContactField = { key: string; label: string; type: 'text' | 'email' | 'tel'; autocomplete: string; placeholder?: string; inputmode?: 'email' | 'tel'; autocapitalize?: 'words' };
+const contact: (ContactField & { id: string })[] = (
+  [
+    { key: 'name', label: F.name.label, type: 'text', autocomplete: F.name.autocomplete, autocapitalize: 'words' },
+    { key: 'company', label: F.company.label, type: 'text', autocomplete: F.company.autocomplete, autocapitalize: 'words' },
+    { key: 'email', label: F.email.label, type: 'email', autocomplete: F.email.autocomplete, placeholder: F.email.placeholder, inputmode: 'email' },
+    { key: 'phone', label: F.phone.label, type: 'tel', autocomplete: F.phone.autocomplete, placeholder: F.phone.placeholder, inputmode: 'tel' },
+  ] as ContactField[]
+).map((f) => ({ ...f, id: `orcamento_${f.key}` }));
+---
+
+<Base title={T.seoTitle} description="" canonical={T.canonical} ogType="article" robots={T.robots} schema={T.schema}>
+  {/* A finalização não é item do menu: nenhum item marcado. */}
+  <Header current={ROUTES.checkout} />
+  <main id="conteudo" class="cart fo" data-fo data-state="loading">
+    <section class="cat-hero cart-hero fo-hero dark-surface on-dark" aria-labelledby="fo-title">
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="dark-surface__hatch"></div>
+        <div class="cat-light"></div>
+      </div>
+      <div class="container cat-hero-inner">
+        <nav class="cat-crumbs" aria-label="Você está em">
+          <ol>
+            <li><a href={ROUTES.home}>Início</a></li>
+            <li><a href={ROUTES.cart}>{T.cart}</a></li>
+            <li><span aria-current="page">{T.title}</span></li>
+          </ol>
+        </nav>
+        <div class="cat-head fo-head">
+          <h1 id="fo-title" class="cat-title">{T.title}</h1>
+          <ol class="fo-steps" aria-label="Etapas da solicitação" data-fo-steps>
+            <li class="is-done">
+              <a href={ROUTES.cart}>
+                <span class="fo-step-dot" aria-hidden="true"><Icon name="check" size={14} strokeWidth={2.75} /></span>
+                <span class="fo-step-name">{T.steps[0]}</span>
+                <span class="sr-only">(concluída)</span>
+              </a>
+            </li>
+            <li class="is-current" aria-current="step" data-fo-step="review">
+              <span class="fo-step-dot" aria-hidden="true">2</span>
+              <span class="fo-step-name">{T.steps[1]}</span>
+            </li>
+            <li data-fo-step="send">
+              <span class="fo-step-dot" aria-hidden="true">3</span>
+              <span class="fo-step-name">{T.steps[2]}</span>
+            </li>
+          </ol>
+        </div>
+        <p class="cat-sub fo-lead">{T.lead}</p>
+      </div>
+    </section>
+
+    <section class="cart-body fo-body" aria-labelledby="fo-title">
+      <div class="container">
+        <p class="sr-only" aria-live="polite" data-fo-live></p>
+        <noscript>
+          <div class="cart-card cart-state cart-noscript">
+            <h2>{T.noScriptTitle}</h2>
+            <p>{T.noScriptText}</p>
+            <a class="btn btn--dark" href={wa} target="_blank" rel="noopener">{T.consult}</a>
+          </div>
+        </noscript>
+        <div class="cart-notices" data-fo-notices></div>
+
+        {/* Carregando: o espaço já reservado. */}
+        <div class="cart-loading fo-loading" aria-hidden="true">
+          <div class="cart-card cart-skeleton">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="cart-card cart-skeleton cart-skeleton--summary">
+            <span></span><span></span>
+          </div>
+          <p class="sr-only">{T.loading}</p>
+        </div>
+
+        {/* Carrinho vazio. */}
+        <div class="cart-card cart-state cart-empty-state" data-fo-empty>
+          <span class="cart-state-icon"><Icon name="shopping-cart" size={30} /></span>
+          <h2>{T.empty}</h2>
+          <p>{T.emptyText}</p>
+          <a class="btn btn--dark" href={ROUTES.servers}>
+            {T.returnToShop}
+            <Icon name="arrow-right" class="btn-arrow" />
+          </a>
+        </div>
+
+        {/* A loja não respondeu. */}
+        <div class="cart-card cart-state cart-unavailable" data-fo-unavailable>
+          <span class="cart-state-icon"><Icon name="cloud-off" size={30} /></span>
+          <h2>{T.unavailableTitle}</h2>
+          <p>{T.unavailableText}</p>
+          <div class="cart-state-actions">
+            <button class="btn btn--dark" type="button" data-fo-retry>
+              <Icon name="rotate-cw" size={18} />
+              {T.retry}
+            </button>
+            <a class="btn btn--outline" href={wa} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="finalizacao-orcamento">
+              <Icon name="whatsapp" size={18} />
+              {T.consult}
+            </a>
+          </div>
+        </div>
+
+        <div class="fo-grid" data-fo-ready>
+          {/* Resumo da solicitação: os produtos do carrinho, com os valores do WooCommerce. */}
+          <section class="cart-card fo-summary" aria-labelledby="fo-summary-title">
+            <header class="fo-summary-head">
+              <div>
+                <h2 id="fo-summary-title" class="fo-title">{T.summaryTitle}</h2>
+                <p class="fo-count" data-fo-count></p>
+              </div>
+              <a class="btn btn--outline btn--sm fo-edit" href={ROUTES.cart}>
+                <Icon name="pencil" size={16} />
+                {T.editCart}
+              </a>
+            </header>
+            <ul class="fo-items" data-fo-items></ul>
+            <div class="fo-summary-foot">
+              <a class="cart-back" href={ROUTES.servers}>
+                <Icon name="arrow-left" size={16} />
+                {T.keepShopping}
+              </a>
+              <div class="fo-totals-box">
+                <dl class="cart-totals fo-totals" data-fo-totals></dl>
+                <p class="fo-estimate">{T.estimateNote}</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Dados de contato e envio. */}
+          <aside class="fo-side" aria-labelledby="fo-contact-title">
+            <div class="cart-card fo-sent" role="status" tabindex="-1" hidden data-fo-sent>
+              <span class="fo-sent-icon" aria-hidden="true"><Icon name="check" size={22} strokeWidth={2.75} /></span>
+              <div>
+                <h2 class="fo-sent-title">{T.sentTitle}</h2>
+                <p>{T.sentText}</p>
+                <a class="fo-sent-again" href={wa} target="_blank" rel="noopener" data-fo-again>
+                  <Icon name="whatsapp" size={16} />
+                  {T.sentAgain}
+                </a>
+              </div>
+            </div>
+
+            <form class="cart-card fo-contact" novalidate aria-labelledby="fo-contact-title" data-fo-form>
+              <h2 id="fo-contact-title" class="fo-title">{T.contactTitle}</h2>
+              <p class="fo-contact-lead">{T.contactLead}</p>
+
+              <div class="fo-alert" role="alert" tabindex="-1" hidden data-fo-alert>
+                <Icon name="circle-alert" size={20} class="fo-alert-icon" />
+                <div>
+                  <p class="fo-alert-title">{T.errorsTitle}</p>
+                  <ul class="fo-alert-list" data-fo-alert-list></ul>
+                </div>
+              </div>
+
+              <div class="fo-fields">
+                {
+                  contact.map((f) => (
+                    <div class="fo-field" data-key={f.key}>
+                      <label class="fo-label" for={f.id}>
+                        {f.label}
+                        <span class="fo-req" aria-hidden="true">
+                          *
+                        </span>
+                      </label>
+                      <input
+                        class="fo-input"
+                        id={f.id}
+                        name={f.key}
+                        type={f.type}
+                        required
+                        autocomplete={f.autocomplete}
+                        placeholder={f.placeholder}
+                        inputmode={f.inputmode}
+                        autocapitalize={f.autocapitalize}
+                        spellcheck={f.type === 'email' || f.type === 'tel' ? 'false' : undefined}
+                        maxlength="120"
+                        aria-describedby={`${f.id}-error`}
+                      />
+                      <p class="fo-error" id={`${f.id}-error`} hidden>
+                        <Icon name="circle-alert" size={16} />
+                        <span data-fo-error />
+                      </p>
+                    </div>
+                  ))
+                }
+                <div class="fo-field" data-key="notes">
+                  <label class="fo-label" for="orcamento_notes">
+                    {T.fields.notes.label}<span class="fo-opt">{T.optional}</span>
+                  </label>
+                  <textarea class="fo-input" id="orcamento_notes" name="notes" rows="3" maxlength="1000" placeholder={T.fields.notes.placeholder}></textarea>
+                </div>
+              </div>
+
+              <div class="fo-send">
+                <p class="fo-send-total">
+                  <span>{T.total}</span>
+                  <b data-fo-total></b>
+                </p>
+                <button class="btn btn--primary btn--lg fo-cta" type="submit" data-fo-cta>
+                  <Icon name="whatsapp" size={20} class="wa-icon" />
+                  {T.cta}
+                </button>
+                <p class="fo-cta-note">{T.ctaNote}</p>
+              </div>
+            </form>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    {/* Celular e tablet: o envio sempre à mão (some quando o botão do formulário aparece). */}
+    <div class="fo-bar" hidden data-fo-bar>
+      <p class="fo-bar-total">
+        <span>{T.total}</span>
+        <b data-fo-bar-total></b>
+      </p>
+      <button class="btn btn--primary fo-bar-cta" type="button" data-fo-bar-cta>
+        <Icon name="whatsapp" size={18} class="wa-icon" />
+        {T.ctaShort}
+      </button>
+    </div>
+  </main>
+
+  {/* Modelo de um produto do resumo (preenchido pelo navegador). */}
+  <template data-fo-row>
+    <li class="fo-item">
+      <a class="cart-thumb fo-thumb" tabindex="-1" aria-hidden="true"><img alt="" width="112" height="84" loading="lazy" decoding="async" /></a>
+      <div class="fo-item-main">
+        <p class="fo-item-meta"></p>
+        <h3 class="fo-item-name"><a></a></h3>
+        <p class="fo-item-options"></p>
+      </div>
+      <dl class="fo-figures">
+        <div class="fo-figure"><dt>{T.unitPrice}</dt><dd data-unit></dd></div>
+        <div class="fo-figure"><dt>{T.quantity}</dt><dd data-qty></dd></div>
+        <div class="fo-figure is-line"><dt>{T.lineTotal}</dt><dd data-line></dd></div>
+      </dl>
+    </li>
+  </template>
+
+  <Footer />
+  <WhatsAppFab />
+  <script type="application/json" data-fo-config set:html={JSON.stringify(config)} />
+</Base>
+
+<script>
+  import { initFinalizacao } from '../../scripts/finalizacao';
+  initFinalizacao();
+</script>

@@ -186,32 +186,30 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
   WooCommerce (Produto, Preço, Quantidade, Subtotal) com foto em estúdio, nome, opção, quantidade
   com − e + e remover (lixeira, vermelho no hover); abaixo de 900 px, cada item vira um cartão (foto e
   nome em cima; quantidade, subtotal e remover embaixo). "Retornar para a loja" no fim.
-- **Total no carrinho** num cartão: linhas finas, total em Sora grande, "Avançar para o pagamento"
+- **Total no carrinho** num cartão: linhas finas, total em Sora grande, "Avançar para o orçamento"
   (botão escuro) e "Orçamento pelo WhatsApp" (contorno, ícone verde). Ao lado a partir de 1200 px
   (acompanha a rolagem); no tablet, à direita embaixo da lista; no celular, na largura toda.
 - **Estados:** carregando (o lugar já reservado, com brilho suave), vazio e loja indisponível
   (ícone em círculo, título, texto e ações); avisos com borda à esquerda (índigo; erro em vermelho) e
   "Desfazer?" sublinhado em laranja.
 
-## Finalização de compra
+## Finalização de orçamento
 
-- **Mesma abertura**, com as etapas da compra à direita do título (Carrinho com ✓, "Dados e
-  pagamento" com o número em laranja, "Pedido recebido"); no celular, só o nome da etapa atual.
-- **Formulário em seções numeradas** (círculo azul-marinho), cada uma num cartão branco: campos de
-  52 px com borda de 1,5 px e foco índigo, rótulo em negrito, `*` vermelho nos obrigatórios e
-  "(opcional)" em cinza; pares lado a lado (nome e sobrenome, cidade e estado, CEP e telefone) a
-  partir de 480 px. Erro: borda e fundo avermelhados e a mensagem com ícone embaixo do campo; no alto,
-  um quadro vermelho com a lista de erros (cada um leva ao campo).
-- **Pagamento:** cada forma num cartão com rádio, ícone, nome e bandeiras (a bandeira do número
-  digitado fica em destaque, as outras apagadas); os campos do cartão num fundo papel dentro do
-  cartão. Texto de privacidade pequeno, total em Sora grande e "Finalizar pedido" em laranja (o
-  único laranja da página, com cadeado; durante o envio, "Processando…" com o ícone girando).
-- **Resumo do pedido** (cartão do carrinho): foto com a quantidade num selo azul-marinho, nome,
-  opção e valor; "Editar carrinho"; "Você tem um cupom de desconto?" sublinhado em laranja, que abre
-  o campo; as linhas de total do carrinho (cupom em índigo com "Remover"). Ao lado a partir de
-  1100 px (acompanha a rolagem); abaixo disso, uma barra recolhida no alto com o total.
-- **Estados** do carrinho (carregando, vazio, loja indisponível) e avisos curtos (`co-note`, em
-  amarelo quando é alerta: sem HTTPS, sem forma de pagamento).
+- **Mesma abertura**, com as etapas à direita do título (Carrinho com ✓, "Revisão e contato" com o
+  número em laranja, "Envio pelo WhatsApp", que fica atual depois do envio) e uma linha de apoio.
+- **Resumo da solicitação** (cartão branco, à esquerda a partir de 1024 px): título, quantidade de
+  itens e "Editar no carrinho" (contorno); cada produto com a foto em estúdio (112 px), etiqueta da
+  marca (índigo claro, maiúsculas), nome (link), configuração e três colunas alinhadas — valor
+  unitário, quantidade e subtotal (rótulos pequenos em maiúsculas, valores em Sora). Abaixo de 760 px,
+  os valores viram uma lista numa faixa cor de papel. No pé, "Continuar escolhendo produtos" e as
+  linhas de total do carrinho com "Total estimado" em Sora grande e a nota de estimativa.
+- **Seus dados** (cartão à direita, acompanha a rolagem quando cabe na tela): campos de 50 px com
+  borda de 1,5 px e foco índigo, `*` vermelho nos obrigatórios, "(opcional)" nas observações; erros
+  no campo e numa lista no alto que leva a cada um. Total estimado e o botão "Solicitar orçamento pelo
+  WhatsApp" (laranja, com o ícone do WhatsApp, o destaque da página) e a nota de que nada é enviado sem
+  confirmar. Depois do envio, um quadro verde com ✓ e "Abrir o WhatsApp de novo".
+- **Celular e tablet:** resumo, depois os dados; uma barra fixa embaixo com o total e "Solicitar pelo
+  WhatsApp", que sai quando o botão do formulário aparece (o WhatsApp flutuante não a cobre).
 
 ## Breakpoints
 

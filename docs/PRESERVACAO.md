@@ -684,7 +684,7 @@ formato do WooCommerce (`tests/e2e/store-mock.ts`).
 - O mesmo carrinho: os itens são os da sessão do WooCommerce (a mesma da finalização de compra),
   lidos e alterados pela Store API; preços, subtotais e total são os que o WooCommerce calcula.
 - As colunas (Produto, Preço, Quantidade, Subtotal, remover), "Total no carrinho" com Subtotal e
-  Total, "Avançar para o pagamento" (finalização do WordPress), "Orçamento pelo WhatsApp" e, vazio,
+  Total, "Avançar para o pagamento" (hoje "Avançar para o orçamento", que leva à finalização de orçamento), "Orçamento pelo WhatsApp" e, vazio,
   a mensagem e o caminho para `/servidores/`, com os textos do WooCommerce em português.
 - Sem cupom e sem frete na tela, como no original (se a loja passar a aplicar cupom, taxa, frete ou
   imposto, as linhas aparecem no total com os valores do WooCommerce).
@@ -712,128 +712,88 @@ formato do WooCommerce (`tests/e2e/store-mock.ts`).
 - **Descrição de SEO:** a do All in One SEO era o retrato de um carrinho antigo ("Rack Dell r610 -
   8GB R$ 1.200,00…"), com produto e preço de outra época; saiu da meta description e do JSON-LD.
 
-# Finalização de compra (`/finalizar-compra/`)
+# Finalização de orçamento (`/finalizar-compra/`)
 
-Referência: a finalização publicada (lida pelo endereço `http://` em 12/11/2026, vazia e com um item
-no carrinho: 1 sessão de carrinho com a Bateria Dell nu209, autorizada para isso), a Store API do
-WooCommerce (rotas, só leitura) e o código da Store API do WooCommerce 8.2 (`Checkout`,
-`CheckoutTrait`, `Legacy`, `OrderController`, endereços). Validada com a Store API simulada
-(`tests/e2e/store-mock.ts`) e com **um pedido de teste real** (ver abaixo).
+A MSSERVER não recebe pagamentos pelo site: o objetivo é gerar solicitações de orçamento para o
+comercial. O fluxo é catálogo → carrinho (revisar, mudar quantidades, remover) → finalização de
+orçamento (resumo e dados de contato) → WhatsApp do comercial, com a solicitação montada.
 
 ## O que a página original tinha
 
-- Página 4822 do WordPress ("Finalização de compra"), com a finalização clássica do WooCommerce
-  (shortcode), textos do WooCommerce em inglês (a tradução não está carregada na loja).
-- "Have a coupon? Click here to enter your code" (cupom em formulário à parte).
-- **Billing details:** First name, Last name, Company name (opcional), Country / Region (249 países,
-  Brasil marcado), Street address (+ "Apartment, suite, unit, etc.", opcional), Town / City,
-  State / County (27 estados, São Paulo marcado), Postcode / ZIP, Phone, Email address — todos
-  obrigatórios, menos empresa e complemento. Ao trocar de país, nomes, obrigatórios e ordem mudam
-  pelas regras do WooCommerce, e os totais são recalculados.
-- **Additional information:** Order notes (opcional).
-- Sem entrega ("Ship to a different address?" não aparece: a loja não cobra frete), sem criar conta
-  (compra como visitante) e sem termos para aceitar.
-- **Your order:** Product / Subtotal por item, Subtotal e Total.
-- **Pagamento:** uma forma, `woo_paypal_stripe_gateway_set`, "Credit Card", com as bandeiras Visa,
-  Mastercard e Discover e os campos Card number, Expiry (MM/YY) e Card code, enviados ao servidor da
-  loja (`card-number`, `card-expiry`, `card-cvc`).
-- Texto de privacidade ("Os seus dados pessoais serão utilizados para processar a sua compra…", com o
-  link `https://msserver.com.br/?page_id=3`) e o botão "Place order".
-- Título "Finalização de compra - MSSERVER", robots `max-image-preview:large`, canonical e JSON-LD.
+- Página 4822 do WordPress ("Finalização de compra"): a finalização clássica do WooCommerce, com dados
+  de cobrança, a forma de pagamento `woo_paypal_stripe_gateway_set` ("Credit Card", com número, validade
+  e código do cartão) e "Place order". Título "Finalização de compra - MSSERVER", robots
+  `max-image-preview:large`, canonical e JSON-LD.
 
-## O que foi preservado
+## O que foi mantido
 
-- O endereço, o título, o robots, o canonical e o JSON-LD.
-- **Todo o processo comercial é o do WooCommerce, na mesma sessão do carrinho:** itens e totais,
-  cupons (aplicar e remover), o endereço na sessão ao trocar país, estado, CEP ou cidade (impostos e
-  frete recalculados pela loja), a forma de entrega (se a loja passar a cobrar frete, com "Enviar
-  para um endereço diferente?"), a validação do pedido e a forma de pagamento da loja. Nada é
-  calculado aqui: os valores exibidos são sempre os que o WooCommerce devolve.
-- Os mesmos campos, com os mesmos nomes (`billing_*`, `order_comments`), a mesma ordem, os mesmos
-  obrigatórios (telefone e e-mail inclusive), os 249 países, os estados e as regras de endereço de
-  cada país (com a ordem dos campos), o país e o estado da sessão (Brasil, São Paulo).
-- A forma de pagamento recebe o mesmo que no formulário original: `card-number` (em grupos de 4),
-  `card-expiry` ("MM / AA"), `card-cvc`, `payment_method` e os campos de cobrança e a nota.
-- Pedido sem entrega fica sem endereço de entrega, como na finalização clássica.
-- O texto de privacidade com o mesmo link; sem termos e sem criar conta, como no original.
+- O endereço (`/finalizar-compra/`), o canonical, o robots e o JSON-LD do All in One SEO (com o nome
+  da página atualizado para "Finalização de orçamento", como o título).
+- O carrinho do WooCommerce como fonte: os itens, as opções escolhidas, as quantidades, os preços, os
+  subtotais e o total são os que a Store API devolve para a sessão do carrinho; a marca é a categoria
+  Dell, HP ou IBM do produto no WooCommerce (sincronizada no catálogo). Nada é calculado ou digitado à
+  mão, e a página não altera nada na loja (só lê o carrinho).
+- O WhatsApp do site: o mesmo número de todos os botões de WhatsApp (plugin Click to Chat, rodapé e o
+  "Orçamento pelo WhatsApp" do carrinho, `5511985991837`).
 
 ## O que mudou
 
-- **Visual e navegação** no sistema do site, na sequência do carrinho: abertura com as etapas
-  (Carrinho → Dados e pagamento → Pedido recebido), seções numeradas em cartões, resumo do pedido ao
-  lado (acompanha a rolagem; no celular, recolhido no alto com o total), cupom dentro do resumo,
-  forma de pagamento com as bandeiras (a do número digitado em destaque), total repetido junto do
-  botão "Finalizar pedido" (laranja).
-- **Textos em português** (traduções oficiais do WooCommerce: "Detalhes de faturamento", "Finalizar
-  pedido"…); países em português; o link de privacidade como "política de privacidade".
-- **Conferência antes do envio:** obrigatórios, e-mail, telefone (a regra do WooCommerce), CEP
-  (00000-000, com máscara), estado da lista, cartão (Luhn), validade (vencido) e código, com a
-  mensagem em cada campo e uma lista no alto que leva a cada um e se atualiza ao corrigir. Os erros
-  que a loja devolve (endereço, pagamento) aparecem do mesmo jeito.
-- **Envio pela Store API do WooCommerce** (`POST /wp-json/wc/store/v1/checkout`), e não pelo
-  `/?wc-ajax=checkout` da finalização clássica: este exige um nonce que só a página do WordPress
-  traz, e a Store API é o caminho do próprio WooCommerce para finalizações fora do tema (é o que o
-  bloco de finalização usa). Consequências: o pedido é registrado com origem `store-api` (e não
-  `checkout`); a forma de pagamento é chamada pela camada de compatibilidade do WooCommerce, que
-  monta o `$_POST` com os mesmos campos e chama `validate_fields()` e `process_payment()`; plugins
-  que só escutam ganchos da finalização clássica (`woocommerce_checkout_process`,
-  `woocommerce_checkout_order_processed`) não rodam — nenhum dos plugins da página publicada depende
-  disso para a compra (o Google Listings & Ads registra a compra na página "pedido recebido", que
-  continua no WordPress). A Store API não exige telefone no servidor: a página exige, como antes.
-- **Proteções:** envio travado enquanto processa (sem pedido duplicado; o nonce vencido é renovado
-  e o pedido repetido uma vez, com um pedido só); os campos do cartão não têm `name` (não entram num
-  envio comum do formulário), não são guardados e não vão para o `dataLayer`; **sem HTTPS a página
-  não envia o cartão** e oferece o endereço `https://` (a finalização clássica enviava por `http`).
-- **E-mail:** `autocomplete="email"` (o WooCommerce usa "email username", combinação inválida).
-- **Carrinho:** "Avançar para o pagamento" passou a levar a esta página (`/finalizar-compra/` neste
-  site). Os caminhos sem a loja ou sem JavaScript (o "Orçamento" das páginas de produto e o
-  `?add-to-cart=` do catálogo) continuam indo à finalização do WordPress, como antes.
-- **Sem JavaScript**, a página avisa que precisa dele e oferece o WhatsApp (a finalização clássica
-  funcionava sem JavaScript; a Store API exige o navegador).
+- **Propósito:** de finalização de compra para solicitação de orçamento. Saíram os dados de cobrança e
+  endereço, a forma de pagamento, os campos de cartão, o cupom, o frete e o envio do pedido ao
+  WooCommerce (nenhum pedido é criado). Entraram o resumo da solicitação, os dados de contato (nome
+  completo, empresa, e-mail corporativo, WhatsApp e observações opcionais) e "Solicitar orçamento pelo
+  WhatsApp".
+- **Mensagem:** "Olá! Gostaria de solicitar um orçamento…", dados do solicitante, cada produto (nome,
+  marca e código quando existem, configuração, quantidade, valor unitário, subtotal e o link da
+  página), resumo (quantidade de itens e valor total estimado, com as linhas de cupom, taxa, entrega ou
+  imposto se o carrinho tiver), observações ("Nenhuma." se em branco) e "Gostaria de receber mais
+  informações e condições comerciais sobre esses produtos."
+- **Carrinho:** o botão passou de "Avançar para o pagamento" para "Avançar para o orçamento"; sem
+  JavaScript, o aviso do carrinho oferece o WhatsApp em vez da finalização de compra do WordPress.
+- **Título:** "Finalização de orçamento - MSSERVER" (era "Finalização de compra - MSSERVER").
+
+## Dados que não existem no WooCommerce (não foram inventados)
+
+- **Código/modelo:** nenhum dos 74 produtos nem das 100 variações tem SKU cadastrado (consulta à Store
+  API em 12/11/2026). O modelo faz parte do nome ("Servidor Dell PowerEdge R210"). A linha
+  "Código/modelo" aparece sozinha, no resumo e na mensagem, quando o SKU for cadastrado.
+- **Marca:** só os servidores estão nas categorias Dell, HP ou IBM (50 de 74 produtos). Nos
+  componentes, a marca aparece só no nome ("Bateria Dell…"), então a linha "Marca" não aparece.
+
+## Pontos para decidir (não alterados)
+
+- **Caminhos de reserva que ainda levam à finalização de compra do WordPress** (com a forma de
+  pagamento): o "Orçamento" das páginas de produto sem JavaScript (POST em `/finalizar-compra/`) e o
+  carrinho quando a Store API não responde no endereço (`?add-to-cart=`). Ficam como estavam nas páginas
+  já aprovadas; podem passar a oferecer o WhatsApp.
+- **"Orçamento pelo WhatsApp" do carrinho** continua (envio direto, no formato do plugin do
+  WordPress); a finalização de orçamento é o caminho com os dados de contato.
+- **Número do comercial:** confirmar que é o `5511985991837` (o do site); o do plugin "WooCommerce
+  Order on WhatsApp" não é público.
 
 ## Teste real (12/11/2026)
 
-Com as páginas novas servidas localmente e a Store API de produção (`http://msserver.com.br`), num
-navegador sem rastreadores:
+- **Primeira versão (finalização de compra, já substituída):** um pedido de teste foi enviado à loja,
+  autorizado ("Pedido teste sem pagar"), às 09:47 (horário de Brasília), com o cartão de teste de
+  recusa 4000 0000 0000 0002: nome "TESTE NOVA FINALIZACAO – NAO PROCESSAR",
+  `teste-finalizacao@example.com`, 1 × Bateria Dell nu209, R$ 350,00. A forma de pagamento respondeu
+  "Error processing checkout" sem número de pedido. **Para a equipe:** o pedido deve estar em
+  WooCommerce → Pedidos como "Pendente" (ou "Malsucedido"); cancele ou exclua.
+- **Finalização de orçamento:** com a sessão de carrinho de teste (1 × Bateria Dell nu209) e a Store
+  API de produção, só leitura (qualquer requisição que não fosse leitura era bloqueada no teste): o
+  resumo mostrou o item, R$ 350,00 (o preço da Store API para o produto 7820: 35000 BRL), 1 item e o
+  total; sem dados, o WhatsApp não abriu; com os dados, a mensagem foi montada para
+  `wa.me/5511985991837` (interceptada: nada foi enviado ao comercial). Também no celular, com a barra de
+  envio. Esse teste mostrou que os nomes guardados na sessão do WooCommerce vêm com entidades HTML
+  ("&#8211;"); a página passou a convertê-los. A jornada com vários produtos e quantidades foi testada
+  com a Store API simulada (alterar o carrinho real exigiria gravar na loja).
 
-1. Página do produto Bateria Dell nu209 → "Orçamento": o WooCommerce adicionou (`add-item` 201) e o
-   carrinho novo mostrou o item e R$ 350,00.
-2. "Avançar para o pagamento" → a finalização nova mostrou o mesmo item e total, Brasil/São Paulo da
-   sessão e a forma de pagamento `woo_paypal_stripe_gateway_set` (vinda do carrinho).
-3. Enviar sem preencher: 10 erros na página, nada enviado. Cupom inexistente: a resposta real do
-   WooCommerce ("Coupon "teste-inexistente" does not exist!") na página.
-4. **Um pedido de teste** (autorizado: "Pedido teste sem pagar"), enviado uma vez, às 09:47 de
-   12/11/2026 (horário de Brasília), com o cartão de teste de recusa 4000 0000 0000 0002:
-   - Nome "TESTE", sobrenome "NOVA FINALIZACAO – NAO PROCESSAR", empresa "MSSERVER (teste interno)",
-     Rua Salvador de Sá, 182, Santo André/SP, 09090-000, (11) 4858-5358,
-     `teste-finalizacao@example.com` (domínio que não recebe e-mail); nota "PEDIDO DE TESTE da nova
-     página de finalização de compra (cartão de teste recusado). Não processar; pode cancelar.";
-     1 × Bateria Dell nu209, R$ 350,00.
-   - O WooCommerce recebeu o pedido com todos os campos e chamou a forma de pagamento. Ela não
-     devolveu um resultado ao WooCommerce: encerrou a resposta por conta própria, no formato da
-     finalização clássica (`{"result":"failure","messages":"…Error processing checkout. Please try
-     again.…","refresh":true,"reload":true}`), sem número de pedido. A página mostrou "Erro ao
-     processar o pedido. Por favor, tente novamente." (a mesma mensagem, em português), manteve os
-     dados e o carrinho (1 item, R$ 350,00, relido da loja).
-   - **Para a equipe:** o pedido deve estar em WooCommerce → Pedidos como "Pendente" (ou "Malsucedido",
-     se a forma de pagamento o marcou assim), no nome "TESTE NOVA FINALIZACAO – NAO PROCESSAR".
-     Cancele ou exclua. Como a resposta não trouxe o número, ele não pôde ser anotado aqui.
+## Atenção: forma de pagamento `woo_paypal_stripe_gateway_set` no WordPress
 
-## Atenção: forma de pagamento `woo_paypal_stripe_gateway_set` (verificar antes de publicar)
-
-- O nome sugere PayPal/Stripe, mas a página não carrega nenhum script do Stripe nem do PayPal: número
-  do cartão, validade e código vão **direto para o servidor da loja** (assim já era na finalização
-  clássica). Integrações oficiais do Stripe não recebem o número do cartão no servidor da loja.
-- O plugin que registra essa forma de pagamento não carrega arquivos na página, então não foi
-  possível identificá-lo de fora.
-- No teste, ela respondeu sozinha com uma mensagem genérica, sem motivo de recusa, em vez de devolver
-  o resultado ao WooCommerce.
-- Com o certificado HTTPS vencido, quem compra pelo endereço `http://` envia os dados do cartão sem
-  criptografia.
-
-**Recomendação:** antes de publicar esta página (e independentemente dela), quem administra o
-WordPress deve identificar o plugin de `woo_paypal_stripe_gateway_set`, confirmar que é legítimo e que
-os pagamentos chegam à conta da MSSERVER (pedidos pagos recentes, painel do Stripe/PayPal), verificar
-se o site tem código malicioso e renovar o certificado HTTPS. A página nova envia exatamente o que a
-antiga enviava, só por HTTPS; se a forma de pagamento for trocada, os campos vêm de
-`npm run sync:checkout`.
+A finalização de orçamento não usa forma de pagamento. Ainda assim, a finalização de compra do
+WordPress continua no ar (e é o destino dos caminhos de reserva acima), com uma forma de pagamento que
+recebe número do cartão, validade e código direto no servidor da loja, sem script do Stripe nem do
+PayPal, por um plugin que não foi possível identificar de fora; com o certificado HTTPS vencido, pelo
+`http://` esses dados trafegam sem criptografia. Recomendação: quem administra o WordPress deve
+identificar o plugin, confirmar se é legítimo (ou desativar essa forma de pagamento, já que o site não
+recebe pagamentos), verificar se há código malicioso e renovar o certificado HTTPS.

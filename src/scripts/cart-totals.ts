@@ -1,7 +1,7 @@
 import { decodeEntities, money, type Cart } from './store-api';
 
 // Linhas de total do carrinho (Subtotal, cupons, taxas, entrega, impostos e Total), com os valores que o
-// WooCommerce devolve: usadas no carrinho e no resumo da finalização de compra.
+// WooCommerce devolve: usadas no carrinho e no resumo da finalização de orçamento.
 
 export type TotalsText = {
   subtotal: string;
@@ -10,8 +10,6 @@ export type TotalsText = {
   shippingLater: string;
   tax: string;
   total: string;
-  /** Com este texto, cada cupom ganha um botão para removê-lo (finalização de compra). */
-  removeCoupon?: string;
 };
 
 /** Preços exibidos com imposto? (o WooCommerce manda a preferência embutida no preço da unidade). */
@@ -22,13 +20,9 @@ export function totalsHtml(c: Cart, T: TotalsText) {
   const t = c.totals;
   const incl = pricesIncludeTax(c);
   const fill = (s: string, v: string) => s.replace('%s', v);
-  const row = (dt: string, dd: string, cls = '', extra = '') => `<div class="cart-total${cls ? ` ${cls}` : ''}"><dt>${escapeHtml(dt)}${extra}</dt><dd>${escapeHtml(dd)}</dd></div>`;
+  const row = (dt: string, dd: string, cls = '') => `<div class="cart-total${cls ? ` ${cls}` : ''}"><dt>${escapeHtml(dt)}</dt><dd>${escapeHtml(dd)}</dd></div>`;
   const parts = [row(T.subtotal, money(Number(t.total_items) + (incl ? Number(t.total_items_tax) : 0), t))];
-  for (const cp of c.coupons) {
-    const code = cp.code.toUpperCase();
-    const remove = T.removeCoupon ? ` <button type="button" class="cart-coupon-remove" data-coupon="${escapeHtml(cp.code)}" aria-label="${escapeHtml(`${T.removeCoupon} ${code}`)}">${escapeHtml(T.removeCoupon)}</button>` : '';
-    parts.push(row(fill(T.coupon, code), money(-(Number(cp.totals.total_discount) + (incl ? Number(cp.totals.total_discount_tax) : 0)), cp.totals), 'is-discount', remove));
-  }
+  for (const cp of c.coupons) parts.push(row(fill(T.coupon, cp.code.toUpperCase()), money(-(Number(cp.totals.total_discount) + (incl ? Number(cp.totals.total_discount_tax) : 0)), cp.totals), 'is-discount'));
   for (const f of c.fees) parts.push(row(decodeEntities(f.name), money(Number(f.totals.total) + (incl ? Number(f.totals.total_tax) : 0), f.totals)));
   if (c.needs_shipping) parts.push(row(T.shipping, c.has_calculated_shipping && t.total_shipping !== null ? money(t.total_shipping, t) : T.shippingLater));
   if (!incl && Number(t.total_tax) > 0) parts.push(row(T.tax, money(t.total_tax, t)));

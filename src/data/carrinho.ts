@@ -2,6 +2,8 @@
 // português, como aparecem na página publicada (o All in One SEO guardou um retrato do carrinho com
 // itens: "Produto, Preço, Quantidade, Subtotal, Atualizar o carrinho, Orçamento pelo WhatsApp, Total
 // no carrinho, Subtotal, Total, Avançar para o pagamento"). Os itens e valores vêm da Store API.
+// A MSSERVER não recebe pagamentos pelo site: o carrinho avança para a finalização de orçamento
+// (/finalizar-compra/), que envia a solicitação ao comercial pelo WhatsApp.
 import { WHATSAPP } from '../config/site';
 
 export const CART = {
@@ -14,7 +16,7 @@ export const CART = {
   totalsTitle: 'Total no carrinho',
   subtotal: 'Subtotal',
   total: 'Total',
-  checkout: 'Avançar para o pagamento',
+  checkout: 'Avançar para o orçamento',
   whatsapp: 'Orçamento pelo WhatsApp',
   // Mensagens do WooCommerce (pt_BR).
   empty: 'Seu carrinho está vazio.',
@@ -35,7 +37,7 @@ export const CART = {
   retry: 'Tentar de novo',
   consult: 'Fale com um consultor',
   noScriptTitle: 'O carrinho precisa de JavaScript.',
-  noScriptText: 'Ative o JavaScript no navegador ou siga para a finalização da compra, que mostra os mesmos itens.',
+  noScriptText: 'Ative o JavaScript no navegador ou fale com um consultor pelo WhatsApp.',
 } as const;
 
 /**
