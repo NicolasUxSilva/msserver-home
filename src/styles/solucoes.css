@@ -1,0 +1,402 @@
+/* ——— Páginas de soluções (Nuvem Privada, Extensão de Garantia, Backup em Nuvem, Consultoria) ———
+   Partes comuns, na linguagem da home, de "Sobre nós" e das landings de Servidores Físicos e
+   Soluções Cloud: grifo laranja nos títulos, cartões brancos, formulário de contato, vídeo e faixa
+   final escura. Cada página tem a própria composição (estilos no componente). Prefixo sol-. */
+
+/* Grifo laranja de uma expressão do título (como nas landings). */
+.sol-mark {
+  padding-inline: 0.04em;
+  background: linear-gradient(transparent 64%, rgb(249 131 5 / 0.32) 64%, rgb(249 131 5 / 0.32) 92%, transparent 92%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.on-dark .sol-mark {
+  background: linear-gradient(transparent 66%, rgb(249 131 5 / 0.55) 66%, rgb(249 131 5 / 0.55) 90%, transparent 90%);
+}
+
+/* Cabeçalho de seção em duas colunas (título à esquerda, apoio à direita), como nas landings. */
+@media (min-width: 900px) {
+  .sol-head {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: end;
+  }
+}
+
+.sol-card {
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-1);
+}
+
+/* ——— Formulário de contato ——— */
+.sol-lead {
+  position: relative;
+  padding: clamp(1.4rem, 1rem + 1.4vw, 2.1rem);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  box-shadow: var(--shadow-1);
+}
+
+.sol-lead--dark {
+  border-color: transparent;
+  box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.65);
+}
+
+.sol-form {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.sol-form[hidden] {
+  display: none;
+}
+
+.sol-fields {
+  display: grid;
+  gap: 1rem;
+}
+
+.sol-field {
+  display: grid;
+  gap: 0.4rem;
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+}
+
+.sol-label {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.sol-req {
+  margin-left: 0.15em;
+  color: var(--c-danger);
+}
+
+.sol-input {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 1rem;
+  border: 1.5px solid var(--c-line-2);
+  border-radius: 12px;
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font-size: 1rem;
+  transition:
+    border-color var(--dur-1) var(--ease-out),
+    box-shadow var(--dur-1) var(--ease-out);
+}
+
+.sol-input::placeholder {
+  color: var(--c-ink-3);
+  opacity: 1;
+}
+
+.sol-input:hover {
+  border-color: var(--c-ink-3);
+}
+
+.sol-input:focus {
+  border-color: var(--c-indigo-600);
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(61 58 134 / 0.16);
+}
+
+.sol-input[readonly] {
+  opacity: 0.7;
+}
+
+.sol-field.is-invalid .sol-input {
+  border-color: var(--c-danger);
+  background: #fffafa;
+}
+
+.sol-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  color: var(--c-danger);
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.sol-error[hidden] {
+  display: none;
+}
+
+.sol-error svg {
+  flex: none;
+  margin-top: 0.12rem;
+}
+
+.sol-submit {
+  width: 100%;
+}
+
+.sol-submit-spin {
+  display: none;
+}
+
+.is-sending .sol-submit-send {
+  display: none;
+}
+
+.is-sending .sol-submit-spin {
+  display: block;
+  animation: sol-spin 0.9s linear infinite;
+}
+
+@keyframes sol-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sol-form-alert {
+  display: flex;
+  gap: 0.65rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgb(180 47 37 / 0.25);
+  border-left: 4px solid var(--c-danger);
+  border-radius: 14px;
+  background: var(--c-danger-bg);
+  font-size: 0.9rem;
+}
+
+.sol-form-alert[hidden] {
+  display: none;
+}
+
+.sol-form-alert:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(180 47 37 / 0.14);
+}
+
+.sol-form-alert > svg {
+  flex: none;
+  color: var(--c-danger);
+}
+
+.sol-form-alert-title {
+  color: var(--c-danger);
+  font-weight: 600;
+}
+
+.sol-form-alert-help a {
+  color: var(--c-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--c-orange);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.sol-form-success {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  padding: 1.5rem 0.5rem;
+  text-align: center;
+}
+
+.sol-form-success[hidden] {
+  display: none;
+}
+
+.sol-form-success:focus {
+  outline: none;
+}
+
+.sol-form-success-icon {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--c-success-bg);
+  color: var(--c-success);
+}
+
+.sol-form-success-title {
+  font-family: var(--f-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.sol-form-success p:not(.sol-form-success-title) {
+  max-width: 36ch;
+  color: var(--c-ink-2);
+}
+
+.sol-form-success .btn {
+  margin-top: 0.4rem;
+}
+
+/* ——— Vídeo (capa do YouTube; o player entra no clique) ——— */
+.sol-video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  background: var(--c-indigo-950);
+  box-shadow: 0 50px 90px -45px rgb(0 0 0 / 0.7);
+}
+
+.sol-video-poster,
+.sol-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+}
+
+.sol-video-poster {
+  transition: transform 0.8s var(--ease-out);
+}
+
+.sol-video-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, rgb(4 18 45 / 0.12), rgb(4 18 45 / 0.62));
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+}
+
+.sol-video-button {
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 5rem + 2vw, 92px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c-orange);
+  color: #1a0f02;
+  box-shadow:
+    0 0 0 10px rgb(249 131 5 / 0.22),
+    0 20px 40px -12px rgb(0 0 0 / 0.6);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.sol-video-button svg {
+  margin-left: 4px;
+  fill: currentColor;
+}
+
+.sol-video-label {
+  max-width: 34ch;
+  font-size: clamp(0.88rem, 0.82rem + 0.3vw, 1rem);
+  font-weight: 600;
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.6);
+}
+
+.sol-video-play:hover .sol-video-button,
+.sol-video-play:focus-visible .sol-video-button {
+  transform: scale(1.06);
+}
+
+.sol-video-play:hover ~ .sol-video-poster,
+.sol-video:hover .sol-video-poster {
+  transform: scale(1.03);
+}
+
+.sol-video-play:focus-visible {
+  outline: 3px solid var(--c-orange);
+  outline-offset: -6px;
+  border-radius: var(--r-xl);
+}
+
+@media (max-width: 599px) {
+  .sol-video {
+    border-radius: var(--r-lg);
+  }
+
+  .sol-video-label {
+    display: none;
+  }
+}
+
+/* ——— Faixa final ——— */
+.sol-cta {
+  position: relative;
+  padding-block: clamp(4.5rem, 3rem + 5vw, 7.5rem);
+  overflow: hidden;
+  background: var(--c-navy-950, #010c20);
+  isolation: isolate;
+}
+
+.sol-cta-bg,
+.sol-cta-bg img,
+.sol-cta-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sol-cta-bg {
+  z-index: -2;
+}
+
+.sol-cta-bg img {
+  object-fit: cover;
+  object-position: right center;
+}
+
+.sol-cta-shade {
+  z-index: -1;
+  background:
+    radial-gradient(60% 90% at 50% 100%, rgb(249 131 5 / 0.16), transparent 70%),
+    linear-gradient(90deg, rgb(1 12 32 / 0.92) 0%, rgb(1 12 32 / 0.72) 55%, rgb(1 12 32 / 0.35) 100%);
+}
+
+.sol-cta-inner {
+  display: grid;
+  justify-items: start;
+  gap: 1.2rem;
+}
+
+.sol-cta-title {
+  max-width: 20ch;
+  font-size: var(--t-h2);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.sol-cta .btn {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .sol-cta-bg img {
+    object-position: center bottom;
+  }
+
+  .sol-cta-shade {
+    background:
+      radial-gradient(90% 60% at 50% 100%, rgb(249 131 5 / 0.18), transparent 70%),
+      linear-gradient(180deg, rgb(1 12 32 / 0.92) 0%, rgb(1 12 32 / 0.75) 60%, rgb(1 12 32 / 0.55) 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sol-video-poster,
+  .sol-video-button {
+    transition: none;
+  }
+
+  .is-sending .sol-submit-spin {
+    animation-duration: 2.4s;
+  }
+}

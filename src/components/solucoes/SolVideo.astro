@@ -1,0 +1,48 @@
+---
+// Vídeo do YouTube das páginas de soluções (widget de vídeo do Elementor, com controles e sem
+// reprodução automática). A capa do próprio vídeo aparece primeiro; o player só carrega quando a
+// pessoa clica para assistir (mais leve que carregar o YouTube com a página).
+import Icon from '../Icon.astro';
+
+interface Props {
+  id: string;
+  /** Segundo em que o vídeo começa (o link publicado pode ter &t=46s). */
+  start?: number;
+  /** Título do vídeo no YouTube (rótulo do player e do botão). */
+  label: string;
+}
+
+const { id, start = 0, label } = Astro.props;
+const params = new URLSearchParams({ autoplay: '1', rel: '0', playsinline: '1', ...(start ? { start: String(start) } : {}) });
+const embed = `https://www.youtube.com/embed/${id}?${params}`;
+const watch = `https://www.youtube.com/watch?v=${id}${start ? `&t=${start}s` : ''}`;
+const poster = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+---
+
+<div class="sol-video" data-sol-video data-src={embed} data-title={label}>
+  <img class="sol-video-poster" src={poster} alt="" width="1280" height="720" loading="lazy" decoding="async" onerror="this.remove()" />
+  <a class="sol-video-play" href={watch} target="_blank" rel="noopener" data-sol-video-play>
+    <span class="sol-video-button" aria-hidden="true"><Icon name="play" size={30} /></span>
+    <span class="sr-only">Assistir ao vídeo: {label}</span>
+    <span class="sol-video-label" aria-hidden="true">{label}</span>
+  </a>
+</div>
+
+<script>
+  // Clique: troca a capa pelo player do YouTube, já tocando (o link continua funcionando sem JS, no YouTube).
+  document.querySelectorAll<HTMLElement>('[data-sol-video]').forEach((box) => {
+    box.querySelector<HTMLAnchorElement>('[data-sol-video-play]')?.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      const iframe = document.createElement('iframe');
+      iframe.src = box.dataset.src!;
+      iframe.title = box.dataset.title ?? 'Vídeo';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allowFullscreen = true;
+      box.classList.add('is-playing');
+      box.replaceChildren(iframe);
+      iframe.focus();
+    });
+  });
+</script>

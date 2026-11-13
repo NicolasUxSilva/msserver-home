@@ -1,0 +1,86 @@
+---
+// Formulário de contato das páginas de soluções (Extensão de Garantia, Backup em Nuvem e Consultoria):
+// os mesmos campos, textos e destino do widget de formulário do Elementor de cada página
+// (src/data/solucoes.ts). O envio é o do Elementor (src/scripts/elementor-form.ts); quem recebe e o
+// que acontece depois continua configurado no WordPress.
+import Icon from '../Icon.astro';
+import { ELEMENTOR, FORM_TEXTS, type LeadForm } from '../../data/solucoes';
+
+interface Props {
+  form: LeadForm;
+  /** Prefixo dos ids (a página pode ter mais de um formulário). */
+  prefix: string;
+  /** Superfície em volta: o cartão é sempre branco; muda só a sombra e a borda. */
+  tone?: 'light' | 'dark';
+  /** WhatsApp oferecido se o envio falhar (o da própria página). */
+  whatsapp: string;
+}
+
+const { form, prefix, tone = 'light', whatsapp } = Astro.props;
+const config = { endpoint: ELEMENTOR.endpoint, action: ELEMENTOR.action, postId: form.postId, formId: form.formId, refererTitle: form.refererTitle };
+const id = (f: string) => `${prefix}-${f}`;
+---
+
+<div class:list={['sol-lead', `sol-lead--${tone}`]} data-sol-lead data-config={JSON.stringify(config)}>
+  <form class="sol-form" method="post" action={ELEMENTOR.endpoint} novalidate data-sol-form>
+    <div class="sol-form-alert" role="alert" tabindex="-1" hidden data-alert>
+      <Icon name="circle-alert" size={20} />
+      <div>
+        <p class="sol-form-alert-title">{FORM_TEXTS.errorTitle}</p>
+        <p data-alert-text></p>
+        <p class="sol-form-alert-help">
+          <a href={whatsapp} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location={`${prefix}-erro`}>{FORM_TEXTS.fallback}</a>
+        </p>
+      </div>
+    </div>
+    <div class="sol-fields">
+      {
+        form.fields.map((f) => (
+          <div class="sol-field" data-field={f.id}>
+            <label class="sol-label" for={id(f.id)}>
+              {f.label}
+              <span class="sol-req" aria-hidden="true">
+                *
+              </span>
+            </label>
+            <input
+              class="sol-input"
+              id={id(f.id)}
+              name={`form_fields[${f.id}]`}
+              type={f.type}
+              required
+              placeholder={f.placeholder}
+              autocomplete={f.autocomplete}
+              inputmode={f.type === 'tel' ? 'tel' : f.type === 'email' ? 'email' : undefined}
+              spellcheck={f.type === 'text' ? undefined : 'false'}
+              aria-describedby={`${id(f.id)}-erro`}
+              data-type={f.type}
+            />
+            <p class="sol-error" id={`${id(f.id)}-erro`} hidden>
+              <Icon name="circle-alert" size={15} />
+              <span data-error />
+            </p>
+          </div>
+        ))
+      }
+    </div>
+    <button class="btn btn--primary btn--lg sol-submit" type="submit" data-submit>
+      <span data-submit-label>{form.submit}</span>
+      <Icon name="send" size={18} class="sol-submit-send" />
+      <Icon name="loader-circle" size={18} class="sol-submit-spin" />
+    </button>
+    <p class="sr-only" aria-live="polite" data-live></p>
+  </form>
+
+  <div class="sol-form-success" role="status" tabindex="-1" hidden data-success>
+    <span class="sol-form-success-icon" aria-hidden="true"><Icon name="check" size={26} strokeWidth={2.5} /></span>
+    <p class="sol-form-success-title">{FORM_TEXTS.successTitle}</p>
+    <p data-success-message></p>
+    <button class="btn btn--outline" type="button" data-again>{FORM_TEXTS.again}</button>
+  </div>
+</div>
+
+<script>
+  import { initLeadForms } from '../../scripts/sol-lead-form';
+  initLeadForms();
+</script>

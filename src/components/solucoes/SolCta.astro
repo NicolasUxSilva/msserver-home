@@ -1,0 +1,45 @@
+---
+// Faixa final das páginas de soluções ("Fale com um especialista", "Tem alguma dúvida…?"): o título
+// e o botão de WhatsApp publicados, sobre a superfície escura do site (com a foto de fundo da página,
+// quando ela existe).
+import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
+import Icon from '../Icon.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  button: string;
+  href: string;
+  /** Lugar do clique (análise). */
+  track: string;
+  /** Foto de fundo publicada (desktop e celular), se houver. */
+  image?: ImageMetadata;
+  imageMobile?: ImageMetadata;
+}
+
+const { eyebrow, title, button, href, track, image, imageMobile } = Astro.props;
+const bg = image ? await getImage({ src: image, widths: [960, 1680], format: 'webp', quality: 72 }) : null;
+const bgMobile = imageMobile ? await getImage({ src: imageMobile, widths: [540, 1080], format: 'webp', quality: 70 }) : null;
+---
+
+<section class="sol-cta dark-surface on-dark" aria-label={title}>
+  {
+    bg && (
+      <picture class="sol-cta-bg" aria-hidden="true">
+        {bgMobile && <source media="(max-width: 767px)" srcset={bgMobile.srcSet.attribute} sizes="100vw" />}
+        <img src={bg.src} srcset={bg.srcSet.attribute} sizes="100vw" alt="" loading="lazy" decoding="async" />
+      </picture>
+    )
+  }
+  <div class="sol-cta-shade" aria-hidden="true"></div>
+  <div class="container sol-cta-inner" data-reveal>
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2 class="sol-cta-title">{title}</h2>
+    <a class="btn btn--primary btn--lg" href={href} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location={track}>
+      <Icon name="whatsapp" size={20} class="wa-icon" />
+      {button}
+      <Icon name="arrow-right" class="btn-arrow" />
+    </a>
+  </div>
+</section>

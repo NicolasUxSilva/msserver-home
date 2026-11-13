@@ -1,0 +1,716 @@
+---
+// Nuvem Privada (https://msserver.com.br/nuvem-privada/), reconstruída com a mesma estrutura,
+// textos, imagens, formulário, links e botão da página do WordPress (src/data/solucoes.ts).
+// Narrativa própria: infraestrutura dedicada, controle e configuração sob medida; a página de
+// Soluções Cloud continua sendo a apresentação geral da nuvem.
+import '../../styles/solucoes.css';
+import { Image, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import WhatsAppFab from '../WhatsAppFab.astro';
+import Icon from '../Icon.astro';
+import NpConfigurador from './NpConfigurador.astro';
+import SolCta from './SolCta.astro';
+import { ROUTES } from '../../config/site';
+import { NUVEM_PRIVADA as P } from '../../data/solucoes';
+import abertura from '../../assets/solucoes/nuvem-privada/abertura.jpg';
+import aberturaCelular from '../../assets/solucoes/nuvem-privada/abertura-celular.jpg';
+import datacenter from '../../assets/solucoes/nuvem-privada/datacenter.jpg';
+import especialista from '../../assets/solucoes/nuvem-privada/especialista.jpg';
+import especialistaCelular from '../../assets/solucoes/nuvem-privada/especialista-celular.jpg';
+
+const icons = import.meta.glob<{ default: ImageMetadata }>('../../assets/solucoes/nuvem-privada/{icone,diferencial}-*.png', { eager: true });
+const logos = import.meta.glob<{ default: ImageMetadata }>('../../assets/solucoes/nuvem-privada/parceiros/*.png', { eager: true });
+const icon = (name: string) => icons[`../../assets/solucoes/nuvem-privada/${name}.png`].default;
+const logo = (name: string) => logos[`../../assets/solucoes/nuvem-privada/parceiros/${name}.png`].default;
+
+const hero = await getImage({ src: abertura, widths: [960, 1680], format: 'webp', quality: 78 });
+const heroMobile = await getImage({ src: aberturaCelular, widths: [540, 1080], format: 'webp', quality: 74 });
+
+// Itens que o texto de "Uma nuvem feita para você" manda especificar (as mesmas palavras do texto).
+const specify = ['Latência de storage', 'Topologia de rede', 'Criticidade do ambiente', 'Processadores virtuais e memória', 'Periféricos específicos', 'Critérios de segurança', 'Tecnologia de virtualização'];
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<Base title={P.seo.title} description={P.seo.description} canonical={P.seo.canonical} ogType="article" robots={P.seo.robots} schema={P.seo.schema}>
+  <Header current={ROUTES.nuvemPrivada} />
+  <main id="conteudo">
+    {/* ——— Abertura: a arte publicada da nuvem sobre o processador ——— */}
+    <section class="np-hero dark-surface on-dark" aria-labelledby="np-title">
+      <picture class="np-hero-bg" aria-hidden="true">
+        <source media="(max-width: 767px)" srcset={heroMobile.srcSet.attribute} sizes="100vw" />
+        <img src={hero.src} srcset={hero.srcSet.attribute} sizes="100vw" alt="" fetchpriority="high" decoding="async" />
+      </picture>
+      <div class="np-hero-shade" aria-hidden="true"></div>
+      <div class="np-hero-grid" aria-hidden="true"></div>
+      <div class="container np-hero-inner">
+        <p class="eyebrow np-hero-eyebrow">Soluções</p>
+        <h1 id="np-title" class="np-title">{P.hero.title}</h1>
+        <p class="np-lead">{P.hero.lead}</p>
+        <div class="np-hero-actions">
+          <a class="btn btn--primary btn--lg" href="#configuracao">
+            {P.config.title.split(' para ')[0]}
+            <Icon name="arrow-down" size={18} />
+          </a>
+          <a class="btn btn--outline-dark btn--lg" href={P.cta.href} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="nuvem-privada-abertura">
+            <Icon name="whatsapp" size={18} class="wa-icon" />
+            {P.cta.button}
+          </a>
+        </div>
+        <ul class="np-hero-specs" aria-label="Etapas da configuração">
+          {
+            P.config.form.steps.map((s, i) => (
+              <li style={`--reveal-i:${i}`}>
+                <Icon name={['cpu', 'memory-stick', 'hard-drive', 'globe'][i]} size={16} />
+                {s.label}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <NpConfigurador />
+
+    {/* ——— Uma nuvem feita para você ——— */}
+    <section class="section np-intro" aria-labelledby="np-intro-title">
+      <div class="container np-intro-grid">
+        <figure class="np-intro-media" data-reveal="zoom">
+          <Image src={datacenter} alt="Técnico com tablet entre racks de servidores no data center" widths={[480, 800]} sizes="(min-width: 1000px) 44vw, 100vw" class="np-intro-img" loading="lazy" />
+          <span class="np-intro-tag" aria-hidden="true">
+            <Icon name="shield-check" size={16} />
+            {P.hero.title}
+          </span>
+        </figure>
+        <div class="np-intro-copy" data-reveal>
+          <p class="eyebrow"><b>02</b> Sob medida</p>
+          <h2 id="np-intro-title" class="np-h2">{P.intro.title}</h2>
+          <p class="np-intro-text">{P.intro.text}</p>
+          <div class="np-specify">
+            <p class="np-specify-label">Especifique</p>
+            <ul>
+              {specify.map((s) => <li>{s}</li>)}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ——— A melhor performance pelo menor custo ——— */}
+    <section class="section section--tint np-perf" aria-labelledby="np-perf-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow"><b>03</b> Performance</p>
+          <h2 id="np-perf-title">{P.performance.title}</h2>
+        </header>
+        <ol class="np-perf-grid">
+          {
+            P.performance.items.map((it, i) => (
+              <li class="np-perf-card" data-reveal style={`--reveal-i:${i}`}>
+                <div class="np-perf-top">
+                  <Image src={icon(it.icon)} alt="" widths={[72, 144]} sizes="72px" class="np-perf-icon" loading="lazy" />
+                  <span class="np-perf-num">{pad(i + 1)}</span>
+                </div>
+                <h3>{it.title}</h3>
+                <p>{it.text}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    {/* ——— Nossos Diferenciais (era um carrossel; aqui, todos à vista) ——— */}
+    <section class="section section--dark np-dif" aria-labelledby="np-dif-title">
+      <div class="np-dif-glow" aria-hidden="true"></div>
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow"><b>04</b> Diferenciais</p>
+          <h2 id="np-dif-title">{P.diferenciais.title}</h2>
+        </header>
+        <ul class="np-dif-grid">
+          {
+            P.diferenciais.items.map((it, i) => (
+              <li class:list={['np-dif-card', i === 0 && 'np-dif-card--lead']} data-reveal style={`--reveal-i:${i % 3}`}>
+                <span class="np-dif-icon" aria-hidden="true">
+                  <Image src={icon(it.image)} alt="" widths={[56, 112]} sizes="56px" loading="lazy" />
+                </span>
+                {i === 0 && (
+                  <span class="np-dif-big" aria-hidden="true">
+                    100<small>%</small>
+                  </span>
+                )}
+                <div class="np-dif-copy">
+                  <h3>{it.title}</h3>
+                  <p>{it.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    {/* ——— Parceiros ——— */}
+    <section class="section np-partners" aria-labelledby="np-partners-title">
+      <div class="container">
+        <header class="np-partners-head" data-reveal>
+          <p class="eyebrow"><b>05</b> {P.parceiros.eyebrow}</p>
+          <h2 id="np-partners-title" class="np-h2">{P.parceiros.title}</h2>
+        </header>
+      </div>
+      <div class="np-marquee" data-reveal>
+        <div class="np-marquee-track">
+          <ul class="np-logos">
+            {
+              P.parceiros.logos.map((l) => (
+                <li>
+                  <Image src={logo(l.file)} alt={l.name} widths={[144, 287]} sizes="144px" loading="lazy" />
+                </li>
+              ))
+            }
+          </ul>
+          {/* Cópia para o movimento contínuo (fora da leitura e da tabulação). */}
+          <ul class="np-logos" aria-hidden="true">
+            {
+              P.parceiros.logos.map((l) => (
+                <li>
+                  <Image src={logo(l.file)} alt="" widths={[144, 287]} sizes="144px" loading="lazy" />
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <SolCta eyebrow={P.cta.eyebrow} title={P.cta.title} button={P.cta.button} href={P.cta.href} track="nuvem-privada-cta" image={especialista} imageMobile={especialistaCelular} />
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Base>
+
+<style>
+  /* ——— Abertura ——— */
+  .np-hero {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: min(86svh, 780px);
+    padding-block: clamp(3.5rem, 2rem + 6vw, 7rem);
+    overflow: hidden;
+    background: #04122d;
+    isolation: isolate;
+  }
+
+  .np-hero-bg,
+  .np-hero-bg img,
+  .np-hero-shade,
+  .np-hero-grid {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .np-hero-bg {
+    z-index: -3;
+  }
+
+  .np-hero-bg img {
+    object-fit: cover;
+    object-position: 70% center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .np-hero-bg img {
+      animation: np-drift 18s var(--ease-in-out) infinite alternate;
+    }
+  }
+
+  @keyframes np-drift {
+    from {
+      transform: scale(1.04);
+    }
+    to {
+      transform: scale(1.1) translateX(-1.5%);
+    }
+  }
+
+  .np-hero-shade {
+    z-index: -2;
+    background:
+      linear-gradient(90deg, rgb(2 10 30 / 0.92) 0%, rgb(2 10 30 / 0.72) 38%, rgb(2 10 30 / 0.15) 70%, transparent 100%),
+      linear-gradient(0deg, rgb(2 10 30 / 0.7), transparent 35%);
+  }
+
+  .np-hero-grid {
+    z-index: -1;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: linear-gradient(90deg, #000 0%, transparent 60%);
+  }
+
+  .np-hero-inner {
+    display: grid;
+    justify-items: start;
+    gap: 1.25rem;
+  }
+
+  .np-hero-eyebrow {
+    color: var(--c-on-dark-2);
+  }
+
+  .np-title {
+    font-size: clamp(3rem, 1.6rem + 6vw, 6.4rem);
+    letter-spacing: -0.055em;
+    line-height: 0.95;
+  }
+
+  .np-lead {
+    max-width: 34ch;
+    color: var(--c-on-dark-2);
+    font-size: clamp(1.12rem, 1rem + 0.6vw, 1.45rem);
+    line-height: 1.5;
+  }
+
+  .np-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .np-hero-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: clamp(1.5rem, 1rem + 2vw, 3rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .np-hero-specs li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.06);
+    color: var(--c-on-dark);
+    font-family: var(--f-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    backdrop-filter: blur(6px);
+  }
+
+  .np-hero-specs :global(svg) {
+    color: var(--c-orange);
+  }
+
+  @media (max-width: 767px) {
+    .np-hero {
+      align-items: start;
+      min-height: auto;
+      padding-bottom: clamp(14rem, 60vw, 22rem);
+    }
+
+    .np-hero-bg img {
+      object-position: center bottom;
+    }
+
+    .np-hero-shade {
+      background: linear-gradient(180deg, rgb(2 10 30 / 0.9) 0%, rgb(2 10 30 / 0.7) 45%, rgb(2 10 30 / 0.05) 80%);
+    }
+
+    .np-hero-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* ——— Uma nuvem feita para você ——— */
+  .np-h2 {
+    font-size: var(--t-h2);
+    letter-spacing: -0.035em;
+    line-height: 1.06;
+  }
+
+  .np-intro-grid {
+    display: grid;
+    gap: clamp(2rem, 1rem + 4vw, 5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 1000px) {
+    .np-intro-grid {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+  }
+
+  .np-intro-media {
+    position: relative;
+    margin: 0;
+  }
+
+  .np-intro-media :global(.np-intro-img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--r-xl);
+    object-fit: cover;
+    box-shadow: var(--shadow-2);
+  }
+
+  .np-intro-media::before {
+    content: '';
+    position: absolute;
+    inset: auto -18px -18px 18px;
+    z-index: -1;
+    height: 70%;
+    border-radius: var(--r-xl);
+    background: repeating-linear-gradient(135deg, rgb(249 131 5 / 0.22) 0 2px, transparent 2px 10px);
+  }
+
+  .np-intro-tag {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.92);
+    color: var(--c-ink);
+    font-size: 0.82rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-1);
+  }
+
+  .np-intro-tag :global(svg) {
+    color: var(--c-success);
+  }
+
+  .np-intro-copy {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .np-intro-text {
+    color: var(--c-ink-2);
+    font-size: var(--t-lead);
+    line-height: 1.65;
+  }
+
+  .np-specify {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--c-line);
+  }
+
+  .np-specify-label {
+    color: var(--c-ink-3);
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .np-specify ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .np-specify li {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--c-line);
+    border-radius: 8px;
+    background: var(--c-surface);
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+
+  /* ——— Performance ——— */
+  .np-perf-grid {
+    display: grid;
+    gap: clamp(0.85rem, 0.6rem + 0.8vw, 1.25rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 860px) {
+    .np-perf-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .np-perf-card {
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+    padding: clamp(1.5rem, 1.2rem + 1vw, 2.2rem);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-1);
+    transition:
+      transform 0.35s var(--ease-out),
+      box-shadow 0.35s var(--ease-out);
+  }
+
+  .np-perf-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-2);
+  }
+
+  .np-perf-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+  }
+
+  .np-perf-top :global(.np-perf-icon) {
+    width: 72px;
+    height: 72px;
+  }
+
+  .np-perf-num {
+    color: var(--c-orange-text);
+    font-family: var(--f-display);
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .np-perf-card h3 {
+    font-size: var(--t-h3);
+    letter-spacing: -0.02em;
+  }
+
+  .np-perf-card p {
+    color: var(--c-ink-2);
+    line-height: 1.6;
+  }
+
+  /* ——— Diferenciais ——— */
+  .np-dif {
+    overflow: hidden;
+  }
+
+  .np-dif-glow {
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 60vw;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(46 110 210 / 0.28), transparent);
+    pointer-events: none;
+  }
+
+  .np-dif-grid {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 700px) {
+    .np-dif-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .np-dif-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .np-dif-card {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+    padding: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: var(--r-lg);
+    background: linear-gradient(160deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.02));
+    transition:
+      border-color 0.3s var(--ease-out),
+      transform 0.3s var(--ease-out);
+  }
+
+  .np-dif-card:hover {
+    border-color: rgb(249 131 5 / 0.45);
+    transform: translateY(-3px);
+  }
+
+  .np-dif-card--lead {
+    background:
+      radial-gradient(90% 70% at 100% 0%, rgb(249 131 5 / 0.22), transparent 70%),
+      linear-gradient(160deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02));
+  }
+
+  .np-dif-icon {
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    background: rgb(255 255 255 / 0.06);
+  }
+
+  .np-dif-icon :global(img) {
+    width: 48px;
+    height: 48px;
+  }
+
+  .np-dif-big {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.3rem;
+    font-family: var(--f-display);
+    font-size: clamp(3.4rem, 2.6rem + 2.4vw, 4.8rem);
+    font-weight: 600;
+    letter-spacing: -0.06em;
+    line-height: 0.85;
+    background: linear-gradient(180deg, #fff, rgb(255 255 255 / 0.55));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .np-dif-big small {
+    font-size: 0.45em;
+  }
+
+  .np-dif-copy {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .np-dif-card h3 {
+    font-size: var(--t-h3);
+    letter-spacing: -0.02em;
+  }
+
+  .np-dif-card p {
+    color: var(--c-on-dark-2);
+    line-height: 1.6;
+  }
+
+  /* ——— Parceiros ——— */
+  .np-partners {
+    overflow: hidden;
+  }
+
+  .np-partners-head {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);
+  }
+
+  .np-marquee {
+    position: relative;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .np-marquee-track {
+    display: flex;
+    width: max-content;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .np-marquee-track {
+      animation: np-marquee 40s linear infinite;
+    }
+
+    .np-marquee:hover .np-marquee-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes np-marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .np-logos {
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0 0.5rem;
+    list-style: none;
+  }
+
+  .np-logos li {
+    display: grid;
+    place-items: center;
+    width: clamp(150px, 12vw, 190px);
+    height: 104px;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-md);
+    background: var(--c-surface);
+  }
+
+  .np-logos :global(img) {
+    width: 72%;
+    height: auto;
+    filter: grayscale(1);
+    opacity: 0.85;
+    transition:
+      filter 0.3s var(--ease-out),
+      opacity 0.3s var(--ease-out);
+  }
+
+  .np-logos li:hover :global(img) {
+    filter: none;
+    opacity: 1;
+  }
+
+  /* Sem movimento: os logos em grade, sem a cópia. */
+  @media (prefers-reduced-motion: reduce) {
+    .np-marquee {
+      mask-image: none;
+    }
+
+    .np-marquee-track {
+      width: auto;
+      padding-inline: var(--gutter);
+    }
+
+    .np-logos {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .np-logos[aria-hidden='true'] {
+      display: none;
+    }
+
+    .np-perf-card,
+    .np-dif-card {
+      transition: none;
+    }
+  }
+</style>

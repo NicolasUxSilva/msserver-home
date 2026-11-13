@@ -2,7 +2,7 @@
 // As palavras, a pontuação e a ordem são as do WordPress. A única mudança é tipográfica:
 // títulos e botões publicados em CAIXA ALTA passam a usar caixa de frase, como nas landings.
 // A versão original de cada texto está em docs/PRESERVACAO.md.
-import { LINKS } from '../config/site';
+import { LINKS, ROUTES } from '../config/site';
 
 export type Slide = {
   key: string;
@@ -114,7 +114,8 @@ export const SOLUTIONS = [
     key: 'consultoria',
     title: 'Consultoria',
     text: 'Obtenha o melhor custo-benefício para o seu projeto. Nossa consultoria especializada em servidores físicos e recursos em nuvem garante uma implementação eficiente e econômica. Confira alguns casos de sucesso.',
-    href: 'https://msserver.com.br/consultoria-em-implantacao-de-servidores/',
+    // Página reconstruída neste projeto (mesmo endereço do WordPress).
+    href: ROUTES.consultoria,
   },
   {
     key: 'migracao',

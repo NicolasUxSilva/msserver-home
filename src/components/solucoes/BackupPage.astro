@@ -1,0 +1,680 @@
+---
+// Backup em Nuvem (https://msserver.com.br/backup-em-nuvem/), reconstruída com a mesma estrutura,
+// textos, imagens, vídeo, formulário, links e botões da página do WordPress (src/data/solucoes.ts).
+// Narrativa própria: proteção dos dados, continuidade da operação e recuperação.
+import '../../styles/solucoes.css';
+import { Image, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import WhatsAppFab from '../WhatsAppFab.astro';
+import Icon from '../Icon.astro';
+import SolLeadForm from './SolLeadForm.astro';
+import SolVideo from './SolVideo.astro';
+import SolCta from './SolCta.astro';
+import { ROUTES } from '../../config/site';
+import { BACKUP as P } from '../../data/solucoes';
+import abertura from '../../assets/solucoes/backup/abertura.jpg';
+import aberturaCelular from '../../assets/solucoes/backup/abertura-celular.jpg';
+import parceiros from '../../assets/solucoes/backup/parceiros.png';
+
+const icons = import.meta.glob<{ default: ImageMetadata }>('../../assets/solucoes/backup/icone-*.png', { eager: true });
+const icon = (name: string) => icons[`../../assets/solucoes/backup/${name}.png`].default;
+const bgMobile = await getImage({ src: aberturaCelular, widths: [540, 1080], format: 'webp', quality: 70 });
+const pad = (n: number) => String(n).padStart(2, '0');
+// Etiquetas da arte da abertura: expressões dos textos das vantagens.
+const tags = [
+  { icon: 'lock', text: 'Criptografia de dados' },
+  { icon: 'layers', text: 'Redundância' },
+  { icon: 'history', text: 'Backups automáticos' },
+];
+---
+
+<Base title={P.seo.title} description={P.seo.description} canonical={P.seo.canonical} ogType="article" robots={P.seo.robots} schema={P.seo.schema}>
+  <Header current={ROUTES.backup} />
+  <main id="conteudo">
+    {/* ——— Abertura ——— */}
+    {/* No celular, o fundo publicado para o celular (só é baixado nessa tela). */}
+    <section class="bk-hero dark-surface on-dark" aria-labelledby="bk-title" style={`--bk-mobile-bg: url(${bgMobile.src})`}>
+      <div class="bk-hero-mobile-bg" aria-hidden="true"></div>
+      <div class="bk-hero-glow" aria-hidden="true"></div>
+      <div class="container bk-hero-inner">
+        <div class="bk-hero-copy">
+          <p class="eyebrow">{P.hero.eyebrow}</p>
+          <h1 id="bk-title" class="bk-title">{P.hero.title}</h1>
+          <p class="bk-lead">{P.hero.text}</p>
+          <div class="bk-hero-actions">
+            <a class="btn btn--primary btn--lg" href={P.hero.href}>
+              {P.hero.button}
+              <Icon name="arrow-down" size={18} />
+            </a>
+            <a class="btn btn--outline-dark btn--lg" href={P.cta.href} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="backup-abertura">
+              <Icon name="whatsapp" size={18} class="wa-icon" />
+              {P.cta.button}
+            </a>
+          </div>
+        </div>
+
+        {/* A capa publicada (nuvem sobre o servidor) num cofre com anéis de proteção. */}
+        <div class="bk-vault" aria-hidden="true">
+          <span class="bk-ring bk-ring--1"></span>
+          <span class="bk-ring bk-ring--2"></span>
+          <span class="bk-ring bk-ring--3"></span>
+          <div class="bk-vault-core">
+            <Image src={abertura} alt="" widths={[520, 1040]} sizes="(min-width: 900px) 520px, 80vw" class="bk-vault-img" fetchpriority="high" />
+          </div>
+          <span class="bk-packet bk-packet--1"></span>
+          <span class="bk-packet bk-packet--2"></span>
+          <span class="bk-packet bk-packet--3"></span>
+          {
+            tags.map((t, i) => (
+              <span class={`bk-tag bk-tag--${i + 1}`}>
+                <Icon name={t.icon} size={15} />
+                {t.text}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ——— 5 vantagens ——— */}
+    <section class="section bk-adv" aria-labelledby="bk-adv-title">
+      <div class="container bk-adv-grid">
+        <header class="bk-adv-head" data-reveal>
+          <span class="bk-adv-five" aria-hidden="true">5</span>
+          <p class="eyebrow"><b>01</b> Vantagens</p>
+          <h2 id="bk-adv-title" class="bk-h2">{P.vantagens.title}</h2>
+        </header>
+        <ol class="bk-adv-list">
+          {
+            P.vantagens.items.map((it, i) => (
+              <li class="bk-adv-item" data-reveal style={`--reveal-i:${i % 2}`}>
+                <div class="bk-adv-mark">
+                  <Image src={icon(it.icon)} alt="" widths={[64, 128]} sizes="64px" class="bk-adv-icon" loading="lazy" />
+                </div>
+                <div class="bk-adv-body">
+                  <span class="bk-adv-num">{pad(i + 1)}</span>
+                  <h3>{it.title}</h3>
+                  <p>{it.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    {/* ——— Evite perdas de dados + formulário ——— */}
+    <section class="section section--tint bk-form" aria-labelledby="bk-form-title">
+      <div class="container bk-form-grid">
+        <div class="bk-form-copy" data-reveal>
+          <p class="eyebrow"><b>02</b> Contato</p>
+          <h2 id="bk-form-title" class="bk-h2">{P.form.title}</h2>
+          <p class="bk-form-text">{P.form.text}</p>
+          <div class="bk-cert">
+            <span class="bk-cert-icon" aria-hidden="true"><Icon name="badge-check" size={24} /></span>
+            <p>{P.form.certificacoes}</p>
+          </div>
+          <p class="bk-form-call">
+            <Icon name="arrow-right" size={18} />
+            {P.form.call}
+          </p>
+        </div>
+        <div data-reveal>
+          <SolLeadForm form={P.form.form} prefix="backup" whatsapp={P.cta.href} />
+        </div>
+      </div>
+    </section>
+
+    {/* ——— Vídeo ——— */}
+    <section class="section section--dark bk-video" aria-labelledby="bk-video-title">
+      <div class="container bk-video-grid">
+        <header class="bk-video-head" data-reveal>
+          <p class="eyebrow"><b>03</b> Vídeo</p>
+          <h2 id="bk-video-title" class="bk-h2">{P.video.title}</h2>
+        </header>
+        <div data-reveal="zoom">
+          <SolVideo id={P.video.id} start={P.video.start} label={P.video.label} />
+        </div>
+      </div>
+    </section>
+
+    {/* ——— Alguns de nossos parceiros ——— */}
+    <section class="bk-partners" aria-labelledby="bk-partners-title">
+      <div class="container bk-partners-inner" data-reveal>
+        <h2 id="bk-partners-title" class="bk-partners-title">{P.parceiros.title}</h2>
+        <Image src={parceiros} alt={P.parceiros.alt} widths={[640, 1280, 1583]} sizes="(min-width: 1000px) 760px, 100vw" class="bk-partners-img" loading="lazy" />
+      </div>
+    </section>
+
+    <SolCta title={P.cta.title} button={P.cta.button} href={P.cta.href} track="backup-cta" />
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Base>
+
+<style>
+  .bk-h2 {
+    font-size: var(--t-h2);
+    letter-spacing: -0.035em;
+    line-height: 1.06;
+  }
+
+  /* ——— Abertura ——— */
+  .bk-hero {
+    position: relative;
+    padding-block: clamp(3rem, 2rem + 4vw, 6rem);
+    overflow: hidden;
+    background:
+      radial-gradient(60% 80% at 80% 40%, rgb(46 110 210 / 0.35), transparent 70%),
+      linear-gradient(160deg, #04122d 0%, #010c20 70%);
+    isolation: isolate;
+  }
+
+  .bk-hero-mobile-bg {
+    display: none;
+  }
+
+  .bk-hero-glow {
+    position: absolute;
+    left: -10%;
+    bottom: -40%;
+    z-index: -1;
+    width: 60%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(249 131 5 / 0.14), transparent);
+  }
+
+  .bk-hero-inner {
+    display: grid;
+    gap: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .bk-hero-inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  .bk-hero-copy {
+    display: grid;
+    justify-items: start;
+    gap: 1.25rem;
+  }
+
+  .bk-title {
+    font-size: clamp(2.8rem, 1.6rem + 4.6vw, 5.6rem);
+    letter-spacing: -0.055em;
+    line-height: 0.95;
+  }
+
+  .bk-lead {
+    max-width: 46ch;
+    color: var(--c-on-dark-2);
+    font-size: var(--t-lead);
+    line-height: 1.6;
+  }
+
+  .bk-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Cofre: a capa num círculo, com anéis girando e pacotes de dados subindo. */
+  .bk-vault {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: min(100%, 540px);
+    aspect-ratio: 1;
+    margin-inline: auto;
+  }
+
+  .bk-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+  }
+
+  .bk-ring--1 {
+    border: 1px dashed rgb(255 255 255 / 0.22);
+  }
+
+  .bk-ring--2 {
+    inset: 8%;
+    border: 1px solid rgb(78 179 244 / 0.25);
+    border-top-color: var(--c-orange);
+  }
+
+  .bk-ring--3 {
+    inset: 16%;
+    border: 1px dashed rgb(255 255 255 / 0.14);
+  }
+
+  .bk-vault-core {
+    position: relative;
+    width: 72%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 10px rgb(255 255 255 / 0.03),
+      0 40px 80px -30px rgb(0 0 0 / 0.8),
+      inset 0 0 40px rgb(78 179 244 / 0.25);
+  }
+
+  .bk-vault-core :global(.bk-vault-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 76% 50%;
+    transform: scale(1.35);
+  }
+
+  .bk-packet {
+    position: absolute;
+    left: 50%;
+    bottom: 12%;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--c-sky);
+    box-shadow: 0 0 14px var(--c-sky);
+    opacity: 0;
+  }
+
+  .bk-tag {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: 999px;
+    background: rgb(8 20 48 / 0.75);
+    color: var(--c-on-dark);
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 16px 30px -18px rgb(0 0 0 / 0.8);
+  }
+
+  .bk-tag :global(svg) {
+    color: var(--c-orange);
+  }
+
+  .bk-tag--1 {
+    top: 12%;
+    left: -2%;
+  }
+
+  .bk-tag--2 {
+    top: 44%;
+    right: -4%;
+  }
+
+  .bk-tag--3 {
+    bottom: 10%;
+    left: 4%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .bk-ring--1 {
+      animation: bk-spin 60s linear infinite;
+    }
+
+    .bk-ring--2 {
+      animation: bk-spin 14s linear infinite;
+    }
+
+    .bk-ring--3 {
+      animation: bk-spin 40s linear infinite reverse;
+    }
+
+    .bk-packet {
+      animation: bk-rise 3.6s var(--ease-in-out) infinite;
+    }
+
+    .bk-packet--2 {
+      left: 38%;
+      animation-delay: 1.2s;
+    }
+
+    .bk-packet--3 {
+      left: 62%;
+      animation-delay: 2.4s;
+    }
+
+    .bk-tag {
+      animation: bk-bob 5s var(--ease-in-out) infinite alternate;
+    }
+
+    .bk-tag--2 {
+      animation-delay: 1.4s;
+    }
+
+    .bk-tag--3 {
+      animation-delay: 2.6s;
+    }
+  }
+
+  @keyframes bk-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes bk-rise {
+    0% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-220px);
+    }
+  }
+
+  @keyframes bk-bob {
+    to {
+      transform: translateY(-8px);
+    }
+  }
+
+  @media (max-width: 899px) {
+    .bk-hero-mobile-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      display: block;
+      background: var(--bk-mobile-bg) center bottom / cover no-repeat;
+      opacity: 0.35;
+    }
+
+    .bk-vault {
+      width: min(100%, 380px);
+    }
+
+    .bk-tag {
+      font-size: 0.74rem;
+    }
+
+    .bk-tag--1 {
+      left: 0;
+    }
+
+    .bk-tag--2 {
+      right: 0;
+    }
+  }
+
+  @media (max-width: 599px) {
+    .bk-hero-actions .btn {
+      flex: 1 1 100%;
+      justify-content: center;
+    }
+  }
+
+  /* ——— 5 vantagens ——— */
+  .bk-adv-grid {
+    display: grid;
+    gap: clamp(2rem, 1rem + 3vw, 4rem);
+  }
+
+  @media (min-width: 1000px) {
+    .bk-adv-grid {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      align-items: start;
+    }
+
+    .bk-adv-head {
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+    }
+  }
+
+  .bk-adv-head {
+    position: relative;
+    display: grid;
+    justify-items: start;
+    gap: 1rem;
+  }
+
+  .bk-adv-five {
+    font-family: var(--f-display);
+    font-size: clamp(7rem, 4rem + 10vw, 13rem);
+    font-weight: 600;
+    letter-spacing: -0.08em;
+    line-height: 0.8;
+    background: linear-gradient(180deg, var(--c-orange) 0%, rgb(249 131 5 / 0.15) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bk-adv-list {
+    position: relative;
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Linha que liga as vantagens. */
+  .bk-adv-list::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    bottom: 32px;
+    left: 31px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--c-orange), var(--c-line) 85%);
+  }
+
+  .bk-adv-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 1.25rem;
+    padding-block: 1.1rem;
+  }
+
+  .bk-adv-mark {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--c-paper);
+    box-shadow: 0 0 0 6px var(--c-paper);
+  }
+
+  .bk-adv-mark :global(.bk-adv-icon) {
+    width: 64px;
+    height: 64px;
+  }
+
+  .bk-adv-body {
+    display: grid;
+    gap: 0.4rem;
+    padding: 1.2rem 1.4rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-1);
+    transition:
+      transform 0.3s var(--ease-out),
+      box-shadow 0.3s var(--ease-out);
+  }
+
+  .bk-adv-item:hover .bk-adv-body {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-2);
+  }
+
+  .bk-adv-num {
+    color: var(--c-orange-text);
+    font-family: var(--f-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
+  .bk-adv-body h3 {
+    font-size: var(--t-h3);
+    letter-spacing: -0.02em;
+  }
+
+  .bk-adv-body p {
+    color: var(--c-ink-2);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 559px) {
+    .bk-adv-item {
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 0.85rem;
+    }
+
+    .bk-adv-mark,
+    .bk-adv-mark :global(.bk-adv-icon) {
+      width: 48px;
+      height: 48px;
+    }
+
+    .bk-adv-list::before {
+      left: 23px;
+    }
+  }
+
+  /* ——— Formulário ——— */
+  .bk-form-grid {
+    display: grid;
+    gap: clamp(2rem, 1rem + 3vw, 4rem);
+    align-items: start;
+  }
+
+  @media (min-width: 1000px) {
+    .bk-form-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    }
+  }
+
+  .bk-form-copy {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .bk-form-text {
+    max-width: 50ch;
+    color: var(--c-ink-2);
+    font-size: var(--t-lead);
+  }
+
+  .bk-cert {
+    display: flex;
+    gap: 0.9rem;
+    align-items: center;
+    max-width: 52ch;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--c-line);
+    border-left: 4px solid var(--c-orange);
+    border-radius: 14px;
+    background: var(--c-surface);
+    font-weight: 500;
+  }
+
+  .bk-cert-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--c-orange-tint);
+    color: var(--c-orange-text);
+  }
+
+  .bk-form-call {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    font-weight: 600;
+  }
+
+  .bk-form-call :global(svg) {
+    flex: none;
+    margin-top: 0.2rem;
+    color: var(--c-orange);
+  }
+
+  /* ——— Vídeo ——— */
+  .bk-video {
+    overflow: hidden;
+    background:
+      radial-gradient(50% 70% at 0% 100%, rgb(46 110 210 / 0.3), transparent 70%),
+      var(--c-indigo-950);
+  }
+
+  .bk-video-grid {
+    display: grid;
+    gap: clamp(2rem, 1.5rem + 2vw, 3rem);
+    align-items: center;
+  }
+
+  @media (min-width: 1000px) {
+    .bk-video-grid {
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+    }
+  }
+
+  .bk-video-head {
+    display: grid;
+    gap: 1rem;
+  }
+
+  /* ——— Parceiros ——— */
+  .bk-partners {
+    padding-block: clamp(3rem, 2rem + 3vw, 5rem);
+    border-top: 1px solid var(--c-line);
+    background: #fff;
+  }
+
+  .bk-partners-inner {
+    display: grid;
+    justify-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .bk-partners-title {
+    color: var(--c-ink-2);
+    font-family: var(--f-text);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .bk-partners-inner :global(.bk-partners-img) {
+    width: min(100%, 760px);
+    height: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bk-adv-body {
+      transition: none;
+    }
+  }
+</style>

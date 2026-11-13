@@ -1,0 +1,617 @@
+---
+// "Monte a configuração ideal…" da Nuvem Privada: o formulário em etapas do Elementor (Processador,
+// Memória, Armazenamento, IP e Contato), com as mesmas opções, os mesmos valores enviados e o mesmo
+// destino (src/data/solucoes.ts). Como no WordPress, são dois widgets: no desktop e no tablet, uma
+// escolha por etapa (eram listas suspensas, a primeira opção já marcada); no celular, as opções do
+// widget do celular, várias por etapa (eram caixas de seleção). O resumo ao lado acompanha a escolha.
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import servidor from '../../assets/solucoes/nuvem-privada/servidor-nuvem.png';
+import { ELEMENTOR, FORM_TEXTS, NUVEM_PRIVADA, SOL_WHATSAPP } from '../../data/solucoes';
+
+const C = NUVEM_PRIVADA.config;
+const F = C.form;
+const ICONS = ['cpu', 'memory-stick', 'hard-drive', 'globe', 'user-round'];
+const steps = [...F.steps.map((s) => s.label), F.contactLabel];
+const pad = (n: number) => String(n).padStart(2, '0');
+const config = { endpoint: ELEMENTOR.endpoint, action: ELEMENTOR.action, postId: F.postId, refererTitle: F.refererTitle, formIds: F.formIds, mobileQuery: ELEMENTOR.mobileQuery };
+// Texto exibido da opção (o valor enviado é o original, com os espaços como estão).
+const show = (v: string) => v.replace(/\s+/g, ' ').trim();
+---
+
+<section class="section np-config" id="configuracao" aria-labelledby="np-config-title">
+  <div class="container">
+    <header class="section-head" data-reveal>
+      <p class="eyebrow"><b>01</b> {C.eyebrow}</p>
+      <h2 id="np-config-title">{C.title}</h2>
+    </header>
+
+    <div class="np-cfg" data-np-config data-config={JSON.stringify(config)} data-reveal>
+      <form class="np-cfg-main" method="post" action={ELEMENTOR.endpoint} novalidate data-np-form>
+        {/* Etapas: número e nome; as já vistas podem ser reabertas. */}
+        <ol class="np-steps" aria-label="Etapas da configuração">
+          {
+            steps.map((label, i) => (
+              <li>
+                <button class="np-step" type="button" data-np-go={i} aria-current={i === 0 ? 'step' : undefined} disabled={i > 0}>
+                  <span class="np-step-num">{pad(i + 1)}</span>
+                  <span class="np-step-label">{label}</span>
+                </button>
+              </li>
+            ))
+          }
+        </ol>
+        <div class="np-bar" aria-hidden="true"><span data-np-bar></span></div>
+
+        <div class="np-alert" role="alert" tabindex="-1" hidden data-np-alert>
+          <Icon name="circle-alert" size={20} />
+          <div>
+            <p class="np-alert-title">{FORM_TEXTS.errorTitle}</p>
+            <p data-np-alert-text></p>
+            <p><a href={SOL_WHATSAPP.orcamento} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="nuvem-privada-erro">{FORM_TEXTS.fallback}</a></p>
+          </div>
+        </div>
+
+        {
+          F.steps.map((s, i) => (
+            <fieldset class="np-panel" data-np-step={i} hidden={i > 0}>
+              <legend class="np-panel-title">
+                <span class="np-panel-icon" aria-hidden="true"><Icon name={ICONS[i]} size={22} /></span>
+                <span class="np-panel-count">{`Etapa ${i + 1} de ${steps.length}`}</span>
+                <span class="np-panel-name">{s.label}</span>
+              </legend>
+              {/* Desktop e tablet (widget 1b2c23a): uma opção, a primeira já marcada, como a lista suspensa. */}
+              <div class="np-opts np-opts--desktop" role="radiogroup" aria-label={s.label}>
+                {s.desktop.map((v, k) => (
+                  <label class="np-opt">
+                    <input type="radio" name={`d-${s.id}`} value={v} checked={k === 0} data-np-field={s.id} />
+                    <span>{show(v)}</span>
+                  </label>
+                ))}
+              </div>
+              {/* Celular (widget 74046a9): as opções desse widget, várias por etapa. */}
+              <div class="np-opts np-opts--mobile" role="group" aria-label={s.label}>
+                {s.mobile.map((v) => (
+                  <label class="np-opt np-opt--check">
+                    <input type="checkbox" name={`m-${s.id}`} value={v} data-np-field={s.id} />
+                    <span>{show(v)}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          ))
+        }
+
+        <fieldset class="np-panel" data-np-step={F.steps.length} hidden>
+          <legend class="np-panel-title">
+            <span class="np-panel-icon" aria-hidden="true"><Icon name={ICONS[4]} size={22} /></span>
+            <span class="np-panel-count">{`Etapa ${steps.length} de ${steps.length}`}</span>
+            <span class="np-panel-name">{F.contactLabel}</span>
+          </legend>
+          <div class="np-contact">
+            {
+              F.contact.map((f) => (
+                <div class="sol-field" data-field={f.id}>
+                  <label class="sol-label" for={`np-${f.id}`}>
+                    {f.label}
+                    <span class="sol-req" aria-hidden="true">
+                      *
+                    </span>
+                  </label>
+                  <input
+                    class="sol-input"
+                    id={`np-${f.id}`}
+                    name={`form_fields[${f.id}]`}
+                    type={f.type}
+                    required
+                    placeholder={f.placeholder}
+                    autocomplete={f.autocomplete}
+                    inputmode={f.type === 'tel' ? 'tel' : f.type === 'email' ? 'email' : undefined}
+                    spellcheck={f.type === 'text' ? undefined : 'false'}
+                    aria-describedby={`np-${f.id}-erro`}
+                    data-type={f.type}
+                  />
+                  <p class="sol-error" id={`np-${f.id}-erro`} hidden>
+                    <Icon name="circle-alert" size={15} />
+                    <span data-error />
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <div class="np-nav">
+          <button class="btn btn--outline" type="button" hidden data-np-prev>
+            <Icon name="arrow-left" size={18} />
+            {F.previous}
+          </button>
+          <button class="btn btn--dark np-next" type="button" data-np-next>
+            {F.next}
+            <Icon name="arrow-right" class="btn-arrow" />
+          </button>
+          <button class="btn btn--primary np-submit" type="submit" hidden data-np-submit>
+            <span data-np-submit-label>{F.submit}</span>
+            <Icon name="send" size={18} class="sol-submit-send" />
+            <Icon name="loader-circle" size={18} class="sol-submit-spin" />
+          </button>
+        </div>
+        <p class="sr-only" aria-live="polite" data-np-live></p>
+      </form>
+
+      <div class="np-cfg-success" role="status" tabindex="-1" hidden data-np-success>
+        <span class="sol-form-success-icon" aria-hidden="true"><Icon name="check" size={26} strokeWidth={2.5} /></span>
+        <p class="sol-form-success-title">{FORM_TEXTS.successTitle}</p>
+        <p data-np-success-message></p>
+        <button class="btn btn--outline" type="button" data-np-again>{FORM_TEXTS.again}</button>
+      </div>
+
+      {/* Resumo: a escolha de cada etapa, ao lado (abaixo, no celular). */}
+      <aside class="np-cfg-side dark-surface on-dark" aria-label="Resumo da configuração">
+        <div class="np-side-art" aria-hidden="true">
+          <span class="np-side-ring"></span>
+          <Image src={servidor} alt="" widths={[220, 440]} sizes="220px" class="np-side-img" loading="lazy" />
+        </div>
+        <p class="np-side-eyebrow">{NUVEM_PRIVADA.hero.title}</p>
+        <dl class="np-side-list">
+          {
+            F.steps.map((s, i) => (
+              <div class="np-side-row" data-np-sum={s.id}>
+                <dt>
+                  <Icon name={ICONS[i]} size={16} />
+                  {s.label}
+                </dt>
+                <dd data-np-sum-value>—</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initNpConfigurator } from '../../scripts/np-configurador';
+  document.querySelectorAll<HTMLElement>('[data-np-config]').forEach(initNpConfigurator);
+</script>
+
+<style>
+  .np-config {
+    background: var(--c-paper);
+  }
+
+  .np-cfg {
+    display: grid;
+    overflow: hidden;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-xl);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-2);
+  }
+
+  @media (min-width: 1000px) {
+    .np-cfg {
+      grid-template-columns: minmax(0, 1fr) clamp(300px, 30vw, 380px);
+    }
+  }
+
+  .np-cfg-main,
+  .np-cfg-success {
+    display: grid;
+    align-content: start;
+    gap: 1.4rem;
+    padding: clamp(1.4rem, 0.9rem + 2vw, 2.6rem);
+  }
+
+  .np-cfg-main[hidden],
+  .np-cfg-success[hidden] {
+    display: none;
+  }
+
+  .np-cfg-success {
+    justify-items: center;
+    align-content: center;
+    text-align: center;
+  }
+
+  .np-cfg-success p:not(.sol-form-success-title) {
+    max-width: 38ch;
+    color: var(--c-ink-2);
+  }
+
+  /* ——— Etapas ——— */
+  .np-steps {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .np-step {
+    display: grid;
+    justify-items: start;
+    gap: 0.2rem;
+    width: 100%;
+    padding: 0.2rem 0;
+    border: 0;
+    background: none;
+    color: var(--c-ink-3);
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .np-step:disabled {
+    cursor: default;
+  }
+
+  .np-step:not(:disabled):hover .np-step-label {
+    color: var(--c-ink);
+  }
+
+  .np-step-num {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+  }
+
+  .np-step[aria-current='step'],
+  .np-step.is-done {
+    color: var(--c-ink);
+  }
+
+  .np-step[aria-current='step'] .np-step-num {
+    color: var(--c-orange-text);
+  }
+
+  .np-bar {
+    height: 3px;
+    margin-top: -0.9rem;
+    border-radius: 3px;
+    background: var(--c-line);
+  }
+
+  .np-bar span {
+    display: block;
+    width: 20%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--c-orange);
+    transition: width 0.45s var(--ease-out);
+  }
+
+  @media (max-width: 599px) {
+    .np-step-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .np-step {
+      justify-items: center;
+    }
+  }
+
+  /* ——— Painel da etapa ——— */
+  .np-panel {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .np-panel[hidden] {
+    display: none;
+  }
+
+  .np-panel-title {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.85rem;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    padding: 0;
+  }
+
+  .np-panel-icon {
+    display: grid;
+    grid-row: span 2;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--c-indigo-100);
+    color: var(--c-indigo-700);
+  }
+
+  .np-panel-count {
+    color: var(--c-ink-3);
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .np-panel-name {
+    font-family: var(--f-display);
+    font-size: clamp(1.4rem, 1.15rem + 0.9vw, 1.9rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .np-opts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 0.6rem;
+  }
+
+  .np-opts--mobile {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .np-opts--desktop {
+      display: none;
+    }
+
+    .np-opts--mobile {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .np-opt {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-height: 54px;
+    padding: 0.7rem 0.95rem;
+    border: 1.5px solid var(--c-line-2);
+    border-radius: 14px;
+    background: var(--c-surface);
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.3;
+    cursor: pointer;
+    transition:
+      border-color var(--dur-1) var(--ease-out),
+      background-color var(--dur-1) var(--ease-out),
+      box-shadow var(--dur-1) var(--ease-out);
+  }
+
+  .np-opt:hover {
+    border-color: var(--c-ink-3);
+  }
+
+  .np-opt input {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--c-orange);
+  }
+
+  .np-opt:has(input:checked) {
+    border-color: var(--c-orange);
+    background: var(--c-orange-tint);
+    box-shadow: 0 0 0 3px rgb(249 131 5 / 0.14);
+  }
+
+  .np-opt:has(input:focus-visible) {
+    outline: 2px solid var(--c-indigo-600);
+    outline-offset: 2px;
+  }
+
+  .np-contact {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .np-contact {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .np-contact .sol-field:first-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* ——— Navegação ——— */
+  .np-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--c-line);
+  }
+
+  .np-nav [hidden] {
+    display: none;
+  }
+
+  .np-next,
+  .np-submit {
+    margin-left: auto;
+  }
+
+  .np-alert {
+    display: flex;
+    gap: 0.65rem;
+    padding: 0.9rem 1rem;
+    border-left: 4px solid var(--c-danger);
+    border-radius: 14px;
+    background: var(--c-danger-bg);
+    font-size: 0.9rem;
+  }
+
+  .np-alert[hidden] {
+    display: none;
+  }
+
+  .np-alert:focus {
+    outline: none;
+  }
+
+  .np-alert > :global(svg) {
+    flex: none;
+    color: var(--c-danger);
+  }
+
+  .np-alert-title {
+    color: var(--c-danger);
+    font-weight: 600;
+  }
+
+  .np-alert a {
+    color: var(--c-ink);
+    font-weight: 600;
+    text-decoration-color: var(--c-orange);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  /* ——— Resumo ——— */
+  .np-cfg-side {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    padding: clamp(1.4rem, 1rem + 1.5vw, 2.2rem);
+    background:
+      radial-gradient(80% 60% at 80% 0%, rgb(46 110 210 / 0.35), transparent 70%),
+      linear-gradient(170deg, #071a3d 0%, var(--c-indigo-950) 70%);
+  }
+
+  .np-side-art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 190px;
+  }
+
+  .np-side-ring {
+    position: absolute;
+    width: 180px;
+    aspect-ratio: 1;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 26px rgb(255 255 255 / 0.03),
+      0 0 0 52px rgb(255 255 255 / 0.02);
+  }
+
+  .np-side-art :global(.np-side-img) {
+    position: relative;
+    width: auto;
+    height: 180px;
+    filter: drop-shadow(0 20px 30px rgb(0 0 0 / 0.5));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .np-side-art :global(.np-side-img) {
+      animation: np-float 6s var(--ease-in-out) infinite alternate;
+    }
+  }
+
+  @keyframes np-float {
+    to {
+      transform: translateY(-8px);
+    }
+  }
+
+  .np-side-eyebrow {
+    color: var(--c-on-dark-3);
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .np-side-list {
+    display: grid;
+    margin: 0;
+  }
+
+  .np-side-row {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .np-side-row dt {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--c-on-dark-3);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .np-side-row dd {
+    margin: 0;
+    color: var(--c-on-dark);
+    font-family: var(--f-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+    transition: color 0.3s var(--ease-out);
+  }
+
+  .np-side-row.is-set dd {
+    color: #fff;
+  }
+
+  .np-side-row.is-flash dd {
+    color: var(--c-orange);
+  }
+
+  @media (max-width: 999px) {
+    .np-cfg-side {
+      grid-template-columns: 120px minmax(0, 1fr);
+      column-gap: 1.25rem;
+      align-items: center;
+    }
+
+    .np-side-art {
+      grid-row: span 2;
+      height: 130px;
+    }
+
+    .np-side-ring {
+      width: 110px;
+    }
+
+    .np-side-art :global(.np-side-img) {
+      height: 120px;
+    }
+  }
+
+  @media (max-width: 559px) {
+    .np-cfg-side {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .np-side-art {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .np-bar span,
+    .np-opt {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,711 @@
+---
+// Extensão de Garantia (https://msserver.com.br/extencao-de-garantia/), reconstruída com a mesma
+// estrutura, textos, imagens, vídeo, formulário, links e botões da página do WordPress
+// (src/data/solucoes.ts). Narrativa própria: proteção do investimento, confiança e suporte.
+import '../../styles/solucoes.css';
+import { Image, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import WhatsAppFab from '../WhatsAppFab.astro';
+import Icon from '../Icon.astro';
+import SolLeadForm from './SolLeadForm.astro';
+import SolVideo from './SolVideo.astro';
+import SolCta from './SolCta.astro';
+import { APP_STORES, ROUTES } from '../../config/site';
+import { GARANTIA as P } from '../../data/solucoes';
+import abertura from '../../assets/solucoes/garantia/abertura.jpg';
+import aberturaCelular from '../../assets/solucoes/garantia/abertura-celular.jpg';
+import fundoCloud from '../../assets/solucoes/garantia/fundo-cloud.jpg';
+import fundoVideo from '../../assets/solucoes/garantia/fundo-video.jpg';
+import appCelular from '../../assets/solucoes/garantia/app-celular.png';
+import qrCode from '../../assets/solucoes/garantia/qr-code-app.png';
+import appStore from '../../assets/app/app-store.png';
+import googlePlay from '../../assets/app/google-play.png';
+
+const hero = await getImage({ src: abertura, widths: [600, 1200], format: 'webp', quality: 80 });
+const heroMobile = await getImage({ src: aberturaCelular, widths: [480, 960], format: 'webp', quality: 74 });
+const bgCloud = await getImage({ src: fundoCloud, widths: [960, 1680], format: 'webp', quality: 70 });
+const bgVideo = await getImage({ src: fundoVideo, widths: [960, 1680], format: 'webp', quality: 70 });
+
+// Grifo do título: a cobertura, como está no texto publicado.
+const MARK = 'cobertura adicional de até 5 anos';
+const [before, after] = P.hero.title.split(MARK);
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<Base title={P.seo.title} description={P.seo.description} canonical={P.seo.canonical} ogType="article" robots={P.seo.robots} schema={P.seo.schema}>
+  <Header current={ROUTES.garantia} />
+  <main id="conteudo">
+    {/* ——— Abertura ——— */}
+    <section class="ga-hero" aria-labelledby="ga-title">
+      <div class="ga-hero-grid-bg" aria-hidden="true"></div>
+      <div class="container ga-hero-inner">
+        <div class="ga-hero-copy">
+          <p class="ga-badge">
+            <Icon name="shield-check" size={16} />
+            {P.hero.eyebrow}
+          </p>
+          <h1 id="ga-title" class="ga-title">
+            {before}<span class="sol-mark">{MARK}</span>{after}
+          </h1>
+          <div class="ga-hero-actions">
+            <a class="btn btn--primary btn--lg" href={P.hero.href}>
+              {P.hero.button}
+              <Icon name="arrow-down" size={18} />
+            </a>
+            <a class="btn btn--outline btn--lg" href={P.cta.href} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="garantia-abertura">
+              <Icon name="whatsapp" size={18} class="wa-icon" />
+              {P.cta.button}
+            </a>
+          </div>
+        </div>
+
+        <div class="ga-hero-visual">
+          <picture class="ga-hero-photo">
+            <source media="(max-width: 767px)" srcset={heroMobile.srcSet.attribute} sizes="100vw" />
+            <img src={hero.src} srcset={hero.srcSet.attribute} sizes="(min-width: 1000px) 46vw, 100vw" alt="Servidores em rack com cabos de rede conectados" fetchpriority="high" decoding="async" />
+          </picture>
+          {/* Medidor da cobertura: os 5 anos do título. */}
+          <div class="ga-meter" aria-hidden="true">
+            <div class="ga-meter-head">
+              <span class="ga-meter-icon"><Icon name="shield" size={20} /></span>
+              <span>
+                <small>Cobertura adicional</small>
+                <b>até 5 anos</b>
+              </span>
+            </div>
+            <ol class="ga-meter-bar">
+              {[1, 2, 3, 4, 5].map((n) => <li style={`--i:${n}`}>{`${n}º`}</li>)}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ——— Porque contratar (#funciona) ——— */}
+    <section class="section ga-why dark-surface on-dark" id={P.porque.id} aria-labelledby="ga-why-title">
+      <img class="ga-why-bg" src={bgCloud.src} srcset={bgCloud.srcSet.attribute} sizes="100vw" alt="" loading="lazy" decoding="async" aria-hidden="true" />
+      <div class="ga-why-shade" aria-hidden="true"></div>
+      <div class="container ga-why-grid">
+        <header class="ga-why-head" data-reveal>
+          <p class="eyebrow"><b>01</b> Garantia</p>
+          <h2 id="ga-why-title" class="ga-h2">{P.porque.title}</h2>
+          <span class="ga-why-shield" aria-hidden="true">
+            <Icon name="shield-check" size={56} strokeWidth={1.4} />
+          </span>
+        </header>
+        <ul class="ga-why-list">
+          {
+            P.porque.items.map((it, i) => (
+              <li class:list={['ga-why-card', i === 0 && 'ga-why-card--lead']} data-reveal style={`--reveal-i:${i}`}>
+                <div class="ga-why-top">
+                  <span class="ga-why-icon" aria-hidden="true">
+                    <Icon name={it.icon} size={22} />
+                  </span>
+                  <span class="ga-why-num" aria-hidden="true">
+                    {pad(i + 1)}
+                  </span>
+                </div>
+                <h3>{it.title}</h3>
+                <p>{it.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    {/* ——— Facilidade na aquisição (o app) ——— */}
+    <section class="section ga-app" aria-labelledby="ga-app-title">
+      <div class="container ga-app-grid">
+        <div class="ga-app-visual" data-reveal="zoom">
+          <span class="ga-app-halo" aria-hidden="true"></span>
+          <Image src={appCelular} alt={P.app.phoneAlt} widths={[420, 840]} sizes="(min-width: 1000px) 420px, 80vw" class="ga-app-phone" loading="lazy" />
+        </div>
+        <div class="ga-app-copy" data-reveal>
+          <p class="eyebrow"><b>02</b> App MSSERVER</p>
+          <h2 id="ga-app-title" class="ga-h2">{P.app.title}</h2>
+          <p class="ga-app-text">{P.app.text}</p>
+          <div class="ga-download">
+            <p class="ga-download-title">
+              <Icon name="smartphone" size={18} />
+              {P.app.download}
+            </p>
+            <Image src={qrCode} alt={P.app.qrAlt} widths={[400, 800]} sizes="400px" class="ga-qr" loading="lazy" />
+            <div class="ga-stores">
+              <a href={APP_STORES.ios} target="_blank" rel="noopener" data-track="app_store_click" data-track-location="garantia-ios">
+                <Image src={appStore} alt="Baixar na App Store" height={44} densities={[1, 2]} loading="lazy" />
+              </a>
+              <a href={APP_STORES.android} target="_blank" rel="noopener" data-track="app_store_click" data-track-location="garantia-android">
+                <Image src={googlePlay} alt="Disponível no Google Play" height={44} densities={[1, 2]} loading="lazy" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ——— Vídeo ——— */}
+    <section class="section ga-video dark-surface on-dark" aria-labelledby="ga-video-title">
+      <img class="ga-video-bg" src={bgVideo.src} srcset={bgVideo.srcSet.attribute} sizes="100vw" alt="" loading="lazy" decoding="async" aria-hidden="true" />
+      <div class="container ga-video-inner">
+        <header class="ga-video-head" data-reveal>
+          <p class="eyebrow"><b>03</b> Vídeo</p>
+          <h2 id="ga-video-title" class="ga-h2">{P.video.title}</h2>
+        </header>
+        <div data-reveal="zoom">
+          <SolVideo id={P.video.id} start={P.video.start} label={P.video.label} />
+        </div>
+      </div>
+    </section>
+
+    {/* ——— Formulário ——— */}
+    <section class="section ga-form" id={P.form.id} aria-labelledby="ga-form-title">
+      <div class="container ga-form-grid">
+        <div class="ga-form-copy" data-reveal>
+          <p class="eyebrow"><b>04</b> Contato</p>
+          <h2 id="ga-form-title" class="ga-h2">{P.form.title}</h2>
+          <p class="ga-form-text">{P.form.text}</p>
+          <ul class="ga-form-list">
+            {
+              P.porque.items.map((it) => (
+                <li>
+                  <Icon name="check" size={16} strokeWidth={2.5} />
+                  {it.title}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div data-reveal>
+          <SolLeadForm form={P.form.form} prefix="garantia" whatsapp={P.cta.href} />
+        </div>
+      </div>
+    </section>
+
+    <SolCta title={P.cta.title} button={P.cta.button} href={P.cta.href} track="garantia-cta" />
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Base>
+
+<style>
+  .ga-h2 {
+    font-size: var(--t-h2);
+    letter-spacing: -0.035em;
+    line-height: 1.06;
+  }
+
+  /* ——— Abertura ——— */
+  .ga-hero {
+    position: relative;
+    padding-block: clamp(2.5rem, 1.5rem + 4vw, 5.5rem) clamp(3.5rem, 2rem + 5vw, 6.5rem);
+    overflow: hidden;
+    background: var(--c-paper);
+  }
+
+  .ga-hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgb(27 24 32 / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(27 24 32 / 0.045) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(70% 80% at 30% 30%, #000, transparent);
+    pointer-events: none;
+  }
+
+  .ga-hero-inner {
+    position: relative;
+    display: grid;
+    gap: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 1000px) {
+    .ga-hero-inner {
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    }
+  }
+
+  .ga-hero-copy {
+    display: grid;
+    justify-items: start;
+    gap: 1.5rem;
+  }
+
+  .ga-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.8rem 0.4rem 0.6rem;
+    border: 1px solid var(--c-line);
+    border-radius: 999px;
+    background: var(--c-surface);
+    color: var(--c-ink-2);
+    font-family: var(--f-mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .ga-badge :global(svg) {
+    color: var(--c-orange);
+  }
+
+  .ga-title {
+    max-width: 19ch;
+    font-size: clamp(2.1rem, 1.2rem + 3vw, 3.75rem);
+    letter-spacing: -0.045em;
+    line-height: 1.04;
+  }
+
+  .ga-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .ga-hero-visual {
+    position: relative;
+    padding-bottom: 3rem;
+  }
+
+  .ga-hero-photo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 5 / 4;
+    border-radius: var(--r-xl);
+    object-fit: cover;
+    box-shadow: var(--shadow-2);
+  }
+
+  .ga-meter {
+    position: absolute;
+    left: clamp(-1.5rem, -2vw, -0.5rem);
+    bottom: 0;
+    width: min(88%, 360px);
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-2);
+  }
+
+  .ga-meter-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .ga-meter-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--c-orange-tint);
+    color: var(--c-orange-text);
+  }
+
+  .ga-meter-head small {
+    display: block;
+    color: var(--c-ink-3);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .ga-meter-head b {
+    font-family: var(--f-display);
+    font-size: 1.45rem;
+    letter-spacing: -0.03em;
+  }
+
+  .ga-meter-bar {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.3rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ga-meter-bar li {
+    position: relative;
+    padding: 0.55rem 0 0;
+    color: var(--c-ink-3);
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    text-align: center;
+  }
+
+  .ga-meter-bar li::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--c-orange);
+    transform-origin: left;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ga-meter-bar li::before {
+      animation: ga-fill 0.5s var(--ease-out) both;
+      animation-delay: calc(0.5s + var(--i) * 0.16s);
+    }
+  }
+
+  @keyframes ga-fill {
+    from {
+      transform: scaleX(0);
+      background: var(--c-line);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .ga-hero-actions .btn {
+      flex: 1 1 100%;
+      justify-content: center;
+    }
+
+    .ga-hero-photo img {
+      aspect-ratio: 4 / 5;
+      max-height: 520px;
+    }
+
+    .ga-meter {
+      left: 0.75rem;
+      bottom: 0;
+    }
+  }
+
+  /* ——— Porque contratar ——— */
+  .ga-why {
+    position: relative;
+    overflow: hidden;
+    background: var(--c-navy-950);
+    isolation: isolate;
+    scroll-margin-top: var(--header-h);
+  }
+
+  .ga-why-bg,
+  .ga-why-shade {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ga-why-shade {
+    z-index: -1;
+    background: linear-gradient(180deg, rgb(1 12 32 / 0.55), rgb(1 12 32 / 0.9) 70%);
+  }
+
+  .ga-why-grid {
+    display: grid;
+    gap: clamp(2rem, 1rem + 3vw, 4rem);
+  }
+
+  @media (min-width: 1000px) {
+    .ga-why-grid {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      align-items: start;
+    }
+
+    .ga-why-head {
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+    }
+  }
+
+  .ga-why-head {
+    display: grid;
+    justify-items: start;
+    gap: 1.1rem;
+  }
+
+  .ga-why-shield {
+    display: grid;
+    place-items: center;
+    width: 120px;
+    aspect-ratio: 1;
+    margin-top: 1rem;
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-radius: 32px;
+    background: radial-gradient(circle at 30% 20%, rgb(249 131 5 / 0.35), rgb(255 255 255 / 0.04) 70%);
+    color: #fff;
+    box-shadow: 0 30px 60px -30px rgb(249 131 5 / 0.6);
+  }
+
+  @media (max-width: 999px) {
+    .ga-why-shield {
+      display: none;
+    }
+  }
+
+  .ga-why-list {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 640px) {
+    .ga-why-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .ga-why-card {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+    padding: clamp(1.35rem, 1.1rem + 1vw, 1.9rem);
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: var(--r-lg);
+    background: rgb(8 20 48 / 0.6);
+    backdrop-filter: blur(10px);
+    transition:
+      border-color 0.3s var(--ease-out),
+      transform 0.3s var(--ease-out);
+  }
+
+  .ga-why-card:hover {
+    border-color: rgb(249 131 5 / 0.5);
+    transform: translateY(-3px);
+  }
+
+  .ga-why-card--lead {
+    border-color: rgb(249 131 5 / 0.45);
+    background:
+      radial-gradient(90% 80% at 100% 0%, rgb(249 131 5 / 0.22), transparent 70%),
+      rgb(8 20 48 / 0.7);
+  }
+
+  .ga-why-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ga-why-icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgb(255 255 255 / 0.08);
+    color: var(--c-orange);
+  }
+
+  .ga-why-num {
+    color: rgb(255 255 255 / 0.28);
+    font-family: var(--f-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+  }
+
+  .ga-why-card h3 {
+    font-size: var(--t-h3);
+    letter-spacing: -0.02em;
+  }
+
+  .ga-why-card p {
+    color: var(--c-on-dark-2);
+    line-height: 1.6;
+  }
+
+  /* ——— App ——— */
+  .ga-app-grid {
+    display: grid;
+    gap: clamp(2rem, 1rem + 4vw, 5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 1000px) {
+    .ga-app-grid {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+  }
+
+  .ga-app-visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .ga-app-halo {
+    position: absolute;
+    width: min(88%, 440px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle, rgb(249 131 5 / 0.28), transparent 62%),
+      repeating-radial-gradient(circle, rgb(27 24 32 / 0.06) 0 1px, transparent 1px 34px);
+  }
+
+  .ga-app-visual :global(.ga-app-phone) {
+    position: relative;
+    width: min(100%, 440px);
+    height: auto;
+    filter: drop-shadow(0 40px 50px rgb(14 13 34 / 0.35));
+  }
+
+  .ga-app-copy {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .ga-app-text {
+    max-width: 52ch;
+    color: var(--c-ink-2);
+    font-size: var(--t-lead);
+    line-height: 1.6;
+  }
+
+  .ga-download {
+    display: grid;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    padding: 1.4rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-1);
+  }
+
+  .ga-download-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--f-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .ga-download-title :global(svg) {
+    color: var(--c-orange);
+  }
+
+  .ga-download :global(.ga-qr) {
+    width: min(100%, 400px);
+    height: auto;
+  }
+
+  .ga-stores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .ga-stores :global(img) {
+    height: 44px;
+    width: auto;
+  }
+
+  /* No celular, o QR code (para ler com outro aparelho) fica menor; as lojas, à mão. */
+  @media (max-width: 767px) {
+    .ga-download :global(.ga-qr) {
+      width: min(100%, 300px);
+    }
+  }
+
+  /* ——— Vídeo ——— */
+  .ga-video {
+    position: relative;
+    overflow: hidden;
+    background: #102a6b;
+    isolation: isolate;
+  }
+
+  .ga-video-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ga-video-inner {
+    display: grid;
+    gap: clamp(2rem, 1.5rem + 2vw, 3rem);
+    max-width: 1040px;
+  }
+
+  .ga-video-head {
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  /* ——— Formulário ——— */
+  .ga-form {
+    scroll-margin-top: var(--header-h);
+  }
+
+  .ga-form-grid {
+    display: grid;
+    gap: clamp(2rem, 1rem + 3vw, 4rem);
+    align-items: start;
+  }
+
+  @media (min-width: 1000px) {
+    .ga-form-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    }
+  }
+
+  .ga-form-copy {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .ga-form-text {
+    max-width: 48ch;
+    color: var(--c-ink-2);
+    font-size: var(--t-lead);
+  }
+
+  .ga-form-list {
+    display: grid;
+    gap: 0.6rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ga-form-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+  }
+
+  .ga-form-list :global(svg) {
+    flex: none;
+    padding: 3px;
+    border-radius: 50%;
+    background: var(--c-success-bg);
+    color: var(--c-success);
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ga-why-card {
+      transition: none;
+    }
+  }
+</style>

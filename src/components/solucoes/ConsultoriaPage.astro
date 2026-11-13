@@ -1,0 +1,586 @@
+---
+// Consultoria (https://msserver.com.br/consultoria-em-implantacao-de-servidores/), reconstruída com a
+// mesma estrutura, textos, imagens, formulário, links e botão da página do WordPress
+// (src/data/solucoes.ts). Narrativa própria: autoridade técnica, projeto e resolução de problemas.
+import '../../styles/solucoes.css';
+import { Image, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import WhatsAppFab from '../WhatsAppFab.astro';
+import Icon from '../Icon.astro';
+import SolLeadForm from './SolLeadForm.astro';
+import { ROUTES, whatsappUrl } from '../../config/site';
+import { CONSULTORIA as P } from '../../data/solucoes';
+import abertura from '../../assets/solucoes/consultoria/abertura.jpg';
+import aberturaCelular from '../../assets/solucoes/consultoria/abertura-celular.jpg';
+import eficiencia from '../../assets/solucoes/consultoria/eficiencia.png';
+import contato from '../../assets/solucoes/consultoria/contato.jpg';
+import contatoCelular from '../../assets/solucoes/consultoria/contato-celular.jpg';
+
+const photos = import.meta.glob<{ default: ImageMetadata }>('../../assets/solucoes/consultoria/*.png', { eager: true });
+const photo = (name: string) => photos[`../../assets/solucoes/consultoria/${name}.png`].default;
+const board = await getImage({ src: abertura, widths: [700, 1400], format: 'webp', quality: 76 });
+const boardMobile = await getImage({ src: aberturaCelular, widths: [540, 1080], format: 'webp', quality: 72 });
+const bg = await getImage({ src: contato, widths: [960, 1680], format: 'webp', quality: 72 });
+const bgMobile = await getImage({ src: contatoCelular, widths: [540, 1080], format: 'webp', quality: 70 });
+
+const MARK = 'na medida';
+const [before, after] = P.hero.title.split(MARK);
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<Base title={P.seo.title} description={P.seo.description} canonical={P.seo.canonical} ogType="article" robots={P.seo.robots} schema={P.seo.schema}>
+  <Header current={ROUTES.consultoria} />
+  <main id="conteudo">
+    {/* ——— Abertura ——— */}
+    <section class="cs-hero" aria-labelledby="cs-title">
+      <div class="container cs-hero-inner">
+        <div class="cs-hero-copy">
+          <p class="cs-kicker">
+            <span class="cs-kicker-dot" aria-hidden="true"></span>
+            {P.hero.eyebrow}
+          </p>
+          <h1 id="cs-title" class="cs-title">
+            {before}<span class="sol-mark">{MARK}</span>{after}
+          </h1>
+          <p class="cs-lead">{P.hero.text}</p>
+          <a class="btn btn--primary btn--lg" href={P.hero.href}>
+            {P.hero.button}
+            <Icon name="arrow-down" size={18} />
+          </a>
+        </div>
+
+        {/* Quadro do projeto: a foto publicada ao fundo e as quatro frentes da consultoria. */}
+        <div class="cs-board" aria-hidden="true">
+          <picture class="cs-board-bg">
+            <source media="(max-width: 767px)" srcset={boardMobile.srcSet.attribute} sizes="100vw" />
+            <img src={board.src} srcset={board.srcSet.attribute} sizes="(min-width: 1000px) 46vw, 100vw" alt="" fetchpriority="high" decoding="async" />
+          </picture>
+          <div class="cs-board-panel">
+            <p class="cs-board-head">
+              <Icon name="drafting-compass" size={16} />
+              {P.hero.eyebrow}
+            </p>
+            <ol class="cs-board-list">
+              {
+                P.frentes.map((f, i) => (
+                  <li style={`--i:${i}`}>
+                    <Image src={photo(f.image)} alt="" widths={[44, 88]} sizes="44px" class="cs-board-photo" />
+                    <span>{f.title.replace(/:$/, '')}</span>
+                    <Icon name="check" size={16} strokeWidth={2.5} class="cs-board-check" />
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ——— Eficiência Operacional ——— */}
+    <section class="section cs-eff" aria-labelledby="cs-eff-title">
+      <div class="container cs-eff-grid">
+        <div class="cs-eff-media" data-reveal="zoom">
+          <span class="cs-eff-orbit" aria-hidden="true"></span>
+          <Image src={eficiencia} alt="Equipe analisando dados em telas de computador" widths={[300]} sizes="300px" class="cs-eff-img" loading="lazy" />
+        </div>
+        <div class="cs-eff-copy" data-reveal>
+          <p class="eyebrow"><b>01</b> Eficiência</p>
+          <h2 id="cs-eff-title" class="cs-h2">{P.eficiencia.title}</h2>
+          <p class="cs-eff-text">{P.eficiencia.text}</p>
+        </div>
+      </div>
+    </section>
+
+    {/* ——— As quatro frentes ——— */}
+    <section class="section section--tint cs-fronts" aria-labelledby="cs-fronts-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow"><b>02</b> Frentes</p>
+          <h2 id="cs-fronts-title" class="sr-only">Frentes da consultoria</h2>
+        </header>
+        <ul class="cs-fronts-grid">
+          {
+            P.frentes.map((f, i) => (
+              <li class="cs-front" data-reveal style={`--reveal-i:${i % 2}`}>
+                <div class="cs-front-media">
+                  <Image src={photo(f.image)} alt="" widths={[120, 240, 300]} sizes="120px" class="cs-front-photo" loading="lazy" />
+                  <span class="cs-front-icon" aria-hidden="true">
+                    <Icon name={f.icon} size={18} />
+                  </span>
+                </div>
+                <div class="cs-front-body">
+                  <span class="cs-front-num">{pad(i + 1)}</span>
+                  <h3>{f.title}</h3>
+                  <p>{f.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    {/* ——— Formulário (#contato) ——— */}
+    <section class="section cs-contact dark-surface on-dark" id={P.form.id} aria-labelledby="cs-contact-title">
+      <picture class="cs-contact-bg" aria-hidden="true">
+        <source media="(max-width: 767px)" srcset={bgMobile.srcSet.attribute} sizes="100vw" />
+        <img src={bg.src} srcset={bg.srcSet.attribute} sizes="100vw" alt="" loading="lazy" decoding="async" />
+      </picture>
+      <div class="cs-contact-shade" aria-hidden="true"></div>
+      <div class="container cs-contact-grid">
+        <div class="cs-contact-copy" data-reveal>
+          <p class="eyebrow"><b>03</b> Contato</p>
+          <h2 id="cs-contact-title" class="cs-h2">{P.form.title}</h2>
+          <p class="cs-contact-text">{P.form.text}</p>
+        </div>
+        <div data-reveal>
+          <SolLeadForm form={P.form.form} prefix="consultoria" tone="dark" whatsapp={whatsappUrl()} />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Base>
+
+<style>
+  .cs-h2 {
+    font-size: var(--t-h2);
+    letter-spacing: -0.035em;
+    line-height: 1.06;
+  }
+
+  /* ——— Abertura ——— */
+  .cs-hero {
+    position: relative;
+    padding-block: clamp(2.5rem, 1.5rem + 4vw, 5.5rem) clamp(3.5rem, 2rem + 5vw, 6.5rem);
+    overflow: hidden;
+    background:
+      radial-gradient(50% 60% at 0% 0%, rgb(61 58 134 / 0.08), transparent 70%),
+      var(--c-paper);
+  }
+
+  .cs-hero-inner {
+    display: grid;
+    gap: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 1000px) {
+    .cs-hero-inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  .cs-hero-copy {
+    display: grid;
+    justify-items: start;
+    gap: 1.4rem;
+  }
+
+  .cs-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--c-ink);
+    font-family: var(--f-mono);
+    font-size: clamp(0.8rem, 0.75rem + 0.3vw, 0.95rem);
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+
+  .cs-kicker-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--c-orange);
+    transform: rotate(45deg);
+  }
+
+  .cs-title {
+    max-width: 15ch;
+    font-size: clamp(2.5rem, 1.4rem + 4vw, 4.8rem);
+    letter-spacing: -0.05em;
+    line-height: 1;
+  }
+
+  .cs-lead {
+    max-width: 54ch;
+    color: var(--c-ink-2);
+    font-size: var(--t-lead);
+    line-height: 1.6;
+  }
+
+  .cs-board {
+    position: relative;
+    min-height: clamp(380px, 30vw + 160px, 520px);
+    overflow: hidden;
+    border-radius: var(--r-xl);
+    background: var(--c-navy-950);
+    box-shadow: var(--shadow-2);
+  }
+
+  .cs-board-bg img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% center;
+  }
+
+  .cs-board::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
+      linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
+      linear-gradient(180deg, transparent 20%, rgb(1 12 32 / 0.75));
+    pointer-events: none;
+  }
+
+  .cs-board-panel {
+    position: absolute;
+    right: clamp(0.9rem, 2vw, 1.5rem);
+    bottom: clamp(0.9rem, 2vw, 1.5rem);
+    left: clamp(0.9rem, 2vw, 1.5rem);
+    z-index: 1;
+    max-width: 380px;
+    margin-left: auto;
+    padding: 1.1rem;
+    border: 1px solid rgb(255 255 255 / 0.6);
+    border-radius: var(--r-lg);
+    background: rgb(255 255 255 / 0.94);
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+    backdrop-filter: blur(8px);
+  }
+
+  .cs-board-head {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.7rem;
+    color: var(--c-ink-3);
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .cs-board-head :global(svg) {
+    color: var(--c-orange);
+  }
+
+  .cs-board-list {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cs-board-list li {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.45rem 0.6rem 0.45rem 0.45rem;
+    border-radius: 12px;
+    background: var(--c-paper);
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .cs-board-list :global(.cs-board-photo) {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+
+  .cs-board-list :global(.cs-board-check) {
+    padding: 3px;
+    border-radius: 50%;
+    background: var(--c-success);
+    color: #fff;
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cs-board-list li {
+      animation: cs-row 0.6s var(--ease-out) both;
+      animation-delay: calc(0.35s + var(--i) * 0.18s);
+    }
+
+    .cs-board-list :global(.cs-board-check) {
+      animation: cs-check 0.4s var(--ease-out) both;
+      animation-delay: calc(0.75s + var(--i) * 0.18s);
+    }
+  }
+
+  @keyframes cs-row {
+    from {
+      opacity: 0;
+      transform: translateX(16px);
+    }
+  }
+
+  @keyframes cs-check {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+  }
+
+  @media (max-width: 999px) {
+    .cs-board-panel {
+      max-width: none;
+    }
+  }
+
+  /* ——— Eficiência ——— */
+  .cs-eff-grid {
+    display: grid;
+    gap: clamp(2rem, 1rem + 4vw, 5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .cs-eff-grid {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+  }
+
+  .cs-eff-media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: clamp(240px, 18vw + 120px, 340px);
+    aspect-ratio: 1;
+    margin-inline: auto;
+  }
+
+  .cs-eff-orbit {
+    position: absolute;
+    inset: -14%;
+    border: 1px dashed var(--c-line-2);
+    border-radius: 50%;
+  }
+
+  .cs-eff-orbit::after {
+    content: '';
+    position: absolute;
+    top: 12%;
+    right: 8%;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--c-orange);
+    box-shadow: 0 0 0 6px rgb(249 131 5 / 0.18);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cs-eff-orbit {
+      animation: cs-orbit 28s linear infinite;
+    }
+  }
+
+  @keyframes cs-orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .cs-eff-media :global(.cs-eff-img) {
+    position: relative;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 30px 40px rgb(14 13 34 / 0.3));
+  }
+
+  .cs-eff-copy {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .cs-eff-text {
+    max-width: 44ch;
+    color: var(--c-ink);
+    font-family: var(--f-display);
+    font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.85rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.4;
+  }
+
+  /* ——— Frentes ——— */
+  .cs-fronts .section-head {
+    margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+
+  .cs-fronts-grid {
+    display: grid;
+    gap: clamp(0.85rem, 0.6rem + 0.8vw, 1.25rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 900px) {
+    .cs-fronts-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .cs-front {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 1.4rem;
+    align-items: start;
+    padding: clamp(1.3rem, 1rem + 1vw, 2rem);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-1);
+    transition:
+      transform 0.35s var(--ease-out),
+      box-shadow 0.35s var(--ease-out);
+  }
+
+  .cs-front:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-2);
+  }
+
+  .cs-front-media {
+    position: relative;
+  }
+
+  .cs-front-media :global(.cs-front-photo) {
+    width: 120px;
+    height: 120px;
+  }
+
+  .cs-front-icon {
+    position: absolute;
+    right: -2px;
+    bottom: 4px;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 3px solid var(--c-surface);
+    border-radius: 50%;
+    background: var(--c-orange);
+    color: #1a0f02;
+  }
+
+  .cs-front-body {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .cs-front-num {
+    color: var(--c-ink-3);
+    font-family: var(--f-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
+  .cs-front-body h3 {
+    font-size: var(--t-h3);
+    letter-spacing: -0.02em;
+  }
+
+  .cs-front-body p {
+    color: var(--c-ink-2);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 559px) {
+    .cs-front {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cs-front-media :global(.cs-front-photo) {
+      width: 96px;
+      height: 96px;
+    }
+
+    .cs-front-icon {
+      left: 70px;
+      right: auto;
+    }
+  }
+
+  /* ——— Contato ——— */
+  .cs-contact {
+    position: relative;
+    overflow: hidden;
+    background: var(--c-navy-950);
+    isolation: isolate;
+    scroll-margin-top: var(--header-h);
+  }
+
+  .cs-contact-bg img,
+  .cs-contact-shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cs-contact-bg img {
+    z-index: -2;
+    object-fit: cover;
+    object-position: left center;
+  }
+
+  .cs-contact-shade {
+    z-index: -1;
+    background: linear-gradient(90deg, rgb(1 12 32 / 0.35), rgb(1 12 32 / 0.7) 45%, rgb(1 12 32 / 0.85));
+  }
+
+  .cs-contact-grid {
+    display: grid;
+    gap: clamp(2rem, 1rem + 3vw, 4rem);
+    align-items: center;
+  }
+
+  @media (min-width: 1000px) {
+    .cs-contact-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+    }
+  }
+
+  .cs-contact-copy {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .cs-contact-text {
+    max-width: 46ch;
+    color: var(--c-on-dark-2);
+    font-size: var(--t-lead);
+  }
+
+  @media (max-width: 767px) {
+    .cs-contact-bg img {
+      object-position: center top;
+    }
+
+    .cs-contact-shade {
+      background: linear-gradient(180deg, rgb(1 12 32 / 0.55), rgb(1 12 32 / 0.85));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cs-front {
+      transition: none;
+    }
+  }
+</style>

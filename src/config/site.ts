@@ -18,8 +18,8 @@ const U = SITE.origin;
 /**
  * Páginas já reconstruídas neste projeto: os links entre elas são internos (caminho na raiz do
  * site, respeitando o BASE_PATH do build), para que as páginas novas (Home, "Sobre nós",
- * Orçamento, o catálogo de servidores, as categorias, as páginas de produto e o carrinho) levem umas
- * às outras em qualquer ambiente. As páginas ainda não reformuladas continuam apontando para o
+ * Orçamento, o catálogo de servidores, as categorias, as páginas de produto, o carrinho, a
+ * finalização de orçamento e as soluções) levem umas às outras em qualquer ambiente. As páginas ainda não reformuladas continuam apontando para o
  * WordPress em msserver.com.br até serem reconstruídas. Ao reconstruir outra página, acrescente-a aqui.
  */
 const BASE = (import.meta.env?.BASE_URL ?? '/').replace(/\/$/, '');
@@ -43,6 +43,12 @@ export const ROUTES = {
   /** Finalização de orçamento, no endereço da finalização de compra do WooCommerce: revisão do
    *  carrinho e envio da solicitação ao comercial pelo WhatsApp (o site não recebe pagamentos). */
   checkout: `${BASE}/finalizar-compra/`,
+  /** Páginas de soluções reconstruídas, nos mesmos endereços do WordPress (inclusive a grafia
+   *  "extencao" do endereço publicado). */
+  nuvemPrivada: `${BASE}/nuvem-privada/`,
+  garantia: `${BASE}/extencao-de-garantia/`,
+  backup: `${BASE}/backup-em-nuvem/`,
+  consultoria: `${BASE}/consultoria-em-implantacao-de-servidores/`,
 } as const;
 
 /** Página de um produto (/servidor/slug/, o mesmo endereço do WooCommerce). */
@@ -97,21 +103,21 @@ export const NAV: NavLink[] = [
   { label: 'Início', href: LINKS.home },
   { label: 'Sobre nós', href: LINKS.about },
   {
-    // No WordPress, "Soluções" e "Servidores em Nuvem" apenas abrem submenus (href="#").
+    // No WordPress, "Soluções" apenas abre o submenu (href="#"). Desde a reconstrução das soluções,
+    // uma lista só, na ordem definida pela MSSERVER: "Servidores Dedicados" (/servidores-dedicados/)
+    // deu lugar à página de Servidores Físicos já publicada, e o grupo "Servidores em Nuvem" saiu.
+    // Nuvem Privada, Extensão de Garantia, Backup em Nuvem e Consultoria são as páginas
+    // reconstruídas (ROUTES); Soluções Cloud e Servidores Físicos são páginas próprias, publicadas
+    // fora deste projeto; o Aplicativo de Gestão continua na página atual do WordPress.
     label: 'Soluções',
     children: [
-      {
-        label: 'Servidores em Nuvem',
-        children: [
-          { label: 'Soluções Cloud', href: `${U}/solucoes-cloud/` },
-          { label: 'Nuvem Privada', href: `${U}/nuvem-privada/` },
-          { label: 'Servidores Dedicados', href: `${U}/servidores-dedicados/` },
-        ],
-      },
+      { label: 'Soluções Cloud', href: `${U}/solucoes-cloud/` },
+      { label: 'Nuvem Privada', href: ROUTES.nuvemPrivada },
+      { label: 'Servidores Físicos', href: `${U}/servidores-fisicos/` },
       { label: 'Aplicativo de Gestão', href: `${U}/aplicativo-ms-server/` },
-      { label: 'Extensão de Garantia', href: `${U}/extencao-de-garantia` },
-      { label: 'Backup em Nuvem', href: `${U}/backup-em-nuvem/` },
-      { label: 'Consultoria', href: `${U}/consultoria-em-implantacao-de-servidores/` },
+      { label: 'Extensão de Garantia', href: ROUTES.garantia },
+      { label: 'Backup em Nuvem', href: ROUTES.backup },
+      { label: 'Consultoria', href: ROUTES.consultoria },
     ],
   },
   { label: 'Orçamento', href: LINKS.quote },

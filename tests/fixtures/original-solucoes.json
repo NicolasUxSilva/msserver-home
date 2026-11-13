@@ -1,0 +1,500 @@
+{
+ "source": "Páginas publicadas em msserver.com.br, lidas em 12/11/2026 (http://, só leitura).",
+ "pages": {
+  "/nuvem-privada/": {
+   "title": "Nuvem Privada - MSSERVER",
+   "texts": [
+    "Nuvem Privada",
+    "Conte com toda a nossa expertise para construir uma nuvem sob medida e exclusiva para a sua operação.",
+    "NUVEM PRIVADA",
+    "Monte a configuração ideal para sua empresa dar um salto tecnológico",
+    "Uma nuvem feita para você",
+    "A melhor performance pelo menor custo",
+    "Nossos Diferenciais",
+    "PARCEIROS",
+    "Juntos fazemos acontecer",
+    "FALE COM UM ESPECIALISTA",
+    "Converse com um consultor para receber um orçamento.",
+    "Conte com a expertise de nossos arquitetos para dimensionar e implementar uma nuvem personalizada e exclusiva, utilizando equipamentos que atendam, sob medida, aos mais variados pré-requisitos, sem extrapolar seu budget. Especifique itens como latência de storage, topologia de rede e criticidade do ambiente, relacione a quantidade de processadores virtuais e memória, selecione periféricos específicos, critérios de segurança e tecnologia de virtualização. Tenha os benefícios de uma nuvem pública, combinados a itens de performance, escalabilidade e custos previsíveis, além de total controle, com requisitos de segurança exclusivos, controle de acesso de rede e isolamento de dados.",
+    "Altíssima performance de I/O",
+    "Algumas operações necessitam de recursos de armazenamento com baixíssima latência e altíssimo poder de leitura e/ou gravação. Nossos especialistas podem selecionar tecnologias específicas que melhor atendam às suas necessidades.",
+    "Periféricos específicos do cliente",
+    "Por se tratar de equipamentos dedicados para o cliente, dispositivos USB, placas PCI-e entre outros periféricos podem ser instalados, de forma que fique acessível tanto diretamente no servidor físico como em servidores virtuais.",
+    "Redução de custos",
+    "Nem todas as mais recentes tecnologias são necessárias para seu projeto, mas podem inviabilizá-lo financeiramente. Abrindo mão de complexidades, você pode reaproveitar seu orçamento, contratando mais recursos e reduzindo custos.",
+    "100% personalizável Nosso time de especialistas elabora o ambiente que melhor se encaixa com a necessidade, de modo que atenda pré-requisitos, preferências de tecnologias, pré-requisitos de segurança, budget e outras especificações.",
+    "Segurança a nível de rede Ambiente com controle de acesso a nível de redes, podendo ser interligado ao seu escritório por rede privada (ponto a ponto), VPN ou utilizando regras restritivas de firewall.",
+    "Suporte e treinamento Em caso de dúvidas, nossos especialistas estão à disposição 24/7, por telefone e portal de atendimento, falando com você em português, com proximidade e autonomia. Fazemos treinamentos para sua equipe, tudo isso sem custos adicionais.",
+    "Conectividade Conexão direta com grandes redes como Akamai, CloudFlare, Microsoft, Google, AWS e UPX. Capilaridade através dos maiores peerings nacionais do IX.br. Trânsito por múltiplas operadoras atuantes no Brasil e no mundo.",
+    "Empresa nacional Somos uma empresa nacional, oferecendo assim, toda a segurança jurídica, tributária e cambial que sua empresa necessita. Faça-nos uma visita e conheça as nossas instalações.",
+    "Backup diário Seus dados armazenados em ambiente externo e a prova de falhas, para que você tenha total segurança e tranquilidade em casos de remoção indevida de arquivos, corrompimento de banco de dados, problemas de sistema operacional, sequestros ransomware, entre outros. (serviço adicional).",
+    "Enviar",
+    "ENTRAR EM CONTATO",
+    "Nome",
+    "E-mail",
+    "Telefone"
+   ],
+   "buttons": [
+    {
+     "text": "ENTRAR EM CONTATO",
+     "href": "https://wa.me/5511985991837?text=Ol%C3%A1%2C+estive+em+seu+site+e+gostaria+de+fazer+um+or%C3%A7amento"
+    }
+   ],
+   "images": [
+    "2023/10/arquivo-de-backup-2.png",
+    "2023/10/brasil.png",
+    "2023/10/cabo-do-telefone.png",
+    "2023/10/conectar.png",
+    "2023/10/costumizacao-2.png",
+    "2023/10/nuvem-2.png",
+    "2023/10/nuvem-3-2.png",
+    "2023/10/perda-de-dinheiro.png",
+    "2023/10/protecao.png",
+    "2023/10/serv2-2.png",
+    "2023/10/suporte-tecnico-3.png",
+    "2023/11/AWS-2.png",
+    "2023/11/AZURE-2.png",
+    "2023/11/CIRION-2.png",
+    "2023/11/CISCO-2.png",
+    "2023/11/DELL-2.png",
+    "2023/11/EQUINIZ.png",
+    "2023/11/GOOGLE-2.png",
+    "2023/11/HP-2.png",
+    "2023/11/INTEL-2.png",
+    "2023/11/MICROSOFT-2.png",
+    "2023/11/REDHAT-2.png"
+   ],
+   "forms": [
+    {
+     "post_id": "7016",
+     "form_id": "1b2c23a",
+     "referer_title": "Nuvem Privada - MSSERVER",
+     "fields": [
+      {
+       "id": "field_49faf56",
+       "type": "select",
+       "required": false,
+       "placeholder": null,
+       "options": [
+        "4 Cores - 8 Threads",
+        "8  Cores - 16 Threads",
+        "10 Cores - 20 Threads",
+        "12 Cores - 24 Threads",
+        "16 Cores, - 32 Threads",
+        "18 Cores - 36 Threads",
+        "20  Cores - 40 Threads",
+        "22 Cores - 44 Threads"
+       ]
+      },
+      {
+       "id": "field_f2bee49",
+       "type": "select",
+       "required": false,
+       "placeholder": null,
+       "options": [
+        "8 GB",
+        "16 GB",
+        "32 GB",
+        "48 GB",
+        "64 GB",
+        "OUTRO"
+       ]
+      },
+      {
+       "id": "field_94be79a",
+       "type": "select",
+       "required": false,
+       "placeholder": null,
+       "options": [
+        "300 GB",
+        "600 GB",
+        "900 GB",
+        "1.2 TB",
+        "1.5 TB",
+        "2 TB",
+        "OUTRO"
+       ]
+      },
+      {
+       "id": "field_f72c94c",
+       "type": "select",
+       "required": false,
+       "placeholder": null,
+       "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+       ]
+      },
+      {
+       "id": "field_ec698fd",
+       "type": "text",
+       "required": true,
+       "placeholder": "Digite seu nome"
+      },
+      {
+       "id": "field_77d068a",
+       "type": "email",
+       "required": true,
+       "placeholder": "Digite seu e-mail"
+      },
+      {
+       "id": "field_b063367",
+       "type": "tel",
+       "required": true,
+       "placeholder": "DDD+número"
+      }
+     ],
+     "steps": [
+      "Processador",
+      "Memória",
+      "Armazenamento",
+      "IP",
+      "Contato"
+     ],
+     "submit": "Enviar"
+    },
+    {
+     "post_id": "7016",
+     "form_id": "74046a9",
+     "referer_title": "Nuvem Privada - MSSERVER",
+     "fields": [
+      {
+       "id": "field_49faf56",
+       "type": "checkbox",
+       "required": false,
+       "placeholder": null,
+       "options": [
+        "1x E3-1200 (4 Cores, 8 Threads, 3.0 GHz)",
+        "2x E5-2680v2 (20 Cores, 40 Threads, 2.8 GHz)",
+        "2x E5-2680v3 (24 Cores, 48 Threads, 2.0 GHz)",
+        "2x E5-2696v4 (44 Cores, 88 Threads, 2.2 GHz)",
+        "2x Silver 4314 (32 Cores, 64 Threads, 2.4 GHz)",
+        "2x Platinum 8176 (56 Cores, 112 Threads, 2.1 GHz)",
+        "2x E5-2650v2 (16 Cores, 32 Threads, 2.6 GHz)",
+        "2x E5-2697v2 (24 Cores, 48 Threads, 2.7 GHz)",
+        "2x E5-2690v4 (28 Cores, 56 Threads, 2.6 GHz)",
+        "2x Gold 6134 (16 Cores, 32 Threads, 3.2 GHz)",
+        "2x Gold 6138 (44 Cores, 88 Threads, 2.0 GHz)"
+       ]
+      },
+      {
+       "id": "field_f2bee49",
+       "type": "checkbox",
+       "required": false,
+       "placeholder": null,
+       "options": [
+        "16 GB",
+        " 32 GB",
+        " 64 GB"
+       ]
+      },
+      {
+       "id": "field_94be79a",
+       "type": "checkbox",
+       "required": false,
+       "placeholder": null,
+       "options": [
+        "2x 480GB SSD",
+        "2x 1920GB SSD",
+        "2x 7680GB SSD",
+        "2x 2000GB NVME",
+        "10TB HDD",
+        "2x 960GB SSD",
+        "2x 3840GB SSD",
+        "2x 1000GB NVME",
+        "2x 4000GB NVME",
+        "20TB HDD"
+       ]
+      },
+      {
+       "id": "field_f72c94c",
+       "type": "checkbox",
+       "required": false,
+       "placeholder": null,
+       "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+       ]
+      },
+      {
+       "id": "field_ec698fd",
+       "type": "text",
+       "required": true,
+       "placeholder": "Digite seu nome"
+      },
+      {
+       "id": "field_77d068a",
+       "type": "email",
+       "required": true,
+       "placeholder": "Digite seu e-mail"
+      },
+      {
+       "id": "field_b063367",
+       "type": "tel",
+       "required": true,
+       "placeholder": "DDD+número"
+      }
+     ],
+     "steps": [
+      "",
+      "",
+      "",
+      "",
+      ""
+     ],
+     "submit": "Enviar"
+    }
+   ],
+   "videos": [],
+   "anchors": []
+  },
+  "/extencao-de-garantia/": {
+   "title": "Extenção de Garantia - MSSERVER",
+   "texts": [
+    "EXTENÇÃO DE GARANTIA",
+    "Proteja seu servidore tenha cobertura adicional de até 5 anos com a Extenção de garantia da MSServer!",
+    "PORQUE CONTRATAR A EXTENSÃO DE GARANTIA DA MSSERVER?",
+    "Non -Stop",
+    "O NON-STOP é nosso plano de substituição antecipada, uma excelente opção para usuários que dispõe de tempo de inatividade mínimo. Em caso de problemas garantimos a substituição imediata de seu(s) servidor(es).",
+    "Garantia das Peças",
+    "Nossa extensão de garantia inclui também os componentes se seu servidor como: HD, fonte, placa mãe etc. Essa modalidade também segue o sistema Non-Stop",
+    "Suporte Técnico",
+    "Nossa equipe de suporte técnico é altamente qualificada e disponível para prestar o atendimento e garantir que os equipamentos estejam sempre disponíveis.",
+    "Disponibilidade de equipamentos",
+    "Nosso estoque está sempre preparado com peças e servidores prontos para atender qualquer ocorrência.",
+    "FACILIDADE NA AQUISIÇÃO",
+    "BAXE AGORA O APP!",
+    "SAIBA MAIS SOBRE A EXTENSÃO DE GARANTIA MSSERVER!",
+    "Ficou interessado em saber mais sobre a extensão de garantia da MSServer?",
+    "Preencha o formulário ao lado e entraremos em contato em breve para lhe fornecer todas as informações necessárias.",
+    "Tem alguma dúvida sobre extensão de garantia?",
+    "A aquisição da extensão de garantia da MSServer é fácil e sem burocracias. Basta baixar o aplicativo da MSServer e, além de gerenciar seus servidores, você pode contratar sua extensão de garantia de seu servidor de forma simples e tranquila.",
+    "SAIBA MAIS",
+    "Enviar",
+    "FALE CONOSCO",
+    "Nome",
+    "Email",
+    "Telefone"
+   ],
+   "buttons": [
+    {
+     "text": "FALE CONOSCO",
+     "href": "https://wa.me/5511985991837?text=Ol%C3%A1%2C+estive+em+seu+site+e+gostaria+de+saber+mais+sobre+Cloud"
+    },
+    {
+     "text": "SAIBA MAIS",
+     "href": "#funciona"
+    }
+   ],
+   "images": [
+    "2023/10/QR-CODE-1.png",
+    "2023/10/mao-celular.png"
+   ],
+   "forms": [
+    {
+     "post_id": "6727",
+     "form_id": "f07f805",
+     "referer_title": "Extenção de Garantia - MSSERVER",
+     "fields": [
+      {
+       "id": "name",
+       "type": "text",
+       "required": true,
+       "placeholder": "Digite seu nome"
+      },
+      {
+       "id": "field_f66ed12",
+       "type": "email",
+       "required": true,
+       "placeholder": "Digite seu email"
+      },
+      {
+       "id": "field_2702160",
+       "type": "tel",
+       "required": true,
+       "placeholder": "Digite seu Telefone"
+      }
+     ],
+     "steps": [],
+     "submit": "Enviar"
+    }
+   ],
+   "videos": [
+    "https://youtu.be/SgYdjULsbBg?si=Ex4WbzJZdBil_GSr"
+   ],
+   "anchors": [
+    "funciona",
+    "orcamento"
+   ]
+  },
+  "/backup-em-nuvem/": {
+   "title": "Backup em Nuvem - MSSERVER",
+   "texts": [
+    "CLOUD",
+    "BACKUP EM NUVEM",
+    "Proteja seus dados com segurança e conveniência incomparáveis! Nosso backup em nuvem é a solução para garantir a integridade de seus arquivos e documentos mais importantes!",
+    "5 VANTAGENS DE CONTRATAR O BACKUP EM NUVEM MSSERVER",
+    "Mais Segurança",
+    "Implementamos medidas rigorosas de proteção de dados como: Criptografia de dados e redundância.",
+    "Acessibilidade",
+    "Através do App MSServer você acessa seus dados de backup de qualquer lugar e a qualquer momento.",
+    "Automatização",
+    "Programe backups automáticos e elimine a necessidade de intervenções manuais ao seu processo de backup.",
+    "Economia de Espaço",
+    "Você não precisa de preocupar com a compra de hardware adicional para armazenamento, como discos rígidos externos.",
+    "Recuperação fácil",
+    "Em casos de falha no seu dispositivo principal ou perda de dados, a recuperação é simples. Basta fazer o dowload dos backups armazenados na nuvem.",
+    "Evite perdas de dados e espaço de armazenamento limitado.",
+    "Experimente hoje mesmo nossa solução do backup em nuvem e mantenha seus dados protegidos e acessíveis em qualquer lugar, a qualquer momento.",
+    "Nossos processos e competências seguem certificações de mercado, proporcionando qualidade superior aos clientes.",
+    "Preencha o formulário e entraremos em contato para entender melhor a sua necessidade!",
+    "SAIBA MAIS SOBRE NOSSA SOLUÇÃO DE BACKUP EM NUVEM",
+    "Alguns de nossos parceiros",
+    "Tem alguma dúvida sobre nosso backup em nuvem?",
+    "SAIBA MAIS",
+    "Enviar",
+    "FALE CONOSCO",
+    "Nome",
+    "Email",
+    "Telefone",
+    "Armazenamento"
+   ],
+   "buttons": [
+    {
+     "text": "FALE CONOSCO",
+     "href": "https://wa.me/5511985991837?text=Ol%C3%A1%2C+estive+em+seu+site+e+gostaria+de+saber+mais+sobre+Cloud"
+    },
+    {
+     "text": "SAIBA MAIS",
+     "href": "#funciona"
+    }
+   ],
+   "images": [
+    "2023/08/2-2.png",
+    "2023/09/ICONES-BACKUP-NUVEM-02.png",
+    "2023/09/ICONES-BACKUP-NUVEM-03.png",
+    "2023/09/ICONES-BACKUP-NUVEM-04.png",
+    "2023/09/ICONES-BACKUP-NUVEM_Prancheta-1.png",
+    "2023/10/parceiros-1.png"
+   ],
+   "forms": [
+    {
+     "post_id": "6641",
+     "form_id": "58d3284",
+     "referer_title": "Backup em Nuvem - MSSERVER",
+     "fields": [
+      {
+       "id": "name",
+       "type": "text",
+       "required": true,
+       "placeholder": "Digite seu nome"
+      },
+      {
+       "id": "field_f66ed12",
+       "type": "email",
+       "required": true,
+       "placeholder": "Digite seu email"
+      },
+      {
+       "id": "field_2702160",
+       "type": "tel",
+       "required": true,
+       "placeholder": "Digite seu Telefone"
+      },
+      {
+       "id": "field_0d01f80",
+       "type": "text",
+       "required": true,
+       "placeholder": "Digite a quantidade de volume"
+      }
+     ],
+     "steps": [],
+     "submit": "Enviar"
+    }
+   ],
+   "videos": [
+    "https://www.youtube.com/watch?v=ZebwXutm2Po&t=46s"
+   ],
+   "anchors": []
+  },
+  "/consultoria-em-implantacao-de-servidores/": {
+   "title": "Consultoria em implantação de servidores - MSSERVER",
+   "texts": [
+    "CONSULTORIA",
+    "Projetos personalizados na medida de sua operação.",
+    "Transforme sua infraestrutura empresarial com a nossa consultoria especializada em implantação de servidores. Oferecemos soluções personalizadas, seja na nuvem ou local, para impulsionar a eficiência e a segurança dos seus sistemas e previsibilidade de resultados.",
+    "Eficiência Operacional:",
+    "Aumente a eficiência operacional da sua empresa com nossos serviços de consultoria. Desde a otimização de servidores locais até a migração para a nuvem, estamos comprometidos em impulsionar a produtividade e reduzir custos.",
+    "Ficou interessado em saber mais sobre a Consultoria da MSServer?",
+    "Preencha o formulário e entraremos em contato em breve para lhe fornecer todas as informações necessárias.",
+    "Continuidade de Serviços:",
+    "Garanta a continuidade dos seus negócios com nossas soluções avançadas em servidores locais. Mantenha suas operações funcionando sem interrupções, mesmo diante de desafios imprevistos, com estratégias de disaster recovery e sistemas robustos.",
+    "Projetos Personalizados:",
+    "Cada empresa é única, e nossos projetos personalizados refletem essa singularidade. Desenvolvemos soluções sob medida para atender às necessidades específicas do seu negócio, garantindo eficiência e otimização em cada aspecto.",
+    "Multicloud e Nuvem Híbrida:",
+    "Explore as vantagens da multicloud e da nuvem híbrida para uma escalabilidade sem precedentes. Integre ambientes locais e em nuvem para um desempenho excepcional, proporcionando flexibilidade e eficiência operacional.",
+    "Segurança de Dados:",
+    "Proteja seus ativos mais valiosos com as nossas soluções de segurança de dados. Da implementação de servidores locais à migração para a nuvem, garantimos a segurança contra ameaças cibernéticas, proporcionando tranquilidade para seus negócios prosperarem.",
+    "Saiba mais",
+    "Enviar",
+    "Nome",
+    "Email",
+    "Telefone"
+   ],
+   "buttons": [
+    {
+     "text": "Saiba mais",
+     "href": "#contato"
+    }
+   ],
+   "images": [
+    "2023/12/1.png",
+    "2023/12/2.png",
+    "2023/12/3.png",
+    "2023/12/4.png",
+    "2023/12/5.png"
+   ],
+   "forms": [
+    {
+     "post_id": "7247",
+     "form_id": "716f78c",
+     "referer_title": "Consultoria em implantação de servidores - MSSERVER",
+     "fields": [
+      {
+       "id": "name",
+       "type": "text",
+       "required": true,
+       "placeholder": "Digite seu nome"
+      },
+      {
+       "id": "field_f66ed12",
+       "type": "email",
+       "required": true,
+       "placeholder": "Digite seu email"
+      },
+      {
+       "id": "field_2702160",
+       "type": "tel",
+       "required": true,
+       "placeholder": "Digite seu Telefone"
+      }
+     ],
+     "steps": [],
+     "submit": "Enviar"
+    }
+   ],
+   "videos": [],
+   "anchors": [
+    "contato"
+   ]
+  }
+ }
+}

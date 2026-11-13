@@ -43,6 +43,12 @@ test.describe('preservação da home original', () => {
       ...Object.fromEntries(
         ['componentes', 'baterias', 'dissipadores', 'fans', 'fontes', 'gavetas', 'placas-de-rede'].map((c) => [`https://msserver.com.br/categoria-produto/${c}/`, `/categoria-produto/${c}/`]),
       ),
+      // Soluções reconstruídas (mesmos endereços); "Servidores Dedicados" deu lugar a Servidores Físicos.
+      'https://msserver.com.br/nuvem-privada/': '/nuvem-privada/',
+      'https://msserver.com.br/extencao-de-garantia': '/extencao-de-garantia/',
+      'https://msserver.com.br/backup-em-nuvem/': '/backup-em-nuvem/',
+      'https://msserver.com.br/consultoria-em-implantacao-de-servidores/': '/consultoria-em-implantacao-de-servidores/',
+      'https://msserver.com.br/servidores-dedicados/': 'https://msserver.com.br/servidores-fisicos/',
     };
     // Páginas de produto: reconstruídas no mesmo endereço (/servidor/slug/).
     const local = (h: string) => equivalent[h] ?? h.replace(/^https:\/\/msserver\.com\.br(?=\/servidor\/[^/]+\/$)/, '');
@@ -197,8 +203,8 @@ test.describe('desktop', () => {
     const sol = nav.getByRole('button', { name: 'Soluções' });
     await sol.click();
     await expect(sol).toHaveAttribute('aria-expanded', 'true');
-    await expect(nav.getByRole('link', { name: 'Servidores Dedicados' })).toBeVisible();
-    await expect(nav.getByText('Servidores em Nuvem')).toBeVisible();
+    await expect(nav.getByRole('link', { name: 'Servidores Físicos' })).toBeVisible();
+    await expect(nav.getByRole('link', { name: 'Nuvem Privada' })).toHaveAttribute('href', '/nuvem-privada/');
     await page.keyboard.press('Escape');
     await expect(sol).toHaveAttribute('aria-expanded', 'false');
     await expect(sol).toBeFocused();
@@ -266,9 +272,8 @@ test.describe('celular', () => {
     await menu.locator('#m-v-root-0-4').getByRole('button', { name: 'Voltar' }).click();
     await menu.locator('#m-v-root-0').getByRole('button', { name: 'Voltar' }).click();
     await menu.getByRole('button', { name: 'Soluções', exact: true }).click();
-    await menu.getByRole('button', { name: 'Servidores em Nuvem', exact: true }).click();
     await expect(menu.getByRole('link', { name: 'Nuvem Privada' })).toBeVisible();
-    await menu.locator('#m-v-root-3-0').getByRole('button', { name: 'Voltar' }).click();
+    await expect(menu.getByRole('link', { name: 'Servidores Físicos' })).toHaveAttribute('href', 'https://msserver.com.br/servidores-fisicos/');
     await menu.locator('#m-v-root-3').getByRole('button', { name: 'Voltar' }).click();
     await expect(menu.getByRole('link', { name: 'Cases de sucesso' })).toHaveAttribute('href', 'https://msserver.com.br/cases-de-sucesso/');
 
