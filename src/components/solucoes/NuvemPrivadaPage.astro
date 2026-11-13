@@ -341,6 +341,11 @@ const pad = (n: number) => String(n).padStart(2, '0');
     line-height: 1.06;
   }
 
+  /* A moldura listrada da foto avança para fora do quadro: não pode alargar a página. */
+  .np-intro {
+    overflow-x: clip;
+  }
+
   .np-intro-grid {
     display: grid;
     gap: clamp(2rem, 1rem + 4vw, 5rem);

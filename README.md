@@ -1,4 +1,4 @@
-# Site MSSERVER · reformulação visual (home, "Sobre nós", Orçamento, catálogo e solicitação de orçamento)
+# Site MSSERVER · reformulação visual (home, "Sobre nós", Orçamento, catálogo, solicitação de orçamento e soluções)
 
 Home institucional de [msserver.com.br](https://msserver.com.br/) reconstruída na identidade
 visual das landings de servidores físicos e de Cloud, **com a mesma estrutura, os mesmos
@@ -42,6 +42,7 @@ npm run build
 | Fotos, ícones e fundos da página "Sobre nós" | `node scripts/prepare-sobre-assets.mjs` (baixa de msserver.com.br) |
 | Catálogo e páginas de produto (`/servidores/`, categorias e `/servidor/slug/`) | `npm run sync:catalog` → `src/data/catalog.json`, `src/data/product-seo.json`, `src/assets/catalog/` e `src/assets/gallery/` (ver abaixo) |
 | Avaliações do Google ("O que os clientes dizem", em "Sobre nós") | `npm run sync:reviews` → `src/data/google-reviews.json` (ver abaixo) |
+| Imagens das soluções (Nuvem Privada, Extensão de Garantia, Backup em Nuvem, Consultoria) | `node scripts/prepare-solucoes-assets.mjs` → `src/assets/solucoes/` (com o HTTPS fora do ar: `WP_ORIGIN=http://msserver.com.br`) |
 | Menu, links, contatos, WhatsApp, vídeo, rastreamento | `src/config/site.ts` |
 | Metadados JSON-LD (cópia do All in One SEO) | `src/data/schema.json` |
 
@@ -137,6 +138,30 @@ solicitação de orçamento ao comercial pelo WhatsApp. Não há pagamento, form
 - **Número:** o WhatsApp que o site já usa em todos os botões (plugin Click to Chat do WordPress, rodapé
   e "Orçamento pelo WhatsApp" do carrinho). O número configurado no plugin "WooCommerce Order on
   WhatsApp" não é público; se o comercial usar outro, troque em `src/data/finalizacao.ts`.
+
+### Soluções (Nuvem Privada, Extensão de Garantia, Backup em Nuvem, Consultoria)
+
+Quatro páginas reconstruídas nos mesmos endereços do WordPress (`/nuvem-privada/`,
+`/extencao-de-garantia/` — com a grafia publicada —, `/backup-em-nuvem/` e
+`/consultoria-em-implantacao-de-servidores/`), com os textos, imagens, vídeos, links, botões e
+formulários publicados (`src/data/solucoes.ts`; SEO do All in One SEO em `src/data/solucoes-seo.json`).
+Cada página tem a própria composição (`src/components/solucoes/*Page.astro`) sobre partes comuns:
+
+- `src/styles/solucoes.css`: grifo laranja, cartões, formulário, vídeo e faixa final.
+- `SolLeadForm.astro` + `src/scripts/sol-lead-form.ts`: formulário de contato (Garantia, Backup,
+  Consultoria) com os mesmos campos do Elementor, conferência antes do envio e estados de envio,
+  sucesso (a mensagem do servidor) e falha (dados mantidos, WhatsApp como alternativa).
+- `NpConfigurador.astro` + `src/scripts/np-configurador.ts`: o formulário em etapas da Nuvem Privada
+  (Processador, Memória, Armazenamento, IP, Contato), com os dois widgets publicados — desktop/tablet
+  e celular — e o resumo ao lado.
+- `src/scripts/elementor-form.ts`: o envio ao `admin-ajax.php` do Elementor (o mesmo protocolo do
+  Orçamento), compartilhado pelos quatro formulários.
+- `SolVideo.astro`: vídeo do YouTube com a capa do próprio vídeo; o player carrega no clique.
+- `SolCta.astro`: faixa final com o botão de WhatsApp publicado.
+
+Os formulários só funcionam servidos no domínio da loja, como o Orçamento (ver "Formulário de
+orçamento"). O que foi preservado, os erros mantidos e os problemas encontrados nas páginas originais
+estão em [docs/PRESERVACAO.md](docs/PRESERVACAO.md) ("Páginas de soluções").
 
 ### Avaliações do Google
 
@@ -237,6 +262,15 @@ item removido no carrinho (resumo e mensagem acompanham, contato mantido); jorna
 → orçamento → WhatsApp; dados da sessão do WooCommerce; janela bloqueada (abre na mesma aba); eventos
 de análise sem dados pessoais; barra de envio no celular; layout e acessibilidade (axe).
 
+Soluções (`tests/e2e/solucoes.spec.ts`, 19): contra as quatro páginas publicadas
+(`tests/fixtures/original-solucoes.json`, capturado do HTML): SEO e JSON-LD, todos os textos, botões com
+o mesmo destino, âncoras (`#funciona`, `#orcamento`, `#contato`), vídeos (mesmo vídeo e início), campos e
+textos dos formulários, imagens carregadas e todas as imagens publicadas no projeto; os formulários de
+contato (conferência, envio no formato do Elementor a um `admin-ajax.php` simulado, sucesso, falha do
+servidor e da rede); o configurador da Nuvem Privada (etapas e opções dos dois widgets, envio com o
+widget da tela: uma opção por etapa no desktop, várias no celular); vídeo no clique; menu Soluções
+(sete itens e destinos, desktop e celular); layout e acessibilidade (axe).
+
 Capturas de QA: `node scripts/qa-screenshots.mjs http://localhost:4330/ 390,768,1024,1440`.
 
 ## Publicação
@@ -281,7 +315,10 @@ configurado no Elementor, no WordPress. Para funcionar:
 | `/carrinho/` | Carrinho reconstruído; itens e valores pela Store API do WooCommerce (mesma sessão do WordPress) |
 | `/finalizar-compra/` (só esse endereço, em GET) | Finalização de orçamento: resumo do carrinho e envio pelo WhatsApp (sem pagamento) |
 | POST em `/finalizar-compra/` e subpáginas, conta (`/minha-conta/`) e a Store API (`/wp-json/`) | WordPress (WooCommerce) |
-| Demais páginas (soluções, blog, suporte, cases, landings) | WordPress em `https://msserver.com.br` |
+| `/nuvem-privada/`, `/extencao-de-garantia/`, `/backup-em-nuvem/`, `/consultoria-em-implantacao-de-servidores/` | Soluções reconstruídas, nos mesmos endereços; os formulários continuam enviando ao WordPress |
+| `/solucoes-cloud/`, `/servidores-fisicos/` | Páginas próprias, fora deste projeto (Servidores Físicos já publicada; a Soluções Cloud nova está em `cloud-ms-beige.vercel.app`) |
+| `/aplicativo-ms-server/` (Aplicativo de Gestão) | WordPress, sem alteração |
+| Demais páginas (blog, suporte, cases, landings) | WordPress em `https://msserver.com.br` |
 
 Os links entre páginas já reconstruídas são internos (`ROUTES` em `src/config/site.ts`, com o
 `BASE_PATH` do build); os demais continuam absolutos para o WordPress. Ao reconstruir outra
@@ -291,8 +328,9 @@ apontar para ela. `canonical`, Open Graph e JSON-LD continuam com as URLs de pro
 A home atual é servida pelo WordPress. Para colocar esta versão no ar é preciso que o servidor
 entregue `/`, `/sobre/`, `/orcamento/`, `/servidores/`,
 `/categoria-produto/{dell,hp,ibm,componentes,baterias,dissipadores,fans,fontes,gavetas,placas-de-rede}/`
-(com as páginas `/page/N/`), `/servidor/*/` (páginas de produto), `/carrinho/` e `/finalizar-compra/`
-(só o endereço exato, em GET) a partir do `dist/` e mantenha o WordPress nas demais rotas, incluindo o
+(com as páginas `/page/N/`), `/servidor/*/` (páginas de produto), `/carrinho/`, `/finalizar-compra/`
+(só o endereço exato, em GET), `/nuvem-privada/`, `/extencao-de-garantia/`, `/backup-em-nuvem/` e
+`/consultoria-em-implantacao-de-servidores/` a partir do `dist/` e mantenha o WordPress nas demais rotas, incluindo o
 POST em `/finalizar-compra/` (o "Orçamento" das páginas de produto sem JavaScript), a
 conta (`/minha-conta/`), `/wp-json/` (a Store API, usada pelo carrinho e pela finalização), `/wp-content/` e
 `/wp-admin/admin-ajax.php` (ou que o HTML/CSS seja portado para templates do

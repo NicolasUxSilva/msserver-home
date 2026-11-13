@@ -329,7 +329,9 @@ test.describe('soluções: layout e acessibilidade', () => {
           await new Promise((r) => setTimeout(r, 40));
         }
       });
-      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+      // Nada mais largo que a tela (no celular, um vazamento alarga o layout em vez de criar rolagem).
+      const vw = page.viewportSize()!.width;
+      expect(await page.evaluate(() => [document.documentElement.scrollWidth, window.innerWidth])).toEqual([vw, vw]);
       await page.evaluate(() => Promise.all(document.getAnimations().filter((a) => a.effect?.getComputedTiming().iterations !== Infinity).map((a) => a.finished.catch(() => undefined))));
       const axe = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
       expect(axe.violations.map((v) => `${v.id}: ${v.nodes.length} (${v.nodes[0]?.target})`)).toEqual([]);

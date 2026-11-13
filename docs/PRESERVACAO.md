@@ -797,3 +797,152 @@ PayPal, por um plugin que não foi possível identificar de fora; com o certific
 `http://` esses dados trafegam sem criptografia. Recomendação: quem administra o WordPress deve
 identificar o plugin, confirmar se é legítimo (ou desativar essa forma de pagamento, já que o site não
 recebe pagamentos), verificar se há código malicioso e renovar o certificado HTTPS.
+
+# Páginas de soluções (Nuvem Privada, Extensão de Garantia, Backup em Nuvem, Consultoria)
+
+Referência: as quatro páginas publicadas, localizadas pelo menu "Soluções" do site e lidas em
+12/11/2026 pelo endereço `http://` (só leitura: HTML, CSS do Elementor de cada página e imagens).
+Validadas com `tests/e2e/solucoes.spec.ts` contra `tests/fixtures/original-solucoes.json`.
+
+| Página | Endereço (mantido) | Página no WordPress |
+| --- | --- | --- |
+| Nuvem Privada | `/nuvem-privada/` | 7016 |
+| Extensão de Garantia | `/extencao-de-garantia/` (o menu publicado aponta para `/extencao-de-garantia`, que redireciona) | 6727 |
+| Backup em Nuvem | `/backup-em-nuvem/` | 6641 |
+| Consultoria | `/consultoria-em-implantacao-de-servidores/` | 7247 |
+
+## O que foi preservado (nas quatro)
+
+- Título, descrição, robots, canonical e JSON-LD do All in One SEO.
+- **Todos os textos**, na ordem de cada página, com as palavras, a pontuação e os erros (ver abaixo);
+  a única mudança é tipográfica (CAIXA ALTA em caixa de frase), como na home e em "Sobre nós".
+- **Todas as imagens** publicadas (`scripts/prepare-solucoes-assets.mjs`), inclusive os fundos de
+  desktop e de celular: nenhuma substituída ou gerada; fotos e fundos em JPG, ícones e logos em PNG; a
+  faixa de parceiros do Backup só perdeu a margem branca vazia em volta dos logos.
+- **Botões e links**: mesmos textos e destinos (WhatsApp com a mensagem publicada; âncoras).
+- **Âncoras**: `#funciona` (Garantia, "Porque contratar…"), `#orcamento` (Garantia, formulário) e
+  `#contato` (Consultoria, formulário).
+- **Vídeos**: os mesmos do YouTube (Garantia: `SgYdjULsbBg`; Backup: `ZebwXutm2Po`, começando aos 46 s,
+  como no link publicado), com controles e sem tocar sozinhos.
+- **Formulários**: o mesmo destino e os mesmos dados do widget do Elementor (`admin-ajax.php`,
+  `post_id`, `form_id`, `referer_title`, `queried_id`, `form_fields[...]` com os ids publicados,
+  `referrer`), os mesmos campos, nomes, textos de exemplo e obrigatórios, e a mensagem de sucesso que o
+  servidor devolver. Quem recebe e o que acontece depois continua configurado no Elementor.
+
+## Nuvem Privada
+
+| Original | Exibido |
+| --- | --- |
+| Abertura "Nuvem Privada" + frase, sobre a arte da nuvem (desktop e celular) | Mesma arte e textos; botões "Monte a configuração ideal" (leva ao formulário) e "Entrar em contato" (o WhatsApp do fim da página) |
+| "NUVEM PRIVADA / Monte a configuração ideal…" + formulário em etapas | "Nuvem privada" + o mesmo título; o formulário vira um configurador com resumo ao lado (ver abaixo) |
+| "Uma nuvem feita para você" + texto + foto | Mesmo texto e foto; abaixo, as expressões que o texto manda especificar ("Latência de storage"…) |
+| "A melhor performance pelo menor custo" + 3 itens com ícones | Mesmos itens e ícones, numerados |
+| "Nossos Diferenciais": carrossel com 6 itens e ícones | Os 6 itens e ícones, todos à vista (grade 3 × 2) |
+| "PARCEIROS / Juntos fazemos acontecer" + carrossel de 11 logos | "Parceiros" + o mesmo título; os 11 logos em faixa contínua (em grade, com redução de movimento) |
+| "FALE COM UM ESPECIALISTA / Converse com um consultor…" + "ENTRAR EM CONTATO" | Mesmos textos e destino, sobre a mesma foto |
+
+**Formulário (configurador).** Como no WordPress, são dois widgets: no desktop e no tablet, `1b2c23a`,
+com listas suspensas (uma opção por etapa; a primeira já vem marcada, como numa lista suspensa); no
+celular (até 767 px), `74046a9`, com caixas de seleção (várias por etapa). As etapas (Processador,
+Memória, Armazenamento, IP, Contato), as opções e os valores enviados são os publicados — inclusive
+os espaços que fazem parte dos valores ("8  Cores - 16 Threads", " 32 GB"). "Próximo" e "Anterior"
+navegam como no Elementor (as etapas de configuração não são obrigatórias); Nome, E-mail e Telefone são
+conferidos antes do envio.
+
+## Extensão de Garantia
+
+| Original | Exibido |
+| --- | --- |
+| "EXTENÇÃO DE GARANTIA" + título + "SAIBA MAIS" (`#funciona`), sobre a foto do rack (celular: arte da nuvem) | "Extenção de garantia" + o mesmo título (com o trecho "cobertura adicional de até 5 anos" grifado e um medidor de 5 anos) + "Saiba mais"; "Fale conosco" (o WhatsApp do fim) ao lado; as duas imagens |
+| "PORQUE CONTRATAR A EXTENSÃO DE GARANTIA DA MSSERVER?" + 4 itens | Mesmo título e itens (com ícones), sobre o mesmo fundo |
+| "FACILIDADE NA AQUISIÇÃO" + texto + celular com o app + QR code + "BAXE AGORA O APP!" | Mesmos textos e imagens; além do QR code, os selos da App Store e do Google Play com os links que o site já usa |
+| "SAIBA MAIS SOBRE A EXTENSÃO DE GARANTIA MSSERVER!" + vídeo | Mesmo título e vídeo, sobre o mesmo fundo |
+| "Ficou interessado…" + texto + formulário (Nome, Email, Telefone) | Mesmos textos e formulário (`f07f805`) |
+| "Tem alguma dúvida sobre extensão de garantia?" + "FALE CONOSCO" | Mesmos textos e destino |
+
+## Backup em Nuvem
+
+| Original | Exibido |
+| --- | --- |
+| "CLOUD / BACKUP EM NUVEM" + texto + "SAIBA MAIS" (`#funciona`), sobre a capa (celular: arte da nuvem) | Mesmos textos e botão; a capa num círculo com anéis e as expressões "Criptografia de dados", "Redundância" e "Backups automáticos" (dos textos das vantagens); a arte do celular ao fundo no celular; "Fale conosco" (o WhatsApp do fim) ao lado |
+| "5 VANTAGENS DE CONTRATAR O BACKUP EM NUVEM MSSERVER" + 5 itens com ícones | Mesmos itens e ícones, numerados, ligados por uma linha |
+| "Evite perdas…" + 3 textos + formulário (Nome, Email, Telefone, Armazenamento) | Mesmos textos (o das certificações em destaque) e formulário (`58d3284`) |
+| "SAIBA MAIS SOBRE NOSSA SOLUÇÃO DE BACKUP EM NUVEM" + vídeo | Mesmo título e vídeo |
+| "Alguns de nossos parceiros" + faixa de logos | Mesmo título e imagem |
+| "Tem alguma dúvida sobre nosso backup em nuvem?" + "FALE CONOSCO" | Mesmos textos e destino |
+
+## Consultoria
+
+| Original | Exibido |
+| --- | --- |
+| "CONSULTORIA" + título + texto + "Saiba mais" (`#contato`), sobre a foto (celular: outra) | Mesmos textos e botão; ao lado, a foto num quadro com as quatro frentes (com as fotos de cada uma) |
+| Foto + "Eficiência Operacional:" + texto | Mesma foto e textos, em destaque |
+| 4 frentes com fotos (Continuidade de Serviços, Projetos Personalizados, Multicloud e Nuvem Híbrida, Segurança de Dados) | Mesmas fotos e textos, numerados, com um ícone de apoio |
+| "Ficou interessado…" + texto + formulário, sobre a foto de fundo (desktop e celular) | Mesmos textos, formulário (`716f78c`) e fotos |
+
+## Textos em CAIXA ALTA (exibidos em caixa de frase)
+
+| Original | Exibido |
+| --- | --- |
+| NUVEM PRIVADA / PARCEIROS / FALE COM UM ESPECIALISTA / ENTRAR EM CONTATO | Nuvem privada / Parceiros / Fale com um especialista / Entrar em contato |
+| EXTENÇÃO DE GARANTIA / SAIBA MAIS / FALE CONOSCO | Extenção de garantia / Saiba mais / Fale conosco |
+| PORQUE CONTRATAR A EXTENSÃO DE GARANTIA DA MSSERVER? | Porque contratar a extensão de garantia da MSSERVER? |
+| FACILIDADE NA AQUISIÇÃO / BAXE AGORA O APP! | Facilidade na aquisição / Baxe agora o app! |
+| SAIBA MAIS SOBRE A EXTENSÃO DE GARANTIA MSSERVER! | Saiba mais sobre a extensão de garantia MSSERVER! |
+| CLOUD / BACKUP EM NUVEM / 5 VANTAGENS DE CONTRATAR O BACKUP EM NUVEM MSSERVER | Cloud / Backup em nuvem / 5 vantagens de contratar o backup em nuvem MSSERVER |
+| SAIBA MAIS SOBRE NOSSA SOLUÇÃO DE BACKUP EM NUVEM | Saiba mais sobre nossa solução de backup em nuvem |
+| CONSULTORIA | Consultoria |
+
+## Erros mantidos (sugestões para a MSSERVER decidir)
+
+- "**Extenção**" (título da página, rótulo e "Extenção de garantia da MSServer!"; o endereço também é
+  `/extencao-de-garantia/`), "Proteja seu **servidore tenha**…", "**Non -Stop**", "os componentes **se**
+  seu servidor", "usuários que **dispõe**", "**Porque** contratar…", "**Baxe** agora o app!".
+- Backup: "Você não precisa **de** preocupar", "fazer o **dowload**".
+- Nuvem Privada: "a prova de falhas" (sem crase); opção "**16 Cores, - 32 Threads**".
+- "Preencha o formulário **ao lado**" (Garantia): no celular o formulário fica abaixo.
+
+## Problemas encontrados (documentados, não corrigidos)
+
+- **Backup: o "Saiba mais" da abertura aponta para `#funciona`, que não existe na página** (a página
+  parece copiada da de Garantia, onde a âncora existe). O botão continua com o mesmo destino e não leva a
+  lugar nenhum, como hoje.
+- **Garantia e Backup: o "Fale conosco" abre o WhatsApp com "…gostaria de saber mais sobre Cloud"**,
+  embora as páginas sejam de extensão de garantia e de backup.
+- **Nuvem Privada: os dois formulários oferecem opções diferentes.** No desktop/tablet, núcleos
+  (4 a 22 Cores), memória de 8 a 64 GB ou "OUTRO" e armazenamento de 300 GB a 2 TB ou "OUTRO"; no
+  celular, modelos de processador (E3, E5, Silver, Platinum, Gold), memória de 16 a 64 GB e discos
+  (SSD, NVME, HDD), várias opções por etapa, e as etapas sem nome. A página nova mantém cada conjunto
+  na sua tela (o nome das etapas aparece também no celular).
+- **Descrições de SEO** geradas automaticamente pelo All in One SEO a partir do começo do texto (com os
+  títulos em caixa alta), e `og:image` em `http://`.
+- **Menu do WordPress**: ainda aponta para "Servidores Dedicados" (`/servidores-dedicados/`, que
+  continua no ar) e para a Soluções Cloud antiga (`/solucoes-cloud/`, no Elementor).
+
+## O que mudou
+
+- **Visual** na identidade do site, com composição própria por página (infraestrutura e configuração
+  na Nuvem Privada; proteção e confiança na Garantia; proteção e recuperação no Backup; autoridade
+  técnica na Consultoria): aberturas com as imagens publicadas, rótulos numerados das seções, cartões,
+  ícones de apoio, animações discretas (que param com "reduzir movimento").
+- **Carrosséis** (diferenciais e parceiros da Nuvem Privada) passam a mostrar todo o conteúdo.
+- **Botões a mais, com textos e destinos que a página já tinha**: na abertura da Nuvem Privada ("Monte
+  a configuração ideal", que leva ao formulário, e "Entrar em contato"); "Fale conosco" nas aberturas de
+  Garantia e Backup.
+- **Garantia**: selos da App Store e do Google Play (os links do app que o site já usa), já que o QR
+  code não serve para quem está no celular.
+- **Vídeos**: a capa do próprio vídeo; o player do YouTube carrega no clique.
+- **Formulários**: conferência antes do envio (obrigatórios, e-mail e telefone, com a mesma regra do
+  servidor do Elementor), estados de envio, sucesso e falha (dados mantidos e WhatsApp como
+  alternativa); nada é dado como enviado sem a confirmação do servidor. O envio real não foi testado
+  (não foram disparadas solicitações fictícias ao comercial): foi validado com o WordPress simulado, no
+  formato de resposta do Elementor.
+
+## Menu "Soluções" (todas as páginas)
+
+Uma lista só, na ordem definida pela MSSERVER: Soluções Cloud (`/solucoes-cloud/`), Nuvem Privada,
+Servidores Físicos (`/servidores-fisicos/`, no lugar de "Servidores Dedicados"), Aplicativo de Gestão
+(`/aplicativo-ms-server/`, sem nenhuma alteração), Extensão de Garantia, Backup em Nuvem e Consultoria.
+O grupo "Servidores em Nuvem" saiu. As quatro páginas reconstruídas são links internos; na home, o
+cartão "Consultoria" também passou a levar à página reconstruída (mesmo endereço em produção). O
+conteúdo das páginas não foi alterado em relação a "servidores dedicados" (o termo não aparece nelas).

@@ -211,6 +211,28 @@ superfícies, e não empilhar blocos do mesmo fundo, é o que dá continuidade s
 - **Celular e tablet:** resumo, depois os dados; uma barra fixa embaixo com o total e "Solicitar pelo
   WhatsApp", que sai quando o botão do formulário aparece (o WhatsApp flutuante não a cobre).
 
+## Páginas de soluções
+
+Mesma identidade, composição própria por página (`src/components/solucoes/`); partes comuns em
+`src/styles/solucoes.css`.
+
+- **Grifo laranja** (`.sol-mark`) num trecho do título, como nas landings de Servidores Físicos e
+  Soluções Cloud; rótulos numerados (`eyebrow` com `<b>01</b>`) em todas as seções.
+- **Aberturas**: Nuvem Privada escura, de largura total, com a arte publicada e uma grade sutil; Garantia
+  clara, com a foto num quadro e um medidor de 5 anos que se preenche; Backup escuro, com a capa num
+  "cofre" circular, anéis girando e pacotes de dados subindo; Consultoria clara e editorial, com a foto
+  num quadro e a lista das quatro frentes, marcadas uma a uma.
+- **Configurador** (Nuvem Privada): etapas numeradas com barra laranja, opções em cartões (laranja
+  claro quando marcadas), resumo escuro ao lado com a imagem do servidor flutuando e o valor de cada
+  etapa (abaixo do formulário no tablet e no celular).
+- **Cartões**: brancos com sombra suave na superfície clara; translúcidos com borda clara e ícone
+  laranja na superfície escura (diferenciais, "Porque contratar"); o primeiro de cada grupo em destaque.
+- **Formulário de contato**: cartão branco, campos de 52 px, `*` vermelho, erros embaixo do campo,
+  botão laranja de largura total com ícone de envio (girando durante o envio).
+- **Vídeo**: capa do YouTube com bordas de 28 px e botão laranja com halo; o player entra no clique.
+- **Faixa final**: azul-marinho com a foto publicada (quando há), título grande e botão laranja de
+  WhatsApp.
+
 ## Breakpoints
 
 Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo; a partir de 1180, grade de 3 colunas em "Nossa linha"), 1360
