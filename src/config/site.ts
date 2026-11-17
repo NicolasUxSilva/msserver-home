@@ -199,8 +199,9 @@ export const VIDEO = {
 } as const;
 
 /**
- * Rastreamento instalado hoje na home do WordPress. Só é carregado quando
- * PUBLIC_TRACKING=true no build (produção), para que previews e testes não gerem dados.
+ * Rastreamento instalado hoje na home do WordPress. Só existe na página quando PUBLIC_TRACKING=true no
+ * build (produção, com autorização da MSSERVER), para que previews e testes não gerem dados. Mesmo
+ * ligado, cada ferramenta só carrega depois do consentimento da categoria dela (src/scripts/consent.ts).
  */
 export const TRACKING = {
   enabled: import.meta.env.PUBLIC_TRACKING === 'true',
@@ -210,4 +211,16 @@ export const TRACKING = {
   clarity: 'hfpiyea4bu',
   // Loader do RD Station (inclui o pop-up de conversão exibido no celular).
   rdStation: 'https://d335luupugsy2.cloudfront.net/js/loader-scripts/df434ab1-ef5b-48ad-8041-1e522789e947-loader.js',
+} as const;
+
+/**
+ * Consentimento de cookies: categoria de cada ferramenta (proposta técnica; a classificação final
+ * depende da aprovação jurídica — docs/PRIVACIDADE.md). Mudar a versão pede a escolha de novo a
+ * todos os visitantes (use ao mudar ferramentas ou categorias).
+ */
+export const CONSENT = {
+  enabled: TRACKING.enabled,
+  version: '1',
+  tools: { gtm: TRACKING.gtm, googleAds: TRACKING.googleAds, metaPixel: TRACKING.metaPixel, clarity: TRACKING.clarity, rdStation: TRACKING.rdStation },
+  categories: { gtm: 'analytics', googleAds: 'marketing', metaPixel: 'marketing', clarity: 'analytics', rdStation: 'marketing' },
 } as const;

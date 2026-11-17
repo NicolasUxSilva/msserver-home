@@ -1,5 +1,5 @@
 import { ADDED_KEY, addItem, decodeEntities, getCart, money, removeItem, StoreError, StoreUnavailable, updateItem, type Cart, type CartItem, type Money } from './store-api';
-import { track } from './analytics';
+import { cartItems, itemsValue, trackEcommerce } from './analytics';
 import { guardFab } from './fab-guard';
 import { totalsHtml, type TotalsText } from './cart-totals';
 import { productQuoteText } from '../data/produto';
@@ -11,7 +11,7 @@ import { productQuoteText } from '../data/produto';
 // WhatsApp; nenhum caminho daqui leva ao checkout do WooCommerce.
 
 type Config = {
-  products: Record<string, { path: string; image: string | null; srcset: string | null }>;
+  products: Record<string, { id: number; brand: string | null; path: string; image: string | null; srcset: string | null }>;
   byId: Record<string, { name: string; url: string }>;
   quoteNumber: string;
   routes: { cart: string; shop: string };
@@ -148,7 +148,8 @@ export function initCart() {
     if (focus) list.querySelector<HTMLElement>(`[data-key="${CSS.escape(focus.key)}"] ${focus.role}`)?.focus();
     if (!viewed) {
       viewed = true;
-      track('view_cart', { items: c.items_count, value: Number(c.totals.total_price) / 10 ** c.totals.currency_minor_unit });
+      const items = cartItems(c.items, cfg.products);
+      trackEcommerce('view_cart', { value: itemsValue(items), items });
     }
   };
 
@@ -180,7 +181,11 @@ export function initCart() {
           const c = await addItem(add, qty);
           pending = null;
           const item = c.items.find((i) => i.id === add);
-          if (item) notify('success', fill(T.added, nameOf(item)));
+          if (item) {
+            notify('success', fill(T.added, nameOf(item)));
+            const items = cartItems([item], cfg.products, () => qty);
+            trackEcommerce('add_to_cart', { value: itemsValue(items), items }, { location: 'catalogo' });
+          }
           render(c);
           return;
         } catch (e) {
@@ -230,9 +235,12 @@ export function initCart() {
         if (quantity === item.quantity) return;
         li.classList.add('is-busy');
         try {
+          const before = item.quantity;
           render(await updateItem(key, quantity), { key, role });
           live.textContent = `Carrinho atualizado. Total: ${money(cart!.totals.total_price, cart!.totals)}.`;
-          track('cart_update_quantity', { quantity });
+          // Mudança de quantidade: a diferença, como adição ou remoção (padrão do GA4).
+          const items = cartItems([item], cfg.products, () => Math.abs(quantity - before));
+          trackEcommerce(quantity > before ? 'add_to_cart' : 'remove_from_cart', { value: itemsValue(items), items }, { location: 'carrinho' });
         } catch (e) {
           failed(e);
         }
@@ -256,7 +264,8 @@ export function initCart() {
       li.classList.add('is-busy');
       try {
         render(await removeItem(item.key));
-        track('cart_remove_item', { quantity: item.quantity });
+        const removed = cartItems([item], cfg.products);
+        trackEcommerce('remove_from_cart', { value: itemsValue(removed), items: removed }, { location: 'carrinho' });
         const name = nameOf(item);
         live.textContent = fill(T.removed, name);
         notify('success', fill(T.removed, name), {
@@ -279,6 +288,13 @@ export function initCart() {
   list.addEventListener('change', (e) => {
     const input = (e.target as HTMLElement).closest<HTMLInputElement>('.cart-qty input');
     if (input) setQuantity(input.closest('.cart-item')!, Number(input.value) || 1, '.cart-qty input');
+  });
+
+  // "Orçamento pelo WhatsApp" do carrinho: o pedido de orçamento (um evento, sem dados pessoais).
+  whatsapp.addEventListener('click', () => {
+    if (!cart?.items.length) return;
+    const items = cartItems(cart.items, cfg.products);
+    trackEcommerce('generate_lead', { value: itemsValue(items), items }, { form: 'carrinho', method: 'whatsapp' });
   });
 
   root.querySelector('[data-cart-retry]')!.addEventListener('click', () => {

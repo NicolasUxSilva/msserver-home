@@ -69,7 +69,7 @@ export function initLeadForms() {
       const result = await sendElementorForm(target, fields);
       busy(false);
       if (result.ok) {
-        track('solution_form_success', { form_id: target.formId });
+        track('generate_lead', { form: 'solucao', form_id: target.formId, method: 'formulario' });
         if (result.redirect) {
           location.href = result.redirect;
           return;

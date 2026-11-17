@@ -25,7 +25,7 @@ const products = Object.fromEntries(
       const src = p.image ? files[`../../assets/catalog/${p.image}`]?.default : null;
       const img = src ? await getImage({ src, widths: [112, 224], format: 'webp', quality: 80 }) : null;
       const brand = p.categories.map((c) => BRANDS[c]).find(Boolean) ?? null;
-      return [p.url, { path: productRoute(p.slug), image: img?.src ?? null, srcset: img?.srcSet.attribute ?? null, brand }];
+      return [p.url, { id: p.id, path: productRoute(p.slug), image: img?.src ?? null, srcset: img?.srcSet.attribute ?? null, brand }];
     }),
   ),
 );
@@ -48,9 +48,10 @@ const contact: (ContactField & { id: string })[] = (
     { key: 'phone', label: F.phone.label, type: 'tel', autocomplete: F.phone.autocomplete, placeholder: F.phone.placeholder, inputmode: 'tel' },
   ] as ContactField[]
 ).map((f) => ({ ...f, id: `orcamento_${f.key}` }));
+import PrivacyNote from '../PrivacyNote.astro';
 ---
 
-<Base title={T.seoTitle} description="" canonical={T.canonical} ogType="article" robots={T.robots} schema={T.schema}>
+<Base title={T.seoTitle} description={T.description} canonical={T.canonical} ogType="article" robots={T.robots} schema={T.schema}>
   {/* A finalização não é item do menu: nenhum item marcado. */}
   <Header current={ROUTES.checkout} />
   <main id="conteudo" class="cart fo" data-fo data-state="loading">
@@ -135,7 +136,7 @@ const contact: (ContactField & { id: string })[] = (
               <Icon name="rotate-cw" size={18} />
               {T.retry}
             </button>
-            <a class="btn btn--outline" href={wa} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="finalizacao-orcamento">
+            <a class="btn btn--outline" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="finalizacao-orcamento">
               <Icon name="whatsapp" size={18} />
               {T.consult}
             </a>
@@ -243,6 +244,7 @@ const contact: (ContactField & { id: string })[] = (
                   {T.cta}
                 </button>
                 <p class="fo-cta-note">{T.ctaNote}</p>
+                <PrivacyNote class="fo-privacy" />
               </div>
             </form>
           </aside>

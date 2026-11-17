@@ -147,6 +147,20 @@ export const NAV_GROUPS = (['servidores', 'componentes'] as const).map((group) =
   items: LISTING_KEYS.filter((k) => LISTINGS[k].group === group),
 }));
 
+/**
+ * Meta description da listagem, montada com os dados do catálogo (contagem e nomes) e com a garantia
+ * publicada nas páginas de produto. O WordPress não tinha descrição nessas páginas.
+ */
+export function listingDescription(key: ListingKey) {
+  const n = totalOf(key);
+  const L = LISTINGS[key];
+  const garantia = 'com garantia padrão de 1 ano e extensão de garantia disponível até 5 anos';
+  if (key === 'servidores') return `Servidores Dell, HP e IBM e componentes para servidores na MSSERVER: ${n} produtos, ${garantia}. Peça seu orçamento.`;
+  if (key in BRANDS) return `Servidores ${L.title} na MSSERVER: ${n} ${n === 1 ? 'modelo' : 'modelos'}, ${garantia}. Peça seu orçamento.`;
+  if (FORMATS.includes(key)) return `Servidores em formato ${L.title} na MSSERVER: ${n} ${n === 1 ? 'modelo' : 'modelos'} Dell, HP e IBM, ${garantia}. Peça seu orçamento.`;
+  return `${L.title} para servidores na MSSERVER: ${n} ${n === 1 ? 'produto' : 'produtos'}, ${garantia}. Peça seu orçamento.`;
+}
+
 /** Trilha da listagem: Início › Servidores › Componentes › Baterias. */
 export const trailOf = (key: ListingKey) => [...LISTINGS[key].parents, key].map((k) => ({ key: k, label: LISTINGS[k].title, href: LISTINGS[k].path }));
 

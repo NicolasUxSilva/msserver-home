@@ -1,0 +1,30 @@
+---
+// Acesso à política de privacidade junto dos formulários que recebem dados pessoais (orçamento,
+// soluções, Nuvem Privada e finalização). Só o link: o texto jurídico fica na política (em aprovação).
+import { ROUTES } from '../config/site';
+
+interface Props {
+  class?: string;
+}
+const { class: cls } = Astro.props;
+---
+
+<p class:list={['privacy-note', cls]}>Consulte a <a href={ROUTES.privacy}>Política de privacidade</a>.</p>
+
+<style>
+  .privacy-note {
+    color: var(--c-ink-3);
+    font-size: 0.82rem;
+  }
+
+  .privacy-note a {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .privacy-note a:hover {
+    color: var(--c-ink);
+  }
+</style>

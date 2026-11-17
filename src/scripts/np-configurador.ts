@@ -142,7 +142,7 @@ export function initNpConfigurator(root: HTMLElement) {
     submitLabel.textContent = idle;
 
     if (result.ok) {
-      track('solution_form_success', { form_id: formId });
+      track('generate_lead', { form: 'nuvem-privada', form_id: formId, method: 'formulario' });
       if (result.redirect) {
         location.href = result.redirect;
         return;

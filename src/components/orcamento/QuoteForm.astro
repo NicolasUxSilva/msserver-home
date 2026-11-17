@@ -12,6 +12,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 const email = CONTACT.emails[1];
 const phone = CONTACT.phones[1];
 const wa = whatsappUrl(QUOTE.help.whatsappText);
+import PrivacyNote from '../PrivacyNote.astro';
 ---
 
 <section class="quote dark-surface on-dark" aria-labelledby="orcamento-title" data-quote>
@@ -164,6 +165,7 @@ const wa = whatsappUrl(QUOTE.help.whatsappText);
           </button>
         </div>
 
+        <PrivacyNote class="quote-privacy" />
         <p class="sr-only" aria-live="polite" data-live></p>
       </form>
 

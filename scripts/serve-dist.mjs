@@ -1,4 +1,5 @@
-// Servidor estático do build (dist/) usado pelos testes E2E, com compressão como em produção.
+// Servidor estático do build (dist/) usado pelos testes E2E, com compressão como em produção e a
+// página 404 do site para endereços inexistentes.
 // Uso: node scripts/serve-dist.mjs [porta]
 import { createServer } from 'node:http';
 import { gzipSync } from 'node:zlib';
@@ -18,6 +19,8 @@ const types = {
   '.svg': 'image/svg+xml',
   '.woff2': 'font/woff2',
   '.json': 'application/json',
+  '.xml': 'application/xml; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
 };
 
 createServer(async (req, res) => {
@@ -32,6 +35,10 @@ createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': type, ...(compress ? { 'Content-Encoding': 'gzip' } : {}) });
     res.end(compress ? gzipSync(body) : body);
   } catch {
-    res.writeHead(404).end('Not found');
+    // Endereço inexistente: a página 404 do site, com o status 404 (como a Vercel e o servidor de produção).
+    const page = await readFile(path.join(root, '404.html')).catch(() => null);
+    if (!page) return res.writeHead(404).end('Not found');
+    res.writeHead(404, { 'Content-Type': types['.html'] });
+    res.end(page);
   }
 }).listen(port, () => console.log(`dist em http://localhost:${port}`));

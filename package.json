@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "astro dev",
     "prebuild": "node --env-file-if-exists=.env scripts/sync-google-reviews.mjs --optional",
-    "build": "astro check && astro build && node scripts/landing-cloud.mjs",
+    "build": "astro check && astro build && node scripts/landing-cloud.mjs && node scripts/routes.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "test:e2e": "playwright test",
@@ -17,7 +17,10 @@
     "assets": "node scripts/prepare-assets.mjs",
     "build:landing-cloud": "node scripts/landing-cloud.mjs",
     "sync:blog": "node scripts/sync-blog.mjs",
-    "build:suporte": "node scripts/package-suporte.mjs"
+    "build:suporte": "node scripts/package-suporte.mjs",
+    "sync:all": "npm run sync && npm run sync:catalog && npm run sync:blog && npm run sync:reviews --if-present",
+    "validate:data": "node scripts/validate-data.mjs",
+    "release": "npm run sync:all && node scripts/validate-data.mjs --online && npm run build && npm run test:e2e && npm run build:suporte"
   },
   "engines": {
     "node": ">=22.23.4"

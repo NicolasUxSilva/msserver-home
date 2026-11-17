@@ -1,0 +1,157 @@
+---
+// Aviso e preferências de cookies (src/scripts/consent.ts). Fica oculto e inativo enquanto o
+// rastreamento estiver desligado no build (PUBLIC_TRACKING); a configuração vai junto, em JSON.
+import { CONSENT, ROUTES } from '../config/site';
+import { CONSENT_TEXT } from '../data/privacidade';
+---
+
+<div class="consent" hidden data-consent>
+  <div class="consent-panel" role="dialog" aria-modal="false" aria-labelledby="consent-title" aria-describedby="consent-text" tabindex="-1" data-consent-panel>
+    <p id="consent-title" class="consent-title">{CONSENT_TEXT.title}</p>
+    <p id="consent-text" class="consent-text">
+      {CONSENT_TEXT.body}
+      <a href={ROUTES.privacy}>{CONSENT_TEXT.policyLink}</a>.
+    </p>
+    <div class="consent-details" hidden data-consent-details>
+      {
+        CONSENT_TEXT.categories.map((c) => (
+          <label class="consent-cat">
+            <input type="checkbox" checked={c.locked} disabled={c.locked} data-consent-toggle={c.locked ? undefined : c.key} />
+            <span>
+              <b>{c.title}</b>
+              <span>{c.text}</span>
+            </span>
+          </label>
+        ))
+      }
+      <button class="btn btn--dark btn--sm" type="button" data-consent-save>{CONSENT_TEXT.save}</button>
+    </div>
+    <div class="consent-actions">
+      <button class="btn btn--outline btn--sm" type="button" data-consent-customize>{CONSENT_TEXT.customize}</button>
+      <button class="btn btn--outline btn--sm" type="button" data-consent-reject>{CONSENT_TEXT.rejectAll}</button>
+      <button class="btn btn--dark btn--sm" type="button" data-consent-accept>{CONSENT_TEXT.acceptAll}</button>
+    </div>
+  </div>
+</div>
+<script type="application/json" data-consent-config set:html={JSON.stringify(CONSENT)} />
+
+<style>
+  .consent {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 70;
+    display: flex;
+    justify-content: center;
+    padding: 0 var(--gutter) calc(var(--gutter) + env(safe-area-inset-bottom));
+    pointer-events: none;
+  }
+
+  .consent[hidden] {
+    display: none;
+  }
+
+  .consent-panel {
+    display: grid;
+    gap: 0.85rem;
+    width: min(760px, 100%);
+    padding: 1.25rem 1.35rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    box-shadow: 0 30px 70px -30px rgb(14 13 34 / 0.55);
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.25s var(--ease-out),
+      transform 0.25s var(--ease-out);
+  }
+
+  .consent.is-open .consent-panel {
+    opacity: 1;
+    transform: none;
+  }
+
+  .consent-panel:focus {
+    outline: none;
+  }
+
+  .consent-title {
+    font-family: var(--f-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .consent-text {
+    color: var(--c-ink-2);
+    font-size: 0.92rem;
+  }
+
+  .consent-text a {
+    color: var(--c-indigo-600);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .consent-details {
+    display: grid;
+    gap: 0.6rem;
+    padding: 0.85rem;
+    border-radius: 12px;
+    background: var(--c-paper);
+  }
+
+  .consent-details[hidden] {
+    display: none;
+  }
+
+  .consent-cat {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.65rem;
+    align-items: start;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .consent-cat input {
+    width: 18px;
+    height: 18px;
+    margin-top: 0.15rem;
+    accent-color: var(--c-indigo-600);
+  }
+
+  .consent-cat span {
+    display: grid;
+    gap: 0.1rem;
+    color: var(--c-ink-2);
+  }
+
+  .consent-cat b {
+    color: var(--c-ink);
+  }
+
+  .consent-details .btn {
+    justify-self: start;
+  }
+
+  .consent-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 479px) {
+    .consent-actions .btn {
+      flex: 1 1 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .consent-panel {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,226 @@
+---
+// Página não encontrada (404.html no build): servida pelo servidor estático do site e pela Vercel para
+// endereços que não existem. Em produção, endereços que não são deste site seguem para o WordPress
+// (docs/ROTEAMENTO.md); a 404 do WordPress continua respondendo por eles.
+import '../styles/catalog-hero.css';
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFab from '../components/WhatsAppFab.astro';
+import Icon from '../components/Icon.astro';
+import { LINKS, ROUTES, SITE, whatsappUrl } from '../config/site';
+
+const shortcuts = [
+  { label: 'Servidores', text: 'Dell, HP e IBM com garantia', href: ROUTES.servers, icon: 'server' },
+  { label: 'Componentes', text: 'Baterias, fontes, fans e mais', href: ROUTES.componentes, icon: 'cpu' },
+  { label: 'Orçamento', text: 'Peça uma proposta', href: ROUTES.quote, icon: 'file-text' },
+  { label: 'Blog', text: 'Artigos técnicos', href: ROUTES.blog, icon: 'book-open' },
+];
+---
+
+<Base title="Página não encontrada - MSSERVER" description="" canonical={`${SITE.origin}/404/`} robots="noindex, follow" schema={[]}>
+  <Header current="" />
+  <main id="conteudo" class="nf">
+    <section class="cat-hero nf-hero dark-surface on-dark" aria-labelledby="nf-title">
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="dark-surface__hatch"></div>
+        <div class="cat-light"></div>
+      </div>
+      <div class="container cat-hero-inner nf-inner">
+        <p class="nf-code" aria-hidden="true">404</p>
+        <h1 id="nf-title" class="cat-title">Página não encontrada</h1>
+        <p class="nf-lead">O endereço pode ter mudado ou não existe mais. Busque um produto ou siga por um dos caminhos abaixo.</p>
+        <form class="nf-search" action={LINKS.search} method="get" role="search">
+          <label class="sr-only" for="nf-q">Buscar no catálogo</label>
+          <Icon name="search" size={20} />
+          <input id="nf-q" name="busca" type="search" placeholder="Buscar por modelo, fabricante ou componente" enterkeyhint="search" />
+          <button class="btn btn--primary" type="submit">Buscar</button>
+        </form>
+        <div class="nf-actions">
+          <a class="btn btn--outline-dark" href={ROUTES.home}>
+            <Icon name="house" size={18} />
+            Ir para a página inicial
+          </a>
+          <a class="btn btn--outline-dark" href={whatsappUrl()} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="404">
+            <Icon name="whatsapp" size={18} />
+            Falar no WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container nf-links" aria-label="Caminhos do site">
+      <ul>
+        {
+          shortcuts.map((s) => (
+            <li>
+              <a href={s.href}>
+                <span class="nf-ico" aria-hidden="true">
+                  <Icon name={s.icon} size={22} />
+                </span>
+                <span>
+                  <b>{s.label}</b>
+                  <span>{s.text}</span>
+                </span>
+                <Icon name="arrow-right" size={18} class="nf-arrow" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Base>
+
+<style>
+  .nf-hero {
+    padding-block: clamp(2.5rem, 1.5rem + 4vw, 5rem) clamp(5rem, 4rem + 3vw, 6.5rem);
+  }
+
+  .nf-inner {
+    max-width: 760px;
+    gap: 1rem;
+  }
+
+  .nf-code {
+    color: transparent;
+    font-family: var(--f-display);
+    font-size: clamp(4.5rem, 3rem + 7vw, 8rem);
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.35);
+  }
+
+  .nf-lead {
+    max-width: 56ch;
+    color: var(--c-on-dark-2);
+    font-size: var(--t-lead);
+  }
+
+  .nf-search {
+    position: relative;
+    display: flex;
+    gap: 0.5rem;
+    max-width: 620px;
+    margin-top: 0.5rem;
+  }
+
+  .nf-search :global(svg) {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    color: var(--c-ink-3);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .nf-search input {
+    flex: 1;
+    min-width: 0;
+    min-height: 52px;
+    padding: 0 1rem 0 2.8rem;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: var(--c-surface);
+    color: var(--c-ink);
+    font-size: 1rem;
+  }
+
+  .nf-search input:focus {
+    outline: 3px solid var(--c-orange);
+    outline-offset: 1px;
+  }
+
+  .nf-search .btn {
+    min-height: 52px;
+  }
+
+  .nf-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .nf-links {
+    position: relative;
+    z-index: 2;
+    margin-top: -3rem;
+    padding-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  }
+
+  .nf-links ul {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 720px) {
+    .nf-links ul {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .nf-links ul {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .nf-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    height: 100%;
+    padding: 1.1rem 1.15rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-1);
+    color: var(--c-ink);
+    text-decoration: none;
+    transition:
+      border-color var(--dur-1) var(--ease-out),
+      transform var(--dur-1) var(--ease-out);
+  }
+
+  .nf-links a:hover {
+    border-color: var(--c-line-2);
+    transform: translateY(-2px);
+  }
+
+  .nf-links a > span:nth-child(2) {
+    display: grid;
+    flex: 1;
+  }
+
+  .nf-links a > span:nth-child(2) span {
+    color: var(--c-ink-2);
+    font-size: 0.88rem;
+  }
+
+  .nf-ico {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--c-orange-tint);
+    color: var(--c-orange-text);
+  }
+
+  .nf-links :global(.nf-arrow) {
+    color: var(--c-ink-3);
+  }
+
+  @media (max-width: 479px) {
+    .nf-search {
+      flex-direction: column;
+    }
+  }
+</style>

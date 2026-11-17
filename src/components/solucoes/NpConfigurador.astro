@@ -17,6 +17,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 const config = { endpoint: ELEMENTOR.endpoint, action: ELEMENTOR.action, postId: F.postId, refererTitle: F.refererTitle, formIds: F.formIds, mobileQuery: ELEMENTOR.mobileQuery };
 // Texto exibido da opção (o valor enviado é o original, com os espaços como estão).
 const show = (v: string) => v.replace(/\s+/g, ' ').trim();
+import PrivacyNote from '../PrivacyNote.astro';
 ---
 
 <section class="section np-config" id="configuracao" aria-labelledby="np-config-title">
@@ -48,7 +49,7 @@ const show = (v: string) => v.replace(/\s+/g, ' ').trim();
           <div>
             <p class="np-alert-title">{FORM_TEXTS.errorTitle}</p>
             <p data-np-alert-text></p>
-            <p><a href={SOL_WHATSAPP.orcamento} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="nuvem-privada-erro">{FORM_TEXTS.fallback}</a></p>
+            <p><a href={SOL_WHATSAPP.orcamento} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="nuvem-privada-erro">{FORM_TEXTS.fallback}</a></p>
           </div>
         </div>
 
@@ -136,6 +137,7 @@ const show = (v: string) => v.replace(/\s+/g, ' ').trim();
             <Icon name="loader-circle" size={18} class="sol-submit-spin" />
           </button>
         </div>
+        <PrivacyNote />
         <p class="sr-only" aria-live="polite" data-np-live></p>
       </form>
 

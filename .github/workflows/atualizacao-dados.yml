@@ -1,0 +1,75 @@
+# Atualização diária dos dados do site (catálogo do WooCommerce, blog e produtos da home).
+#
+# Sincroniza, confere com o que está publicado, roda o astro check, o build e a suíte E2E. Se os dados
+# mudaram e tudo passou, abre um pull request "Dados: atualização de AAAA-MM-DD" para aprovação. Não
+# publica nada: a publicação continua manual e autorizada (docs/DEPLOY.md). Se algo falhar, o
+# workflow fica vermelho e o GitHub avisa por e-mail quem acompanha o repositório.
+name: Atualização dos dados
+
+on:
+  schedule:
+    - cron: '17 9 * * *' # 06:17 em Brasília
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: atualizacao-dados
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.23.4'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Sincronizar (home, catálogo e blog)
+        run: |
+          npm run sync
+          npm run sync:catalog
+          npm run sync:blog
+
+      - name: Conferir com o publicado
+        run: node scripts/validate-data.mjs --online
+
+      - name: Houve mudança?
+        id: mudou
+        run: |
+          if [ -n "$(git status --porcelain src/)" ]; then echo "sim=true" >> "$GITHUB_OUTPUT"; else echo "sim=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Navegador dos testes
+        if: steps.mudou.outputs.sim == 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Checar, gerar e testar
+        if: steps.mudou.outputs.sim == 'true'
+        env:
+          CI: '1'
+        run: |
+          npx astro check
+          npx playwright test --trace off --reporter=line
+
+      - name: Abrir pull request para aprovação
+        if: steps.mudou.outputs.sim == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          DIA=$(date -u +%F)
+          RAMO="dados/$DIA"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$RAMO"
+          git add src/
+          git commit -m "Dados: atualização de $DIA (catálogo, blog e home)"
+          git push -u origin "$RAMO"
+          gh pr create --base main --head "$RAMO" --title "Dados: atualização de $DIA" --body "Sincronização automática do catálogo (WooCommerce), do blog e dos produtos da home. Validação com o publicado, astro check e suíte E2E passaram. Revise e aprove para entrar na main; a publicação continua manual (docs/DEPLOY.md)."

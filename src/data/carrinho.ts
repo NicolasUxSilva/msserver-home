@@ -12,6 +12,7 @@ export const CART = {
   seoTitle: 'Carrinho - MSSERVER',
   canonical: 'https://msserver.com.br/carrinho/',
   robots: 'noindex, max-image-preview:large',
+  description: 'Carrinho de orçamento da MSSERVER: revise os produtos escolhidos e avance para a solicitação de orçamento.',
   columns: { product: 'Produto', price: 'Preço', quantity: 'Quantidade', subtotal: 'Subtotal', remove: 'Remover item' },
   totalsTitle: 'Total no carrinho',
   subtotal: 'Subtotal',

@@ -1,4 +1,4 @@
-import { track } from './analytics';
+import { trackEcommerce, type EcomItem } from './analytics';
 import { guardFab } from './fab-guard';
 import { ADDED_KEY, addItem, StoreError, StoreUnavailable } from './store-api';
 import { productQuoteText } from '../data/produto';
@@ -17,6 +17,7 @@ type Config = {
   variations: { id: number; attributes: Record<string, string>; price: number | null; inStock: boolean }[];
   messages: { makeSelection: string; unavailable: string; outOfStock: string; adding: string };
   quote: { number: string; url: string; labels: Record<string, Record<string, string>> };
+  ga: { brand: string | null; category: string | null; price: number | null };
 };
 
 const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -28,8 +29,15 @@ export function initProduct() {
   const cfg: Config = JSON.parse(cfgEl.textContent!);
   initGallery(root);
   initForm(root, cfg);
+  // Visualização do produto (GA4 e, no formato do WordPress, Google Listings & Ads).
+  trackEcommerce('view_item', { value: cfg.ga.price ?? 0, items: [itemOf(cfg, { price: cfg.ga.price ?? undefined })] });
   // O WhatsApp flutuante não cobre as opções, a quantidade nem o botão de compra.
   guardFab(() => [...root.querySelectorAll('.pd-opts, .pd-actions, .pd-cta--solo, .pd-msg')]);
+}
+
+/** Item do produto para os eventos de análise (sem dados pessoais). */
+function itemOf(cfg: Config, extra: Partial<EcomItem> = {}): EcomItem {
+  return { item_id: String(cfg.id), item_name: cfg.name, item_brand: cfg.ga.brand ?? undefined, item_category: cfg.ga.category ?? undefined, quantity: 1, ...extra };
 }
 
 function initGallery(root: HTMLElement) {
@@ -192,7 +200,9 @@ function initForm(root: HTMLElement, cfg: Config) {
       id = variation.id;
     }
     const quantity = Math.max(1, parseInt(qty.value, 10) || 1);
-    track('product_quote_submit', { product: cfg.id, variation: variationInput ? id : undefined, quantity });
+    const chosen = variationInput ? cfg.variations.find((v) => v.id === id) : undefined;
+    const sel = selected();
+    const variant = cfg.fields.map((f) => cfg.quote.labels[f]?.[sel[f]] ?? '').filter(Boolean).join(', ') || undefined;
     busy = true;
     submit.classList.add('is-busy');
     submit.setAttribute('aria-busy', 'true');
@@ -209,6 +219,8 @@ function initForm(root: HTMLElement, cfg: Config) {
     };
     try {
       await addItem(id, quantity);
+      const price = chosen?.price ?? cfg.ga.price ?? undefined;
+      trackEcommerce('add_to_cart', { value: (price ?? 0) * quantity, items: [itemOf(cfg, { variation_id: chosen ? String(chosen.id) : undefined, item_variant: variant, price, quantity })] }, { location: 'produto' });
       try {
         sessionStorage.setItem(ADDED_KEY, cfg.name);
       } catch {

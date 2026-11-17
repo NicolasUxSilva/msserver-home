@@ -11,8 +11,9 @@ export const QUOTE = {
   /** O endereço é o da finalização de compra do WooCommerce; título e trilha descrevem o que a página faz agora. */
   seoTitle: 'Finalização de orçamento - MSSERVER',
   canonical: 'https://msserver.com.br/finalizar-compra/',
-  /** robots da página publicada (All in One SEO). */
-  robots: 'max-image-preview:large',
+  /** Página de transação (dados do carrinho de cada pessoa): fora dos buscadores, como o carrinho. */
+  robots: 'noindex, follow',
+  description: 'Revise os produtos do carrinho e envie a solicitação de orçamento ao comercial da MSSERVER pelo WhatsApp.',
   schema,
   lead: 'Revise os produtos, informe seu contato e envie a solicitação ao comercial da MSSERVER pelo WhatsApp.',
   steps: ['Carrinho', 'Revisão e contato', 'Envio pelo WhatsApp'],

@@ -486,6 +486,14 @@
   border: 0;
 }
 
+/* Postagem sem conteúdo no WordPress */
+.post-empty {
+  padding: 1rem 1.15rem;
+  border: 1px dashed var(--c-line-2);
+  border-radius: 12px;
+  color: var(--c-ink-2);
+}
+
 /* Compartilhar */
 .post-share {
   display: flex;

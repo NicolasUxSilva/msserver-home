@@ -11,7 +11,7 @@ import Footer from '../Footer.astro';
 import WhatsAppFab from '../WhatsAppFab.astro';
 import Icon from '../Icon.astro';
 import { ROUTES, STORE_API, WHATSAPP, productRoute, whatsappUrl } from '../../config/site';
-import { PRODUCTS } from '../../data/catalog';
+import { BRANDS, PRODUCTS } from '../../data/catalog';
 import { CART, WHATSAPP_ORDER } from '../../data/carrinho';
 import schema from '../../data/cart-schema.json';
 
@@ -23,7 +23,8 @@ const products = Object.fromEntries(
     Object.values(PRODUCTS).map(async (p) => {
       const src = p.image ? files[`../../assets/catalog/${p.image}`]?.default : null;
       const img = src ? await getImage({ src, widths: [160, 320], format: 'webp', quality: 80 }) : null;
-      return [p.url, { path: productRoute(p.slug), image: img?.src ?? null, srcset: img?.srcSet.attribute ?? null }];
+      const brand = p.categories.map((c) => BRANDS[c]).find(Boolean) ?? null;
+      return [p.url, { id: p.id, brand, path: productRoute(p.slug), image: img?.src ?? null, srcset: img?.srcSet.attribute ?? null }];
     }),
   ),
 );
@@ -43,7 +44,7 @@ const config = {
 };
 ---
 
-<Base title={CART.seoTitle} description="" canonical={CART.canonical} ogType="article" robots={CART.robots} schema={schema}>
+<Base title={CART.seoTitle} description={CART.description} canonical={CART.canonical} ogType="article" robots={CART.robots} schema={schema}>
   {/* O carrinho não é item do menu: nenhum item marcado. */}
   <Header current={ROUTES.cart} />
   <main id="conteudo" class="cart" data-cart data-state="loading">
@@ -138,11 +139,11 @@ const config = {
             <h2 id="cart-totals-title" class="cart-summary-title">{CART.totalsTitle}</h2>
             <dl class="cart-totals" data-cart-totals></dl>
             <div class="cart-actions">
-              <a class="btn btn--dark cart-checkout" href={ROUTES.checkout} data-track="begin_checkout">
+              <a class="btn btn--dark cart-checkout" href={ROUTES.checkout} data-track="cart_checkout_click">
                 {CART.checkout}
                 <Icon name="arrow-right" class="btn-arrow" />
               </a>
-              <a class="btn btn--outline cart-whatsapp" href={whatsappUrl()} target="_blank" rel="noopener" data-cart-whatsapp data-track="cart_whatsapp_click">
+              <a class="btn btn--outline cart-whatsapp" href={whatsappUrl()} target="_blank" rel="noopener" data-cart-whatsapp>
                 <Icon name="whatsapp" size={18} />
                 {CART.whatsapp}
               </a>

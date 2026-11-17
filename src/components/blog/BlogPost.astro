@@ -45,6 +45,9 @@ const share = [
   { name: 'WhatsApp', icon: 'whatsapp', href: `https://wa.me/?text=${encodeURIComponent(`${post.title} ${post.url}`)}` },
 ];
 const iso = (d: string) => `${d}-03:00`;
+// Postagem sem conteúdo também no WordPress (há uma, de 2018): o endereço continua respondendo, com
+// um aviso, fora dos buscadores. Nada é inventado no lugar do texto.
+const empty = !html.trim();
 ---
 
 <Base
@@ -55,6 +58,7 @@ const iso = (d: string) => `${d}-03:00`;
   ogImage={post.image?.src}
   article={{ published: iso(post.date), modified: iso(post.modified), section: cats[0]?.name }}
   schema={post.seo.schema}
+  robots={empty ? 'noindex, follow' : undefined}
 >
   <Header current={LINKS.blog} />
   <main id="conteudo" class="post-page" data-post-page>
@@ -118,7 +122,7 @@ const iso = (d: string) => `${d}-03:00`;
             </figure>
           )
         }
-        <div class="post-prose" set:html={html} />
+        {empty ? <p class="post-empty">Este artigo não tem conteúdo publicado. Veja os outros artigos do blog abaixo.</p> : <div class="post-prose" set:html={html} />}
 
         <div class="post-share" aria-labelledby="post-share-title">
           <p id="post-share-title" class="post-share-title">Compartilhe</p>

@@ -1,9 +1,11 @@
 import { track } from './analytics';
 import { initHeaderSearch } from './header-search';
 import { initCartBadge } from './cart-badge';
+import { initConsent } from './consent';
 
 /** Comportamentos gerais da página (mesma base das landings): header, menus, busca, carrinho, entradas e rastreamento. */
 export function initPage() {
+  initConsent();
   initHeader();
   initSubmenus();
   initMobileMenu();

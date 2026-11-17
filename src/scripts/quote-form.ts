@@ -308,7 +308,7 @@ export function initQuoteForm(root: HTMLElement) {
 
     if (!failure && body?.success === true) {
       clearDraft();
-      track('quote_submit_success', { form_id: formIdInput.value });
+      track('generate_lead', { form: 'orcamento', form_id: formIdInput.value, method: 'formulario' });
       const redirect = body.data?.data && !Array.isArray(body.data.data) ? body.data.data.redirect_url : undefined;
       if (redirect) {
         location.href = redirect;

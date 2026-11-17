@@ -71,6 +71,8 @@ const config = {
   variations: variants.map((v) => ({ id: v.id, attributes: v.attributes, price: v.price, inStock: v.inStock })),
   messages: { makeSelection: BUY.makeSelection, unavailable: BUY.unavailable, outOfStock: BUY.outOfStock, adding: BUY.adding },
   // Pedido pelo WhatsApp quando a loja não responde: o endereço publicado e os nomes das opções.
+  // Análise (GA4 e Google Ads): fabricante, categoria e o preço publicado (o menor, nas faixas).
+  ga: { brand: brand ? BRANDS[brand] : null, category: p.categories.filter((c) => !(c in BRANDS) && c !== 'sem-categoria').map(categoryName)[0] ?? null, price: p.price?.min ?? null },
   quote: { number: WHATSAPP.number, url: p.url, labels: Object.fromEntries(options.map((a) => [a.field, Object.fromEntries(a.options.map((o) => [o.value, o.label]))])) },
 };
 const whatsapp = whatsappUrl();
@@ -285,7 +287,7 @@ const description = productDescription(p.description);
 
             {
               mode === 'consult' && (
-                <a class="btn btn--dark pd-cta pd-cta--solo" href={whatsapp} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="produto">
+                <a class="btn btn--dark pd-cta pd-cta--solo" href={whatsapp} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="produto">
                   {BUY.consult}
                   <Icon name="whatsapp" size={18} />
                 </a>
@@ -309,7 +311,7 @@ const description = productDescription(p.description);
               </ul>
               <p class="pd-help">
                 {GUARANTEE.help.text}{' '}
-                <a href={whatsapp} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="produto-garantia">
+                <a href={whatsapp} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="produto-garantia">
                   {GUARANTEE.help.cta}
                 </a>
               </p>

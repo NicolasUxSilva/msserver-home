@@ -1,7 +1,7 @@
 import { decodeEntities, getCart, money, type Cart, type CartItem, type Money } from './store-api';
 import { pricesIncludeTax, totalsHtml, type TotalsText } from './cart-totals';
 import { quoteMessage, whatsappLink, type QuoteContact, type QuoteSummary } from './finalizacao-mensagem';
-import { track } from './analytics';
+import { cartItems, itemsValue, track, trackEcommerce } from './analytics';
 import { guardFab } from './fab-guard';
 
 // Finalização de orçamento no navegador: lê o carrinho do WooCommerce pela Store API (a mesma sessão do
@@ -9,7 +9,7 @@ import { guardFab } from './fab-guard';
 // comercial com a solicitação. Não há pagamento nem pedido.
 
 type Config = {
-  products: Record<string, { path: string; image: string | null; srcset: string | null; brand: string | null }>;
+  products: Record<string, { id: number; path: string; image: string | null; srcset: string | null; brand: string | null }>;
   whatsapp: string;
   texts: Record<string, string> & TotalsText;
   fields: Record<keyof QuoteContact, { label: string; missing: string }>;
@@ -281,7 +281,8 @@ export function initFinalizacao() {
       render(c);
       if (!viewed && c.items.length) {
         viewed = true;
-        track('quote_view', { items: c.items_count, value: Number(c.totals.total_price) / 10 ** c.totals.currency_minor_unit });
+        const items = cartItems(c.items, cfg.products);
+        trackEcommerce('begin_checkout', { value: itemsValue(items), items });
       }
     } catch {
       setState('unavailable');
@@ -317,10 +318,10 @@ export function initFinalizacao() {
     control('phone').value = formatPhone(control('phone').value);
     saveDraft();
     const url = whatsappLink(cfg.whatsapp, quoteMessage(contact(), summary(cart)));
-    // Sem dados pessoais nos eventos: só a quantidade de itens e o valor.
-    const value = Number(cart.totals.total_price) / 10 ** cart.totals.currency_minor_unit;
-    track('quote_whatsapp_submit', { items: cart.items_count, value });
-    track('contact_whatsapp_click', { location: 'finalizacao-orcamento' });
+    // Sem dados pessoais nos eventos: só os produtos, as quantidades e o valor. Um evento só (o pedido
+    // de orçamento pelo WhatsApp), para não contar a conversão duas vezes.
+    const items = cartItems(cart.items, cfg.products);
+    trackEcommerce('generate_lead', { value: itemsValue(items), items }, { form: 'finalizacao-orcamento', method: 'whatsapp' });
     // Nova aba (no celular, o aplicativo); se o navegador bloquear, abre nesta mesma aba.
     const win = window.open(url, '_blank');
     if (win) win.opener = null;

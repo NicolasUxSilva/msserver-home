@@ -5,6 +5,7 @@ import soraUrl from '@fontsource-variable/sora/files/sora-latin-wght-normal.woff
 import interUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import monoUrl from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url';
 import { SITE, TRACKING } from '../config/site';
+import CookieConsent from '../components/CookieConsent.astro';
 import homeSchema from '../data/schema.json';
 
 interface Props {
@@ -35,13 +36,10 @@ const fontFaces = `
 @font-face{font-family:'Inter Variable';font-style:normal;font-display:swap;font-weight:100 900;src:url(${interUrl}) format('woff2-variations');unicode-range:${range}}
 @font-face{font-family:'JetBrains Mono Variable';font-style:normal;font-display:swap;font-weight:100 800;src:url(${monoUrl}) format('woff2-variations');unicode-range:${range}}`;
 
-// Mesmos scripts de rastreamento da home no WordPress (GTM, Google Ads, Meta Pixel, Clarity e RD Station).
-const tracking = `
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${TRACKING.gtm}');
-window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${TRACKING.googleAds}');
-(function(){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=${TRACKING.googleAds}';document.head.appendChild(g);})();
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${TRACKING.metaPixel}');fbq('track','PageView');
-(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${TRACKING.clarity}");`;
+// Rastreamento: com PUBLIC_TRACKING=true, só o dataLayer, o gtag e o estado padrão do consentimento
+// (Consent Mode v2, tudo negado) entram no carregamento; as ferramentas carregam depois da escolha da
+// pessoa (src/scripts/consent.ts). Sem PUBLIC_TRACKING, nada de rastreamento existe na página.
+const consentDefaults = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:500});`;
 ---
 
 <!doctype html>
@@ -49,6 +47,8 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* Identifica as páginas do site novo (o WordPress publica "WordPress x.y"): usado na verificação do roteamento. */}
+    <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />
@@ -80,21 +80,14 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
-    {TRACKING.enabled && <script is:inline set:html={tracking} />}
-    {TRACKING.enabled && <script is:inline async src={TRACKING.rdStation} />}
+    {TRACKING.enabled && <script is:inline set:html={consentDefaults} />}
     {(Array.isArray(schema) ? schema : [schema]).map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
     <slot name="head" />
   </head>
   <body>
-    {
-      TRACKING.enabled && (
-        <noscript>
-          <iframe src={`https://www.googletagmanager.com/ns.html?id=${TRACKING.gtm}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager" />
-        </noscript>
-      )
-    }
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <slot />
+    <CookieConsent />
     <script>
       import { initPage } from '../scripts/page';
       initPage();

@@ -1,0 +1,256 @@
+---
+// Política de privacidade (/politica-de-privacidade/). Estrutura pronta; o conteúdo jurídico depende
+// de aprovação da MSSERVER (src/data/privacidade.ts → POLICY.approved). Enquanto não aprovado: aviso
+// claro de conteúdo em preparação, seções marcadas como pendentes e "noindex" — a página não se
+// apresenta como política válida.
+import '../../styles/catalog-hero.css';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppFab from '../../components/WhatsAppFab.astro';
+import Icon from '../../components/Icon.astro';
+import { ROUTES, SITE } from '../../config/site';
+import { POLICY, TECHNOLOGIES } from '../../data/privacidade';
+
+const canonical = `${SITE.origin}/politica-de-privacidade/`;
+const schema = { '@context': 'https://schema.org', '@type': 'WebPage', name: `${POLICY.title} - MSSERVER`, url: canonical };
+---
+
+<Base
+  title={`${POLICY.title} - MSSERVER`}
+  description="Política de privacidade da MSSERVER: como os dados pessoais e os cookies são tratados no site."
+  canonical={canonical}
+  robots={POLICY.approved ? 'max-image-preview:large' : 'noindex, follow'}
+  schema={schema}
+>
+  <Header current={ROUTES.privacy} />
+  <main id="conteudo" class="pp">
+    <section class="cat-hero dark-surface on-dark" aria-labelledby="pp-title">
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="dark-surface__hatch"></div>
+        <div class="cat-light"></div>
+      </div>
+      <div class="container cat-hero-inner">
+        <nav class="cat-crumbs" aria-label="Você está em">
+          <ol>
+            <li><a href={ROUTES.home}>Início</a></li>
+            <li><span aria-current="page">{POLICY.title}</span></li>
+          </ol>
+        </nav>
+        <h1 id="pp-title" class="cat-title">{POLICY.title}</h1>
+        {POLICY.approved && POLICY.updatedAt && <p class="pp-updated">Atualizada em {POLICY.updatedAt}</p>}
+      </div>
+    </section>
+
+    <div class="container pp-layout">
+      <article class="pp-article">
+        {
+          !POLICY.approved && (
+            <div class="pp-pending" role="note">
+              <Icon name="file-text" size={22} />
+              <div>
+                <p class="pp-pending-title">Conteúdo em aprovação</p>
+                <p>{POLICY.pendingNotice}</p>
+              </div>
+            </div>
+          )
+        }
+
+        <nav class="pp-toc" aria-label="Seções">
+          <ol>
+            {
+              POLICY.sections.map((s) => (
+                <li>
+                  <a href={`#${s.id}`}>{s.title}</a>
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+
+        {
+          POLICY.sections.map((s) => (
+            <section class="pp-section" id={s.id} aria-labelledby={`${s.id}-t`}>
+              <h2 id={`${s.id}-t`}>{s.title}</h2>
+              {s.body ? <div class="pp-body" set:html={s.body} /> : <p class="pp-placeholder">[Conteúdo jurídico pendente de aprovação]</p>}
+              {s.id === 'cookies' && (
+                <div class="pp-tech">
+                  <p class="pp-tech-note">Tecnologias usadas pelo site (inventário técnico; a classificação final depende da aprovação desta política):</p>
+                  <div class="pp-table-wrap">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th scope="col">Tecnologia</th>
+                          <th scope="col">Fornecedor</th>
+                          <th scope="col">Para que serve</th>
+                          <th scope="col">Como guarda</th>
+                          <th scope="col">Categoria</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {TECHNOLOGIES.map((t) => (
+                          <tr>
+                            <th scope="row">{t.name}</th>
+                            <td>{t.provider}</td>
+                            <td>{t.purpose}</td>
+                            <td>{t.storage}</td>
+                            <td>{t.category}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <button class="btn btn--outline btn--sm" type="button" hidden data-consent-open>
+                    Preferências de cookies
+                  </button>
+                </div>
+              )}
+            </section>
+          ))
+        }
+      </article>
+    </div>
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Base>
+
+<style>
+  .pp-updated {
+    color: var(--c-on-dark-2);
+  }
+
+  .pp-layout {
+    margin-top: clamp(-2.25rem, -1.6rem - 1.2vw, -1.25rem);
+    padding-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  }
+
+  .pp-article {
+    position: relative;
+    max-width: 860px;
+    padding: clamp(1.25rem, 0.75rem + 2vw, 2.75rem);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-1);
+  }
+
+  .pp-pending {
+    display: flex;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+    padding: 1rem 1.15rem;
+    border: 1px solid rgb(183 121 31 / 0.3);
+    border-left: 4px solid var(--c-warning, #b7791f);
+    border-radius: 12px;
+    background: var(--c-warning-bg, #fff7e6);
+  }
+
+  .pp-pending :global(svg) {
+    flex: none;
+    margin-top: 0.1rem;
+    color: var(--c-warning, #b7791f);
+  }
+
+  .pp-pending-title {
+    font-weight: 700;
+  }
+
+  .pp-toc {
+    margin-bottom: 2rem;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    background: var(--c-paper);
+  }
+
+  .pp-toc ol {
+    display: grid;
+    gap: 0.3rem;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .pp-toc a {
+    color: var(--c-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--c-line-2);
+    text-underline-offset: 3px;
+  }
+
+  .pp-section + .pp-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--c-line);
+  }
+
+  .pp-section {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+
+  .pp-section h2 {
+    margin-bottom: 0.75rem;
+    font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  }
+
+  .pp-placeholder {
+    padding: 0.75rem 1rem;
+    border: 1px dashed var(--c-line-2);
+    border-radius: 10px;
+    color: var(--c-ink-3);
+    font-family: var(--f-mono);
+    font-size: 0.82rem;
+  }
+
+  .pp-tech {
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 1rem;
+  }
+
+  .pp-tech-note {
+    color: var(--c-ink-2);
+    font-size: 0.92rem;
+  }
+
+  .pp-tech .btn {
+    justify-self: start;
+  }
+
+  .pp-tech .btn[hidden] {
+    display: none;
+  }
+
+  .pp-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--c-line);
+    border-radius: 12px;
+  }
+
+  .pp-table-wrap table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  .pp-table-wrap th,
+  .pp-table-wrap td {
+    padding: 0.65rem 0.8rem;
+    border-bottom: 1px solid var(--c-line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .pp-table-wrap thead th {
+    background: var(--c-paper);
+    color: var(--c-ink-3);
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .pp-table-wrap tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+</style>

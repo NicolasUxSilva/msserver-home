@@ -19,6 +19,7 @@ interface Props {
 const { form, prefix, tone = 'light', whatsapp } = Astro.props;
 const config = { endpoint: ELEMENTOR.endpoint, action: ELEMENTOR.action, postId: form.postId, formId: form.formId, refererTitle: form.refererTitle };
 const id = (f: string) => `${prefix}-${f}`;
+import PrivacyNote from '../PrivacyNote.astro';
 ---
 
 <div class:list={['sol-lead', `sol-lead--${tone}`]} data-sol-lead data-config={JSON.stringify(config)}>
@@ -29,7 +30,7 @@ const id = (f: string) => `${prefix}-${f}`;
         <p class="sol-form-alert-title">{FORM_TEXTS.errorTitle}</p>
         <p data-alert-text></p>
         <p class="sol-form-alert-help">
-          <a href={whatsapp} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location={`${prefix}-erro`}>{FORM_TEXTS.fallback}</a>
+          <a href={whatsapp} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location={`${prefix}-erro`}>{FORM_TEXTS.fallback}</a>
         </p>
       </div>
     </div>
@@ -69,6 +70,7 @@ const id = (f: string) => `${prefix}-${f}`;
       <Icon name="send" size={18} class="sol-submit-send" />
       <Icon name="loader-circle" size={18} class="sol-submit-spin" />
     </button>
+    <PrivacyNote />
     <p class="sr-only" aria-live="polite" data-live></p>
   </form>
 

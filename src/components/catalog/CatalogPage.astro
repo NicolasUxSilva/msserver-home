@@ -13,7 +13,7 @@ import WhatsAppFab from '../WhatsAppFab.astro';
 import Icon from '../Icon.astro';
 import ProductCard from './ProductCard.astro';
 import { LINKS, ROUTES, whatsappUrl } from '../../config/site';
-import { FORMATS, LISTINGS, NAV_GROUPS, SCHEMAS, orderOf, pagesOf, product, searchIndex, sharedCategories, totalOf, trailOf, type ListingKey } from '../../data/catalog';
+import { FORMATS, LISTINGS, listingDescription, NAV_GROUPS, SCHEMAS, orderOf, pagesOf, product, searchIndex, sharedCategories, totalOf, trailOf, type ListingKey } from '../../data/catalog';
 import { ORDER_OPTIONS, pageItems, resultCount, stateUrl } from '../../lib/catalog-shared';
 import { CATEGORIES as BLOG_CATEGORIES, POSTS, postPath } from '../../data/blog';
 import { blogCategoryRoute } from '../../config/site';
@@ -57,9 +57,13 @@ const crumbs = [
   ...(page > 1 ? [{ label: `Página ${page}`, href: undefined }] : []),
 ];
 const searchLabel = key === 'servidores' ? 'Buscar no catálogo' : `Buscar em ${L.title}`;
+// Cada página da listagem tem o próprio endereço oficial e o número da página no título (as páginas
+// seguintes trazem outros produtos; apontar todas para a primeira escondia esses produtos).
+const canonical = page > 1 ? `${L.canonical}page/${page}/` : L.canonical;
+const seoTitle = page > 1 ? L.seoTitle.replace(/ - MSSERVER$/, ` – Página ${page} - MSSERVER`) : L.seoTitle;
 ---
 
-<Base title={L.seoTitle} description="" canonical={L.canonical} ogType="website" schema={SCHEMAS[key]}>
+<Base title={seoTitle} description={listingDescription(key)} canonical={canonical} ogType="website" schema={SCHEMAS[key]}>
   <Header current={LINKS.servers} />
   <main id="conteudo" class="catalog" data-catalog>
     {/* Abertura: identificação, contagem e navegação entre as categorias do catálogo. */}

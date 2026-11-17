@@ -4,7 +4,7 @@ import Icon from './Icon.astro';
 import logo from '../assets/brand/msserver-logo.png';
 import certs from '../assets/footer/certificacoes.png';
 import eco from '../assets/footer/projetos-socioambientais.png';
-import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
+import { CONTACT, FOOTER_MENU, LINKS, ROUTES, SOCIAL } from '../config/site';
 // Ano atual (no build; o navegador atualiza se a virada do ano chegar antes de um novo build).
 const year = new Date().getFullYear();
 ---
@@ -78,6 +78,13 @@ const year = new Date().getFullYear();
   <div class="container">
     <div class="footer-bottom">
       <p>© <span data-year>{year}</span> MSServer. Todos os direitos reservados.</p>
+      <ul class="footer-legal">
+        <li><a class="u-link" href={ROUTES.privacy}>Política de privacidade</a></li>
+        <li>
+          {/* Visível só com o rastreamento ligado (o aviso de cookies existe). */}
+          <button class="u-link footer-cookies" type="button" hidden data-consent-open>Preferências de cookies</button>
+        </li>
+      </ul>
     </div>
   </div>
 </footer>
@@ -280,10 +287,39 @@ const year = new Date().getFullYear();
   }
 
   .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
     margin-top: 3rem;
     padding-top: 1.5rem;
+    /* Espaço para o WhatsApp flutuante no celular: o texto não fica embaixo do botão. */
+    padding-right: clamp(0px, 4.5rem - 2vw, 4.25rem);
     border-top: 1px solid var(--c-line);
     color: var(--c-ink-3);
     font-size: 0.82rem;
+  }
+
+  .footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-cookies {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .footer-cookies[hidden] {
+    display: none;
   }
 </style>
