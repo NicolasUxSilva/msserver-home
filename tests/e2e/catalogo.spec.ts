@@ -19,6 +19,9 @@ type Key = 'servidores' | 'dell' | 'hp' | 'ibm' | Component;
 const LISTINGS = original.listings as unknown as Record<Key, (typeof original.listings)['dell'] & { orders: Record<string, number[]> }>;
 const PRODUCTS = catalog.products as unknown as Record<string, { url: string; imageSrc: string; categories: string[]; button: { url: string; kind: string } }>;
 const PATH = Object.fromEntries(Object.keys(LISTINGS).map((k) => [k, k === 'servidores' ? '/servidores/' : `/categoria-produto/${k}/`])) as Record<Key, string>;
+/** Formatos (Rack, Torre, Escala nuvem): listagens novas, sem página equivalente no catálogo do WordPress capturado. */
+const FORMATS = ['rack', 'torre', 'escala-nuvem'] as const;
+const SYNCED = catalog.listings as unknown as Record<string, { total: number }>;
 const KEYS = Object.keys(PATH) as Key[];
 /** Título exibido: o publicado, com os fabricantes em caixa de marca (DELL → Dell). */
 const H1: Record<Key, string> = { servidores: 'Servidores', dell: 'Dell', hp: 'HP', ibm: 'IBM', componentes: 'Componentes', baterias: 'Baterias', dissipadores: 'Dissipadores', fans: 'Fans', fontes: 'Fontes', gavetas: 'Gavetas', 'placas-de-rede': 'Placas de Rede' };
@@ -135,7 +138,12 @@ test.describe('catálogo: busca, ordenação, navegação e paginação', () => 
     await expect(page).toHaveURL(/\?busca=r740$/);
     const ids = await visibleIds(page);
     expect(ids.length).toBeGreaterThan(0);
-    for (const name of await page.locator('.pc:not([hidden]) .pc-title a').allTextContents()) expect(name.toLowerCase()).toContain('r740');
+    // Cada resultado tem o termo no texto de busca (nome, atributos ou o código de peça da descrição:
+    // um dissipador compatível com o R740XD também aparece); os servidores R740 estão entre eles.
+    const cfg = JSON.parse((await page.locator('[data-cat-config]').textContent())!);
+    for (const id of ids) expect(cfg.products[id].s, String(id)).toContain('r740');
+    const names = (await page.locator('.pc:not([hidden]) .pc-title a').allTextContents()).map((n) => n.toLowerCase());
+    expect(names.some((n) => n.includes('poweredge r740'))).toBe(true);
     await expect(page.locator('[data-cat-active]')).toContainText('Busca: “r740”');
     // Sem resultados: aviso e saída.
     await page.fill('#cat-q', 'modelo que não existe');
@@ -180,15 +188,20 @@ test.describe('catálogo: busca, ordenação, navegação e paginação', () => 
 
   test('navegação só com as categorias do grupo da página, a atual marcada e a busca mantida', async ({ page }) => {
     const SERVERS = ['servidores', 'dell', 'hp', 'ibm'] as Key[];
+    const formatPath = (f: string) => `/categoria-produto/${f}/`;
     for (const key of KEYS) {
       await page.goto(PATH[key]);
       const own = SERVERS.includes(key) ? SERVERS : (COMPONENTS as readonly Key[]);
       const other = KEYS.filter((k) => !own.includes(k));
       const nav = page.getByRole('navigation', { name: SERVERS.includes(key) ? 'Categorias: Servidores' : 'Categorias: Componentes' });
       await expect(nav.locator('[aria-current="page"]')).toHaveAttribute('href', PATH[key]);
-      // Nos servidores: Todos, Dell, HP e IBM. Nos componentes: Componentes e as subcategorias.
-      await expect(nav.getByRole('link')).toHaveCount(own.length);
+      // Nos servidores: Todos, Dell, HP e IBM e, depois de um traço, os formatos (Rack, Torre,
+      // Escala Nuvem). Nos componentes: Componentes e as subcategorias.
+      const formats = SERVERS.includes(key) ? FORMATS.length : 0;
+      await expect(nav.getByRole('link')).toHaveCount(own.length + formats);
       for (const k of own) await expect(nav.locator(`a[href="${PATH[k]}"]`)).toContainText(String(LISTINGS[k].total));
+      if (formats) for (const f of FORMATS) await expect(nav.locator(`a[href="${formatPath(f)}"]`)).toContainText(String(SYNCED[f].total));
+      else for (const f of FORMATS) await expect(nav.locator(`a[href="${formatPath(f)}"]`)).toHaveCount(0);
       for (const k of other) await expect(nav.locator(`a[href="${PATH[k]}"]`)).toHaveCount(0);
     }
     await page.goto('/servidores/');
@@ -250,7 +263,9 @@ test.describe('catálogo: busca, ordenação, navegação e paginação', () => 
     await page.fill('#cat-q', 'r9999');
     await expect(page.locator('[data-cat-empty]')).toBeVisible();
     await expect(page.locator('[data-cat-empty-text]')).toHaveText('Nenhum produto desta categoria corresponde a “r9999”.');
-    await expect(page.locator('[data-cat-search-all]')).toHaveAttribute('href', 'https://msserver.com.br/?post_type=product&s=r9999');
+    // Sem resultado na categoria: a mesma busca no catálogo inteiro deste site e o consultor no WhatsApp.
+    await expect(page.locator('[data-cat-search-all]')).toHaveAttribute('href', '/servidores/?busca=r9999');
+    await expect(page.locator('[data-cat-empty] a[href^="https://wa.me/5511985991837"]')).toHaveCount(1);
     await page.locator('[data-cat-reset]').click();
     expect(await visibleIds(page)).toEqual(LISTINGS.fontes.pages.flat());
     // Ordenação por preço nas baterias (preços publicados de R$ 350 a R$ 950).
@@ -303,7 +318,8 @@ test.describe('catálogo: página, telas e acessibilidade', () => {
       await page.goto(PATH[key]);
       await expect(page).toHaveTitle(LISTINGS[key].title);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', LISTINGS[key].canonical);
-      await expect(page.locator('meta[name="description"]')).toHaveCount(0);
+      // Descrição montada com os dados do catálogo (o WordPress não tinha descrição nessas páginas).
+      await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', new RegExp(`${LISTINGS[key].total} (produtos|modelos|modelo|produto)`));
       await expect(page.locator('h1')).toHaveText(H1[key]);
       const ld = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent())!);
       expect(ld['@graph'].some((n: { '@type': string }) => n['@type'] === 'CollectionPage')).toBe(true);

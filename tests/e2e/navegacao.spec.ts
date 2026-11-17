@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 
-// Navegação entre as páginas já reconstruídas (Home e "Sobre nós"). Elas se ligam por links
-// internos; as páginas ainda não reformuladas continuam no WordPress (msserver.com.br).
+// Navegação entre as páginas reconstruídas. Elas se ligam por links internos; as páginas que
+// continuam no WordPress (Suporte, Aplicativo, Servidores Físicos) seguem em msserver.com.br.
 // Nenhuma requisição sai para a produção durante os testes.
 test.beforeEach(async ({ page }) => {
   await page.route(/youtube\.com|ytimg|googletag|facebook|clarity|cloudfront|wa\.me|msserver\.com\.br/, (r) => r.abort());
@@ -113,15 +113,18 @@ test('páginas reconstruídas não apontam para as versões antigas; as demais s
     // Nem para o catálogo antigo: /servidores/, as 10 categorias e as páginas de produto.
     expect(hrefs.filter((h) => /^https:\/\/msserver\.com\.br\/(servidores\/?$|categoria-produto\/|servidor\/)/.test(h))).toEqual([]);
     await expect(page.locator('nav[aria-label="Menu principal"] a.nav-link', { hasText: /^Orçamento$/ })).toHaveAttribute('href', '/orcamento/');
-    // Páginas ainda não reformuladas: mesmos destinos no WordPress (o menu do desktop fica no
-    // HTML também no celular, só oculto; por isso o seletor CSS).
+    // Blog e Cases reconstruídos (rotas internas); Suporte continua no WordPress (o menu do desktop
+    // fica no HTML também no celular, só oculto; por isso o seletor CSS).
     for (const [name, href] of [
-      ['Blog', 'https://msserver.com.br/blog/'],
+      ['Blog', '/blog/'],
       ['Suporte', 'https://msserver.com.br/obter-suporte/'],
-      ['Cases de sucesso', 'https://msserver.com.br/cases-de-sucesso/'],
+      ['Cases de sucesso', '/cases-de-sucesso/'],
     ]) {
       await expect(page.locator('nav[aria-label="Menu principal"] a.nav-link', { hasText: new RegExp(`^${name}$`) })).toHaveAttribute('href', href);
     }
-    await expect(page.locator('footer').getByRole('link', { name: 'Obter Suporte' })).toHaveAttribute('href', 'https://msserver.com.br/obter-suporte');
+    await expect(page.locator('footer').getByRole('link', { name: 'Obter Suporte' })).toHaveAttribute('href', 'https://msserver.com.br/obter-suporte/');
+    await expect(page.locator('footer').getByRole('link', { name: 'Blog' })).toHaveAttribute('href', '/blog/');
+    // Nenhum link para o blog, os cases ou a Soluções Cloud antigos do WordPress.
+    expect(hrefs.filter((h) => /^https:\/\/msserver\.com\.br\/(blog\/?|cases-de-sucesso\/|solucoes-cloud(-msserver)?\/)$/.test(h))).toEqual([]);
   }
 });

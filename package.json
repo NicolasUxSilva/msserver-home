@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "test:e2e": "playwright test",
+    "test:nginx": "node scripts/testar-nginx.mjs",
     "sync": "node scripts/sync-content.mjs",
     "sync:reviews": "node --env-file-if-exists=.env scripts/sync-google-reviews.mjs",
     "sync:catalog": "node scripts/sync-catalog.mjs",

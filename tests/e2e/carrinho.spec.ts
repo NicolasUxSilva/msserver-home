@@ -10,7 +10,6 @@ test.beforeEach(async ({ page }) => {
   await page.route(/msserver\.com\.br|youtube\.com|ytimg|googletag|facebook|clarity|cloudfront|wa\.me/, (r) => r.abort());
 });
 
-const CHECKOUT = 'https://msserver.com.br/finalizar-compra/';
 const R210_16 = 5421; // Servidor Dell PowerEdge R210, Memoria RAM 16GB, R$ 3.950,00
 const BATERIA = 7820; // Bateria Dell nu209 …, R$ 350,00
 const R610_64 = 5279; // Servidor Dell Poweredge R610, Memoria RAM 64GB, R$ 5.250,00 (atributo do produto)
@@ -27,8 +26,9 @@ test.describe('carrinho: itens e totais da loja', () => {
     expect(ld['@graph'].map((n: { '@type': string }) => n['@type']).sort()).toEqual(['BreadcrumbList', 'Organization', 'WebPage', 'WebSite']);
     await expect(page.locator('h1')).toHaveText('Carrinho');
     await expect(page.locator('[data-cart-count]')).toHaveText('4 itens');
-    // Nenhum item do menu marcado (o carrinho não está no menu).
-    await expect(page.locator('header [aria-current="page"]')).toHaveCount(0);
+    // No cabeçalho, só o atalho do carrinho fica marcado como página atual (nenhum item do menu).
+    await expect(page.locator('header [aria-current="page"]')).toHaveCount(1);
+    await expect(page.locator('header .cart-link')).toHaveAttribute('aria-current', 'page');
 
     const items = page.locator('.cart-item');
     await expect(items).toHaveCount(3);
@@ -137,11 +137,27 @@ test.describe('carrinho: adicionar, WhatsApp e finalização', () => {
     await expect(page.locator('.cart-item .cart-qty input')).toHaveValue('1');
   });
 
-  test('link do catálogo sem a loja neste endereço: segue para a finalização do WordPress, que adiciona', async ({ page }) => {
-    await mockStore(page, { down: true });
-    await page.route(`${CHECKOUT}**`, (r) => r.fulfill({ status: 200, contentType: 'text/html', body: '<title>Finalização</title>' }));
+  test('link do catálogo sem a loja neste endereço: aviso e o pedido do produto pelo WhatsApp, sem checkout', async ({ page }) => {
+    const store = await mockStore(page, { down: true });
+    const checkout: string[] = [];
+    page.on('request', (r) => /finalizar-compra|wc\/store\/v1\/checkout/.test(r.url()) && checkout.push(r.url()));
     await page.goto('/carrinho/?add-to-cart=7828');
-    await expect(page).toHaveURL(`${CHECKOUT}?add-to-cart=7828&quantity=1`);
+    await expect(page.locator('[data-cart-unavailable]')).toBeVisible();
+    await expect(page).toHaveURL(/\/carrinho\/$/);
+    const href = (await page.locator('[data-cart-unavailable-whatsapp]').getAttribute('href'))!;
+    const text = new URL(href).searchParams.get('text')!;
+    expect(text).toContain('Placa rede servidor 10gb pcie x8 dual port sfp+ -bcm57810s');
+    expect(text).toContain('https://msserver.com.br/servidor/');
+    // "Tentar de novo" tenta a loja outra vez com o mesmo produto guardado (com a loja fora do ar, a
+    // tentativa para no pedido da sessão, antes de chegar ao add-item) e o aviso volta com o produto.
+    const before = store.requests.length;
+    expect(before).toBeGreaterThan(0);
+    await page.getByRole('button', { name: 'Tentar de novo' }).click();
+    await expect.poll(() => store.requests.length).toBeGreaterThan(before);
+    await expect(page.locator('[data-cart-unavailable]')).toBeVisible();
+    const again = new URL((await page.locator('[data-cart-unavailable-whatsapp]').getAttribute('href'))!).searchParams.get('text')!;
+    expect(again).toBe(text);
+    expect(checkout).toEqual([]);
   });
 
   test('"Orçamento pelo WhatsApp": a mensagem do plugin do WordPress, com os itens e o total', async ({ page }) => {

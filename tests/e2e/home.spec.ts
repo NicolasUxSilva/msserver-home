@@ -1,6 +1,14 @@
 import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import original from '../fixtures/original-home.json' with { type: 'json' };
+import blog from '../../src/data/blog.json' with { type: 'json' };
+
+// Postagens do blog: a home mostra sempre as três mais recentes (dado vivo, sincronizado do
+// WordPress). As da captura original (02/11/2026) saem da comparação; blog.spec.ts confere as atuais.
+const POSTS = blog.posts as { slug: string; url: string; title: string; excerpt: string; date: string }[];
+const POST_URLS = new Set(POSTS.map((p) => p.url));
+const POST_TEXTS = new Set(POSTS.flatMap((p) => [p.title, p.excerpt]));
+const LATEST = POSTS.slice().sort((a, b) => b.date.localeCompare(a.date));
 
 // Nada sai para serviços externos durante os testes.
 test.beforeEach(async ({ page }) => {
@@ -49,10 +57,19 @@ test.describe('preservação da home original', () => {
       'https://msserver.com.br/backup-em-nuvem/': '/backup-em-nuvem/',
       'https://msserver.com.br/consultoria-em-implantacao-de-servidores/': '/consultoria-em-implantacao-de-servidores/',
       'https://msserver.com.br/servidores-dedicados/': 'https://msserver.com.br/servidores-fisicos/',
+      // Soluções Cloud: a landing aprovada, publicada por este build em /solucoes-cloud/ (o banner
+      // "Nuvem" levava à versão antiga, /solucoes-cloud-msserver/).
+      'https://msserver.com.br/solucoes-cloud/': '/solucoes-cloud/',
+      'https://msserver.com.br/solucoes-cloud-msserver/': '/solucoes-cloud/',
+      // Blog e Cases reconstruídos (mesmos endereços); Suporte continua no WordPress.
+      'https://msserver.com.br/blog': '/blog/',
+      'https://msserver.com.br/blog/': '/blog/',
+      'https://msserver.com.br/cases-de-sucesso/': '/cases-de-sucesso/',
+      'https://msserver.com.br/obter-suporte': 'https://msserver.com.br/obter-suporte/',
     };
     // Páginas de produto: reconstruídas no mesmo endereço (/servidor/slug/).
     const local = (h: string) => equivalent[h] ?? h.replace(/^https:\/\/msserver\.com\.br(?=\/servidor\/[^/]+\/$)/, '');
-    const missing = original.hrefs.filter((h) => !hrefs.has(local(h)));
+    const missing = original.hrefs.filter((h) => !POST_URLS.has(h) && !hrefs.has(local(h)));
     expect(missing).toEqual([]);
     expect(await page.locator('a[href="#"], a[href="#/"]').count()).toBe(0);
   });
@@ -70,7 +87,9 @@ test.describe('preservação da home original', () => {
     await page.goto('/');
     const body = norm((await page.locator('body').textContent()) ?? '');
     const missing: string[] = [];
-    for (const t of original.texts.filter((t) => !REPLACED.has(t))) {
+    // O ano do rodapé é o atual (era "© 2023").
+    const year = String(new Date().getFullYear());
+    for (const t of original.texts.filter((t) => !REPLACED.has(t) && !POST_TEXTS.has(t)).map((t) => t.replace('© 2023', `© ${year}`))) {
       // Textos combinados de um mesmo bloco são verificados frase a frase.
       for (const part of t.split(/(?<=[.,?!])\s+(?=[A-ZÀ-Ú])/)) {
         const p = norm(part).replace(/\s*»$/, ' »');
@@ -152,19 +171,13 @@ test('abas da linha de servidores (clique e teclado)', async ({ page }) => {
   await expect(panel('escala-nuvem').locator('li')).toHaveCount(6);
 });
 
-test('busca de produtos envia para a busca do WooCommerce', async ({ page, isMobile }) => {
+test('busca de produtos leva ao catálogo do site, com o termo', async ({ page, isMobile }) => {
   await page.goto('/');
   if (isMobile) await page.getByRole('button', { name: 'Abrir busca de produtos' }).click();
-  const form = page.locator(isMobile ? '#busca-movel form' : 'form[data-search]');
-  await form.locator('input[type="search"]').fill('dell r740');
-  const [req] = await Promise.all([
-    page.waitForRequest((r) => r.url().startsWith('https://msserver.com.br/?')),
-    page.route('https://msserver.com.br/?**', (r) => r.fulfill({ body: 'ok' })),
-    form.locator('input[type="search"]').press('Enter'),
-  ]);
-  const url = new URL(req.url());
-  expect(url.searchParams.get('s')).toBe('dell r740');
-  expect(url.searchParams.get('post_type')).toBe('product');
+  const input = page.locator(isMobile ? '#busca-produtos-movel' : '#busca-produtos');
+  await input.fill('dell r740');
+  await Promise.all([page.waitForURL(/\/servidores\/\?busca=dell%20r740$/), input.press('Enter')]);
+  await expect(page.locator('#cat-q')).toHaveValue('dell r740');
 });
 
 test('WhatsApp flutuante com o número e a mensagem do site', async ({ page }) => {
@@ -216,7 +229,7 @@ test.describe('desktop', () => {
     await items.nth(1).hover();
     await expect(items.nth(1)).toHaveAttribute('data-open', '');
     await expect(items.nth(1).getByText(/Tome decisões inteligentes/)).toBeVisible();
-    await expect(items.nth(1).locator('a')).toHaveAttribute('href', 'https://msserver.com.br/solucoes-cloud/');
+    await expect(items.nth(1).locator('a')).toHaveAttribute('href', '/solucoes-cloud/');
   });
 });
 
@@ -270,12 +283,18 @@ test.describe('celular', () => {
     await expect(menu.getByRole('link', { name: 'Gavetas' })).toBeVisible();
     await expect(menu.getByRole('link', { name: 'Gavetas' })).toHaveAttribute('href', '/categoria-produto/gavetas/');
     await menu.locator('#m-v-root-0-4').getByRole('button', { name: 'Voltar' }).click();
+    // "Por formato" (Rack, Torre, Escala Nuvem), ao lado de "Componentes".
+    await menu.getByRole('button', { name: 'Por formato', exact: true }).click();
+    await expect(menu.locator('#m-v-root-0-5').getByRole('link', { name: 'Rack' })).toHaveAttribute('href', '/categoria-produto/rack/');
+    await expect(menu.locator('#m-v-root-0-5').getByRole('link', { name: 'Escala Nuvem' })).toHaveAttribute('href', '/categoria-produto/escala-nuvem/');
+    await menu.locator('#m-v-root-0-5').getByRole('button', { name: 'Voltar' }).click();
     await menu.locator('#m-v-root-0').getByRole('button', { name: 'Voltar' }).click();
     await menu.getByRole('button', { name: 'Soluções', exact: true }).click();
     await expect(menu.getByRole('link', { name: 'Nuvem Privada' })).toBeVisible();
     await expect(menu.getByRole('link', { name: 'Servidores Físicos' })).toHaveAttribute('href', 'https://msserver.com.br/servidores-fisicos/');
     await menu.locator('#m-v-root-3').getByRole('button', { name: 'Voltar' }).click();
-    await expect(menu.getByRole('link', { name: 'Cases de sucesso' })).toHaveAttribute('href', 'https://msserver.com.br/cases-de-sucesso/');
+    await expect(menu.getByRole('link', { name: 'Cases de sucesso' })).toHaveAttribute('href', '/cases-de-sucesso/');
+    await expect(menu.getByRole('link', { name: 'Blog' })).toHaveAttribute('href', '/blog/');
 
     // Esc fecha e a página continua no mesmo ponto.
     await page.keyboard.press('Escape');
@@ -331,7 +350,9 @@ test('cartões inteiros clicáveis levam ao mesmo destino do título', async ({ 
   await post.scrollIntoViewIfNeeded();
   box = (await post.locator('.post-thumb').boundingBox())!;
   await page.mouse.click(box.x + 30, box.y + 30);
-  await expect(page).toHaveURL(/msserver\.com\.br\/review-servidor-poweredge-vale-a-pena\/$/);
+  // O artigo mais recente do blog, reconstruído no mesmo endereço do WordPress.
+  await expect(page).toHaveURL(new RegExp(`/${LATEST[0].slug}/$`));
+  await expect(page.locator('h1')).toHaveText(LATEST[0].title);
 });
 
 test('vídeo mostra a miniatura do próprio vídeo enquanto o player carrega', async ({ page }) => {
@@ -391,7 +412,7 @@ test.describe('hero interativa', () => {
     await expect(active(page)).toHaveAttribute('id', 'hero-p-nuvem');
     await expect(active(page).getByRole('link', { name: isMobile ? 'Obter suporte' : 'Nuvem' })).toHaveAttribute(
       'href',
-      isMobile ? 'https://msserver.com.br/obter-suporte' : 'https://msserver.com.br/solucoes-cloud-msserver/',
+      isMobile ? 'https://msserver.com.br/obter-suporte/' : '/solucoes-cloud/',
     );
     // Seta para a direita no último tema existente leva ao banner de locação; End também.
     await page.getByRole('tab', { name: 'Data Center' }).press('ArrowRight');
@@ -656,7 +677,7 @@ test.describe('celular: soluções e postagens', () => {
     await expect(page).toHaveURL(/localhost/);
     await page.waitForTimeout(800);
     await tap(1, 60);
-    await expect(page).toHaveURL('https://msserver.com.br/solucoes-cloud/');
+    await expect(page).toHaveURL(/\/solucoes-cloud\/$/);
   });
 
   test('postagens deslizam na horizontal', async ({ page }) => {

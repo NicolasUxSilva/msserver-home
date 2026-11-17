@@ -35,10 +35,12 @@ import { whatsappUrl } from '../config/site';
     <SocialClients />
   </main>
   <Footer />
-  <a class="wa-fab" href={whatsappUrl()} target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp" data-wa-fab data-track="contact_whatsapp_click" data-track-location="flutuante">
-    <span class="wa-fab-icon"><Icon name="whatsapp" size={28} /></span>
-    <span class="wa-fab-label" aria-hidden="true">WhatsApp</span>
-  </a>
+  <aside aria-label="Atendimento pelo WhatsApp">
+    <a class="wa-fab" href={whatsappUrl()} target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp" data-wa-fab data-track="contact_whatsapp_click" data-track-location="flutuante">
+      <span class="wa-fab-icon"><Icon name="whatsapp" size={28} /></span>
+      <span class="wa-fab-label" aria-hidden="true">WhatsApp</span>
+    </a>
+  </aside>
 </Base>
 
 <style>

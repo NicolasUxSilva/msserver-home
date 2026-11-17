@@ -280,7 +280,7 @@ test.describe('soluções: vídeo, menu e navegação', () => {
   });
 
   const SOLUCOES = [
-    ['Soluções Cloud', 'https://msserver.com.br/solucoes-cloud/'],
+    ['Soluções Cloud', '/solucoes-cloud/'],
     ['Nuvem Privada', '/nuvem-privada/'],
     ['Servidores Físicos', 'https://msserver.com.br/servidores-fisicos/'],
     ['Aplicativo de Gestão', 'https://msserver.com.br/aplicativo-ms-server/'],

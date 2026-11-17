@@ -364,6 +364,12 @@ const pad = (n: number) => String(n).padStart(2, '0');
     margin-inline: auto;
   }
 
+  /* A órbita gira: a caixa dela, inclinada, passa da borda da tela no celular (a largura da página
+     chegava a 411px em 390px e deslocava o WhatsApp flutuante). A seção corta o excesso. */
+  .cs-eff {
+    overflow-x: clip;
+  }
+
   .cs-eff-orbit {
     position: absolute;
     inset: -14%;

@@ -7,9 +7,10 @@ import { mockStore } from './store-mock';
 // Páginas de produto (/servidor/slug/). A referência são as 74 páginas publicadas no WordPress
 // (tests/fixtures/original-products.json, capturado do HTML): mesmo nome, título, descrição e JSON-LD,
 // mesmas fotos na mesma ordem, mesmo preço, mesmas opções e variações (ids e preços) e o mesmo
-// formulário do WooCommerce (os mesmos campos). "Orçamento" adiciona pela Store API do WooCommerce
-// (simulada em ./store-mock.ts) e abre o carrinho; sem a loja, o formulário vai à finalização de
-// compra do WordPress (respondida pelo próprio teste). Nenhuma requisição sai para a produção.
+// formulário do WooCommerce (as mesmas opções). "Orçamento" adiciona pela Store API do WooCommerce
+// (simulada em ./store-mock.ts) e abre o carrinho. O site não recebe pagamentos: sem JavaScript o
+// formulário abre o WhatsApp do comercial e, com a loja fora do ar, a página oferece o pedido pelo
+// WhatsApp; nada vai para a finalização de compra do WordPress. Nenhuma requisição sai para a produção.
 test.beforeEach(async ({ page }) => {
   await page.route(/msserver\.com\.br|youtube\.com|ytimg|googletag|facebook|clarity|cloudfront|wa\.me/, (r) => r.abort());
 });
@@ -38,15 +39,13 @@ const PRODUCTS = catalog.products as unknown as Record<string, { slug: string; u
 const path = (id: number | string) => `/servidor/${PRODUCTS[id].slug}/`;
 const squash = (s: string) => s.replace(/\s+/g, '');
 const IDS = Object.keys(ORIG);
-const CHECKOUT = 'https://msserver.com.br/finalizar-compra/';
+const WA = 'https://wa.me/5511985991837';
 
-/** Responde a finalização de compra do WordPress no próprio teste e guarda o que o formulário enviou. */
-async function catchCheckout(page: Page) {
-  const sent: { method: string; body: string }[] = [];
-  await page.route(CHECKOUT, async (r) => {
-    sent.push({ method: r.request().method(), body: r.request().postData() ?? '' });
-    await r.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>Carrinho</title>' });
-  });
+/** Qualquer requisição à finalização de compra do WordPress (não deve haver nenhuma). */
+async function watchCheckout(page: Page) {
+  const sent: string[] = [];
+  page.on('request', (r) => /\/finalizar-compra\//.test(r.url()) && r.method() === 'POST' && sent.push(r.url()));
+  await page.route(/\/wp-json\/wc\/store\/v1\/checkout/, (r) => (sent.push(r.request().url()), r.abort()));
   return sent;
 }
 
@@ -91,14 +90,16 @@ test.describe('produto: preservação do WordPress', () => {
         await expect(page.locator('.pd-cta')).toHaveText('Fale com um consultor');
         continue;
       }
-      // Sem JavaScript (ou sem a loja), o formulário original vai à finalização de compra do WordPress.
-      await expect(form).toHaveAttribute('action', CHECKOUT);
-      await expect(form).toHaveAttribute('method', 'post');
+      // Sem JavaScript, o formulário abre o WhatsApp do comercial com o produto (nunca o checkout).
+      await expect(form).toHaveAttribute('action', WA);
+      await expect(form).toHaveAttribute('method', 'get');
       await expect(form.locator('.pd-cta')).toHaveText(o.form.button);
+      const text = await form.locator('input[name="text"]').inputValue();
+      expect(text, id).toContain(PRODUCTS[id].name);
+      expect(text, id).toContain(PRODUCTS[id].url);
       const names = new Set(await form.locator('input[name]').evaluateAll((els) => els.map((e) => (e as HTMLInputElement).name)));
-      // Mesmos campos do formulário original (no simples, o add-to-cart ia no próprio botão).
-      expect([...names].sort(), id).toEqual([...new Set([...o.form.fields, ...(o.form.type === 'simple' ? ['add-to-cart'] : [])])].sort());
-      await expect(form.locator('input[name="add-to-cart"]')).toHaveValue(id);
+      // As opções e a quantidade do formulário original; nenhum campo de "adicionar ao carrinho" do WooCommerce.
+      expect([...names].sort(), id).toEqual([...new Set([...o.form.fields.filter((f) => !['add-to-cart', 'product_id', 'variation_id'].includes(f)), 'text'])].sort());
       if (o.form.type === 'variable') {
         // Opções: as que têm variação disponível no WordPress, com o mesmo valor e o mesmo texto.
         const a = o.form.attribute!;
@@ -194,21 +195,29 @@ test.describe('produto: compra (Store API do WooCommerce e o formulário origina
     await expect(page.locator('.cart-item .cart-line [data-v]')).toHaveText('R$\u00a0700,00');
   });
 
-  test('sem a loja neste endereço: o formulário original segue para a finalização de compra do WordPress', async ({ page }) => {
+  test('sem a loja neste endereço: aviso e o pedido pelo WhatsApp, nunca o checkout do WordPress', async ({ page }) => {
     await mockStore(page, { down: true });
-    const sent = await catchCheckout(page);
+    const sent = await watchCheckout(page);
     await page.goto(path(4827));
     await page.locator('.pd-opt', { hasText: '8GB' }).click();
     await page.locator('[data-pd-step="1"]').click();
     await page.locator('[data-pd-step="1"]').click();
-    await Promise.all([page.waitForURL(CHECKOUT), page.locator('.pd-cta').click()]);
-    expect(sent).toHaveLength(1);
-    expect(sent[0].method).toBe('POST');
-    expect(Object.fromEntries(new URLSearchParams(sent[0].body))).toEqual({ 'attribute_pa_memoria-ram': '8gb', quantity: '3', 'add-to-cart': '4827', product_id: '4827', variation_id: '5423' });
-    // Simples: os mesmos campos do botão original.
+    await page.locator('.pd-cta').click();
+    const fallback = page.locator('[data-pd-fallback]');
+    await expect(fallback).toBeVisible();
+    await expect(fallback).toContainText('Não foi possível adicionar ao carrinho agora');
+    const href = await fallback.locator('a').getAttribute('href');
+    expect(href).toMatch(/^https:\/\/wa\.me\/5511985991837\?text=/);
+    const text = new URL(href!).searchParams.get('text')!;
+    expect(text).toContain('3 x Servidor Dell PowerEdge R210 (8GB)');
+    expect(text).toContain('https://msserver.com.br/servidor/servidor-dell-r210/');
+    await expect(page).toHaveURL(new RegExp(`${path(4827)}$`));
+    // Simples: o mesmo aviso, com o produto.
     await page.goto(path(7820));
-    await Promise.all([page.waitForURL(CHECKOUT), page.locator('.pd-cta').click()]);
-    expect(Object.fromEntries(new URLSearchParams(sent[1].body))).toEqual({ quantity: '1', 'add-to-cart': '7820' });
+    await page.locator('.pd-cta').click();
+    await expect(page.locator('[data-pd-fallback]')).toBeVisible();
+    expect(new URL((await page.locator('[data-pd-fallback] a').getAttribute('href'))!).searchParams.get('text')).toContain('Bateria Dell');
+    expect(sent).toEqual([]);
   });
 
   test('erro da loja (ex.: produto indisponível) aparece na página, sem sair dela', async ({ page }) => {

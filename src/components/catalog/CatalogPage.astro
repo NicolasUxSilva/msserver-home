@@ -118,7 +118,7 @@ const seoTitle = page > 1 ? L.seoTitle.replace(/ - MSSERVER$/, ` – Página ${p
         {/* Ferramentas, numa linha só: busca e ordenação. A busca fica no endereço (?busca=), como a do
             cabeçalho; nada vai para a busca antiga do WordPress. */}
         <div class="cat-tools">
-          <form class="cat-search" action={L.path} method="get" role="search" data-cat-search>
+          <form class="cat-search" action={L.path} method="get" role="search" aria-label={searchLabel} data-cat-search>
             <label class="sr-only" for="cat-q">{searchLabel}</label>
             <Icon name="search" size={20} />
             <input id="cat-q" name="busca" type="search" placeholder="Buscar por modelo, fabricante ou componente" autocomplete="off" enterkeyhint="search" data-cat-q />
@@ -245,7 +245,7 @@ const seoTitle = page > 1 ? L.seoTitle.replace(/ - MSSERVER$/, ` – Página ${p
               ))
             }
           </ul>
-          <form class="cat-blog-search" action={ROUTES.blog} method="get" role="search">
+          <form class="cat-blog-search" action={ROUTES.blog} method="get" role="search" aria-label="Busca no blog">
             <label class="sr-only" for="cat-site-q">Buscar no blog</label>
             <input id="cat-site-q" name="busca" type="search" placeholder="Buscar no blog" />
             <button class="btn btn--outline" type="submit">

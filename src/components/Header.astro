@@ -110,7 +110,7 @@ addView('m-v-root', 'Menu', NAV);
 
     <div class="header-actions">
       {/* Busca: o catálogo deste site (/servidores/?busca=), com sugestões enquanto se digita. */}
-      <form class="search" role="search" action={LINKS.search} method="get" data-search data-search-index={`${base}/busca.json`}>
+      <form class="search" role="search" aria-label="Busca de produtos" action={LINKS.search} method="get" data-search data-search-index={`${base}/busca.json`}>
         <label class="sr-only" for="busca-produtos">Pesquisar produtos</label>
         <Icon name="search" size={18} class="search-icon" />
         <input
@@ -140,7 +140,7 @@ addView('m-v-root', 'Menu', NAV);
       {/* Atalho do carrinho, com a quantidade de itens (src/scripts/cart-badge.ts). */}
       <a class="icon-btn cart-link" href={ROUTES.cart} aria-label="Carrinho" aria-current={current === ROUTES.cart ? 'page' : undefined} data-cart-link>
         <Icon name="shopping-cart" size={20} />
-        <span class="cart-link-count" hidden data-cart-count>0</span>
+        <span class="cart-link-count" hidden data-cart-badge>0</span>
       </a>
       <button class="icon-btn menu-toggle" type="button" aria-expanded="false" aria-controls="menu-movel" aria-label="Abrir menu" data-menu-toggle>
         <span class="menu-toggle-bars" aria-hidden="true"></span>
@@ -149,7 +149,7 @@ addView('m-v-root', 'Menu', NAV);
   </div>
 
   <div id="busca-movel" class="search-panel" hidden data-search-panel>
-    <form class="container search-panel-form" role="search" action={LINKS.search} method="get" data-search data-search-index={`${base}/busca.json`}>
+    <form class="container search-panel-form" role="search" aria-label="Busca de produtos" action={LINKS.search} method="get" data-search data-search-index={`${base}/busca.json`}>
       <label class="sr-only" for="busca-produtos-movel">Pesquisar produtos</label>
       <Icon name="search" size={20} class="search-icon" />
       <input

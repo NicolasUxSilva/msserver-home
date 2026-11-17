@@ -30,7 +30,7 @@ const shortcuts = [
         <p class="nf-code" aria-hidden="true">404</p>
         <h1 id="nf-title" class="cat-title">Página não encontrada</h1>
         <p class="nf-lead">O endereço pode ter mudado ou não existe mais. Busque um produto ou siga por um dos caminhos abaixo.</p>
-        <form class="nf-search" action={LINKS.search} method="get" role="search">
+        <form class="nf-search" action={LINKS.search} method="get" role="search" aria-label="Busca no catálogo">
           <label class="sr-only" for="nf-q">Buscar no catálogo</label>
           <Icon name="search" size={20} />
           <input id="nf-q" name="busca" type="search" placeholder="Buscar por modelo, fabricante ou componente" enterkeyhint="search" />
@@ -110,7 +110,8 @@ const shortcuts = [
 
   .nf-search :global(svg) {
     position: absolute;
-    top: 50%;
+    /* Metade da altura do campo (no celular, o botão desce para baixo do campo). */
+    top: 26px;
     left: 1rem;
     color: var(--c-ink-3);
     transform: translateY(-50%);

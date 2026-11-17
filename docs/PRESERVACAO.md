@@ -47,9 +47,9 @@ Textos mantidos exatamente como estão, inclusive com possíveis erros, porque c
 não faz parte desta etapa (sugestões para a MSSERVER decidir):
 
 - "O **unico** com app gratuito…" (sem acento).
-- Placeholder da busca "**Perquisar** produtos...".
+- Placeholder da busca "**Perquisar** produtos...". *(Corrigido para "Pesquisar" na etapa de conclusão, 17/11/2026: ver o fim deste documento.)*
 - "Horário de funcionamento: **8 am as 18 pm**."
-- "© **2023** MSServer."
+- "© **2023** MSServer." *(Passou a ser o ano corrente na etapa de conclusão, 17/11/2026.)*
 - "No Comments" nos posts (texto do widget do Elementor, em inglês).
 
 ## Correções técnicas feitas (sem mudar conteúdo)
@@ -97,7 +97,8 @@ branco e enquadradas na mesma área (mesmo tratamento da landing de servidores f
 
 GTM `GTM-KTDRRP3`, Google Ads `AW-715484072`, Meta Pixel `4553103271463659`, Clarity
 `hfpiyea4bu` e loader do RD Station (que exibe o pop-up "Quer receber a Melhor Proposta…" no
-celular) são os mesmos da home. Só carregam com `PUBLIC_TRACKING=true`. Os eventos de conversão
+celular) são os mesmos da home. Só carregam com `PUBLIC_TRACKING=true` e, desde a etapa de conclusão,
+depois do consentimento de cookies (`docs/TRACKING.md`). Os eventos de conversão
 do Google Ads (`gtag_report_conversion`) presentes no HTML do WordPress não estão ligados a nenhum
 elemento da home; se forem usados via GTM, continuam funcionando pelo container.
 
@@ -706,7 +707,8 @@ formato do WooCommerce (`tests/e2e/store-mock.ts`).
 - **"Orçamento" nas páginas de produto:** adiciona pela Store API e abre o carrinho (com o aviso
   "“Produto” foi adicionado ao seu carrinho."). Sem JavaScript, ou sem a loja no mesmo endereço, o
   formulário original vai para a finalização de compra do WordPress (que adiciona e mostra a
-  finalização), já que `/carrinho/` passa a ser esta página.
+  finalização), já que `/carrinho/` passa a ser esta página. *(Substituído em 17/11/2026: sem a loja,
+  o pedido do produto vai pelo WhatsApp; nenhum caminho leva ao checkout. Ver o fim deste documento.)*
 - **"Orçamento" do catálogo** (5 produtos com preço): `/carrinho/?add-to-cart=ID` neste site; o
   carrinho adiciona ao abrir e limpa o endereço (recarregar não adiciona de novo).
 - **Descrição de SEO:** a do All in One SEO era o retrato de um carrinho antigo ("Rack Dell r610 -
@@ -765,7 +767,8 @@ orçamento (resumo e dados de contato) → WhatsApp do comercial, com a solicita
 - **Caminhos de reserva que ainda levam à finalização de compra do WordPress** (com a forma de
   pagamento): o "Orçamento" das páginas de produto sem JavaScript (POST em `/finalizar-compra/`) e o
   carrinho quando a Store API não responde no endereço (`?add-to-cart=`). Ficam como estavam nas páginas
-  já aprovadas; podem passar a oferecer o WhatsApp.
+  já aprovadas; podem passar a oferecer o WhatsApp. *(Resolvido em 17/11/2026: os dois passaram a
+  oferecer o WhatsApp.)*
 - **"Orçamento pelo WhatsApp" do carrinho** continua (envio direto, no formato do plugin do
   WordPress); a finalização de orçamento é o caminho com os dados de contato.
 - **Número do comercial:** confirmar que é o `5511985991837` (o do site); o do plugin "WooCommerce
@@ -946,3 +949,95 @@ Servidores Físicos (`/servidores-fisicos/`, no lugar de "Servidores Dedicados")
 O grupo "Servidores em Nuvem" saiu. As quatro páginas reconstruídas são links internos; na home, o
 cartão "Consultoria" também passou a levar à página reconstruída (mesmo endereço em produção). O
 conteúdo das páginas não foi alterado em relação a "servidores dedicados" (o termo não aparece nelas).
+
+# Etapa de conclusão (17/11/2026)
+
+Esta etapa partiu da auditoria de 15/11/2026 (`docs/AUDITORIA-2026-11-15.md`). Nenhuma página aprovada foi redesenhada. Abaixo, o que mudou e o que foi preservado em cada área. As decisões de escopo estão em `docs/ESTADO-DO-PROJETO.md`.
+
+## Jornada comercial sem pagamento
+
+- **Produto, sem a loja no endereço** (ou sem JavaScript): o formulário passou a abrir o WhatsApp do comercial (GET em `wa.me`) com o nome, a opção, a quantidade e o link do produto (`productQuoteText`, `src/data/produto.ts`). Antes, fazia POST para o checkout do WordPress. A página mostra o aviso "a loja não respondeu".
+- **Carrinho, sem a loja no endereço:** o aviso oferece "Tentar de novo" e o pedido pelo WhatsApp. Se a pessoa veio de um link do catálogo, o produto vai na mensagem. Não há mais redirecionamento para o checkout do WordPress.
+- **Finalização:** `noindex`. Continua sem nenhum campo de pagamento.
+- **Atalho do carrinho no cabeçalho,** com a quantidade de itens. Ela é lida da Store API e acompanha as alterações, inclusive entre abas.
+- **O que foi preservado:** sessão e nonce da Store API, produtos simples e variáveis, quantidades, totais do WooCommerce e a mensagem do WhatsApp.
+
+## Cabeçalho e rodapé
+
+- **Busca:**
+  - continua no catálogo (`/servidores/?busca=`), agora com sugestões (`/busca.json`) e com os estados carregando, resultados, sem resultados e erro;
+  - funciona com teclado e no celular (lupa que abre o campo);
+  - o placeholder passou a "Pesquisar produtos…".
+- **Rodapé:**
+  - o ano do copyright é o corrente, atualizado também no navegador;
+  - link "Política de privacidade" e, com rastreamento, "Preferências de cookies";
+  - respiro à direita para o WhatsApp flutuante não cobrir textos.
+- **WhatsApp flutuante:** dentro de uma região identificada ("Atendimento pelo WhatsApp"), para leitores de tela. Visual igual.
+
+## Catálogo: formatos
+
+- **Rack (37), Torre (13) e Escala Nuvem (8)** ganharam listagem própria nos endereços do WooCommerce (`/categoria-produto/rack/` etc.). Têm as mesmas ferramentas, paginação e ordenações das demais e entram no menu Servidores, no grupo "Por formato".
+- **Contagens:** conferidas com a categoria do WooCommerce na sincronização.
+- **Etiquetas de formato** nas páginas de produto levam à listagem.
+- **`sem-categoria` e o produto "Fan Dell R520"** (sem categoria): não foram reconstruídos nem recategorizados (`docs/PENDENCIAS-EXTERNAS.md`, item 18).
+
+## Blog
+
+- **Páginas novas:**
+  - listagem `/blog/`, com 12 por página e busca nos artigos;
+  - categorias `/category/{slug}/`;
+  - os 51 artigos em `/{slug}/`, nos mesmos endereços do WordPress.
+- **Conteúdo sincronizado do WordPress** (`npm run sync:blog`): texto completo, imagem destacada, data, categorias e o SEO de cada artigo (título, descrição, canonical e JSON-LD do All in One SEO).
+- **Conteúdo preservado:**
+  - o texto não é editado: o HTML é limpo no build (`src/lib/post-html.ts`), sem scripts nem estilos embutidos;
+  - imagens responsivas;
+  - vídeos do YouTube mantidos.
+- **Acréscimos:**
+  - compartilhar;
+  - anterior e seguinte;
+  - leitura relacionada (mesma categoria);
+  - chamada para orçamento.
+- **Postagem 2116** ("servidores-usados-dell"), vazia no WordPress: publicada com `noindex` e um aviso.
+- **Home e catálogo:** a seção de postagens da home e a barra do catálogo passaram a usar os mesmos dados do blog.
+
+## Cases de sucesso
+
+- **Conteúdo preservado:** textos, números, os seis cases e as imagens publicadas, conferidos contra `tests/fixtures/original-cases.json`.
+- **Hierarquia:** abertura com os números, os cases em cartões (foto, setor, cliente e texto publicado), "como trabalhamos" e a chamada final com as certificações.
+- **WhatsApp:** o botão apontava para `5511999999999`, um número fictício. Passou ao WhatsApp comercial do site. A confirmação está em `docs/PENDENCIAS-EXTERNAS.md`, item 15.
+- **Certificações:** mantidas como publicadas. A confirmação está no item 17 das pendências.
+
+## Suporte
+
+Continua no Awesome Support do WordPress, com a identidade nova e em português pelo plugin `msserver-suporte` (`docs/SUPORTE.md`). Nenhuma tela ou campo do sistema de chamados foi removido.
+
+## Soluções Cloud
+
+- **Endereço oficial:** `/solucoes-cloud/` passou a ser a landing aprovada (`cloud-ms`, commit `3199d6f`), copiada para o build **sem alteração**, com canonical e `og:url` do endereço oficial.
+- **Links atualizados:** o menu e o banner "Nuvem" da home, que levava a `/solucoes-cloud-msserver/`, passaram a apontar para ele.
+- **URLs antigas:** recomendações de 301 em `docs/ROTEAMENTO.md`, seção 4. Os redirecionamentos não foram aplicados.
+
+## Páginas novas do site
+
+- **404:** mensagem, busca no catálogo e atalhos para as páginas principais.
+- **Política de privacidade:** só a estrutura, com o conteúdo pendente marcado e `noindex` (`docs/PRIVACIDADE.md`).
+- **Formulários:** link para a política ao lado do Orçamento, das soluções, do configurador e da finalização.
+
+## Correções técnicas nas soluções (sem redesenho)
+
+- **Consultoria:** a órbita animada aumentava a largura da página no celular, para 411 px, e deslocava o WhatsApp flutuante. Corrigido com `overflow-x: clip` na seção.
+- **Medição:** os nomes de eventos dos botões seguem o padrão de `docs/TRACKING.md`.
+
+## SEO
+
+- **Indexação:**
+  - `noindex` no carrinho, na finalização, na 404 e na política pendente;
+  - canonical próprio nas páginas 2+ das listagens;
+  - descrição em todas as listagens.
+- **Arquivos gerados:**
+  - `robots.txt` do site;
+  - `sitemap-site.xml` com as páginas indexáveis do site novo.
+
+  O sitemap do All in One SEO continua no WordPress.
+- **Títulos:** os títulos duplicados entre produtos, como o R640, **não foram alterados**. Eles vêm do WooCommerce e do All in One SEO, e mudar nome ou slug exige avaliação.
+

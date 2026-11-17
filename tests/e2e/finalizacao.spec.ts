@@ -44,7 +44,7 @@ test.describe('finalização de orçamento: página e resumo', () => {
     const store = await open(page);
     await expect(page).toHaveTitle('Finalização de orçamento - MSSERVER');
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://msserver.com.br/finalizar-compra/');
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'max-image-preview:large');
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
     const ld = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent())!);
     const crumbs = ld['@graph'].find((n: { '@type': string }) => n['@type'] === 'BreadcrumbList').itemListElement;
     expect(crumbs.at(-1).name).toBe('Finalização de orçamento');
@@ -268,8 +268,19 @@ test.describe('finalização de orçamento: contato e WhatsApp', () => {
     await open(page);
     await fillContact(page);
     await send(page).click();
-    const layer = await page.evaluate(() => JSON.stringify((window as unknown as { dataLayer?: unknown[] }).dataLayer ?? []));
-    expect(layer).toContain('"event":"quote_whatsapp_submit","items":3,"value":8250');
+    const events = await page.evaluate(() => (window as unknown as { dataLayer?: Record<string, unknown>[] }).dataLayer ?? []);
+    // GA4: a revisão (begin_checkout) e o pedido de orçamento (generate_lead), uma vez cada, com os
+    // produtos, as quantidades e o valor; nenhum dado de contato.
+    const names = events.map((e) => e.event).filter(Boolean);
+    expect(names.filter((n) => n === 'begin_checkout')).toHaveLength(1);
+    expect(names.filter((n) => n === 'generate_lead')).toHaveLength(1);
+    const lead = events.find((e) => e.event === 'generate_lead') as { ecommerce: { currency: string; value: number; items: { item_id: string; quantity: number }[] }; form: string; method: string };
+    expect(lead.ecommerce.currency).toBe('BRL');
+    expect(lead.ecommerce.value).toBe(8250);
+    expect(lead.ecommerce.items.reduce((n, i) => n + i.quantity, 0)).toBe(3);
+    expect(lead.form).toBe('finalizacao-orcamento');
+    expect(lead.method).toBe('whatsapp');
+    const layer = JSON.stringify(events);
     for (const secret of ['Maria', 'maria@empresa', '91234', 'Empresa Teste', 'próximo mês']) expect(layer).not.toContain(secret);
   });
 

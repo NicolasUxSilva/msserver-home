@@ -14,7 +14,7 @@ export function initCartBadge() {
   const set = (count: number) => {
     const n = Math.max(0, Math.floor(count) || 0);
     for (const a of links) {
-      const badge = a.querySelector<HTMLElement>('[data-cart-count]');
+      const badge = a.querySelector<HTMLElement>('[data-cart-badge]');
       if (badge) {
         badge.textContent = n > 99 ? '99+' : String(n);
         badge.hidden = n === 0;

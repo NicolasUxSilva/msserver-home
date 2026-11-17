@@ -120,7 +120,7 @@ const schema = {
         {/* Busca em todos os artigos do blog (no navegador, sobre o índice /blog/busca.json). Sem
             JavaScript, a listagem continua navegável pela paginação. */}
         <div class="cat-tools blog-tools">
-          <form class="cat-search" action={ROUTES.blog} method="get" role="search" data-blog-search>
+          <form class="cat-search" action={ROUTES.blog} method="get" role="search" aria-label="Busca nos artigos" data-blog-search>
             <label class="sr-only" for="blog-q">Buscar no blog</label>
             <Icon name="search" size={20} />
             <input id="blog-q" name="busca" type="search" placeholder="Buscar artigos por assunto, modelo ou termo" autocomplete="off" enterkeyhint="search" data-blog-q />

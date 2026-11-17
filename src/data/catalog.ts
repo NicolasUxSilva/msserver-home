@@ -185,9 +185,11 @@ export function variationOptions(p: Product) {
 /** Códigos de peça citados na descrição publicada (ex.: 0Y8MC1, 723595-101, F495E-S0): sequências
  *  com letras e números, de 5 caracteres ou mais. Entram na busca, para achar a peça pelo código. */
 const CODE = /(?=[a-z0-9-]*\d)(?=[a-z0-9-]*[a-z])[a-z0-9]+(?:-[a-z0-9]+)*/gi;
+/** Medidas e siglas técnicas que não identificam peça (128GB, 750W, 100-240V, DDR4, PCIe3, 2x…). */
+const NOT_CODE = /^(?:\d+(?:[.,]\d+)?(?:-\d+)?(?:gb|tb|mb|kb|w|kw|v|vac|hz|khz|mhz|ghz|rpm|mm|cm|in|pol|u|x|a|ma|wh|mah|nm|ms|ns|gt|mt)s?|ddr\d*\w*|pcie?\d*\w*|sata\d*\w*|sas\d*\w*|usb\d*\w*|ipv\d|raid\d*|gen\d+|x\d+)$/i;
 export const partCodes = (p: Product) => {
   const text = p.description.replace(/<[^>]+>/g, ' ').replace(/https?:\/\/\S+/g, ' ');
-  return [...new Set((text.match(CODE) ?? []).filter((c) => c.length >= 5).map((c) => c.toUpperCase()))];
+  return [...new Set((text.match(CODE) ?? []).filter((c) => c.length >= 5 && !NOT_CODE.test(c)).map((c) => c.toUpperCase()))];
 };
 
 /** Texto em que a busca procura (catálogo e cabeçalho): nome, fabricante e categorias, opções que

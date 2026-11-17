@@ -4,7 +4,8 @@
 //
 // Ajustes técnicos, sem mudar o texto:
 //  - <h1>/<h2> da descrição viram <h3> (a página já tem o h1, que é o nome do produto, e o h2
-//    "Descrição"); os demais títulos ficam como estão.
+//    "Descrição"). Os níveis seguintes não pulam degraus: um <h4> logo depois do h2 "Descrição"
+//    vira <h3>, e assim por diante (leitores de tela navegam pelos níveis). O texto não muda.
 //  - Link com endereço inválido: se o texto visível do link é um endereço válido (caso do
 //    "http://Especificações do fabricante" que mostra o endereço da Dell), o link passa a usá-lo;
 //    senão, vira texto simples.
@@ -63,5 +64,19 @@ export function productDescription(html: string) {
       return `<${name}>`;
     })
     .replace(/<(p|h3|h4|h5|h6|strong|b|em|span|div|li)>(?:\s|&nbsp;)*<\/\1>/gi, '')
+    .replace(/<(\/?)h([3-6])>/g, headingLevels())
     .trim();
+}
+
+/** Renumera os títulos da descrição para não pular níveis (h2 "Descrição" → h3 → h4…). */
+function headingLevels() {
+  let prev = 2;
+  const stack: number[] = [];
+  return (_: string, close: string, n: string) => {
+    if (close) return `</h${stack.pop() ?? n}>`;
+    const level = Math.max(3, Math.min(Number(n), prev + 1));
+    stack.push(level);
+    prev = level;
+    return `<h${level}>`;
+  };
 }

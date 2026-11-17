@@ -233,6 +233,68 @@ Mesma identidade, composição própria por página (`src/components/solucoes/`)
 - **Faixa final**: azul-marinho com a foto publicada (quando há), título grande e botão laranja de
   WhatsApp.
 
+## Etapa de conclusão (17/11/2026)
+
+**Cabeçalho**
+
+- **Sugestões da busca** (`src/styles/search.css`) seguem o padrão dos submenus:
+  - cartão branco com borda fina, raio de 16 px e sombra curta, sob o campo;
+  - primeiro as categorias, depois os produtos (miniatura, nome com o termo em destaque, fabricante e preço) e, por último, "Ver todos os resultados";
+  - no painel do celular, a lista ocupa a largura do campo;
+  - a opção ativa no teclado tem o mesmo fundo do hover.
+- **Atalho do carrinho:** ícone no padrão dos botões do topo (`icon-btn`). A quantidade fica num selo laranja (21 px, número escuro, borda da cor do fundo) no canto do ícone, e só aparece com itens.
+
+**Blog** (`src/styles/blog.css`, prefixos `bp-`, `blog-` e `post-`)
+
+- **Abertura:** a mesma do catálogo (`catalog-hero.css`).
+- **Listagem:**
+  - cartões claros com a imagem destacada em 16:9, no padrão das postagens da home;
+  - categorias em etiqueta, título em Sora, resumo, data e "Ler artigo";
+  - o primeiro cartão da página 1 em destaque, ocupando a linha inteira da grade no desktop (imagem ao lado do texto);
+  - as categorias usam a navegação do catálogo (`cat-brands`).
+- **Artigo:**
+  - coluna de leitura de até ~72 caracteres;
+  - imagem destacada com moldura;
+  - barra lateral à direita no desktop: busca, categorias e recentes;
+  - abaixo do texto: compartilhar, anterior e seguinte (cartões), leitura relacionada (3 cartões) e a faixa final escura com orçamento e WhatsApp.
+- **Tipografia do texto:** títulos com respiro, marcadores das listas em laranja, citações com fio laranja à esquerda e vídeos em 16:9 responsivo.
+
+**Cases** (`CasesPage.astro`)
+
+- **Abertura:** a do catálogo, escura, com os números em grade (ícone, valor em Sora e rótulo).
+- **Cases:** cartões em duas colunas, com a foto publicada no topo, o setor em rótulo, o cliente em título e o texto.
+- **Fechamento:** "Como trabalhamos" em etapas numeradas na superfície clara, e a faixa final escura com os botões e as certificações em etiquetas.
+
+**404** (`pages/404.astro`)
+
+Abertura do catálogo, título "Página não encontrada", busca no catálogo, igual à do cabeçalho, e atalhos para as áreas principais em cartões com ícone.
+
+**Política de privacidade**
+
+- Coluna de leitura com sumário.
+- Seções pendentes marcadas com um quadro tracejado: "[Conteúdo jurídico pendente de aprovação]".
+- Tabela das tecnologias com rolagem própria no celular, focável pelo teclado.
+
+**Aviso de cookies** (`CookieConsent.astro`)
+
+- Cartão branco flutuante na base da tela: até 760 px de largura, raio grande, sombra profunda. Entra subindo 12 px.
+- Três botões do mesmo tamanho na primeira camada: "Personalizar", "Só os necessários" e "Aceitar todos".
+- "Personalizar" abre as categorias com interruptores; "Necessários" fica travado.
+- Só aparece com o rastreamento ligado.
+
+**Suporte** (`src/styles/suporte.css`, na casca do plugin)
+
+- **Abertura:** a do catálogo, com o título da página e o texto de apoio.
+- **Abas:** "Entrar", "Enviar chamado" e "Meus chamados".
+- **Conteúdo do Awesome Support num cartão branco:**
+  - campos e botões no padrão dos formulários do site (50 px, foco índigo, botão escuro);
+  - tabelas de chamados com cabeçalho em maiúsculas pequenas;
+  - status em etiquetas.
+
+**WhatsApp flutuante e rodapé**
+
+O rodapé reserva espaço à direita, na última linha, para o botão flutuante não cobrir o copyright nem os links legais. No produto, no carrinho e na finalização, o botão sai da frente (esmaece e desce) enquanto cobriria os botões de compra ou os totais, e volta em seguida (`fab-guard.ts`).
+
 ## Breakpoints
 
 Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo; a partir de 1180, grade de 3 colunas em "Nossa linha"), 1360
