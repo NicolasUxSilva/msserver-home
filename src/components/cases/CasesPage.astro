@@ -1,0 +1,459 @@
+---
+// "Cases de sucesso" (/cases-de-sucesso/), no sistema visual do site: abertura azul-marinho com o
+// título, o texto e os dois caminhos (especialista pelo WhatsApp e os cases); os números publicados
+// num cartão que avança sobre a abertura; os seis cases em cartões grandes (o cartão do cliente
+// publicado, o setor, o nome e o projeto); "Como atuamos" em três etapas; e a faixa final com o pedido
+// de orçamento, o WhatsApp e as certificações publicadas. Conteúdo em src/data/cases.ts.
+import '../../styles/catalog-hero.css';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import WhatsAppFab from '../WhatsAppFab.astro';
+import Icon from '../Icon.astro';
+import { LINKS, ROUTES, whatsappUrl } from '../../config/site';
+import { CASES, CASES_CTA, CASES_HERO, CASES_PROCESS, CASES_SECTION, CASES_STATS } from '../../data/cases';
+import seo from '../../data/cases-seo.json';
+
+const wa = whatsappUrl();
+---
+
+<Base title={seo.title} description={seo.description} canonical="https://msserver.com.br/cases-de-sucesso/" ogType="article" schema={seo.schema}>
+  <Header current={LINKS.cases} />
+  <main id="conteudo" class="cases">
+    <section class="cat-hero cs-hero dark-surface on-dark" aria-labelledby="cases-title">
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="dark-surface__hatch"></div>
+        <div class="cat-light"></div>
+      </div>
+      <div class="container cat-hero-inner cs-hero-inner">
+        <nav class="cat-crumbs" aria-label="Você está em">
+          <ol>
+            <li><a href={ROUTES.home}>Início</a></li>
+            <li><span aria-current="page">Cases de sucesso</span></li>
+          </ol>
+        </nav>
+        <h1 id="cases-title" class="cat-title cs-title">{CASES_HERO.title}</h1>
+        <p class="cs-lead">{CASES_HERO.lead}</p>
+        <div class="cs-actions">
+          <a class="btn btn--primary btn--lg" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="cases-abertura">
+            <Icon name="whatsapp" size={20} class="wa-icon" />
+            {CASES_HERO.primary}
+            <Icon name="arrow-right" class="btn-arrow" />
+          </a>
+          <a class="btn btn--outline-dark btn--lg" href="#cases">
+            {CASES_HERO.secondary}
+            <Icon name="arrow-down" size={18} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <ul class="cs-stats" aria-label="A MSSERVER em números">
+        {
+          CASES_STATS.map((s) => (
+            <li>
+              <span class="cs-stat-ico" aria-hidden="true">
+                <Icon name={s.icon} size={20} />
+              </span>
+              <b>{s.value}</b>
+              <span>{s.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <section class="section cs-list" id="cases" aria-labelledby="cs-list-title">
+      <div class="container">
+        <div class="cs-head">
+          <p class="eyebrow">Cases</p>
+          <h2 id="cs-list-title">{CASES_SECTION.title}</h2>
+          <p class="cs-head-lead">{CASES_SECTION.lead}</p>
+        </div>
+        <ul class="cs-grid">
+          {
+            CASES.map((c, i) => (
+              <li class="cs-card" data-reveal style={`--reveal-i:${i % 2}`}>
+                <div class="cs-media">
+                  <Image src={c.image} alt={c.alt} widths={[480, 720, 960, 1200]} sizes="(min-width: 1100px) 560px, (min-width: 720px) 46vw, 92vw" loading={i < 2 ? 'eager' : 'lazy'} />
+                </div>
+                <div class="cs-body">
+                  <p class="cs-sector">{c.sector}</p>
+                  <h3 class="cs-client">{c.client}</h3>
+                  <p class="cs-text">{c.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--surface cs-process" aria-labelledby="cs-process-title">
+      <div class="container">
+        <div class="cs-head cs-head--center">
+          <p class="eyebrow">Processo</p>
+          <h2 id="cs-process-title">{CASES_PROCESS.title}</h2>
+          <p class="cs-head-lead">{CASES_PROCESS.lead}</p>
+        </div>
+        <ol class="cs-steps">
+          {
+            CASES_PROCESS.steps.map((s, i) => (
+              <li class="cs-step" data-reveal style={`--reveal-i:${i}`}>
+                <span class="cs-step-n" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <span class="cs-step-ico" aria-hidden="true">
+                  <Icon name={s.icon} size={24} />
+                </span>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <section class="cs-cta dark-surface on-dark" aria-labelledby="cs-cta-title">
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="dark-surface__hatch"></div>
+        <div class="cat-light"></div>
+      </div>
+      <div class="container cs-cta-inner">
+        <h2 id="cs-cta-title" class="cs-cta-title">{CASES_CTA.title}</h2>
+        <p class="cs-cta-text">{CASES_CTA.text}</p>
+        <div class="cs-actions">
+          <a class="btn btn--primary btn--lg" href={ROUTES.quote} data-track="cta_click" data-track-location="cases-orcamento">
+            {CASES_CTA.quote}
+            <Icon name="arrow-right" class="btn-arrow" />
+          </a>
+          <a class="btn btn--outline-dark btn--lg" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="cases-cta">
+            <Icon name="whatsapp" size={20} class="wa-icon" />
+            {CASES_CTA.whatsapp}
+          </a>
+        </div>
+        <div class="cs-certs">
+          <p class="cs-certs-title">{CASES_CTA.certsTitle}</p>
+          <ul>
+            {CASES_CTA.certs.map((c) => <li>{c}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Base>
+
+<style>
+  .cs-hero {
+    padding-bottom: clamp(5.5rem, 4rem + 4vw, 7.5rem);
+  }
+
+  .cs-hero-inner {
+    gap: 1rem;
+  }
+
+  .cs-title {
+    font-size: clamp(2.4rem, 1.4rem + 3.4vw, 4rem);
+  }
+
+  .cs-lead {
+    max-width: 56ch;
+    color: var(--c-on-dark-2);
+    font-size: var(--t-lead);
+  }
+
+  .cs-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  @media (max-width: 479px) {
+    .cs-actions .btn {
+      width: 100%;
+    }
+  }
+
+  /* Números: cartão branco que avança sobre a abertura. */
+  .cs-stats {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: clamp(-4.25rem, -3rem - 2vw, -3rem) 0 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-2);
+    list-style: none;
+  }
+
+  .cs-stats li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: 0.75rem;
+    padding: clamp(1rem, 0.7rem + 1vw, 1.6rem) clamp(1rem, 0.6rem + 1.2vw, 1.75rem);
+  }
+
+  .cs-stats li:nth-child(odd) {
+    border-right: 1px solid var(--c-line);
+  }
+
+  .cs-stats li:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  .cs-stat-ico {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--c-orange-tint);
+    color: var(--c-orange-text);
+  }
+
+  .cs-stats b {
+    font-family: var(--f-display);
+    font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.2rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .cs-stats li > span:last-child {
+    color: var(--c-ink-2);
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 960px) {
+    .cs-stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .cs-stats li:nth-child(-n + 2) {
+      border-bottom: 0;
+    }
+
+    .cs-stats li:not(:last-child) {
+      border-right: 1px solid var(--c-line);
+    }
+  }
+
+  .cs-head {
+    display: grid;
+    gap: 0.6rem;
+    max-width: 640px;
+    margin-bottom: clamp(1.75rem, 1.25rem + 1.5vw, 2.75rem);
+  }
+
+  .cs-head--center {
+    margin-inline: auto;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .cs-head h2 {
+    font-size: var(--t-h2);
+  }
+
+  .cs-head-lead {
+    color: var(--c-ink-2);
+    font-size: var(--t-lead);
+  }
+
+  /* Cases: dois por linha no desktop e no tablet, a marca do cliente em destaque na foto publicada. */
+  .cs-grid {
+    display: grid;
+    gap: clamp(1rem, 0.7rem + 1vw, 1.5rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 720px) {
+    .cs-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .cs-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+    box-shadow: var(--shadow-1);
+  }
+
+  .cs-media {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--c-indigo-950);
+  }
+
+  .cs-media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cs-body {
+    display: grid;
+    gap: 0.45rem;
+    padding: clamp(1.15rem, 0.9rem + 0.8vw, 1.6rem);
+  }
+
+  .cs-sector {
+    justify-self: start;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    background: var(--c-paper);
+    color: var(--c-ink-2);
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .cs-client {
+    font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+    letter-spacing: -0.025em;
+  }
+
+  .cs-text {
+    color: var(--c-ink-2);
+  }
+
+  /* Como atuamos */
+  .cs-steps {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+  }
+
+  @media (min-width: 860px) {
+    .cs-steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .cs-step {
+    position: relative;
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    padding: clamp(1.35rem, 1rem + 1vw, 1.9rem);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-paper);
+  }
+
+  .cs-step-n {
+    position: absolute;
+    top: 1rem;
+    right: 1.2rem;
+    color: var(--c-line-2);
+    font-family: var(--f-display);
+    font-size: 2.6rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .cs-step-ico {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--c-indigo-950);
+    color: #fff;
+  }
+
+  .cs-step h3 {
+    margin-top: 0.4rem;
+    font-size: 1.2rem;
+  }
+
+  .cs-step p {
+    color: var(--c-ink-2);
+  }
+
+  /* Faixa final */
+  .cs-cta {
+    position: relative;
+    padding-block: clamp(3.75rem, 2.5rem + 4vw, 6rem);
+    overflow: hidden;
+    background: linear-gradient(165deg, var(--c-navy-950) 0%, #04122d 60%, var(--c-navy-900) 100%);
+  }
+
+  .cs-cta-inner {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+  }
+
+  .cs-cta-title {
+    max-width: 22ch;
+    font-size: var(--t-h2);
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+  }
+
+  .cs-cta-text {
+    max-width: 54ch;
+    color: var(--c-on-dark-2);
+    font-size: var(--t-lead);
+  }
+
+  .cs-certs {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--c-line-dark);
+    width: 100%;
+  }
+
+  .cs-certs-title {
+    color: var(--c-on-dark-3);
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cs-certs ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cs-certs li {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--c-line-dark-2);
+    border-radius: 999px;
+    color: var(--c-on-dark);
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+</style>

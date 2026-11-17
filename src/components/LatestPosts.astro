@@ -1,11 +1,15 @@
 ---
 import { Image } from 'astro:assets';
-import data from '../data/posts.json';
 import { POSTS_READ_MORE, POSTS_TITLE } from '../data/content';
+import { POSTS, formatDate, postPath } from '../data/blog';
 
-const files = import.meta.glob<{ default: ImageMetadata }>('../assets/posts/*.jpg', { eager: true });
-// Data no formato do WordPress ("31 de outubro de 2026"), em português.
-const fmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'America/Sao_Paulo' });
+// As três postagens mais recentes do blog (src/data/blog.json, sincronizado do WordPress), com os
+// links para os artigos neste site.
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/blog/*.jpg', { eager: true });
+// Mesmo texto do widget de postagens do Elementor usado na home do WordPress.
+const commentsLabel = (n: number) => (n === 0 ? 'No Comments' : n === 1 ? 'One Comment' : `${n} Comments`);
+const posts = POSTS.slice(0, 3).map((p) => ({ url: postPath(p), title: p.title, excerpt: p.excerpt, date: p.date, image: p.image?.file, comments: commentsLabel(p.comments) }));
+const fmt = formatDate;
 ---
 
 <section class="section section--surface posts" id="blog" aria-labelledby="posts-title">
@@ -19,8 +23,8 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'n
 
     <ul class="post-grid">
       {
-        data.posts.map((p, i) => {
-          const img = p.image ? files[`../assets/posts/${p.image}`]?.default : undefined;
+        posts.map((p, i) => {
+          const img = p.image ? files[`../assets/blog/${p.image}`]?.default : undefined;
           return (
             <li class:list={['post has-card-link', i === 0 && 'post--lead']} data-reveal style={`--reveal-i:${i}`}>
               {/* O cartão inteiro leva ao post (link do título esticado). */}

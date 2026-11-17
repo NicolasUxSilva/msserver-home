@@ -1,0 +1,11 @@
+---
+// Categoria do blog (/category/slug/), no mesmo endereço do WordPress.
+import BlogListing from '../../../components/blog/BlogListing.astro';
+import { CATEGORIES } from '../../../data/blog';
+
+export function getStaticPaths() {
+  return CATEGORIES.map((c) => ({ params: { cat: c.slug } }));
+}
+---
+
+<BlogListing category={Astro.params.cat} page={1} />

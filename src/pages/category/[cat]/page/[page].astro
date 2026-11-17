@@ -1,0 +1,13 @@
+---
+// Páginas seguintes de uma categoria do blog (/category/slug/page/N/).
+import BlogListing from '../../../../components/blog/BlogListing.astro';
+import { CATEGORIES, pagesFor, postsIn } from '../../../../data/blog';
+
+export function getStaticPaths() {
+  return CATEGORIES.flatMap((c) => Array.from({ length: pagesFor(postsIn(c.slug)) - 1 }, (_, i) => ({ params: { cat: c.slug, page: String(i + 2) } })));
+}
+
+const page = Number(Astro.params.page);
+---
+
+<BlogListing category={Astro.params.cat} page={page} />

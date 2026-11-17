@@ -69,13 +69,14 @@ export const SLIDES: Slide[] = [
       highlight: 'O recurso certo para seu projeto você encontra aqui.',
       keywords: 'Servidores Usados Dell, Servidores para empresas, Servidores Ibm',
       button: 'Nuvem',
-      href: 'https://msserver.com.br/solucoes-cloud-msserver/',
+      // No WordPress, /solucoes-cloud-msserver/ (versão antiga); agora a landing aprovada de Soluções Cloud.
+      href: ROUTES.cloud,
     },
     mobile: {
       heading: 'Suporte e monitoramento 24h',
       description: 'Fornecimento de servidores e peças para empresas e datacenters em todo o Brasil, o recurso certo para seu projeto você encontra aqui.',
       button: 'Obter suporte',
-      href: 'https://msserver.com.br/obter-suporte',
+      href: LINKS.support,
     },
     alt: 'Racks de data center iluminados',
   },
@@ -121,7 +122,7 @@ export const SOLUTIONS = [
     key: 'migracao',
     title: 'Migração para Nuvem',
     text: 'Tome decisões inteligentes para seus recursos computacionais. Oferecemos a ajuda necessária! Compare os benefícios exclusivos de nossos servidores físicos e nossa solução em nuvem poderosa.',
-    href: 'https://msserver.com.br/solucoes-cloud/',
+    href: ROUTES.cloud,
   },
   {
     key: 'ciberseguranca',

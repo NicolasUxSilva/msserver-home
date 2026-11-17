@@ -4,8 +4,8 @@
    abertura escura está em catalog-hero.css, compartilhada com as páginas de produto e o carrinho.
    Classes com prefixo cat- e pc-. */
 
-/* Navegação entre as listagens do grupo da página: nos servidores, Todos, Dell, HP e IBM; nos
-   componentes, Componentes e as subcategorias. */
+/* Navegação entre as listagens do grupo da página: nos servidores, Todos, os fabricantes e os
+   formatos (separados por um traço vertical); nos componentes, Componentes e as subcategorias. */
 .cat-brands {
   margin-top: 0.25rem;
 }
@@ -17,6 +17,21 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Fabricantes | formatos. */
+.cat-brand-sep {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.cat-brand-sep::before {
+  content: '';
+  width: 1px;
+  height: 24px;
+  margin-inline: 0.2rem;
+  background: var(--c-line-dark-2);
 }
 
 /* Celular: uma linha que desliza até a borda da tela, com a categoria atual já à vista. */

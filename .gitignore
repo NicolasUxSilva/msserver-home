@@ -1,5 +1,6 @@
 node_modules/
 dist/
+dist-plugins/
 .astro/
 .env
 .env.*
@@ -10,3 +11,4 @@ reports/
 .DS_Store
 .claude/
 .vercel/
+.cache/

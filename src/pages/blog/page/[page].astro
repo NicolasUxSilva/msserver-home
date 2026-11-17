@@ -1,0 +1,14 @@
+---
+// Páginas seguintes do blog (/blog/page/N/), como no WordPress.
+import BlogListing from '../../../components/blog/BlogListing.astro';
+import { pagesFor, postsIn } from '../../../data/blog';
+
+export function getStaticPaths() {
+  const pages = pagesFor(postsIn());
+  return Array.from({ length: pages - 1 }, (_, i) => ({ params: { page: String(i + 2) } }));
+}
+
+const page = Number(Astro.params.page);
+---
+
+<BlogListing page={page} />

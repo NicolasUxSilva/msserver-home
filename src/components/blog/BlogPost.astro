@@ -1,0 +1,248 @@
+---
+// Artigo do blog (/slug/, o mesmo endereço do WordPress), no sistema visual do site: abertura
+// azul-marinho com a trilha, as categorias, o título, a data e o tempo de leitura; a imagem destacada;
+// o conteúdo completo publicado (src/lib/post-html.ts só limpa o HTML do editor); compartilhamento;
+// a navegação entre artigos (anterior e seguinte, como no WordPress); a barra lateral original
+// (categorias e postagens recentes) e a leitura relacionada. Título, descrição e dados estruturados
+// são os do All in One SEO da página publicada.
+import '../../styles/catalog-hero.css';
+import '../../styles/blog.css';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import WhatsAppFab from '../WhatsAppFab.astro';
+import Icon from '../Icon.astro';
+import PostCard from './PostCard.astro';
+import BlogCta from './BlogCta.astro';
+import { LINKS, ROUTES, blogCategoryRoute, whatsappUrl } from '../../config/site';
+import { CATEGORIES, POSTS, formatDate, neighbors, postPath, related, visibleCategories, type BlogPost } from '../../data/blog';
+import { internalPath } from '../../data/served';
+import { postContent, readingMinutes } from '../../lib/post-html';
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/blog/*.jpg', { eager: true });
+const img = post.image ? files[`../../assets/blog/${post.image.file}`]?.default : undefined;
+const cats = visibleCategories(post);
+const html = postContent(post.content, { internal: internalPath, title: post.title });
+const minutes = readingMinutes(post.content);
+const { newer, older } = neighbors(post);
+const more = related(post);
+const recent = POSTS.filter((p) => p.id !== post.id).slice(0, 5);
+const navCats = CATEGORIES.filter((c) => c.slug !== 'sem-categoria');
+// Alteração relevante: mais de um dia depois da publicação.
+const updated = new Date(post.modified).getTime() - new Date(post.date).getTime() > 86400000;
+
+// Compartilhamento: Facebook e LinkedIn (os do artigo publicado), WhatsApp e copiar o endereço.
+const enc = encodeURIComponent(post.url);
+const share = [
+  { name: 'Facebook', icon: 'facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${enc}` },
+  { name: 'LinkedIn', icon: 'linkedin', href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc}` },
+  { name: 'WhatsApp', icon: 'whatsapp', href: `https://wa.me/?text=${encodeURIComponent(`${post.title} ${post.url}`)}` },
+];
+const iso = (d: string) => `${d}-03:00`;
+---
+
+<Base
+  title={post.seo.title}
+  description={post.seo.description || post.excerpt}
+  canonical={post.url}
+  ogType="article"
+  ogImage={post.image?.src}
+  article={{ published: iso(post.date), modified: iso(post.modified), section: cats[0]?.name }}
+  schema={post.seo.schema}
+>
+  <Header current={LINKS.blog} />
+  <main id="conteudo" class="post-page" data-post-page>
+    <section class="cat-hero post-hero dark-surface on-dark" aria-labelledby="post-title">
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="dark-surface__hatch"></div>
+        <div class="cat-light"></div>
+      </div>
+      <div class="container cat-hero-inner post-hero-inner">
+        <nav class="cat-crumbs" aria-label="Você está em">
+          <ol>
+            <li><a href={ROUTES.home}>Início</a></li>
+            <li><a href={ROUTES.blog}>Blog</a></li>
+            {
+              cats[0] && (
+                <li>
+                  <a href={blogCategoryRoute(cats[0].slug)}>{cats[0].name}</a>
+                </li>
+              )
+            }
+          </ol>
+        </nav>
+        {
+          cats.length > 0 && (
+            <ul class="post-cats" aria-label="Categorias">
+              {cats.map((c) => (
+                <li>
+                  <a href={blogCategoryRoute(c.slug)}>{c.name}</a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+        <h1 id="post-title" class="post-title">{post.title}</h1>
+        <p class="post-meta">
+          <span>
+            <Icon name="calendar" size={16} />
+            Publicado em <time datetime={iso(post.date)}>{formatDate(post.date)}</time>
+          </span>
+          {
+            updated && (
+              <span>
+                Atualizado em <time datetime={iso(post.modified)}>{formatDate(post.modified)}</time>
+              </span>
+            )
+          }
+          <span>
+            <Icon name="clock" size={16} />
+            {minutes} min de leitura
+          </span>
+        </p>
+      </div>
+    </section>
+
+    <div class="container post-layout">
+      <article class="post-article" aria-labelledby="post-title">
+        {
+          img && (
+            <figure class="post-cover">
+              <Image src={img} alt={post.image!.alt || post.title} widths={[480, 720, 960, 1280, 1600].filter((w) => w <= img.width)} sizes="(min-width: 1180px) 760px, 92vw" loading="eager" fetchpriority="high" />
+            </figure>
+          )
+        }
+        <div class="post-prose" set:html={html} />
+
+        <div class="post-share" aria-labelledby="post-share-title">
+          <p id="post-share-title" class="post-share-title">Compartilhe</p>
+          <ul>
+            {
+              share.map((s) => (
+                <li>
+                  <a class="post-share-btn" href={s.href} target="_blank" rel="noopener" aria-label={`Compartilhar no ${s.name}`} data-track="share_click" data-track-location={s.name.toLowerCase()}>
+                    <Icon name={s.icon} size={18} />
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <button class="post-share-btn" type="button" aria-label="Copiar o endereço do artigo" data-copy-link={post.url}>
+                <Icon name="link" size={18} />
+              </button>
+            </li>
+          </ul>
+          <p class="post-share-done" role="status" aria-live="polite" data-copy-status></p>
+        </div>
+
+        <nav class="post-nav" aria-label="Outros artigos">
+          {
+            older ? (
+              <a class="post-nav-link post-nav-link--prev" href={postPath(older)} rel="prev">
+                <span class="post-nav-dir">
+                  <Icon name="arrow-left" size={16} />
+                  Anterior
+                </span>
+                <span class="post-nav-title">{older.title}</span>
+              </a>
+            ) : (
+              <span />
+            )
+          }
+          {
+            newer && (
+              <a class="post-nav-link post-nav-link--next" href={postPath(newer)} rel="next">
+                <span class="post-nav-dir">
+                  Próximo
+                  <Icon name="arrow-right" size={16} />
+                </span>
+                <span class="post-nav-title">{newer.title}</span>
+              </a>
+            )
+          }
+        </nav>
+      </article>
+
+      {/* Barra lateral (no WordPress: busca, categorias e postagens recentes) e o contato. */}
+      <aside class="post-aside" aria-label="Mais do blog">
+        <div class="post-aside-card post-aside-cta">
+          <p class="post-aside-kicker">MSSERVER</p>
+          <p class="post-aside-title">Servidores com garantia, suporte e entrega para todo o Brasil.</p>
+          <a class="btn btn--dark" href={ROUTES.servers} data-track="cta_click" data-track-location="blog-artigo-catalogo">
+            Ver servidores
+            <Icon name="arrow-right" class="btn-arrow" />
+          </a>
+          <a class="btn btn--outline" href={whatsappUrl()} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="blog-artigo">
+            <Icon name="whatsapp" size={18} />
+            Falar no WhatsApp
+          </a>
+        </div>
+        <form class="post-aside-search" action={ROUTES.blog} method="get" role="search">
+          <label class="sr-only" for="post-q">Buscar no blog</label>
+          <input id="post-q" name="busca" type="search" placeholder="Buscar no blog" />
+          <button class="btn btn--outline" type="submit">
+            <Icon name="search" size={18} />
+            <span class="sr-only">Buscar</span>
+          </button>
+        </form>
+        {
+          navCats.length > 0 && (
+            <div class="post-aside-card">
+              <h2 class="post-aside-head">Categorias</h2>
+              <ul class="post-aside-cats">
+                {navCats.map((c) => (
+                  <li>
+                    <a href={blogCategoryRoute(c.slug)}>{c.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+        <div class="post-aside-card">
+          <h2 class="post-aside-head">Postagens recentes</h2>
+          <ul class="post-aside-recent">
+            {
+              recent.map((p) => (
+                <li>
+                  <a href={postPath(p)}>{p.title}</a>
+                  <time datetime={iso(p.date)}>{formatDate(p.date)}</time>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <section class="post-related" aria-labelledby="post-related-title">
+      <div class="container">
+        <div class="post-related-head">
+          <h2 id="post-related-title">Continue lendo</h2>
+          <a class="post-related-all" href={ROUTES.blog}>
+            Todos os artigos
+            <Icon name="arrow-right" size={16} />
+          </a>
+        </div>
+        <ul class="bp-grid">
+          {more.map((p) => <PostCard post={p} headingLevel={3} />)}
+        </ul>
+      </div>
+    </section>
+
+    <BlogCta track="blog-artigo" />
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Base>
+
+<script>
+  import { initPostPage } from '../../scripts/blog';
+  initPostPage();
+</script>

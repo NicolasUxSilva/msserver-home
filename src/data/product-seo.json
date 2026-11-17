@@ -727,8 +727,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "DELL",
-       "@id": "https://msserver.com.br/categoria-produto/dell/"
+       "name": "Rack",
+       "@id": "https://msserver.com.br/categoria-produto/rack/"
       }
      },
      {
@@ -851,8 +851,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Rack",
-       "@id": "https://msserver.com.br/categoria-produto/rack/"
+       "name": "DELL",
+       "@id": "https://msserver.com.br/categoria-produto/dell/"
       }
      },
      {
@@ -1347,8 +1347,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "DELL",
-       "@id": "https://msserver.com.br/categoria-produto/dell/"
+       "name": "Torre",
+       "@id": "https://msserver.com.br/categoria-produto/torre/"
       }
      },
      {
@@ -1471,8 +1471,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Torre",
-       "@id": "https://msserver.com.br/categoria-produto/torre/"
+       "name": "DELL",
+       "@id": "https://msserver.com.br/categoria-produto/dell/"
       }
      },
      {
@@ -1719,8 +1719,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Torre",
-       "@id": "https://msserver.com.br/categoria-produto/torre/"
+       "name": "DELL",
+       "@id": "https://msserver.com.br/categoria-produto/dell/"
       }
      },
      {
@@ -1967,8 +1967,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "DELL",
-       "@id": "https://msserver.com.br/categoria-produto/dell/"
+       "name": "Torre",
+       "@id": "https://msserver.com.br/categoria-produto/torre/"
       }
      },
      {
@@ -2463,8 +2463,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "HP",
-       "@id": "https://msserver.com.br/categoria-produto/hp/"
+       "name": "Rack",
+       "@id": "https://msserver.com.br/categoria-produto/rack/"
       }
      },
      {
@@ -2835,8 +2835,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "HP",
-       "@id": "https://msserver.com.br/categoria-produto/hp/"
+       "name": "Rack",
+       "@id": "https://msserver.com.br/categoria-produto/rack/"
       }
      },
      {
@@ -3207,8 +3207,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "HP",
-       "@id": "https://msserver.com.br/categoria-produto/hp/"
+       "name": "Rack",
+       "@id": "https://msserver.com.br/categoria-produto/rack/"
       }
      },
      {
@@ -4323,8 +4323,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Rack",
-       "@id": "https://msserver.com.br/categoria-produto/rack/"
+       "name": "Escala nuvem",
+       "@id": "https://msserver.com.br/categoria-produto/escala-nuvem/"
       }
      },
      {
@@ -4447,8 +4447,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "DELL",
-       "@id": "https://msserver.com.br/categoria-produto/dell/"
+       "name": "Rack",
+       "@id": "https://msserver.com.br/categoria-produto/rack/"
       }
      },
      {
@@ -4695,8 +4695,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Rack",
-       "@id": "https://msserver.com.br/categoria-produto/rack/"
+       "name": "DELL",
+       "@id": "https://msserver.com.br/categoria-produto/dell/"
       }
      },
      {
@@ -4943,8 +4943,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "DELL",
-       "@id": "https://msserver.com.br/categoria-produto/dell/"
+       "name": "Rack",
+       "@id": "https://msserver.com.br/categoria-produto/rack/"
       }
      },
      {
@@ -5191,8 +5191,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Rack",
-       "@id": "https://msserver.com.br/categoria-produto/rack/"
+       "name": "Escala nuvem",
+       "@id": "https://msserver.com.br/categoria-produto/escala-nuvem/"
       }
      },
      {
@@ -5315,8 +5315,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Rack",
-       "@id": "https://msserver.com.br/categoria-produto/rack/"
+       "name": "HP",
+       "@id": "https://msserver.com.br/categoria-produto/hp/"
       }
      },
      {
@@ -5563,8 +5563,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "HP",
-       "@id": "https://msserver.com.br/categoria-produto/hp/"
+       "name": "Rack",
+       "@id": "https://msserver.com.br/categoria-produto/rack/"
       }
      },
      {
@@ -6927,8 +6927,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Sem categoria",
-       "@id": "https://msserver.com.br/categoria-produto/sem-categoria/"
+       "name": "Componentes",
+       "@id": "https://msserver.com.br/categoria-produto/componentes/"
       }
      },
      {
@@ -7175,8 +7175,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Fans",
-       "@id": "https://msserver.com.br/categoria-produto/fans/"
+       "name": "Componentes",
+       "@id": "https://msserver.com.br/categoria-produto/componentes/"
       }
      },
      {
@@ -7547,8 +7547,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Componentes",
-       "@id": "https://msserver.com.br/categoria-produto/componentes/"
+       "name": "Fans",
+       "@id": "https://msserver.com.br/categoria-produto/fans/"
       }
      },
      {
@@ -7795,8 +7795,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Fans",
-       "@id": "https://msserver.com.br/categoria-produto/fans/"
+       "name": "Componentes",
+       "@id": "https://msserver.com.br/categoria-produto/componentes/"
       }
      },
      {
@@ -8291,8 +8291,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Componentes",
-       "@id": "https://msserver.com.br/categoria-produto/componentes/"
+       "name": "Fontes",
+       "@id": "https://msserver.com.br/categoria-produto/fontes/"
       }
      },
      {
@@ -8415,8 +8415,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Gavetas",
-       "@id": "https://msserver.com.br/categoria-produto/gavetas/"
+       "name": "Componentes",
+       "@id": "https://msserver.com.br/categoria-produto/componentes/"
       }
      },
      {
@@ -8911,8 +8911,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "Rack",
-       "@id": "https://msserver.com.br/categoria-produto/rack/"
+       "name": "DELL",
+       "@id": "https://msserver.com.br/categoria-produto/dell/"
       }
      },
      {
@@ -9159,8 +9159,8 @@
       "@type": "ListItem",
       "position": 2,
       "item": {
-       "name": "HP",
-       "@id": "https://msserver.com.br/categoria-produto/hp/"
+       "name": "Rack",
+       "@id": "https://msserver.com.br/categoria-produto/rack/"
       }
      },
      {

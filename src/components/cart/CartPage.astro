@@ -10,7 +10,7 @@ import Header from '../Header.astro';
 import Footer from '../Footer.astro';
 import WhatsAppFab from '../WhatsAppFab.astro';
 import Icon from '../Icon.astro';
-import { LINKS, ROUTES, STORE_API, productRoute, whatsappUrl } from '../../config/site';
+import { ROUTES, STORE_API, WHATSAPP, productRoute, whatsappUrl } from '../../config/site';
 import { PRODUCTS } from '../../data/catalog';
 import { CART, WHATSAPP_ORDER } from '../../data/carrinho';
 import schema from '../../data/cart-schema.json';
@@ -28,10 +28,16 @@ const products = Object.fromEntries(
   ),
 );
 
+// "Adicionar ao carrinho" do catálogo (/carrinho/?add-to-cart=ID) com a loja fora do ar: o aviso
+// oferece o pedido pelo WhatsApp com o nome do produto (nunca o checkout do WooCommerce).
+const byId = Object.fromEntries(Object.values(PRODUCTS).map((p) => [p.id, { name: p.name, url: p.url }]));
+
 const config = {
   api: STORE_API,
   products,
-  routes: { cart: ROUTES.cart, shop: ROUTES.servers, checkout: LINKS.checkout },
+  byId,
+  quoteNumber: WHATSAPP.number,
+  routes: { cart: ROUTES.cart, shop: ROUTES.servers },
   whatsapp: WHATSAPP_ORDER,
   texts: CART,
 };
@@ -103,7 +109,7 @@ const config = {
               <Icon name="rotate-cw" size={18} />
               {CART.retry}
             </button>
-            <a class="btn btn--outline" href={whatsappUrl()} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="carrinho">
+            <a class="btn btn--outline" href={whatsappUrl()} target="_blank" rel="noopener" data-cart-unavailable-whatsapp data-track="contact_whatsapp_click" data-track-location="carrinho-indisponivel">
               <Icon name="whatsapp" size={18} />
               {CART.consult}
             </a>

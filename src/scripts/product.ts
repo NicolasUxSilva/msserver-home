@@ -1,12 +1,13 @@
 import { track } from './analytics';
 import { guardFab } from './fab-guard';
 import { ADDED_KEY, addItem, StoreError, StoreUnavailable } from './store-api';
+import { productQuoteText } from '../data/produto';
 
 // Página de produto no navegador: galeria (miniaturas, deslizar no celular e imagem ampliada) e o
 // formulário de compra (opções de variação → variação do WooCommerce, preço da opção escolhida,
-// quantidade). "Orçamento" adiciona ao carrinho pela Store API e abre o carrinho deste site. Sem
-// JavaScript, ou sem a loja neste endereço, o formulário segue para a finalização de compra do
-// WordPress com os campos originais (o WooCommerce encontra a variação pelas opções enviadas).
+// quantidade). "Orçamento" adiciona ao carrinho pela Store API e abre o carrinho deste site. O site
+// não recebe pagamentos: se a loja não responder, a página mostra o aviso e oferece o mesmo pedido
+// pelo WhatsApp (produto, opções e quantidade), sem nunca seguir para o checkout do WooCommerce.
 
 type Config = {
   id: number;
@@ -15,6 +16,7 @@ type Config = {
   fields: string[];
   variations: { id: number; attributes: Record<string, string>; price: number | null; inStock: boolean }[];
   messages: { makeSelection: string; unavailable: string; outOfStock: string; adding: string };
+  quote: { number: string; url: string; labels: Record<string, Record<string, string>> };
 };
 
 const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -107,6 +109,8 @@ function initForm(root: HTMLElement, cfg: Config) {
   const single = root.querySelector<HTMLElement>('[data-pd-single]');
   const resets = [...form.querySelectorAll<HTMLButtonElement>('[data-pd-reset]')];
   const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+  const fallback = form.querySelector<HTMLElement>('[data-pd-fallback]');
+  const fallbackLink = form.querySelector<HTMLAnchorElement>('[data-pd-fallback-link]');
 
   // Quantidade: números inteiros a partir de 1.
   form.querySelectorAll<HTMLButtonElement>('[data-pd-step]').forEach((b) =>
@@ -120,6 +124,17 @@ function initForm(root: HTMLElement, cfg: Config) {
     if (!msg) return;
     msg.textContent = text;
     msg.hidden = !text;
+  };
+
+  /** Loja fora do ar: aviso e o pedido pelo WhatsApp com o que foi escolhido (nunca o checkout). */
+  const showFallback = (quantity: number) => {
+    if (!fallback || !fallbackLink) return;
+    const s = selected();
+    const options = cfg.fields.map((f) => cfg.quote.labels[f]?.[s[f]] ?? '').filter(Boolean);
+    const text = productQuoteText({ name: cfg.name, url: cfg.quote.url, options, quantity });
+    fallbackLink.href = `https://wa.me/${cfg.quote.number}?text=${encodeURIComponent(text)}`;
+    fallback.hidden = false;
+    fallback.focus?.();
   };
 
   /** Variação escolhida (todas as opções marcadas e uma variação disponível com elas). */
@@ -182,9 +197,7 @@ function initForm(root: HTMLElement, cfg: Config) {
     submit.classList.add('is-busy');
     submit.setAttribute('aria-busy', 'true');
     say('');
-    if (msg) {
-      msg.hidden = true;
-    }
+    if (fallback) fallback.hidden = true;
     const label = submit.querySelector<HTMLElement>('[data-pd-label]');
     const original = label?.textContent;
     if (label) label.textContent = cfg.messages.adding;
@@ -204,8 +217,8 @@ function initForm(root: HTMLElement, cfg: Config) {
       location.assign(cfg.cart);
     } catch (err) {
       done();
-      // Loja fora deste endereço (ou fora do ar): o WooCommerce do WordPress recebe o formulário.
-      if (err instanceof StoreUnavailable) form.submit();
+      // Loja fora deste endereço (ou fora do ar): aviso e o pedido pelo WhatsApp.
+      if (err instanceof StoreUnavailable) showFallback(quantity);
       else say(err instanceof StoreError ? err.message : cfg.messages.unavailable);
     }
   });

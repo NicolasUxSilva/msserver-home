@@ -1,7 +1,7 @@
 // Catálogo: dados sincronizados do WooCommerce (src/data/catalog.json, gerado por
 // scripts/sync-catalog.mjs) e a configuração das listagens — o catálogo geral, as categorias de
-// fabricante (Dell, HP, IBM) e as de componentes (Componentes, Baterias, Dissipadores, Fans, Fontes,
-// Gavetas, Placas de Rede). Produtos, preços, imagens, categorias, atributos, botões e a ordem de cada
+// fabricante (Dell, HP, IBM), os formatos (Rack, Torre, Escala nuvem) e as de componentes
+// (Componentes, Baterias, Dissipadores, Fans, Fontes, Gavetas, Placas de Rede). Produtos, preços, imagens, categorias, atributos, botões e a ordem de cada
 // ordenação vêm do WooCommerce; nada aqui é digitado à mão.
 import data from './catalog.json';
 import schemas from './catalog-schema.json';
@@ -44,7 +44,7 @@ export type Product = {
 export type VariationAttribute = { name: string; field: string; options: { value: string; label: string }[] };
 export type Variation = { id: number; attributes: Record<string, string>; price: number | null; regularPrice: number | null; inStock: boolean; purchasable: boolean };
 
-export type ListingKey = 'servidores' | 'dell' | 'hp' | 'ibm' | 'componentes' | 'baterias' | 'dissipadores' | 'fans' | 'fontes' | 'gavetas' | 'placas-de-rede';
+export type ListingKey = 'servidores' | 'dell' | 'hp' | 'ibm' | 'rack' | 'torre' | 'escala-nuvem' | 'componentes' | 'baterias' | 'dissipadores' | 'fans' | 'fontes' | 'gavetas' | 'placas-de-rede';
 
 type Listing = {
   key: ListingKey;
@@ -101,6 +101,10 @@ export const LISTINGS: Record<ListingKey, Listing> = {
   dell: category('dell', 'Dell', 'DELL', ROUTES.dell, 'servidores'),
   hp: category('hp', 'HP', 'HP', ROUTES.hp, 'servidores'),
   ibm: category('ibm', 'IBM', 'IBM', ROUTES.ibm, 'servidores'),
+  // Formatos (categorias do WooCommerce "Rack", "Torre" e "Escala nuvem"), no grupo dos servidores.
+  rack: category('rack', 'Rack', 'Rack', ROUTES.rack, 'servidores'),
+  torre: category('torre', 'Torre', 'Torre', ROUTES.torre, 'servidores'),
+  'escala-nuvem': category('escala-nuvem', 'Escala Nuvem', 'Escala nuvem', ROUTES.escalaNuvem, 'servidores'),
   componentes: category('componentes', 'Componentes', 'Componentes', ROUTES.componentes, 'componentes'),
   baterias: category('baterias', 'Baterias', 'Baterias', ROUTES.baterias, 'componentes'),
   dissipadores: category('dissipadores', 'Dissipadores', 'Dissipadores', ROUTES.dissipadores, 'componentes'),
@@ -114,7 +118,6 @@ export const LISTING_KEYS = Object.keys(LISTINGS) as ListingKey[];
 export const PRODUCTS = data.products as unknown as Record<string, Product>;
 export const product = (id: number) => PRODUCTS[String(id)];
 export const SCHEMAS = schemas as unknown as Record<ListingKey, unknown>;
-export const BLOG = data.blog;
 export const FETCHED_AT = data.fetchedAt;
 
 /** Ids de uma listagem numa ordenação (a ordem é a do WooCommerce). */
@@ -124,6 +127,9 @@ export const pagesOf = (key: ListingKey) => Math.max(1, Math.ceil(totalOf(key) /
 
 /** Fabricantes (categorias do WooCommerce) e como aparecem no site. */
 export const BRANDS: Record<string, string> = { dell: 'Dell', hp: 'HP', ibm: 'IBM' };
+
+/** Formatos de servidor: na navegação do catálogo, separados dos fabricantes. */
+export const FORMATS: ListingKey[] = ['rack', 'torre', 'escala-nuvem'];
 
 export const categoryName = (slug: string) => BRANDS[slug] ?? (data.categories as Record<string, { name: string }>)[slug]?.name ?? slug;
 
@@ -162,7 +168,16 @@ export function variationOptions(p: Product) {
     .filter((a) => a.options.length);
 }
 
-/** Texto em que a busca procura: nome, categorias, opções que existem (memória) e descrição curta. */
+/** Códigos de peça citados na descrição publicada (ex.: 0Y8MC1, 723595-101, F495E-S0): sequências
+ *  com letras e números, de 5 caracteres ou mais. Entram na busca, para achar a peça pelo código. */
+const CODE = /(?=[a-z0-9-]*\d)(?=[a-z0-9-]*[a-z])[a-z0-9]+(?:-[a-z0-9]+)*/gi;
+export const partCodes = (p: Product) => {
+  const text = p.description.replace(/<[^>]+>/g, ' ').replace(/https?:\/\/\S+/g, ' ');
+  return [...new Set((text.match(CODE) ?? []).filter((c) => c.length >= 5).map((c) => c.toUpperCase()))];
+};
+
+/** Texto em que a busca procura (catálogo e cabeçalho): nome, fabricante e categorias, opções que
+ *  existem (memória), descrição curta e códigos de peça da descrição. Sem acentos (normalize). */
 export const searchIndex = (p: Product) =>
   normalize(
     [
@@ -171,6 +186,7 @@ export const searchIndex = (p: Product) =>
       ...p.attributes.filter((a) => !a.variations).flatMap((a) => [a.name, ...a.terms]),
       ...variationOptions(p).flatMap((a) => [a.name, ...a.options.map((o) => o.label)]),
       p.shortDescription,
+      ...partCodes(p),
     ].join(' '),
   );
 

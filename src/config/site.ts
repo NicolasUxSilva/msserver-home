@@ -16,11 +16,11 @@ export const SITE = {
 const U = SITE.origin;
 
 /**
- * Páginas já reconstruídas neste projeto: os links entre elas são internos (caminho na raiz do
- * site, respeitando o BASE_PATH do build), para que as páginas novas (Home, "Sobre nós",
- * Orçamento, o catálogo de servidores, as categorias, as páginas de produto, o carrinho, a
- * finalização de orçamento e as soluções) levem umas às outras em qualquer ambiente. As páginas ainda não reformuladas continuam apontando para o
- * WordPress em msserver.com.br até serem reconstruídas. Ao reconstruir outra página, acrescente-a aqui.
+ * Páginas servidas por este projeto: os links entre elas são internos (caminho na raiz do site,
+ * respeitando o BASE_PATH do build), para que levem umas às outras em qualquer ambiente. As
+ * páginas que continuam no WordPress (Suporte, Minha conta, Aplicativo de Gestão, Servidores
+ * Físicos e as landings antigas) seguem com o endereço absoluto de msserver.com.br.
+ * Ao reconstruir outra página, acrescente-a aqui e em docs/ROTEAMENTO.md.
  */
 const BASE = (import.meta.env?.BASE_URL ?? '/').replace(/\/$/, '');
 export const ROUTES = {
@@ -31,6 +31,10 @@ export const ROUTES = {
   dell: `${BASE}/categoria-produto/dell/`,
   hp: `${BASE}/categoria-produto/hp/`,
   ibm: `${BASE}/categoria-produto/ibm/`,
+  /** Formatos de servidor (categorias do WooCommerce com os mesmos endereços). */
+  rack: `${BASE}/categoria-produto/rack/`,
+  torre: `${BASE}/categoria-produto/torre/`,
+  escalaNuvem: `${BASE}/categoria-produto/escala-nuvem/`,
   componentes: `${BASE}/categoria-produto/componentes/`,
   baterias: `${BASE}/categoria-produto/baterias/`,
   dissipadores: `${BASE}/categoria-produto/dissipadores/`,
@@ -49,25 +53,38 @@ export const ROUTES = {
   garantia: `${BASE}/extencao-de-garantia/`,
   backup: `${BASE}/backup-em-nuvem/`,
   consultoria: `${BASE}/consultoria-em-implantacao-de-servidores/`,
+  /** Landing aprovada de Soluções Cloud (repositório cloud-ms), publicada neste endereço pelo build
+   *  (scripts/landing-cloud.mjs). */
+  cloud: `${BASE}/solucoes-cloud/`,
+  /** Blog: listagem (/blog/, /blog/page/N/), artigos na raiz (/slug/) e categorias (/category/slug/),
+   *  os mesmos endereços do WordPress. */
+  blog: `${BASE}/blog/`,
+  cases: `${BASE}/cases-de-sucesso/`,
+  privacy: `${BASE}/politica-de-privacidade/`,
 } as const;
 
 /** Página de um produto (/servidor/slug/, o mesmo endereço do WooCommerce). */
 export const productRoute = (slug: string) => `${BASE}/servidor/${slug}/`;
+/** Artigo do blog (/slug/, o mesmo endereço do WordPress). */
+export const postRoute = (slug: string) => `${BASE}/${slug}/`;
+/** Categoria do blog (/category/slug/, o mesmo endereço do WordPress). */
+export const blogCategoryRoute = (slug: string) => `${BASE}/category/${slug}/`;
+/** Busca no catálogo (o destino da busca do cabeçalho). */
+export const searchRoute = (q: string) => `${ROUTES.servers}${q.trim() ? `?busca=${encodeURIComponent(q.trim())}` : ''}`;
 
 export const LINKS = {
   home: ROUTES.home,
   servers: ROUTES.servers,
   about: ROUTES.about,
   quote: ROUTES.quote,
-  blog: `${U}/blog/`,
+  blog: ROUTES.blog,
+  cases: ROUTES.cases,
+  /** Suporte (Awesome Support): continua no WordPress, com a identidade do site aplicada pelo plugin
+   *  wordpress/msserver-suporte (docs/SUPORTE.md). */
   support: `${U}/obter-suporte/`,
-  cases: `${U}/cases-de-sucesso/`,
   app: `${U}/aplicativo-ms-server/`,
-  search: `${U}/`,
-  /** Finalização de compra no WordPress: recebe o "Orçamento" sem JavaScript (um POST, que o
-   *  WooCommerce atende: adiciona o produto e mostra a finalização) e é o destino do carrinho quando a
-   *  Store API não responde neste endereço. A finalização deste site é ROUTES.checkout. */
-  checkout: `${U}/finalizar-compra/`,
+  /** Busca do cabeçalho: o catálogo deste site (/servidores/?busca=). */
+  search: ROUTES.servers,
 } as const;
 
 /** Store API do WooCommerce (mesmo domínio do site, com a sessão do carrinho em cookie). Em outro
@@ -98,20 +115,28 @@ export const NAV: NavLink[] = [
           { label: 'Placas de Rede', href: ROUTES.placasDeRede },
         ],
       },
+      {
+        // Formatos de servidor: categorias do WooCommerce (Rack, Torre, Escala nuvem) que ganharam
+        // página no catálogo. Grupo sem página própria.
+        label: 'Por formato',
+        children: [
+          { label: 'Rack', href: ROUTES.rack },
+          { label: 'Torre', href: ROUTES.torre },
+          { label: 'Escala Nuvem', href: ROUTES.escalaNuvem },
+        ],
+      },
     ],
   },
   { label: 'Início', href: LINKS.home },
   { label: 'Sobre nós', href: LINKS.about },
   {
-    // No WordPress, "Soluções" apenas abre o submenu (href="#"). Desde a reconstrução das soluções,
-    // uma lista só, na ordem definida pela MSSERVER: "Servidores Dedicados" (/servidores-dedicados/)
-    // deu lugar à página de Servidores Físicos já publicada, e o grupo "Servidores em Nuvem" saiu.
-    // Nuvem Privada, Extensão de Garantia, Backup em Nuvem e Consultoria são as páginas
-    // reconstruídas (ROUTES); Soluções Cloud e Servidores Físicos são páginas próprias, publicadas
-    // fora deste projeto; o Aplicativo de Gestão continua na página atual do WordPress.
+    // No WordPress, "Soluções" apenas abre o submenu (href="#"). Uma lista só, na ordem definida
+    // pela MSSERVER. Soluções Cloud é a landing aprovada (publicada por este build em
+    // /solucoes-cloud/); Servidores Físicos é a landing própria já publicada no WordPress; o
+    // Aplicativo de Gestão continua na página atual do WordPress.
     label: 'Soluções',
     children: [
-      { label: 'Soluções Cloud', href: `${U}/solucoes-cloud/` },
+      { label: 'Soluções Cloud', href: ROUTES.cloud },
       { label: 'Nuvem Privada', href: ROUTES.nuvemPrivada },
       { label: 'Servidores Físicos', href: `${U}/servidores-fisicos/` },
       { label: 'Aplicativo de Gestão', href: `${U}/aplicativo-ms-server/` },
@@ -121,20 +146,19 @@ export const NAV: NavLink[] = [
     ],
   },
   { label: 'Orçamento', href: LINKS.quote },
-  { label: 'Blog', href: `${U}/blog/` },
-  { label: 'Suporte', href: `${U}/obter-suporte/` },
-  { label: 'Cases de sucesso', href: `${U}/cases-de-sucesso/` },
+  { label: 'Blog', href: LINKS.blog },
+  { label: 'Suporte', href: LINKS.support },
+  { label: 'Cases de sucesso', href: LINKS.cases },
 ];
 
-/** Menu do rodapé ("MENU"), com os destinos do WordPress; Início, Quem somos, Orçamento e
- *  Servidores levam às páginas reconstruídas (ROUTES). */
+/** Menu do rodapé ("MENU"): os mesmos itens do WordPress, com os destinos deste site. */
 export const FOOTER_MENU = [
   { label: 'Início', href: LINKS.home },
   { label: 'Quem somos', href: LINKS.about },
   { label: 'Orçamento', href: LINKS.quote },
-  { label: 'Blog', href: `${U}/blog` },
+  { label: 'Blog', href: LINKS.blog },
   { label: 'Servidores', href: LINKS.servers },
-  { label: 'Obter Suporte', href: `${U}/obter-suporte` },
+  { label: 'Obter Suporte', href: LINKS.support },
 ] as const;
 
 export const SOCIAL = [
@@ -158,7 +182,6 @@ export const CONTACT = {
     { display: '(11) 4858-5358', e164: '+551148585358' },
     { display: '(11) 98599-1837', e164: '+5511985991837' },
   ],
-  copyright: '© 2023 MSServer. Todos os direitos reservados.',
 } as const;
 
 /** Botão flutuante do plugin Click to Chat (mesmo número e mensagem pré-preenchida). */

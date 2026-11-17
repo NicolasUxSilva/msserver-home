@@ -1,0 +1,13 @@
+---
+// Artigo do blog na raiz do site (/slug/), o mesmo endereço do WordPress.
+import BlogPost from '../components/blog/BlogPost.astro';
+import { POSTS } from '../data/blog';
+
+export function getStaticPaths() {
+  return POSTS.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+---
+
+<BlogPost post={post} />

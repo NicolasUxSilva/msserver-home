@@ -1,0 +1,62 @@
+---
+// Cartão de postagem do blog (listagens, leitura relacionada): imagem destacada, categorias, título,
+// resumo publicado e data. O cartão inteiro leva à postagem (link do título esticado), no padrão dos
+// cards da home.
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import { formatDate, postPath, visibleCategories, type BlogPost } from '../../data/blog';
+
+interface Props {
+  post: BlogPost;
+  /** Postagem em destaque (a mais recente na primeira página). */
+  lead?: boolean;
+  /** Carrega a imagem logo (primeira dobra). */
+  priority?: boolean;
+  headingLevel?: 2 | 3;
+}
+
+const { post, lead = false, priority = false, headingLevel = 2 } = Astro.props;
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/blog/*.jpg', { eager: true });
+const img = post.image ? files[`../../assets/blog/${post.image.file}`]?.default : undefined;
+const cats = visibleCategories(post);
+const H = headingLevel === 2 ? 'h2' : 'h3';
+---
+
+<li class:list={['bp-card has-card-link', lead && 'bp-card--lead']} data-post={post.id}>
+  <div class="bp-thumb" aria-hidden="true">
+    {
+      img && (
+        <Image
+          src={img}
+          alt=""
+          widths={lead ? [480, 720, 960, 1280] : [400, 640, 800]}
+          sizes={lead ? '(min-width: 1180px) 720px, 92vw' : '(min-width: 1180px) 380px, (min-width: 720px) 45vw, 92vw'}
+          loading={priority ? 'eager' : 'lazy'}
+          fetchpriority={priority && lead ? 'high' : undefined}
+        />
+      )
+    }
+  </div>
+  <div class="bp-body">
+    {
+      cats.length > 0 && (
+        <p class="bp-cats">
+          {cats.map((c) => (
+            <span>{c.name}</span>
+          ))}
+        </p>
+      )
+    }
+    <H class="bp-title">
+      <a class="card-link" href={postPath(post)}>{post.title}</a>
+    </H>
+    {post.excerpt && <p class="bp-excerpt">{post.excerpt}</p>}
+    <p class="bp-meta">
+      <time datetime={post.date}>{formatDate(post.date)}</time>
+      <span class="bp-more card-raise" aria-hidden="true">
+        Ler artigo
+        <Icon name="arrow-right" size={16} />
+      </span>
+    </p>
+  </div>
+</li>

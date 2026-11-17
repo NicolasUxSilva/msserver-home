@@ -13,7 +13,7 @@ type Config = {
   legacyParam: string | null;
   orders: Record<OrderKey, number[]>;
   products: Record<string, { s: string }>;
-  searchAll: string;
+  searchAll: string | null;
 };
 
 const ORDER_KEYS = new Set<string>(ORDER_OPTIONS.map((o) => o.key));
@@ -36,7 +36,7 @@ export function initCatalog() {
   const live = root.querySelector<HTMLElement>('[data-cat-live]')!;
   const empty = root.querySelector<HTMLElement>('[data-cat-empty]')!;
   const emptyText = root.querySelector<HTMLElement>('[data-cat-empty-text]')!;
-  const searchAll = root.querySelector<HTMLAnchorElement>('[data-cat-search-all]')!;
+  const searchAll = root.querySelector<HTMLAnchorElement>('[data-cat-search-all]');
   const pagesNav = root.querySelector<HTMLElement>('[data-cat-pages]')!;
   const form = root.querySelector<HTMLFormElement>('[data-cat-search]')!;
   const q = root.querySelector<HTMLInputElement>('[data-cat-q]')!;
@@ -119,7 +119,7 @@ export function initCatalog() {
     if (!list.length) {
       const what = state.busca.trim() && `“${state.busca.trim()}”`;
       emptyText.textContent = `Nenhum produto ${cfg.key === 'servidores' ? 'do catálogo' : 'desta categoria'} corresponde a ${what || 'esta busca'}.`;
-      searchAll.href = cfg.searchAll + encodeURIComponent(state.busca.trim());
+      if (searchAll && cfg.searchAll) searchAll.href = cfg.searchAll + encodeURIComponent(state.busca.trim());
     }
 
     order.value = state.orderby;

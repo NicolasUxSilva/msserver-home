@@ -1,5 +1,6 @@
-// Sincroniza o catálogo (/servidores/, categorias Dell, HP e IBM e as categorias de componentes:
-// Componentes, Baterias, Dissipadores, Fans, Fontes, Gavetas e Placas de rede) a partir do
+// Sincroniza o catálogo (/servidores/, categorias Dell, HP e IBM, os formatos Rack, Torre e Escala
+// nuvem e as categorias de componentes: Componentes, Baterias, Dissipadores, Fans, Fontes, Gavetas e
+// Placas de rede) a partir do
 // WooCommerce de msserver.com.br, pela Store API pública. Nada é digitado à mão: produtos, preços,
 // imagens, categorias, atributos, botões e a ordem de cada listagem vêm do próprio WooCommerce.
 //
@@ -13,7 +14,7 @@
 //    fato, com preço e disponibilidade de cada uma) e os nomes dos campos do formulário do
 //    WooCommerce. Título, descrição e JSON-LD (All in One SEO) vêm da página publicada do produto
 //    (src/data/product-seo.json).
-//  - Barra lateral original: últimas postagens e categorias do blog.
+//  (As postagens do blog, inclusive as da barra lateral do catálogo, vêm de scripts/sync-blog.mjs.)
 //
 // Uso: npm run sync:catalog
 // Com o certificado HTTPS do site fora do ar: WP_ORIGIN=http://msserver.com.br npm run sync:catalog
@@ -33,7 +34,7 @@ const GALLERY_DIR = 'src/assets/gallery';
 // (mais recentes primeiro); as categorias, a ordenação padrão do WooCommerce.
 const LISTINGS = [
   { key: 'servidores', category: null, defaultOrder: 'date' },
-  ...['dell', 'hp', 'ibm', 'componentes', 'baterias', 'dissipadores', 'fans', 'fontes', 'gavetas', 'placas-de-rede'].map((slug) => ({ key: slug, category: slug, defaultOrder: 'menu_order' })),
+  ...['dell', 'hp', 'ibm', 'rack', 'torre', 'escala-nuvem', 'componentes', 'baterias', 'dissipadores', 'fans', 'fontes', 'gavetas', 'placas-de-rede'].map((slug) => ({ key: slug, category: slug, defaultOrder: 'menu_order' })),
 ];
 // Ordenações do WooCommerce (valores de ?orderby=) e o equivalente na Store API.
 const ORDERS = {
@@ -266,11 +267,6 @@ for (const p of raw) {
 
 await save('src/data/product-seo.json', JSON.stringify(seo, null, 1) + '\n');
 
-// Barra lateral original: últimas postagens e categorias do blog (widgets do WordPress).
-const posts = (await (await get(`${API}/wp/v2/posts?per_page=5&_fields=id,title,link,date`)).json()).map((p) => ({ id: p.id, title: decode(p.title.rendered), url: p.link }));
-const blogCategories = (await all('/wp/v2/categories?_fields=id,name,link,count&hide_empty=true'))
-  .map((c) => ({ id: c.id, name: decode(c.name), url: c.link }))
-  .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
 
 await save(
   'src/data/catalog.json',
@@ -281,7 +277,6 @@ await save(
       categories: Object.fromEntries(categories.map((c) => [c.slug, { id: c.id, name: decode(c.name), link: c.link, count: c.count }])),
       listings,
       products,
-      blog: { posts, categories: blogCategories },
     },
     null,
     1,

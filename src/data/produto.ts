@@ -29,4 +29,18 @@ export const BUY = {
   outOfStock: 'Fora de estoque',
   /** Enquanto o produto é adicionado ao carrinho. */
   adding: 'Adicionando ao carrinho…',
+  /** A loja não respondeu (rede, manutenção): o pedido segue pelo WhatsApp, nunca pelo checkout
+   *  antigo do WooCommerce (o site não recebe pagamentos). */
+  storeDown: 'Não foi possível adicionar ao carrinho agora. Você pode pedir o orçamento deste produto direto pelo WhatsApp.',
+  storeDownCta: 'Pedir pelo WhatsApp',
 } as const;
+
+/**
+ * Mensagem de orçamento de um produto pelo WhatsApp (sem JavaScript ou com a loja fora do ar):
+ * produto, opções escolhidas, quantidade e o endereço da página. Nenhum dado pessoal.
+ */
+export function productQuoteText(p: { name: string; url: string; options?: string[]; quantity?: number }) {
+  const opts = p.options?.filter(Boolean).join(', ');
+  const qty = p.quantity && p.quantity > 1 ? `${p.quantity} x ` : '';
+  return `Olá! Vim pelo site e gostaria de um orçamento: ${qty}${p.name}${opts ? ` (${opts})` : ''}. ${p.url}`;
+}

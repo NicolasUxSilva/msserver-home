@@ -5,6 +5,8 @@ import logo from '../assets/brand/msserver-logo.png';
 import certs from '../assets/footer/certificacoes.png';
 import eco from '../assets/footer/projetos-socioambientais.png';
 import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
+// Ano atual (no build; o navegador atualiza se a virada do ano chegar antes de um novo build).
+const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
@@ -75,7 +77,7 @@ import { CONTACT, FOOTER_MENU, LINKS, SOCIAL } from '../config/site';
   </div>
   <div class="container">
     <div class="footer-bottom">
-      <p>{CONTACT.copyright}</p>
+      <p>© <span data-year>{year}</span> MSServer. Todos os direitos reservados.</p>
     </div>
   </div>
 </footer>

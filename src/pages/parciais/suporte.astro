@@ -1,0 +1,107 @@
+---
+// Casca das páginas de Suporte (Awesome Support), que continuam no WordPress: o cabeçalho, o rodapé,
+// a abertura e a área de conteúdo deste site, com marcadores que o plugin wordpress/msserver-suporte
+// substitui no servidor (wp_head, título, texto, conteúdo do Awesome Support e wp_footer). Não é uma
+// página do site: sai do build em /parciais/suporte/ só para o empacotamento do plugin
+// (scripts/package-suporte.mjs) e fica fora do roteamento e do sitemap.
+import '../../styles/catalog-hero.css';
+import '../../styles/suporte.css';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppFab from '../../components/WhatsAppFab.astro';
+import Icon from '../../components/Icon.astro';
+import { CONTACT, LINKS, ROUTES, whatsappUrl } from '../../config/site';
+
+// Abas do suporte: os endereços das páginas do Awesome Support no WordPress (mesmo domínio).
+const TABS = [
+  { label: 'Entrar', href: '/obter-suporte/', icon: 'log-in' },
+  { label: 'Enviar chamado', href: '/enviar-chamado/', icon: 'send' },
+  { label: 'Meus chamados', href: '/meus-chamados/', icon: 'list-checks' },
+];
+---
+
+<Base title="Suporte - MSSERVER" description="" canonical="https://msserver.com.br/obter-suporte/" robots="noindex, nofollow" schema={[]}>
+  <meta slot="head" name="msserver-wp-head" />
+  <Header current={LINKS.support} />
+  <main id="conteudo" class="sup" data-sup>
+    <section class="cat-hero sup-hero dark-surface on-dark" aria-labelledby="sup-title">
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="dark-surface__hatch"></div>
+        <div class="cat-light"></div>
+      </div>
+      <div class="container cat-hero-inner">
+        <nav class="cat-crumbs" aria-label="Você está em">
+          <ol>
+            <li><a href={ROUTES.home}>Início</a></li>
+            <li><a href="/obter-suporte/">Suporte</a></li>
+            <li><span aria-current="page">%%MS_TITULO%%</span></li>
+          </ol>
+        </nav>
+        <h1 id="sup-title" class="cat-title">%%MS_TITULO%%</h1>
+        <p class="sup-lead">%%MS_INTRO%%</p>
+        <nav class="sup-tabs" aria-label="Suporte">
+          <ul>
+            {
+              TABS.map((t) => (
+                <li>
+                  <a href={t.href} data-sup-tab>
+                    <Icon name={t.icon} size={17} />
+                    {t.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <div class="container sup-layout">
+      <div class="sup-content" data-sup-content>%%MS_CONTEUDO%%</div>
+      <aside class="sup-aside" aria-labelledby="sup-aside-title">
+        <div class="sup-aside-card">
+          <h2 id="sup-aside-title" class="sup-aside-title">Precisa de ajuda agora?</h2>
+          <p>Fale com a equipe da MSSERVER pelos canais de atendimento.</p>
+          <a class="btn btn--dark" href={whatsappUrl()} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="suporte">
+            <Icon name="whatsapp" size={18} />
+            Falar no WhatsApp
+          </a>
+          <ul class="sup-contacts">
+            {
+              CONTACT.phones.map((p) => (
+                <li>
+                  <Icon name="phone" size={16} />
+                  <a href={`tel:${p.e164}`}>{p.display}</a>
+                </li>
+              ))
+            }
+            {
+              CONTACT.emails.map((e) => (
+                <li>
+                  <Icon name="mail" size={16} />
+                  <a href={`mailto:${e}`}>{e}</a>
+                </li>
+              ))
+            }
+            <li>
+              <Icon name="clock" size={16} />
+              <span>{CONTACT.hours}</span>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <Footer />
+  <WhatsAppFab />
+  <script is:inline type="text/plain" data-msserver-wp-footer></script>
+</Base>
+
+<script>
+  // Aba atual: a página do suporte em que a pessoa está (as páginas são do WordPress).
+  const path = location.pathname.replace(/\/?$/, '/');
+  document.querySelectorAll<HTMLAnchorElement>('[data-sup-tab]').forEach((a) => {
+    if (new URL(a.href).pathname === path) a.setAttribute('aria-current', 'page');
+  });
+</script>

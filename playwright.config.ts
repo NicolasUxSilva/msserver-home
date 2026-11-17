@@ -10,7 +10,7 @@ export default defineConfig({
   reporter: [['list']],
   use: { baseURL: `http://localhost:${PORT}`, trace: 'retain-on-failure', launchOptions },
   webServer: {
-    command: `node node_modules/astro/bin/astro.mjs build && exec node scripts/serve-dist.mjs ${PORT}`,
+    command: `node node_modules/astro/bin/astro.mjs build && node scripts/landing-cloud.mjs && exec node scripts/serve-dist.mjs ${PORT}`,
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,

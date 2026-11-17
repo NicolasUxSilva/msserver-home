@@ -1,0 +1,422 @@
+/* ——— Suporte (páginas do Awesome Support no WordPress, com a identidade do site) ———
+   Abertura azul-marinho com as abas (Entrar, Enviar chamado, Meus chamados), o conteúdo do Awesome
+   Support num cartão claro e, ao lado, os canais de atendimento. As regras com prefixo .wpas
+   vestem a marcação do próprio Awesome Support (formulários, botões, avisos, tabela de chamados e
+   respostas) com os componentes do site — os campos e botões seguem os dos formulários de soluções.
+   Usado pela casca src/pages/parciais/suporte.astro, aplicada pelo plugin wordpress/msserver-suporte. */
+
+.sup-hero {
+  padding-bottom: clamp(3.75rem, 3rem + 2vw, 4.75rem);
+}
+
+.sup-lead {
+  max-width: 62ch;
+  color: var(--c-on-dark-2);
+}
+
+.sup-tabs ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sup-tabs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 1px solid var(--c-line-dark-2);
+  border-radius: 999px;
+  color: var(--c-on-dark);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-1) var(--ease-out),
+    border-color var(--dur-1) var(--ease-out);
+}
+
+.sup-tabs a:hover {
+  border-color: rgb(255 255 255 / 0.45);
+  background: rgb(255 255 255 / 0.08);
+}
+
+.sup-tabs a[aria-current='page'] {
+  border-color: #fff;
+  background: #fff;
+  color: var(--c-indigo-900);
+}
+
+.sup-layout {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: clamp(-2.25rem, -1.6rem - 1.2vw, -1.25rem);
+  padding-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+}
+
+@media (min-width: 1040px) {
+  .sup-layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+  }
+}
+
+.sup-content {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1.25rem, 0.75rem + 2vw, 2.5rem);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-1);
+}
+
+.sup-aside-card {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1.35rem;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-paper);
+}
+
+.sup-aside-title {
+  font-size: 1.1rem;
+}
+
+.sup-aside-card > p {
+  color: var(--c-ink-2);
+  font-size: 0.93rem;
+}
+
+.sup-aside-card .btn {
+  width: 100%;
+}
+
+.sup-contacts {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.92rem;
+}
+
+.sup-contacts li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  color: var(--c-ink-2);
+}
+
+.sup-contacts svg {
+  flex: none;
+  margin-top: 0.15rem;
+  color: var(--c-orange-text);
+}
+
+.sup-contacts a {
+  color: var(--c-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--c-line-2);
+  text-underline-offset: 3px;
+}
+
+/* ——— Marcação do Awesome Support ——— */
+.sup-content .wpas {
+  color: var(--c-ink);
+  font-size: 1rem;
+}
+
+.sup-content .wpas h3 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+}
+
+/* Entrar | Criar conta: lado a lado no desktop, separados por uma linha. */
+.sup-content .wpas-login-register {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 860px) {
+  .sup-content .wpas-login-register {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .sup-content .wpas-login-register > form + form {
+    padding-left: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    border-left: 1px solid var(--c-line);
+  }
+
+  .sup-content .wpas-login-register > form:first-child {
+    padding-right: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+}
+
+.sup-content .wpas-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.sup-content .wpas-form-group {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.sup-content .wpas-form-group > label,
+.sup-content .wpas-form label:not(.wpas-checkbox label) {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.sup-content .wpas-form-control,
+.sup-content .wpas input[type='text'],
+.sup-content .wpas input[type='email'],
+.sup-content .wpas input[type='password'],
+.sup-content .wpas input[type='search'],
+.sup-content .wpas select,
+.sup-content .wpas textarea {
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  padding: 0.6rem 1rem;
+  border: 1.5px solid var(--c-line-2);
+  border-radius: 12px;
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font: inherit;
+  font-size: 1rem;
+  transition:
+    border-color var(--dur-1) var(--ease-out),
+    box-shadow var(--dur-1) var(--ease-out);
+}
+
+.sup-content .wpas textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.sup-content .wpas-form-control:hover,
+.sup-content .wpas input:hover,
+.sup-content .wpas select:hover,
+.sup-content .wpas textarea:hover {
+  border-color: var(--c-ink-3);
+}
+
+.sup-content .wpas-form-control:focus,
+.sup-content .wpas input:focus,
+.sup-content .wpas select:focus,
+.sup-content .wpas textarea:focus {
+  border-color: var(--c-indigo-600);
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(61 58 134 / 0.16);
+}
+
+.sup-content .wpas-checkbox label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sup-content .wpas-checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--c-indigo-600);
+}
+
+/* Botões: o principal escuro, como os do site. */
+.sup-content .wpas-btn,
+.sup-content .wpas button[type='submit'],
+.sup-content .wpas input[type='submit'] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 50px;
+  padding: 0 1.4rem;
+  border: 1px solid var(--c-ink);
+  border-radius: var(--r-sm, 10px);
+  background: var(--c-ink);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-1) var(--ease-out),
+    border-color var(--dur-1) var(--ease-out),
+    transform var(--dur-1) var(--ease-out);
+}
+
+.sup-content .wpas-btn:hover,
+.sup-content .wpas button[type='submit']:hover {
+  background: var(--c-indigo-800);
+  border-color: var(--c-indigo-800);
+}
+
+.sup-content .wpas-btn:active {
+  transform: scale(0.98);
+}
+
+.sup-content .wpas-btn:focus-visible,
+.sup-content .wpas a:focus-visible {
+  outline: 3px solid var(--c-orange);
+  outline-offset: 2px;
+}
+
+.sup-content .wpas-form > .wpas-btn {
+  justify-self: start;
+}
+
+.sup-content .wpas-forgot-password-link {
+  justify-self: start;
+  color: var(--c-indigo-600);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Botões do topo das páginas logadas (Meus chamados, Abrir um chamado, Sair). */
+.sup-content .wpas-ticket-buttons-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.sup-content .wpas-ticket-buttons-top .wpas-btn {
+  min-height: 42px;
+  padding: 0 1rem;
+  border-color: var(--c-line-2);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font-size: 0.92rem;
+}
+
+.sup-content .wpas-ticket-buttons-top .wpas-btn:hover {
+  border-color: var(--c-ink);
+  background: var(--c-paper);
+}
+
+/* Avisos */
+.sup-content .wpas-alert {
+  margin-bottom: 1.25rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--c-line);
+  border-left: 4px solid var(--c-indigo-600);
+  border-radius: 12px;
+  background: var(--c-info-bg, #eef1fb);
+  font-size: 0.95rem;
+}
+
+.sup-content .wpas-alert-danger,
+.sup-content .wpas-alert-error {
+  border-left-color: var(--c-danger);
+  background: var(--c-danger-bg);
+  color: var(--c-danger);
+}
+
+.sup-content .wpas-alert-success {
+  border-left-color: var(--c-success);
+  background: var(--c-success-bg);
+}
+
+.sup-content .wpas-alert-warning {
+  border-left-color: var(--c-warning, #b7791f);
+  background: var(--c-warning-bg, #fff7e6);
+}
+
+.sup-content .wpas-alert a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Tabela de chamados (rola na horizontal no celular, sem empurrar a página). */
+.sup-content .wpas-ticket-list,
+.sup-content .wpas-ticket-details {
+  overflow-x: auto;
+}
+
+.sup-content .wpas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.sup-content .wpas-table th,
+.sup-content .wpas-table td {
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid var(--c-line);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.sup-content .wpas-table th {
+  color: var(--c-ink-3);
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sup-content .wpas-table tbody tr:hover {
+  background: var(--c-paper);
+}
+
+.sup-content .wpas-table a {
+  color: var(--c-ink);
+  font-weight: 600;
+}
+
+.sup-content .wpas-label,
+.sup-content [class*='wpas-label-status'],
+.sup-content [class*='wpas-status-'] {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* Respostas de um chamado */
+.sup-content .wpas-reply-single,
+.sup-content .wpas-ticket-replies > * {
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.sup-content .wpas-reply-meta,
+.sup-content .wpas-timestamp,
+.sup-content .wpas-human-date {
+  color: var(--c-ink-3);
+  font-size: 0.85rem;
+}
+
+.sup-content .wpas-profilename {
+  font-weight: 600;
+}
+
+.sup-content .wpas-reply-content {
+  margin-top: 0.5rem;
+  line-height: 1.65;
+}
+
+/* O Click to Chat do WordPress não aparece aqui: a página já tem o WhatsApp do site. */
+.ht-ctc,
+#ht-ctc-chat,
+.ht_ctc_chat_greetings_box {
+  display: none !important;
+}

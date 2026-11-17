@@ -2,14 +2,19 @@ import { ADDED_KEY, addItem, decodeEntities, getCart, money, removeItem, StoreEr
 import { track } from './analytics';
 import { guardFab } from './fab-guard';
 import { totalsHtml, type TotalsText } from './cart-totals';
+import { productQuoteText } from '../data/produto';
 
 // Carrinho no navegador: lê o carrinho da Store API do WooCommerce (a mesma sessão da finalização de
 // compra) e permite mudar quantidades e remover itens; os totais são sempre os que o WooCommerce
 // devolve. Também atende aos links "adicionar ao carrinho" do catálogo (/carrinho/?add-to-cart=ID).
+// O site não recebe pagamentos: com a loja fora do ar, a página mostra o aviso e o pedido pelo
+// WhatsApp; nenhum caminho daqui leva ao checkout do WooCommerce.
 
 type Config = {
   products: Record<string, { path: string; image: string | null; srcset: string | null }>;
-  routes: { cart: string; shop: string; checkout: string };
+  byId: Record<string, { name: string; url: string }>;
+  quoteNumber: string;
+  routes: { cart: string; shop: string };
   whatsapp: { number: string; intro: string; totalLabel: string };
   texts: Record<string, string> & TotalsText & { columns: Record<string, string> };
 };
@@ -27,6 +32,8 @@ export function initCart() {
   const notices = root.querySelector<HTMLElement>('[data-cart-notices]')!;
   const live = root.querySelector<HTMLElement>('[data-cart-live]')!;
   const whatsapp = root.querySelector<HTMLAnchorElement>('[data-cart-whatsapp]')!;
+  const downWhatsapp = root.querySelector<HTMLAnchorElement>('[data-cart-unavailable-whatsapp]');
+  const downDefault = downWhatsapp?.href ?? '';
   let cart: Cart | null = null;
   let viewed = false;
 
@@ -155,26 +162,36 @@ export function initCart() {
   };
 
   // ——— Carga (e "adicionar ao carrinho" vindo do catálogo) ———
+  // Produto a adicionar (link do catálogo). Fica guardado até a loja responder: "Tentar de novo"
+  // repete a adição depois de uma falha de conexão.
+  const start = new URL(location.href);
+  let pending = Number(start.searchParams.get('variation_id') || start.searchParams.get('add-to-cart'))
+    ? { id: Number(start.searchParams.get('variation_id') || start.searchParams.get('add-to-cart')), qty: Math.max(1, Number(start.searchParams.get('quantity')) || 1) }
+    : null;
+  if (start.searchParams.has('add-to-cart')) history.replaceState(null, '', cfg.routes.cart);
+
   const load = async () => {
     setState('loading');
-    const url = new URL(location.href);
-    const add = Number(url.searchParams.get('variation_id') || url.searchParams.get('add-to-cart'));
-    const qty = Math.max(1, Number(url.searchParams.get('quantity')) || 1);
-    if (url.searchParams.has('add-to-cart')) history.replaceState(null, '', cfg.routes.cart);
+    const add = pending?.id ?? 0;
+    const qty = pending?.qty ?? 1;
     try {
       if (add) {
         try {
           const c = await addItem(add, qty);
+          pending = null;
           const item = c.items.find((i) => i.id === add);
           if (item) notify('success', fill(T.added, nameOf(item)));
           render(c);
           return;
         } catch (e) {
-          // Sem a loja neste endereço: o WooCommerce do WordPress adiciona e mostra a finalização.
+          // Loja fora do ar: aviso e o pedido deste produto pelo WhatsApp.
           if (e instanceof StoreUnavailable) {
-            location.replace(`${cfg.routes.checkout}?add-to-cart=${add}&quantity=${qty}`);
+            const p = cfg.byId[String(add)];
+            if (p && downWhatsapp) downWhatsapp.href = `https://wa.me/${cfg.quoteNumber}?text=${encodeURIComponent(productQuoteText({ name: p.name, url: p.url, quantity: qty }))}`;
+            setState('unavailable');
             return;
           }
+          pending = null;
           if (e instanceof StoreError) notify('error', e.message);
           else throw e;
         }
@@ -264,7 +281,10 @@ export function initCart() {
     if (input) setQuantity(input.closest('.cart-item')!, Number(input.value) || 1, '.cart-qty input');
   });
 
-  root.querySelector('[data-cart-retry]')!.addEventListener('click', load);
+  root.querySelector('[data-cart-retry]')!.addEventListener('click', () => {
+    if (downWhatsapp) downWhatsapp.href = downDefault;
+    load();
+  });
   // O WhatsApp flutuante não cobre o total nem os botões de compra.
   guardFab(() => [...root.querySelectorAll('.cart-actions, .cart-remove, .cart-qty-field')]);
   load();

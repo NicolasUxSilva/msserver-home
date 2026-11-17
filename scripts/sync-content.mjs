@@ -1,8 +1,7 @@
-// Atualiza o conteúdo dinâmico da home a partir do WordPress/WooCommerce de msserver.com.br:
-//  - produtos das abas "Nossa linha" (Store API do WooCommerce), com as mesmas IDs e a
-//    mesma ordem exibidas hoje na home do WordPress;
-//  - as 3 postagens mais recentes do blog (REST API do WordPress).
-// Fotos de produto e imagens destacadas são baixadas para src/assets/ e otimizadas no build.
+// Atualiza os produtos das abas "Nossa linha" da home a partir do WooCommerce de msserver.com.br
+// (Store API), com as mesmas IDs e a mesma ordem exibidas na home do WordPress. As fotos são
+// baixadas para src/assets/products/ e otimizadas no build. (As postagens da home vêm do blog:
+// scripts/sync-blog.mjs.)
 // Uso: npm run sync
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -91,40 +90,6 @@ async function products() {
   await save('src/data/products.json', JSON.stringify({ fetchedAt: new Date().toISOString(), tabs: TABS, products: out }, null, 2) + '\n');
 }
 
-async function commentsLabel(postId) {
-  const res = await get(`${API}/wp/v2/comments?post=${postId}&per_page=1`);
-  const n = Number(res.headers.get('x-wp-total') || 0);
-  return n === 0 ? 'No Comments' : n === 1 ? 'One Comment' : `${n} Comments`;
-}
-
-async function posts() {
-  const list = await (await get(`${API}/wp/v2/posts?per_page=3&_embed=wp:featuredmedia`)).json();
-  const out = [];
-  for (const p of list) {
-    const media = p._embedded?.['wp:featuredmedia']?.[0];
-    let image = null;
-    if (media?.source_url) {
-      const raw = Buffer.from(await (await get(media.source_url)).arrayBuffer());
-      image = `post-${p.id}.jpg`;
-      await save(`src/assets/posts/${image}`, await sharp(raw).resize({ width: 1400, withoutEnlargement: true }).jpeg({ quality: 82, mozjpeg: true }).toBuffer());
-    }
-    out.push({
-      id: p.id,
-      date: p.date,
-      url: p.link,
-      title: decode(p.title.rendered),
-      excerpt: decode(p.excerpt.rendered).replace(/\s*…$/, ''),
-      image,
-      imageAlt: media?.alt_text || decode(p.title.rendered),
-      // Mesmo texto do widget de posts do Elementor usado na home atual.
-      comments: await commentsLabel(p.id),
-    });
-    console.log('  ✓ post', p.id, out.at(-1).title);
-  }
-  await save('src/data/posts.json', JSON.stringify({ fetchedAt: new Date().toISOString(), posts: out }, null, 2) + '\n');
-}
 
 console.log('Produtos');
 await products();
-console.log('Postagens');
-await posts();

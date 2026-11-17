@@ -103,7 +103,21 @@ async function call<T>(path: string, init: { method?: 'GET' | 'POST'; body?: unk
     if (res.status === 404 && !code.startsWith('woocommerce')) throw new StoreUnavailable('Loja indisponível.');
     throw new StoreError(decodeEntities(String(data?.message ?? 'Não foi possível concluir.')), code, res.status);
   }
+  // Toda resposta do carrinho informa a quantidade de itens ao contador do cabeçalho.
+  if (data && typeof data === 'object' && typeof (data as Cart).items_count === 'number') announceCount((data as Cart).items_count);
   return data as T;
+}
+
+/** Contador do carrinho (cabeçalho): evento com a quantidade de itens, guardada para a próxima página. */
+export const CART_COUNT_KEY = 'msserver:cart-count';
+export const CART_COUNT_EVENT = 'msserver:cart-count';
+export function announceCount(count: number) {
+  try {
+    localStorage.setItem(CART_COUNT_KEY, String(count));
+  } catch {
+    /* armazenamento indisponível: o contador vale só nesta página */
+  }
+  window.dispatchEvent(new CustomEvent(CART_COUNT_EVENT, { detail: count }));
 }
 
 export const getCart = () => call<Cart>('/cart');

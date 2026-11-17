@@ -1,11 +1,16 @@
 import { track } from './analytics';
+import { initHeaderSearch } from './header-search';
+import { initCartBadge } from './cart-badge';
 
-/** Comportamentos gerais da página (mesma base das landings): header, menus, busca, entradas e rastreamento. */
+/** Comportamentos gerais da página (mesma base das landings): header, menus, busca, carrinho, entradas e rastreamento. */
 export function initPage() {
   initHeader();
   initSubmenus();
   initMobileMenu();
   initSearchToggle();
+  initHeaderSearch();
+  initCartBadge();
+  initFooterYear();
   initReveal();
   initTracking();
   initFloatingWhatsApp();
@@ -239,6 +244,12 @@ function initTracking() {
     if (!el) return;
     track(el.dataset.track!, { location: el.dataset.trackLocation });
   });
+}
+
+/** Ano do rodapé: o do build é atualizado no navegador (o site pode passar a virada do ano sem novo build). */
+function initFooterYear() {
+  const y = String(new Date().getFullYear());
+  document.querySelectorAll<HTMLElement>('[data-year]').forEach((el) => el.textContent !== y && (el.textContent = y));
 }
 
 /** Botão flutuante de WhatsApp: visível desde o início, como o Click to Chat do WordPress; entra com uma transição curta. */

@@ -1,0 +1,208 @@
+---
+// Listagem do blog (/blog/, /blog/page/N/) e de uma categoria (/category/slug/, /page/N/), no sistema
+// visual do catálogo: abertura azul-marinho com a trilha, o título e a contagem; navegação entre as
+// categorias; busca nos artigos; grade de cartões (a postagem mais recente em destaque na primeira
+// página) e paginação com 12 postagens por página, como no WordPress. Conteúdo e datas vêm do
+// WordPress (src/data/blog.json).
+import '../../styles/catalog-hero.css';
+import '../../styles/catalog.css';
+import '../../styles/blog.css';
+import Base from '../../layouts/Base.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import WhatsAppFab from '../WhatsAppFab.astro';
+import Icon from '../Icon.astro';
+import PostCard from './PostCard.astro';
+import BlogCta from './BlogCta.astro';
+import { LINKS, ROUTES, SITE, blogCategoryRoute } from '../../config/site';
+import { CATEGORIES, PER_PAGE, categoryOf, listingUrl, pagesFor, postsIn } from '../../data/blog';
+import { pageItems } from '../../lib/catalog-shared';
+
+interface Props {
+  category?: string;
+  page: number;
+}
+
+const { category, page } = Astro.props;
+const cat = category ? categoryOf(category)! : undefined;
+const list = postsIn(category);
+const pages = pagesFor(list);
+const start = (page - 1) * PER_PAGE;
+const visible = list.slice(start, start + PER_PAGE);
+const title = cat ? cat.name : 'Blog';
+// "Sem categoria" (o padrão do WordPress) não é um assunto: fica fora da navegação, mas a página
+// continua existindo no mesmo endereço.
+const navCats = CATEGORIES.filter((c) => c.slug !== 'sem-categoria');
+
+// SEO: o título publicado do All in One SEO ("Blog - MSSERVER", "Servidores - MSSERVER"), com a
+// página quando houver. Endereço próprio (canonical) em cada página da listagem.
+const seoTitle = `${title}${page > 1 ? ` – Página ${page}` : ''} - MSSERVER`;
+const canonical = `${SITE.origin}${cat ? `/category/${cat.slug}/` : '/blog/'}${page > 1 ? `page/${page}/` : ''}`;
+const description = cat
+  ? `Artigos do blog da MSSERVER em ${cat.name}: ${cat.count} ${cat.count === 1 ? 'publicação' : 'publicações'} sobre servidores, infraestrutura de TI e data center.`
+  : `Blog da MSSERVER: ${list.length} artigos sobre servidores Dell, HP e IBM, infraestrutura de TI, nuvem, backup e data center para empresas.`;
+
+const crumbs = [
+  { label: 'Início', href: ROUTES.home },
+  { label: 'Blog', href: cat || page > 1 ? ROUTES.blog : undefined },
+  ...(cat ? [{ label: cat.name, href: page > 1 ? blogCategoryRoute(cat.slug) : undefined }] : []),
+  ...(page > 1 ? [{ label: `Página ${page}`, href: undefined }] : []),
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: seoTitle,
+  url: canonical,
+  isPartOf: { '@type': 'WebSite', name: SITE.ogSiteName, url: SITE.canonical },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: `${SITE.origin}/` },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE.origin}/blog/` },
+      ...(cat ? [{ '@type': 'ListItem', position: 3, name: cat.name, item: `${SITE.origin}/category/${cat.slug}/` }] : []),
+    ],
+  },
+};
+---
+
+<Base title={seoTitle} description={description} canonical={canonical} schema={schema}>
+  <Header current={LINKS.blog} />
+  <main id="conteudo" class="blog" data-blog data-blog-index={`${ROUTES.blog}busca.json`}>
+    <section class="cat-hero dark-surface on-dark" aria-labelledby="blog-title">
+      <div class="dark-surface__bg" aria-hidden="true">
+        <div class="dark-surface__hatch"></div>
+        <div class="cat-light"></div>
+      </div>
+      <div class="container cat-hero-inner">
+        <nav class="cat-crumbs" aria-label="Você está em">
+          <ol>
+            {crumbs.map((c, i) => <li>{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current={i === crumbs.length - 1 ? 'page' : undefined}>{c.label}</span>}</li>)}
+          </ol>
+        </nav>
+        <div class="cat-head">
+          <h1 id="blog-title" class="cat-title">{title}</h1>
+          <p class="cat-sub">
+            <b>{list.length}</b> {list.length === 1 ? 'artigo' : 'artigos'}
+          </p>
+        </div>
+        <p class="blog-lead">Conteúdo técnico da MSSERVER sobre servidores, infraestrutura de TI, nuvem e continuidade operacional.</p>
+        {
+          navCats.length > 0 && (
+            <nav class="cat-brands" aria-label="Categorias do blog">
+              <ul>
+                <li>
+                  <a class="cat-brand" href={ROUTES.blog} aria-current={!cat ? 'page' : undefined}>
+                    Todos
+                    <span class="cat-brand-count" aria-label={`${postsIn().length} artigos`}>
+                      {postsIn().length}
+                    </span>
+                  </a>
+                </li>
+                {navCats.map((c) => (
+                  <li>
+                    <a class="cat-brand" href={blogCategoryRoute(c.slug)} aria-current={cat?.slug === c.slug ? 'page' : undefined}>
+                      {c.name}
+                      <span class="cat-brand-count" aria-label={`${c.count} ${c.count === 1 ? 'artigo' : 'artigos'}`}>
+                        {c.count}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )
+        }
+      </div>
+    </section>
+
+    <section class="cat-body blog-body" aria-labelledby="blog-resultados">
+      <div class="container">
+        {/* Busca em todos os artigos do blog (no navegador, sobre o índice /blog/busca.json). Sem
+            JavaScript, a listagem continua navegável pela paginação. */}
+        <div class="cat-tools blog-tools">
+          <form class="cat-search" action={ROUTES.blog} method="get" role="search" data-blog-search>
+            <label class="sr-only" for="blog-q">Buscar no blog</label>
+            <Icon name="search" size={20} />
+            <input id="blog-q" name="busca" type="search" placeholder="Buscar artigos por assunto, modelo ou termo" autocomplete="off" enterkeyhint="search" data-blog-q />
+            <button class="cat-clear" type="button" aria-label="Limpar busca" hidden data-blog-clear>
+              <Icon name="x" size={18} />
+            </button>
+          </form>
+        </div>
+
+        <div class="cat-status">
+          <h2 id="blog-resultados" class="cat-count" tabindex="-1" data-blog-count>
+            {pages > 1 ? `Página ${page} de ${pages} · ${list.length} artigos` : `${list.length} ${list.length === 1 ? 'artigo' : 'artigos'}`}
+          </h2>
+        </div>
+        <p class="sr-only" aria-live="polite" data-blog-live></p>
+
+        <ul class:list={['bp-grid', page === 1 && 'bp-grid--lead']} data-blog-grid>
+          {visible.map((p, i) => <PostCard post={p} lead={page === 1 && i === 0} priority={i < 3} />)}
+        </ul>
+
+        {/* Resultados da busca (preenchidos no navegador). */}
+        <ul class="bp-grid bp-grid--results" hidden data-blog-results></ul>
+        <div class="cat-empty" hidden data-blog-empty>
+          <Icon name="package-search" size={40} />
+          <h3>Nenhum artigo encontrado</h3>
+          <p data-blog-empty-text>Nenhum artigo corresponde a esta busca.</p>
+          <div class="cat-empty-actions">
+            <button class="btn btn--outline" type="button" data-blog-reset>
+              <Icon name="x" size={18} />
+              Limpar busca
+            </button>
+          </div>
+        </div>
+
+        <nav class="cat-pages" aria-label="Paginação" hidden={pages <= 1} data-blog-pages>
+          {page > 1 ? (
+            <a class="cat-step" href={listingUrl(category, page - 1)} rel="prev" aria-label="Página anterior">
+              <Icon name="chevron-left" size={18} />
+              <span>Anterior</span>
+            </a>
+          ) : (
+            <span class="cat-step is-disabled" aria-hidden="true">
+              <Icon name="chevron-left" size={18} />
+              <span>Anterior</span>
+            </span>
+          )}
+          {pageItems(page, pages).map((it) =>
+            it.type === 'gap' ? (
+              <span class="cat-gap" aria-hidden="true">
+                …
+              </span>
+            ) : (
+              <a href={listingUrl(category, it.n)} aria-label={`Página ${it.n}`} aria-current={it.n === page ? 'page' : undefined}>
+                {it.n}
+              </a>
+            ),
+          )}
+          {page < pages ? (
+            <a class="cat-step" href={listingUrl(category, page + 1)} rel="next" aria-label="Próxima página">
+              <span>Próxima</span>
+              <Icon name="chevron-right" size={18} />
+            </a>
+          ) : (
+            <span class="cat-step is-disabled" aria-hidden="true">
+              <span>Próxima</span>
+              <Icon name="chevron-right" size={18} />
+            </span>
+          )}
+          <p class="cat-pages-info">
+            Página {page} de {pages}
+          </p>
+        </nav>
+      </div>
+    </section>
+
+    <BlogCta />
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Base>
+
+<script>
+  import { initBlogSearch } from '../../scripts/blog';
+  initBlogSearch();
+</script>
