@@ -1,0 +1,118 @@
+---
+// Landing de Servidores Físicos, integrada ao site (docs/LANDINGS.md).
+// Origem: repositório NicolasUxSilva/landins-servidores-fisicos, commit a8439e1 (a versão aprovada,
+// publicada hoje no WordPress em /servidores-fisicos/). As seções, a ordem, os textos, as imagens, os
+// CTAs e o botão flutuante são os da landing, sem alteração (src/components/landings/). O cabeçalho, o
+// rodapé, o layout (SEO, fontes, consentimento) e os scripts gerais (menu, entradas, cliques medidos)
+// são os do site, no lugar dos da landing.
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+import Hero from '../../components/landings/servidores-fisicos/Hero.astro';
+import ClientLogos from '../../components/landings/ClientLogos.astro';
+import OfertaFisicos from '../../components/landings/servidores-fisicos/OfertaFisicos.astro';
+import Differentiators from '../../components/landings/servidores-fisicos/Differentiators.astro';
+import Catalog from '../../components/landings/servidores-fisicos/Catalog.astro';
+import Process from '../../components/landings/servidores-fisicos/Process.astro';
+import Proof from '../../components/landings/servidores-fisicos/Proof.astro';
+import Faq from '../../components/landings/servidores-fisicos/Faq.astro';
+import FinalCta from '../../components/landings/servidores-fisicos/FinalCta.astro';
+import '../../styles/landings/landing.css';
+import { ROUTES } from '../../config/site';
+import { CONTACT, SITE, SOCIAL, WA, whatsappUrl } from '../../data/landings/servidores-fisicos/site';
+import { FAQ } from '../../data/landings/servidores-fisicos/content';
+
+const wa = whatsappUrl(WA.general);
+
+// Dados estruturados da landing (os mesmos do layout original: organização e perguntas frequentes).
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'MSSERVER',
+    url: SITE.origin,
+    logo: 'https://msserver.com.br/wp-content/uploads/2025/08/cropped-MS-Server_Cloud-1-scaled-1-e1755871178311.png',
+    email: CONTACT.emailCommercial,
+    telephone: CONTACT.phoneE164,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: CONTACT.address.street,
+      addressLocality: CONTACT.address.city,
+      addressRegion: CONTACT.address.region,
+      addressCountry: CONTACT.address.country,
+    },
+    contactPoint: [
+      { '@type': 'ContactPoint', contactType: 'sales', telephone: CONTACT.phoneE164, email: CONTACT.emailCommercial, areaServed: 'BR', availableLanguage: 'Portuguese' },
+    ],
+    sameAs: SOCIAL.map((s) => s.url),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+
+<Base title={SITE.title} description={SITE.description} canonical={SITE.canonical} robots="index, follow, max-image-preview:large" ogImage={SITE.ogImage} schema={schema}>
+  <Fragment slot="head">
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+  </Fragment>
+  <Header current={ROUTES.servidoresFisicos} />
+  <main id="conteudo" class="lp lp--servidores-fisicos">
+    <Hero />
+    <ClientLogos />
+    <OfertaFisicos number="01" />
+    <Differentiators number="02" />
+    <Catalog number="03" />
+    <Process number="04" />
+    <Proof number="05" />
+    <Faq number="06" />
+    <FinalCta />
+  </main>
+  <Footer />
+  <aside aria-label="Atendimento pelo WhatsApp">
+    <a class="wa-fab" href={wa} target="_blank" rel="noopener" aria-label="Falar com um especialista no WhatsApp" data-lp-fab data-track="contact_whatsapp_click" data-track-location="flutuante">
+      <Icon name="whatsapp" size={26} />
+    </a>
+  </aside>
+</Base>
+
+<script>
+  import { initLandingFab } from '../../scripts/landings/fab';
+  initLandingFab();
+</script>
+
+<style>
+  .wa-fab {
+    position: fixed;
+    right: clamp(1rem, 0.6rem + 1.5vw, 1.75rem);
+    bottom: calc(clamp(1rem, 0.6rem + 1.5vw, 1.75rem) + env(safe-area-inset-bottom));
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #1faa53;
+    color: #fff;
+    box-shadow: 0 12px 30px -10px rgb(0 0 0 / 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(16px) scale(0.9);
+    transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out), visibility 0s linear 0.25s;
+  }
+
+  .wa-fab:global(.is-visible) {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .wa-fab:hover {
+    background: #189548;
+  }
+</style>

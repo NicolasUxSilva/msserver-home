@@ -1,0 +1,162 @@
+---
+// Ilustração técnica original de um ambiente de Cloud: máquinas virtuais em um
+// cluster espelhado, ligadas ao escritório (VPN) e à internet. Mesma linguagem
+// visual da ilustração de servidor da landing de servidores dedicados.
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+const vms = [
+  { x: 96, label: 'VM 01', bars: [0.72, 0.48, 0.6] },
+  { x: 268, label: 'VM 02', bars: [0.4, 0.82, 0.35] },
+  { x: 440, label: 'VM 03', bars: [0.58, 0.3, 0.76] },
+];
+const ledDelay = [0.3, 1.5, 0.9];
+---
+
+<svg class:list={['cloud-illustration', className]} viewBox="0 0 720 300" fill="none" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="cld-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2964" />
+      <stop offset="1" stop-color="#1a1944" />
+    </linearGradient>
+    <linearGradient id="cld-vm" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2e2c6c" />
+      <stop offset="1" stop-color="#211f52" />
+    </linearGradient>
+    <linearGradient id="cld-sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0" />
+      <stop offset="0.5" stop-color="#fff" stop-opacity="0.14" />
+      <stop offset="1" stop-color="#fff" stop-opacity="0" />
+    </linearGradient>
+    <pattern id="cld-dots" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="7" cy="7" r="1" fill="#ffffff" fill-opacity="0.08" />
+    </pattern>
+    <radialGradient id="cld-shadow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#000" stop-opacity="0.5" />
+      <stop offset="1" stop-color="#000" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="360" cy="196" rx="320" ry="10" fill="url(#cld-shadow)" />
+
+  <!-- Contorno da nuvem (cluster) -->
+  <path
+    d="M96 186 H624 C668 186 700 156 700 118 C700 82 672 54 636 52 C626 22 596 6 562 10 C540 -6 500 -4 480 16 C452 -2 410 2 392 28 C372 12 340 14 324 34 C302 20 268 26 256 50 C236 44 210 52 200 70 C176 58 140 62 126 86 C92 86 64 110 64 140 C64 166 78 186 96 186 Z"
+    fill="url(#cld-body)"
+    stroke="#ffffff"
+    stroke-opacity="0.14"
+  />
+  <path
+    d="M96 186 H624 C668 186 700 156 700 118 C700 82 672 54 636 52 C626 22 596 6 562 10 C540 -6 500 -4 480 16 C452 -2 410 2 392 28 C372 12 340 14 324 34 C302 20 268 26 256 50 C236 44 210 52 200 70 C176 58 140 62 126 86 C92 86 64 110 64 140 C64 166 78 186 96 186 Z"
+    fill="url(#cld-dots)"
+  />
+  <rect x="120" y="185" width="480" height="1.5" fill="url(#cld-sheen)" />
+
+  <!-- Máquinas virtuais -->
+  {
+    vms.map((vm, i) => (
+      <g>
+        <rect x={vm.x} y="78" width="152" height="88" rx="8" fill="url(#cld-vm)" stroke="#ffffff" stroke-opacity="0.1" />
+        <circle class="cld-led cld-led--blink" cx={vm.x + 16} cy="94" r="2.6" fill={i === 1 ? '#f98305' : '#4fd8a0'} style={`animation-delay:${ledDelay[i]}s`} />
+        <text x={vm.x + 26} y="98" fill="#bcb9cf" font-family="JetBrains Mono Variable, ui-monospace, monospace" font-size="10" letter-spacing="1">{vm.label}</text>
+        {['CPU', 'RAM', 'DISCO'].map((k, j) => (
+          <g>
+            <text x={vm.x + 14} y={121 + j * 15} fill="#918da9" font-family="JetBrains Mono Variable, ui-monospace, monospace" font-size="8" letter-spacing="0.8">{k}</text>
+            <rect x={vm.x + 50} y={115 + j * 15} width="88" height="6" rx="3" fill="#0f0e2c" />
+            <rect class="cld-bar" x={vm.x + 50} y={115 + j * 15} width={88 * vm.bars[j]} height="6" rx="3" fill={j === 0 ? '#4eb3f4' : j === 1 ? '#8f8ce0' : '#4fd8a0'} style={`animation-delay:${(i * 3 + j) * 0.35}s`} />
+          </g>
+        ))}
+      </g>
+    ))
+  }
+
+  <!-- Espelhamento entre as máquinas -->
+  <path d="M248 122 H268 M420 122 H440" stroke="#4eb3f4" stroke-opacity="0.6" stroke-width="1.4" stroke-dasharray="3 3" />
+
+  <!-- Ligações: escritório (VPN) e internet -->
+  <path class="cld-link" d="M220 186 V232 C220 244 212 252 200 252 H148" stroke="#4eb3f4" stroke-width="1.6" stroke-linecap="round" />
+  <path class="cld-link cld-link--b" d="M500 186 V232 C500 244 508 252 520 252 H572" stroke="#f98305" stroke-width="1.6" stroke-linecap="round" />
+
+  <g>
+    <rect x="28" y="232" width="120" height="40" rx="8" fill="#141336" stroke="#ffffff" stroke-opacity="0.12" />
+    <path d="M44 262 V246 L52 242 L60 246 V262 M64 262 V250 H74 V262 M42 262 H78" stroke="#bcb9cf" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="86" y="250" fill="#f4f3f8" font-family="JetBrains Mono Variable, ui-monospace, monospace" font-size="9" letter-spacing="0.8">ESCRITÓRIO</text>
+    <text x="86" y="263" fill="#918da9" font-family="JetBrains Mono Variable, ui-monospace, monospace" font-size="8" letter-spacing="0.8">VPN</text>
+  </g>
+  <g>
+    <rect x="572" y="232" width="120" height="40" rx="8" fill="#141336" stroke="#ffffff" stroke-opacity="0.12" />
+    <circle cx="594" cy="252" r="9" stroke="#bcb9cf" stroke-width="1.4" />
+    <path d="M585 252 H603 M594 243 C590 248 590 256 594 261 C598 256 598 248 594 243" stroke="#bcb9cf" stroke-width="1.2" />
+    <text x="610" y="250" fill="#f4f3f8" font-family="JetBrains Mono Variable, ui-monospace, monospace" font-size="9" letter-spacing="0.8">INTERNET</text>
+    <text x="610" y="263" fill="#918da9" font-family="JetBrains Mono Variable, ui-monospace, monospace" font-size="8" letter-spacing="0.8">IX.BR</text>
+  </g>
+
+  <!-- Estado do cluster -->
+  <rect x="300" y="38" width="120" height="22" rx="11" fill="#0b0a20" stroke="#4fd8a0" stroke-opacity="0.35" />
+  <circle class="cld-led cld-led--steady" cx="314" cy="49" r="3" fill="#4fd8a0" />
+  <text x="324" y="53" fill="#bcb9cf" font-family="JetBrains Mono Variable, ui-monospace, monospace" font-size="9" letter-spacing="1">ESPELHADO</text>
+</svg>
+
+<style>
+  .cloud-illustration {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cld-led--blink {
+      animation: cld-blink 2.8s steps(1, end) infinite;
+    }
+
+    .cld-link {
+      stroke-dasharray: 6 10;
+      animation: cld-flow 1.6s linear infinite;
+    }
+
+    .cld-link--b {
+      animation-direction: reverse;
+    }
+
+    .cld-bar {
+      transform-box: fill-box;
+      transform-origin: left center;
+      animation: cld-load 4.8s var(--ease-in-out) infinite alternate;
+    }
+  }
+
+  @keyframes cld-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    12% {
+      opacity: 0.25;
+    }
+    18% {
+      opacity: 1;
+    }
+    54% {
+      opacity: 0.35;
+    }
+    58% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes cld-flow {
+    to {
+      stroke-dashoffset: -32;
+    }
+  }
+
+  @keyframes cld-load {
+    from {
+      transform: scaleX(0.78);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+</style>

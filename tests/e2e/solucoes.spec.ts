@@ -282,7 +282,7 @@ test.describe('soluções: vídeo, menu e navegação', () => {
   const SOLUCOES = [
     ['Soluções Cloud', '/solucoes-cloud/'],
     ['Nuvem Privada', '/nuvem-privada/'],
-    ['Servidores Físicos', 'https://msserver.com.br/servidores-fisicos/'],
+    ['Servidores Físicos', '/servidores-fisicos/'],
     ['Extensão de Garantia', '/extencao-de-garantia/'],
     ['Backup em Nuvem', '/backup-em-nuvem/'],
     ['Consultoria', '/consultoria-em-implantacao-de-servidores/'],

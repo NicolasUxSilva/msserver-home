@@ -1,0 +1,244 @@
+---
+import Icon from '../../Icon.astro';
+import { SUPPORT_SPLIT } from '../../../data/landings/solucoes-cloud/content';
+import { whatsappUrl } from '../../../data/landings/solucoes-cloud/site';
+import { GENERAL_MESSAGE } from '../../../scripts/landings/cloud-simulator/summary';
+
+const wa = whatsappUrl(GENERAL_MESSAGE);
+---
+
+<section class="section" id="apoio" aria-labelledby="apoio-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow"><b>02</b> Apoio</p>
+        <h2 id="apoio-title">Você não precisa cuidar de toda a infraestrutura sozinho</h2>
+      </div>
+      <p>
+        Você conhece a operação, os sistemas e as prioridades da empresa. A MSSERVER entra com a estrutura Cloud e com uma equipe especializada para dimensionar, implantar, migrar e acompanhar o ambiente.
+      </p>
+    </div>
+
+    <div class="split">
+      <article class="split-card" data-reveal>
+        <header class="split-head">
+          <span class="split-tag">Com a sua TI</span>
+          <h3>O conhecimento da operação</h3>
+        </header>
+        <ul class="split-list">
+          {
+            SUPPORT_SPLIT.you.map((it) => (
+              <li>
+                <Icon name={it.icon} size={20} />
+                <span>{it.text}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+
+      <div class="split-join" aria-hidden="true">
+        <span><Icon name="plus" size={22} /></span>
+      </div>
+
+      <article class="split-card split-card--us on-dark" data-reveal style="--reveal-i:1">
+        <header class="split-head">
+          <span class="split-tag">Com a MSSERVER</span>
+          <h3>A estrutura e a equipe especializada</h3>
+        </header>
+        <ul class="split-list">
+          {
+            SUPPORT_SPLIT.us.map((it) => (
+              <li>
+                <Icon name={it.icon} size={20} />
+                <span>{it.text}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </div>
+
+    <div class="split-note" data-reveal>
+      <span class="icon-tile">
+        <Icon name="clipboard-check" />
+      </span>
+      <div class="split-note-copy">
+        <h3>Avaliação técnica antes de qualquer proposta</h3>
+        <p>
+          A MSSERVER não publica tabela de preços de Cloud nem faz cotação automática. Arquitetura e valores saem da análise do seu ambiente, feita com você.
+        </p>
+      </div>
+      <a class="btn btn--primary" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="apoio">
+        <Icon name="whatsapp" class="wa-icon" />
+        Conversar com um especialista
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .split {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 960px) {
+    .split {
+      grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.1fr);
+      align-items: stretch;
+      gap: 1rem;
+    }
+  }
+
+  .split-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+  }
+
+  .split-card--us {
+    border-color: transparent;
+    background:
+      radial-gradient(90% 70% at 100% 0%, rgb(61 58 134 / 0.6), transparent 60%),
+      radial-gradient(70% 60% at 0% 100%, rgb(249 131 5 / 0.14), transparent 60%),
+      var(--c-indigo-950);
+    color: var(--c-on-dark);
+  }
+
+  .split-head {
+    display: grid;
+    gap: 0.85rem;
+    justify-items: start;
+  }
+
+  .split-tag {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--c-line-2);
+    border-radius: 6px;
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-ink-2);
+  }
+
+  .split-card--us .split-tag {
+    border-color: var(--c-line-dark-2);
+    color: var(--c-on-dark-2);
+  }
+
+  .split-head h3 {
+    font-size: var(--t-h3);
+  }
+
+  .split-list {
+    list-style: none;
+    display: grid;
+    border-top: 1px solid var(--c-line);
+  }
+
+  .split-card--us .split-list {
+    border-top-color: var(--c-line-dark);
+  }
+
+  .split-list li {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--c-line);
+    font-size: 0.975rem;
+    line-height: 1.5;
+  }
+
+  .split-card--us .split-list li {
+    border-bottom-color: var(--c-line-dark);
+  }
+
+  .split-list li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .split-list :global(svg) {
+    flex: none;
+    margin-top: 2px;
+    color: var(--c-indigo-600);
+  }
+
+  .split-card--us .split-list :global(svg) {
+    color: var(--c-orange);
+  }
+
+  .split-join {
+    display: grid;
+    place-items: center;
+  }
+
+  .split-join span {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--c-line-2);
+    border-radius: 50%;
+    background: var(--c-paper);
+    color: var(--c-orange-deep);
+  }
+
+  @media (max-width: 959px) {
+    .split-join {
+      margin-block: -1.85rem;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .split-note {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: clamp(1.25rem, 1rem + 0.8vw, 1.75rem);
+    border: 1px solid var(--c-line);
+    border-left: 3px solid var(--c-orange);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+  }
+
+  @media (min-width: 900px) {
+    .split-note {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      column-gap: 1.5rem;
+    }
+  }
+
+  .split-note-copy {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .split-note h3 {
+    font-size: 1.15rem;
+  }
+
+  .split-note p {
+    color: var(--c-ink-2);
+    max-width: 70ch;
+  }
+
+  .split-note .btn {
+    justify-self: start;
+  }
+
+  @media (max-width: 520px) {
+    .split-note .btn {
+      width: 100%;
+    }
+  }
+</style>

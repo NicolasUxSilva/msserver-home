@@ -1,0 +1,212 @@
+---
+import Icon from '../../Icon.astro';
+import { DIFFERENTIATORS } from '../../../data/landings/solucoes-cloud/content';
+
+const { uptime, items, backup } = DIFFERENTIATORS;
+---
+
+<section class="section" id="diferenciais" aria-labelledby="dif-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow"><b>05</b> Diferenciais</p>
+        <h2 id="dif-title">O que sustenta a infraestrutura em operação</h2>
+      </div>
+      <p>Disponibilidade, migração, monitoramento e suporte ficam com a mesma equipe. Itens como backup diário e recursos de rede dedicados entram conforme a necessidade do ambiente.</p>
+    </div>
+
+    <div class="bento">
+      <article class="tile tile--uptime" data-reveal>
+        <div class="uptime-head">
+          <span class="uptime-figure"><strong>99,9%</strong> uptime</span>
+          <Icon name="activity" size={28} />
+        </div>
+        <h3>{uptime.title}</h3>
+        <p>{uptime.text}</p>
+        <div class="uptime-mirror" role="img" aria-label="Duas máquinas espelhadas mantendo o mesmo ambiente">
+          <span class="uptime-node"><i></i>Máquina A</span>
+          <span class="uptime-sync"><Icon name="repeat" size={20} /></span>
+          <span class="uptime-node"><i></i>Máquina B</span>
+        </div>
+        <p class="uptime-note">Percentual informado pela MSSERVER em msserver.com.br. As condições de cada contratação vêm na proposta.</p>
+      </article>
+
+      {
+        items.map((it, i) => (
+          <article class="tile" data-reveal style={`--reveal-i:${(i % 2) + 1}`}>
+            <span class="icon-tile">
+              <Icon name={it.icon} />
+            </span>
+            <h3>{it.title}</h3>
+            <p>{it.text}</p>
+          </article>
+        ))
+      }
+
+      <article class="tile tile--backup" data-reveal>
+        <span class="icon-tile">
+          <Icon name="cloud-upload" />
+        </span>
+        <div class="backup-copy">
+          <h3>{backup.title}</h3>
+          <p>{backup.text}</p>
+        </div>
+        <a class="link backup-link" href={backup.link.href}>{backup.link.label}</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bento {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 720px) {
+    .bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tile--uptime,
+    .tile--backup {
+      grid-column: span 2;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .bento {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .tile--uptime {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .tile--backup {
+      grid-column: span 2;
+    }
+  }
+
+  .tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: clamp(1.5rem, 1.2rem + 0.8vw, 2rem);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+  }
+
+  .tile h3 {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .tile p {
+    color: var(--c-ink-2);
+    font-size: 0.975rem;
+  }
+
+  /* Disponibilidade */
+  .tile--uptime {
+    background:
+      radial-gradient(110% 90% at 100% 0%, var(--c-orange-tint), transparent 60%),
+      var(--c-surface);
+    gap: 1rem;
+  }
+
+  .uptime-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    color: var(--c-orange-deep);
+  }
+
+  .uptime-figure {
+    font-family: var(--f-display);
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--c-ink-2);
+    line-height: 1;
+  }
+
+  .uptime-figure strong {
+    display: inline-block;
+    margin-inline: 0.1em;
+    font-size: clamp(4.5rem, 3rem + 5vw, 7.5rem);
+    font-weight: 600;
+    letter-spacing: -0.06em;
+    color: var(--c-ink);
+    vertical-align: -0.12em;
+  }
+
+  .tile--uptime h3 {
+    font-size: clamp(1.3rem, 1.1rem + 0.6vw, 1.65rem);
+    max-width: 22ch;
+  }
+
+
+  .backup-link {
+    width: fit-content;
+    font-size: 0.95rem;
+  }
+
+  .uptime-figure strong {
+    margin-inline: 0;
+  }
+
+  .uptime-mirror {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+  .uptime-node {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--c-line);
+    border-radius: 10px;
+    background: var(--c-surface);
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-ink-2);
+  }
+
+  .uptime-node i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--c-success);
+    box-shadow: 0 0 0 3px var(--c-success-bg);
+  }
+
+  .uptime-sync {
+    color: var(--c-orange-deep);
+  }
+
+  .uptime-note {
+    font-size: 0.8rem !important;
+    color: var(--c-ink-3) !important;
+  }
+
+  .tile--backup {
+    background:
+      radial-gradient(90% 100% at 100% 100%, var(--c-indigo-100), transparent 65%),
+      var(--c-surface);
+  }
+
+  .backup-copy {
+    display: grid;
+    gap: 0.4rem;
+  }
+</style>

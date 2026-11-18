@@ -17,7 +17,7 @@ const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 export const GET: APIRoute = () => {
   const urls: { loc: string; lastmod?: string }[] = [];
   const add = (path: string, lastmod?: string) => urls.push({ loc: abs(path), lastmod });
-  for (const r of [ROUTES.home, ROUTES.about, ROUTES.quote, ROUTES.cases, ROUTES.cloud, ROUTES.nuvemPrivada, ROUTES.garantia, ROUTES.backup, ROUTES.consultoria]) add(r);
+  for (const r of [ROUTES.home, ROUTES.about, ROUTES.quote, ROUTES.cases, ROUTES.cloud, ROUTES.servidoresFisicos, ROUTES.nuvemPrivada, ROUTES.garantia, ROUTES.backup, ROUTES.consultoria]) add(r);
   if (POLICY.approved) add(ROUTES.privacy);
   for (const k of LISTING_KEYS) {
     add(LISTINGS[k].path);

@@ -1,0 +1,190 @@
+---
+import { Image } from 'astro:assets';
+import team from '../../../assets/landings/photos/equipe-msserver.jpg';
+import { STATS, TESTIMONIALS } from '../../../data/landings/servidores-fisicos/content';
+
+interface Props {
+  number?: string;
+}
+
+const { number = '05' } = Astro.props;
+---
+
+<section class="section section--dark on-dark" id="clientes" aria-labelledby="proof-title">
+  <div class="container">
+    <div class="proof-top">
+      <div class="proof-copy">
+        <p class="eyebrow"><b>{number}</b> Quem atende</p>
+        <h2 id="proof-title">Especialistas de verdade do outro lado</h2>
+        <p class="proof-lead">Servidores sustentam entregas críticas. Por isso o atendimento da MSSERVER trata questões técnicas de forma humana e pró-ativa, do dimensionamento ao pós-venda.</p>
+        <dl class="proof-stats">
+          {
+            STATS.map((s) => (
+              <div>
+                <dt>{s.label}</dt>
+                <dd>{s.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+      <figure class="proof-photo" data-reveal>
+        <Image src={team} alt="Equipe da MSSERVER reunida no escritório, com camisetas da empresa" widths={[640, 960, 1400, 1800]} sizes="(min-width: 1024px) 680px, 100vw" loading="lazy" />
+        <figcaption>Equipe MSSERVER</figcaption>
+      </figure>
+    </div>
+
+    <ul class="quotes" aria-label="Depoimentos de clientes">
+      {
+        TESTIMONIALS.map((t, i) => (
+          <li class="quote" data-reveal style={`--reveal-i:${i % 2}`}>
+            <blockquote>
+              <p>“{t.quote}”</p>
+            </blockquote>
+            <p class="quote-who">
+              <strong>{t.name}</strong>
+              <span>{t.company}</span>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+
+  </div>
+</section>
+
+<style>
+  .proof-top {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .proof-top {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 4rem;
+    }
+  }
+
+  .proof-copy h2 {
+    margin-top: 1.25rem;
+    font-size: var(--t-h2);
+    max-width: 14ch;
+  }
+
+  .proof-lead {
+    margin-top: 1.25rem;
+    color: var(--c-on-dark-2);
+    font-size: var(--t-lead);
+    max-width: 46ch;
+  }
+
+  .proof-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin: 2.25rem 0 0;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--c-line-dark);
+  }
+
+  .proof-stats div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .proof-stats dd {
+    margin: 0;
+    font-family: var(--f-display);
+    font-size: clamp(2.4rem, 1.8rem + 2vw, 3.4rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--c-on-dark);
+  }
+
+  .proof-stats dt {
+    margin-top: 0.4rem;
+    color: var(--c-on-dark-2);
+    font-size: 0.9rem;
+  }
+
+  .proof-photo {
+    position: relative;
+    margin: 0;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    aspect-ratio: 3 / 2;
+    background: var(--c-indigo-900);
+  }
+
+  .proof-photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .proof-photo figcaption {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 8px;
+    background: rgb(14 13 34 / 0.72);
+    backdrop-filter: blur(6px);
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .quotes {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+    margin-top: clamp(3rem, 2rem + 3vw, 4.5rem);
+  }
+
+  @media (min-width: 800px) {
+    .quotes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .quote {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    border: 1px solid var(--c-line-dark);
+    border-radius: var(--r-lg);
+    background: rgb(255 255 255 / 0.03);
+  }
+
+  .quote blockquote {
+    margin: 0;
+  }
+
+  .quote blockquote p {
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: var(--c-on-dark);
+  }
+
+  .quote-who {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.6rem;
+    align-items: baseline;
+    padding-top: 1rem;
+    border-top: 1px solid var(--c-line-dark);
+    font-size: 0.9rem;
+  }
+
+  .quote-who span {
+    color: var(--c-on-dark-3);
+  }
+
+
+</style>

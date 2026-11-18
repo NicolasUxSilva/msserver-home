@@ -1,0 +1,220 @@
+---
+import Icon from '../../Icon.astro';
+import { DIFFERENTIATORS } from '../../../data/landings/servidores-fisicos/content';
+
+interface Props {
+  /** Número do rótulo editorial da seção. */
+  number?: string;
+}
+
+const { number = '02' } = Astro.props;
+const { warranty, items } = DIFFERENTIATORS;
+const years = [1, 2, 3, 4, 5];
+---
+
+<section class="section" id="diferenciais" aria-labelledby="dif-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow"><b>{number}</b> Diferenciais</p>
+        <h2 id="dif-title">Mais que hardware: o que a MSSERVER entrega</h2>
+      </div>
+      <p>Garantia, testes, suporte e projeto ficam com a mesma equipe. Serviços adicionais, como a extensão de garantia, são contratados conforme a necessidade.</p>
+    </div>
+
+    <div class="bento">
+      <article class="tile tile--warranty" data-reveal>
+        <div class="warranty-head">
+          <span class="warranty-figure">até <strong>5</strong> anos</span>
+          <Icon name="shield-check" size={28} />
+        </div>
+        <h3>{warranty.title}</h3>
+        <p>{warranty.text}</p>
+        <div class="warranty-bar" role="img" aria-label="Linha do tempo: 1 ano de garantia padrão e extensão opcional até o 5º ano">
+          {
+            years.map((y) => (
+              <span class:list={['wb-seg', y === 1 ? 'wb-seg--std' : 'wb-seg--ext']}>
+                <em>{y}º ano</em>
+              </span>
+            ))
+          }
+        </div>
+        <div class="warranty-legend" aria-hidden="true">
+          <span><i class="lg lg--std"></i>Garantia padrão</span>
+          <span><i class="lg lg--ext"></i>Extensão opcional (plano Non-Stop)</span>
+        </div>
+        <a class="link warranty-link" href={warranty.link.href}>{warranty.link.label}</a>
+      </article>
+
+      {
+        items.map((it, i) => (
+          <article class="tile" data-reveal style={`--reveal-i:${(i % 2) + 1}`}>
+            <span class="icon-tile">
+              <Icon name={it.icon} />
+            </span>
+            <h3>{it.title}</h3>
+            <p>{it.text}</p>
+          </article>
+        ))
+      }
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .bento {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 720px) {
+    .bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tile--warranty {
+      grid-column: span 2;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .bento {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .tile--warranty {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+  }
+
+  .tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: clamp(1.5rem, 1.2rem + 0.8vw, 2rem);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+  }
+
+  .tile h3 {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .tile p {
+    color: var(--c-ink-2);
+    font-size: 0.975rem;
+  }
+
+  /* Garantia */
+  .tile--warranty {
+    background:
+      radial-gradient(110% 90% at 100% 0%, var(--c-orange-tint), transparent 60%),
+      var(--c-surface);
+    gap: 1rem;
+  }
+
+  .warranty-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    color: var(--c-orange-deep);
+  }
+
+  .warranty-figure {
+    font-family: var(--f-display);
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--c-ink-2);
+    line-height: 1;
+  }
+
+  .warranty-figure strong {
+    display: inline-block;
+    margin-inline: 0.1em;
+    font-size: clamp(4.5rem, 3rem + 5vw, 7.5rem);
+    font-weight: 600;
+    letter-spacing: -0.06em;
+    color: var(--c-ink);
+    vertical-align: -0.12em;
+  }
+
+  .tile--warranty h3 {
+    font-size: clamp(1.3rem, 1.1rem + 0.6vw, 1.65rem);
+    max-width: 22ch;
+  }
+
+  .warranty-bar {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+  .wb-seg {
+    position: relative;
+    height: 40px;
+    border-radius: 6px;
+  }
+
+  .wb-seg em {
+    position: absolute;
+    left: 8px;
+    bottom: 6px;
+    font-family: var(--f-mono);
+    font-size: 0.66rem;
+    font-style: normal;
+    letter-spacing: 0.04em;
+  }
+
+  .wb-seg--std {
+    background: var(--c-indigo-700);
+    color: #fff;
+  }
+
+  .wb-seg--ext {
+    background: repeating-linear-gradient(135deg, rgb(249 131 5 / 0.32) 0 6px, rgb(249 131 5 / 0.14) 6px 12px);
+    color: var(--c-orange-text);
+  }
+
+  .warranty-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    font-size: 0.8rem;
+    color: var(--c-ink-3);
+  }
+
+  .warranty-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .lg {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+
+  .lg--std {
+    background: var(--c-indigo-700);
+  }
+
+  .lg--ext {
+    background: repeating-linear-gradient(135deg, rgb(249 131 5 / 0.5) 0 3px, rgb(249 131 5 / 0.2) 3px 6px);
+  }
+
+  .warranty-link {
+    width: fit-content;
+    font-size: 0.95rem;
+  }
+
+
+</style>

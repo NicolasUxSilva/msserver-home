@@ -56,8 +56,8 @@ test.describe('preservação da home original', () => {
       'https://msserver.com.br/extencao-de-garantia': '/extencao-de-garantia/',
       'https://msserver.com.br/backup-em-nuvem/': '/backup-em-nuvem/',
       'https://msserver.com.br/consultoria-em-implantacao-de-servidores/': '/consultoria-em-implantacao-de-servidores/',
-      'https://msserver.com.br/servidores-dedicados/': 'https://msserver.com.br/servidores-fisicos/',
-      // Soluções Cloud: a landing aprovada, publicada por este build em /solucoes-cloud/ (o banner
+      'https://msserver.com.br/servidores-dedicados/': '/servidores-fisicos/',
+      // Soluções Cloud e Servidores Físicos: as landings aprovadas, integradas ao site (o banner
       // "Nuvem" levava à versão antiga, /solucoes-cloud-msserver/).
       'https://msserver.com.br/solucoes-cloud/': '/solucoes-cloud/',
       'https://msserver.com.br/solucoes-cloud-msserver/': '/solucoes-cloud/',
@@ -291,7 +291,7 @@ test.describe('celular', () => {
     await menu.locator('#m-v-root-0').getByRole('button', { name: 'Voltar' }).click();
     await menu.getByRole('button', { name: 'Soluções', exact: true }).click();
     await expect(menu.getByRole('link', { name: 'Nuvem Privada' })).toBeVisible();
-    await expect(menu.getByRole('link', { name: 'Servidores Físicos' })).toHaveAttribute('href', 'https://msserver.com.br/servidores-fisicos/');
+    await expect(menu.getByRole('link', { name: 'Servidores Físicos' })).toHaveAttribute('href', '/servidores-fisicos/');
     await expect(menu.getByRole('link', { name: 'Aplicativo de Gestão' })).toHaveCount(0);
     await menu.locator('#m-v-root-3').getByRole('button', { name: 'Voltar' }).click();
     await expect(menu.getByRole('link', { name: 'Cases de sucesso' })).toHaveAttribute('href', '/cases-de-sucesso/');

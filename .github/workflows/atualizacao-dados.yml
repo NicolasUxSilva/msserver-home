@@ -33,11 +33,12 @@ jobs:
 
       - run: npm ci
 
-      - name: Sincronizar (home, catálogo e blog)
+      - name: Sincronizar (home, catálogo, blog e landing de Servidores Físicos)
         run: |
           npm run sync
           npm run sync:catalog
           npm run sync:blog
+          npm run sync:servidores-fisicos
 
       - name: Conferir com o publicado
         run: node scripts/validate-data.mjs --online
@@ -57,6 +58,7 @@ jobs:
           CI: '1'
         run: |
           npx astro check
+          npx vitest run
           npx playwright test --trace off --reporter=line
 
       - name: Abrir pull request para aprovação

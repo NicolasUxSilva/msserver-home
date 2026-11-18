@@ -1,0 +1,154 @@
+---
+import Icon from '../../Icon.astro';
+import { CONTACT, whatsappUrl } from '../../../data/landings/solucoes-cloud/site';
+import { GENERAL_MESSAGE } from '../../../scripts/landings/cloud-simulator/summary';
+
+const wa = whatsappUrl(GENERAL_MESSAGE);
+---
+
+<section class="final on-dark" aria-labelledby="final-title">
+  <div class="final-bg" aria-hidden="true"></div>
+  <div class="container final-inner">
+    <h2 id="final-title">Vamos conversar sobre a infraestrutura da sua empresa?</h2>
+    <p data-final-lead>Conte como o ambiente está hoje e o que precisa mudar. A equipe da MSSERVER avalia o cenário com você e indica o caminho, antes de qualquer proposta.</p>
+    <div class="final-actions">
+      <a class="btn btn--primary btn--lg" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="cta-final" data-wa-summary>
+        <Icon name="whatsapp" class="wa-icon" /> <span data-wa-summary-label>Conversar com um especialista</span>
+      </a>
+      <a class="btn btn--outline-dark btn--lg" href="#configurar" data-sim-start data-track="cta_click" data-track-location="cta-final">
+        <span data-final-sim-label>Avaliar minha infraestrutura</span> <Icon name="arrow-right" class="btn-arrow" />
+      </a>
+    </div>
+    <p class="final-saved" data-final-saved hidden>A mensagem do WhatsApp já leva o levantamento que você montou no simulador.</p>
+    <p class="final-meta">
+      <a href={`tel:${CONTACT.phoneE164}`}><Icon name="phone" size={16} /> {CONTACT.phoneDisplay}</a>
+      <a href={`mailto:${CONTACT.emailCommercial}`}><Icon name="mail" size={16} /> {CONTACT.emailCommercial}</a>
+      <span><Icon name="clock" size={16} /> {CONTACT.hours}</span>
+    </p>
+  </div>
+</section>
+
+<script>
+  import { CHANGE_EVENT, loadSaved } from '../../../scripts/landings/cloud-simulator/ui';
+  import { isComplete } from '../../../scripts/landings/cloud-simulator/rules';
+  import { configLines, whatsappMessage } from '../../../scripts/landings/cloud-simulator/summary';
+  import { whatsappUrl } from '../../../data/landings/solucoes-cloud/site';
+
+  type Detail = { complete: boolean; filled: number; message: string };
+
+  // Com uma simulação em andamento, o CTA final leva a configuração para o WhatsApp.
+  function apply({ complete, filled, message }: Detail) {
+    const link = document.querySelector<HTMLAnchorElement>('[data-wa-summary]');
+    const label = document.querySelector<HTMLElement>('[data-wa-summary-label]');
+    const simLabel = document.querySelector<HTMLElement>('[data-final-sim-label]');
+    const saved = document.querySelector<HTMLElement>('[data-final-saved]');
+    if (!link || !label || !simLabel || !saved) return;
+    link.href = whatsappUrl(message);
+    link.dataset.trackLocation = filled > 0 ? 'cta-final-simulacao' : 'cta-final';
+    label.textContent = complete ? 'Enviar o levantamento' : filled > 0 ? 'Falar sobre este ambiente' : 'Conversar com um especialista';
+    simLabel.textContent = complete ? 'Revisar o levantamento' : filled > 0 ? 'Concluir o levantamento' : 'Avaliar minha infraestrutura';
+    saved.hidden = filled === 0;
+  }
+
+  document.addEventListener(CHANGE_EVENT, (e) => apply((e as CustomEvent<Detail>).detail));
+  const restored = loadSaved();
+  if (restored) {
+    const complete = isComplete(restored.state);
+    apply({ complete, filled: configLines(restored.state).length, message: whatsappMessage(restored.state, complete) });
+  }
+</script>
+
+<style>
+  .final {
+    position: relative;
+    padding-block: clamp(4.5rem, 3rem + 5vw, 7.5rem);
+    background: var(--c-indigo-950);
+    color: var(--c-on-dark);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .final-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(60% 90% at 50% 120%, rgb(249 131 5 / 0.28), transparent 70%),
+      radial-gradient(50% 60% at 90% 0%, rgb(61 58 134 / 0.55), transparent 70%);
+  }
+
+  .final-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.45;
+    background-image:
+      repeating-linear-gradient(30deg, rgb(255 255 255 / 0.03) 0 1px, transparent 1px 34px),
+      repeating-linear-gradient(150deg, rgb(255 255 255 / 0.03) 0 1px, transparent 1px 34px);
+    mask-image: radial-gradient(70% 80% at 50% 60%, #000, transparent);
+    -webkit-mask-image: radial-gradient(70% 80% at 50% 60%, #000, transparent);
+  }
+
+  .final-inner {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .final h2 {
+    font-size: clamp(2.1rem, 1.4rem + 2.6vw, 3.6rem);
+    max-width: 20ch;
+  }
+
+  .final-inner > p:not(.final-meta):not(.final-saved) {
+    margin-top: 1.25rem;
+    max-width: 52ch;
+    color: var(--c-on-dark-2);
+    font-size: var(--t-lead);
+  }
+
+  .final-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+  .final-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.75rem;
+    margin-top: 2.25rem;
+    color: var(--c-on-dark-2);
+    font-size: 0.92rem;
+  }
+
+  .final-meta a,
+  .final-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    text-decoration: none;
+  }
+
+  .final-meta a:hover {
+    color: var(--c-on-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .final-saved {
+    margin-top: 1rem;
+    color: var(--c-on-dark-2);
+    font-size: 0.88rem;
+    text-align: center;
+  }
+
+  @media (max-width: 520px) {
+    .final-actions .btn {
+      width: 100%;
+    }
+  }
+</style>

@@ -5,7 +5,9 @@
 //    catálogo geral; imagens de card e de galeria presentes; variações com preço ou indisponíveis;
 //  - blog: slugs únicos e sem colidir com páginas do site; imagem destacada presente; contagem de cada
 //    categoria igual à listagem;
-//  - home: os produtos das abas "Nossa linha" existem no catálogo.
+//  - home: os produtos das abas "Nossa linha" existem no catálogo;
+//  - landing de Servidores Físicos: os modelos em destaque existem no catálogo dela, com preço, e o
+//    "a partir de" de cada um é o mesmo do catálogo do site (os dois vêm do WooCommerce).
 // Com --online: compara com o que está publicado agora (leitura pública, nada é alterado):
 //  - produtos, preços, estoque e slugs da Store API do WooCommerce × catalog.json;
 //  - total de postagens publicadas e a mais recente × blog.json.
@@ -62,6 +64,24 @@ notes.push(`blog: ${blog.posts.length} postagens, a mais recente de ${blog.posts
 // ——— Home ———
 const home = await json('src/data/products.json');
 for (const id of Object.keys(home.products)) if (!catalog.products[id]) fail(`home: produto ${id} das abas não está no catálogo`);
+
+// ——— Landing de Servidores Físicos ———
+// Catálogo próprio da landing (scripts/sync-servidores-fisicos.mjs): os 6 modelos em destaque precisam
+// existir, ter preço e mostrar o mesmo "a partir de" do catálogo do site (preço mínimo das variações).
+{
+  const sf = await json('src/data/landings/servidores-fisicos/catalog.json');
+  const featured = (await readFile(path.join(ROOT, 'src/data/landings/servidores-fisicos/featured.ts'), 'utf8')).match(/\['([a-z0-9-]+)', '[a-z0-9-]+'\]/g)?.map((m) => m.split("'")[1]) ?? [];
+  if (featured.length !== 6) fail(`landing Servidores Físicos: esperados 6 modelos em destaque, encontrados ${featured.length}`);
+  for (const slug of featured) {
+    const m = sf.models.find((x) => x.slug === slug);
+    const site = products.find((p) => p.slug === slug);
+    if (!m || m.minPriceCents === null) fail(`landing Servidores Físicos: modelo em destaque ${slug} sem preço no catálogo da landing`);
+    else if (!site) fail(`landing Servidores Físicos: ${slug} não está no catálogo do site`);
+    else if (Math.round((site.price?.min ?? 0) * 100) !== m.minPriceCents)
+      fail(`landing Servidores Físicos: ${slug} a partir de ${m.minPriceCents / 100} na landing e ${site.price?.min} no site (rode npm run sync:servidores-fisicos)`);
+  }
+  notes.push(`landing Servidores Físicos: ${sf.models.length} modelos, preços de ${sf.fetchedAt.slice(0, 10)}; destaques iguais ao catálogo do site`);
+}
 
 // ——— Comparação com o publicado ———
 if (online) {

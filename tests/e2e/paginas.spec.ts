@@ -7,7 +7,7 @@ import catalog from '../../src/data/catalog.json' with { type: 'json' };
 
 // Páginas novas desta etapa: Cases de sucesso (conteúdo publicado no WordPress, tests/fixtures/
 // original-cases.json), 404, política de privacidade (estrutura, sem texto jurídico), Soluções Cloud
-// (a landing aprovada), robots.txt, sitemap do site, casca do suporte e as categorias Rack, Torre e
+// e Servidores Físicos (as landings integradas), robots.txt, sitemap do site, casca do suporte e as categorias Rack, Torre e
 // Escala Nuvem. Nenhuma requisição sai para a produção.
 test.beforeEach(async ({ page }) => {
   await page.route(/msserver\.com\.br|youtube\.com|ytimg|googletag|facebook|clarity|cloudfront|wa\.me/, (r) => r.abort());
@@ -116,6 +116,7 @@ test.describe('404, privacidade, robots e sitemap', () => {
     const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
     expect(locs).toContain('https://msserver.com.br/');
     expect(locs).toContain('https://msserver.com.br/solucoes-cloud/');
+    expect(locs).toContain('https://msserver.com.br/servidores-fisicos/');
     expect(locs).toContain('https://msserver.com.br/categoria-produto/rack/');
     for (const p of Object.values(catalog.products as Record<string, { slug: string }>)) expect(locs).toContain(`https://msserver.com.br/servidor/${p.slug}/`);
     for (const bad of ['/carrinho/', '/finalizar-compra/', '/politica-de-privacidade/', '/parciais/']) expect(locs.some((l) => l.includes(bad)), bad).toBe(false);
@@ -124,20 +125,25 @@ test.describe('404, privacidade, robots e sitemap', () => {
 });
 
 test.describe('Soluções Cloud, suporte e categorias de formato', () => {
-  test('/solucoes-cloud/: a landing aprovada, com o endereço oficial e os arquivos carregando', async ({ page }) => {
-    const failed: string[] = [];
-    page.on('response', (r) => r.url().includes('/solucoes-cloud/') && r.status() >= 400 && failed.push(r.url()));
-    await page.goto('/solucoes-cloud/');
-    await expect(page).toHaveTitle('Infraestrutura Cloud para a TI da sua Empresa | MSSERVER');
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://msserver.com.br/solucoes-cloud/');
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /index, follow/);
-    // Sem rastreamento próprio (o GTM da landing fica desligado até a decisão sobre consentimento).
-    expect(await page.content()).not.toContain('googletagmanager.com/gtm.js');
-    expect(failed).toEqual([]);
-    // Menu e banner da home levam à landing aprovada.
+  test('landings integradas: Soluções Cloud e Servidores Físicos nas páginas do site, sem rastreamento próprio', async ({ page }) => {
+    // Testes completos de cada landing: solucoes-cloud.spec.ts, solucoes-cloud-simulador.spec.ts e
+    // servidores-fisicos.spec.ts. Aqui: as duas são páginas do site (cabeçalho, rodapé, layout) e
+    // não carregam o GTM próprio das landings (o rastreamento segue o consentimento do site).
+    for (const [path, title] of [
+      ['/solucoes-cloud/', 'Infraestrutura Cloud para a TI da sua Empresa | MSSERVER'],
+      ['/servidores-fisicos/', 'Servidores Físicos para Empresas | Dell, HP e IBM | MSSERVER'],
+    ]) {
+      await page.goto(path);
+      await expect(page).toHaveTitle(title);
+      await expect(page.locator('meta[name="generator"]')).toHaveAttribute('content', /^Astro/);
+      await expect(page.locator('header.site-header nav[aria-label="Menu principal"]')).toHaveCount(1);
+      expect(await page.content()).not.toContain('googletagmanager.com/gtm.js');
+    }
+    // Menu e banner da home levam às landings integradas.
     await page.goto('/');
     expect(await page.locator('a[href="/solucoes-cloud/"]').count()).toBeGreaterThan(0);
-    expect(await page.locator('a[href*="solucoes-cloud-msserver"], a[href="https://msserver.com.br/solucoes-cloud/"]').count()).toBe(0);
+    expect(await page.locator('a[href="/servidores-fisicos/"]').count()).toBeGreaterThan(0);
+    expect(await page.locator('a[href*="solucoes-cloud-msserver"], a[href="https://msserver.com.br/solucoes-cloud/"], a[href="https://msserver.com.br/servidores-fisicos/"]').count()).toBe(0);
   });
 
   test('casca do suporte: marcadores do plugin, fora dos buscadores e da navegação', async ({ page }) => {
@@ -179,7 +185,7 @@ test.describe('nenhum caminho para pagamento', () => {
       for (const e of await readdir(dir, { withFileTypes: true })) {
         const p = path.join(dir, e.name);
         if (e.isDirectory()) await walk(p);
-        else if (/\.(html|js)$/.test(e.name) && !p.includes(`${path.sep}solucoes-cloud${path.sep}`)) files.push(p);
+        else if (/\.(html|js)$/.test(e.name)) files.push(p);
       }
     };
     await walk(dist);

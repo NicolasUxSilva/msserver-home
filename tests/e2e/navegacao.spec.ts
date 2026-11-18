@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 
 // Navegação entre as páginas reconstruídas. Elas se ligam por links internos; as páginas que
-// continuam no WordPress (Suporte, Aplicativo, Servidores Físicos) seguem em msserver.com.br.
+// continuam no WordPress (Suporte, Aplicativo de Gestão) seguem em msserver.com.br.
 // Nenhuma requisição sai para a produção durante os testes.
 test.beforeEach(async ({ page }) => {
   await page.route(/youtube\.com|ytimg|googletag|facebook|clarity|cloudfront|wa\.me|msserver\.com\.br/, (r) => r.abort());
@@ -124,7 +124,7 @@ test('páginas reconstruídas não apontam para as versões antigas; as demais s
     }
     await expect(page.locator('footer').getByRole('link', { name: 'Obter Suporte' })).toHaveAttribute('href', 'https://msserver.com.br/obter-suporte/');
     await expect(page.locator('footer').getByRole('link', { name: 'Blog' })).toHaveAttribute('href', '/blog/');
-    // Nenhum link para o blog, os cases ou a Soluções Cloud antigos do WordPress.
-    expect(hrefs.filter((h) => /^https:\/\/msserver\.com\.br\/(blog\/?|cases-de-sucesso\/|solucoes-cloud(-msserver)?\/)$/.test(h))).toEqual([]);
+    // Nenhum link para o blog, os cases, a Soluções Cloud ou a Servidores Físicos antigos do WordPress.
+    expect(hrefs.filter((h) => /^https:\/\/msserver\.com\.br\/(blog\/?|cases-de-sucesso\/|solucoes-cloud(-msserver)?\/|servidores-fisicos\/)$/.test(h))).toEqual([]);
   }
 });

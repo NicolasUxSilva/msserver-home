@@ -18,8 +18,8 @@ const U = SITE.origin;
 /**
  * Páginas servidas por este projeto: os links entre elas são internos (caminho na raiz do site,
  * respeitando o BASE_PATH do build), para que levem umas às outras em qualquer ambiente. As
- * páginas que continuam no WordPress (Suporte, Minha conta, Aplicativo de Gestão, Servidores
- * Físicos e as landings antigas) seguem com o endereço absoluto de msserver.com.br.
+ * páginas que continuam no WordPress (Suporte, Minha conta, Aplicativo de Gestão e as landings
+ * antigas) seguem com o endereço absoluto de msserver.com.br.
  * Ao reconstruir outra página, acrescente-a aqui e em docs/ROTEAMENTO.md.
  */
 const BASE = (import.meta.env?.BASE_URL ?? '/').replace(/\/$/, '');
@@ -53,9 +53,11 @@ export const ROUTES = {
   garantia: `${BASE}/extencao-de-garantia/`,
   backup: `${BASE}/backup-em-nuvem/`,
   consultoria: `${BASE}/consultoria-em-implantacao-de-servidores/`,
-  /** Landing aprovada de Soluções Cloud (repositório cloud-ms), publicada neste endereço pelo build
-   *  (scripts/landing-cloud.mjs). */
+  /** Landings aprovadas, integradas ao site com o cabeçalho e o rodapé dele (seções e simulador
+   *  vindos dos repositórios cloud-ms e landins-servidores-fisicos, docs/LANDINGS.md), nos endereços
+   *  já publicados. */
   cloud: `${BASE}/solucoes-cloud/`,
+  servidoresFisicos: `${BASE}/servidores-fisicos/`,
   /** Blog: listagem (/blog/, /blog/page/N/), artigos na raiz (/slug/) e categorias (/category/slug/),
    *  os mesmos endereços do WordPress. */
   blog: `${BASE}/blog/`,
@@ -131,15 +133,14 @@ export const NAV: NavLink[] = [
   { label: 'Sobre nós', href: LINKS.about },
   {
     // No WordPress, "Soluções" apenas abre o submenu (href="#"). Uma lista só, na ordem definida
-    // pela MSSERVER. Soluções Cloud é a landing aprovada (publicada por este build em
-    // /solucoes-cloud/); Servidores Físicos é a landing própria já publicada no WordPress. O
-    // Aplicativo de Gestão saiu deste menu por decisão da MSSERVER (18/11/2026); a página
+    // pela MSSERVER. Soluções Cloud e Servidores Físicos são as landings aprovadas, integradas ao
+    // site. O Aplicativo de Gestão saiu deste menu por decisão da MSSERVER (18/11/2026); a página
     // (/aplicativo-ms-server/, no WordPress) continua no ar e com os links da home (LINKS.app).
     label: 'Soluções',
     children: [
       { label: 'Soluções Cloud', href: ROUTES.cloud },
       { label: 'Nuvem Privada', href: ROUTES.nuvemPrivada },
-      { label: 'Servidores Físicos', href: `${U}/servidores-fisicos/` },
+      { label: 'Servidores Físicos', href: ROUTES.servidoresFisicos },
       { label: 'Extensão de Garantia', href: ROUTES.garantia },
       { label: 'Backup em Nuvem', href: ROUTES.backup },
       { label: 'Consultoria', href: ROUTES.consultoria },

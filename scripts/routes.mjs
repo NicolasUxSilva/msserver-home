@@ -1,5 +1,5 @@
 // Lista de rotas do site novo para o roteamento de produção (docs/ROTEAMENTO.md). Roda depois do build
-// (e da landing de Soluções Cloud) e grava em dist/_rotas/:
+// e grava em dist/_rotas/:
 //  - rotas.txt: cada endereço de página servido por este build (um por linha), para conferência;
 //  - nginx-rotas.map: as mesmas rotas no formato de um "map" do nginx ($uri → 1; /carrinho/ → 2, o
 //    único que aceita ?add-to-cart=), incluído pela configuração de produção. Endereços fora da lista
@@ -29,14 +29,14 @@ async function walk(dir, rel) {
 await walk(DIST, '/');
 routes.sort();
 files.sort();
-if (!routes.includes('/') || !routes.includes('/solucoes-cloud/')) throw new Error('Build incompleto: falta a home ou a landing de Soluções Cloud (rode npm run build).');
+for (const must of ['/', '/solucoes-cloud/', '/servidores-fisicos/']) if (!routes.includes(must)) throw new Error(`Build incompleto: falta ${must} (rode npm run build).`);
 
 await mkdir(OUT, { recursive: true });
 await writeFile(path.join(OUT, 'rotas.txt'), [...routes, ...files].join('\n') + '\n');
 const q = (s) => `"${s.replace(/"/g, '\\"')}"`;
 const lines = [
   '# Gerado por scripts/routes.mjs — não edite. Rotas GET servidas pelo site novo (1); /carrinho/ (2) aceita ?add-to-cart=.',
-  `# ${routes.length} páginas e ${files.length} arquivos; arquivos de /_astro/ e /solucoes-cloud/_astro/ têm location própria.`,
+  `# ${routes.length} páginas e ${files.length} arquivos; os arquivos de /_astro/ têm location própria.`,
   ...routes.map((r) => `${q(r)} ${r === '/carrinho/' ? 2 : 1};`),
   ...files.map((f) => `${q(f)} 1;`),
 ];

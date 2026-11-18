@@ -94,7 +94,6 @@ const req = (method, url, { port = PORT, host = 'msserver.com.br' } = {}) =>
 const origin = (res) => (res.headers['x-msserver-origem'] === 'site-novo' ? 'novo' : res.status === 200 && res.body === 'wordpress\n' ? 'wp' : `${res.status}`);
 
 const astro = (await readdir(path.join(DIST, '_astro'))).find((f) => f.endsWith('.js'));
-const cloudAstro = (await readdir(path.join(DIST, 'solucoes-cloud', '_astro')).catch(() => [])).find((f) => /\.(js|css)$/.test(f));
 const blog = JSON.parse(await readFile(path.join(ROOT, 'src', 'data', 'blog.json'), 'utf8')).posts[0].slug;
 
 // [método, endereço, esperado ('novo' | 'wp' | status), descrição]
@@ -127,8 +126,11 @@ const CASES = [
   ['GET', '/minha-conta/', 'wp', 'conta'],
   ['GET', '/obter-suporte/', 'wp', 'suporte'],
   ['GET', '/aplicativo-ms-server/', 'wp', 'Aplicativo de Gestão'],
-  ['GET', '/servidores-fisicos/', 'wp', 'landing Servidores Físicos'],
-  ['GET', '/solucoes-cloud/', 'novo', 'Soluções Cloud (landing aprovada)'],
+  ['GET', '/servidores-fisicos/', 'novo', 'Servidores Físicos (landing integrada)'],
+  ['GET', '/servidores-fisicos/?utm_source=google&gclid=1', 'novo', 'Servidores Físicos com parâmetros de campanha'],
+  ['GET', '/solucoes-cloud/', 'novo', 'Soluções Cloud (landing integrada)'],
+  ['GET', '/og-servidores-dedicados.jpg', 'novo', 'imagem de compartilhamento da landing'],
+  ['GET', '/servidores-dedicados/', 'wp', 'Servidores Dedicados (página do WordPress)'],
   ['GET', '/cloud-privada/', 'wp', 'landing antiga (sem redirecionamento ativo)'],
   ['GET', '/blog/', 'novo', 'blog'],
   ['GET', '/blog/page/2/', 'novo', 'blog, página 2'],
@@ -173,7 +175,7 @@ try {
   check(/<meta name="generator" content="Astro/.test(home.body), 'a home servida é a do build (meta generator Astro)');
   check(/application\/json/.test((await req('GET', '/busca.json')).headers['content-type'] ?? ''), '/busca.json com Content-Type application/json');
   // Arquivos com hash: cache longo e os cabeçalhos de segurança (o add_header da location não apaga os do server).
-  for (const f of [`/_astro/${astro}`, cloudAstro && `/solucoes-cloud/_astro/${cloudAstro}`].filter(Boolean)) {
+  for (const f of [`/_astro/${astro}`]) {
     const a = await req('GET', f);
     check(a.status === 200 && /immutable/.test(a.headers['cache-control'] ?? ''), `${f} → ${a.status}, cache longo`);
     check(a.headers['x-content-type-options'] === 'nosniff' && !!a.headers['strict-transport-security'], `${f}: cabeçalhos de segurança presentes`);

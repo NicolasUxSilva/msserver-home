@@ -1,0 +1,125 @@
+---
+// Landing de Soluções Cloud, integrada ao site (docs/LANDINGS.md).
+// Origem: repositório NicolasUxSilva/cloud-ms, commit 3199d6f (a versão aprovada em
+// cloud-ms-beige.vercel.app). As seções, a ordem, os textos, as imagens, o simulador, os CTAs e o
+// botão flutuante são os da landing, sem alteração (src/components/landings/ e
+// src/scripts/landings/cloud-simulator/). O cabeçalho, o rodapé, o layout (SEO, fontes,
+// consentimento) e os scripts gerais (menu, entradas, cliques medidos) são os do site, no lugar dos da
+// landing. Até a etapa anterior, esta página era o build da landing copiado para dist/solucoes-cloud/.
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+import Hero from '../../components/landings/solucoes-cloud/Hero.astro';
+import ClientLogos from '../../components/landings/ClientLogos.astro';
+import Challenges from '../../components/landings/solucoes-cloud/Challenges.astro';
+import Support from '../../components/landings/solucoes-cloud/Support.astro';
+import Solutions from '../../components/landings/solucoes-cloud/Solutions.astro';
+import Simulator from '../../components/landings/solucoes-cloud/Simulator.astro';
+import Differentiators from '../../components/landings/solucoes-cloud/Differentiators.astro';
+import Process from '../../components/landings/solucoes-cloud/Process.astro';
+import Proof from '../../components/landings/solucoes-cloud/Proof.astro';
+import Faq from '../../components/landings/solucoes-cloud/Faq.astro';
+import FinalCta from '../../components/landings/solucoes-cloud/FinalCta.astro';
+import '../../styles/landings/landing.css';
+import '../../styles/landings/cloud-simulator.css';
+import { ROUTES } from '../../config/site';
+import { CONTACT, SITE, SOCIAL, whatsappUrl } from '../../data/landings/solucoes-cloud/site';
+import { FAQ } from '../../data/landings/solucoes-cloud/content';
+import { GENERAL_MESSAGE } from '../../scripts/landings/cloud-simulator/summary';
+
+const wa = whatsappUrl(GENERAL_MESSAGE);
+
+// Dados estruturados da landing (os mesmos do layout original: organização e perguntas frequentes).
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'MSSERVER',
+    url: SITE.origin,
+    logo: 'https://msserver.com.br/wp-content/uploads/2025/08/cropped-MS-Server_Cloud-1-scaled-1-e1755871178311.png',
+    email: CONTACT.emailCommercial,
+    telephone: CONTACT.phoneE164,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: CONTACT.address.street,
+      addressLocality: CONTACT.address.city,
+      addressRegion: CONTACT.address.region,
+      addressCountry: CONTACT.address.country,
+    },
+    contactPoint: [
+      { '@type': 'ContactPoint', contactType: 'sales', telephone: CONTACT.phoneE164, email: CONTACT.emailCommercial, areaServed: 'BR', availableLanguage: 'Portuguese' },
+    ],
+    sameAs: SOCIAL.map((s) => s.url),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+
+<Base title={SITE.title} description={SITE.description} canonical={SITE.canonical} robots="index, follow, max-image-preview:large" ogImage={SITE.ogImage} schema={schema}>
+  <Fragment slot="head">
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+  </Fragment>
+  <Header current={ROUTES.cloud} />
+  <main id="conteudo" class="lp lp--solucoes-cloud">
+    <Hero />
+    <ClientLogos />
+    <Challenges />
+    <Support />
+    <Solutions />
+    <Simulator />
+    <Differentiators />
+    <Process />
+    <Proof />
+    <Faq />
+    <FinalCta />
+  </main>
+  <Footer />
+  <aside aria-label="Atendimento pelo WhatsApp">
+    <a class="wa-fab" href={wa} target="_blank" rel="noopener" aria-label="Conversar com um especialista no WhatsApp" data-lp-fab data-track="contact_whatsapp_click" data-track-location="flutuante">
+      <Icon name="whatsapp" size={26} />
+    </a>
+  </aside>
+</Base>
+
+<script>
+  import { initLandingFab } from '../../scripts/landings/fab';
+  initLandingFab();
+</script>
+
+<style>
+  .wa-fab {
+    position: fixed;
+    right: clamp(1rem, 0.6rem + 1.5vw, 1.75rem);
+    bottom: calc(clamp(1rem, 0.6rem + 1.5vw, 1.75rem) + env(safe-area-inset-bottom));
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #1faa53;
+    color: #fff;
+    box-shadow: 0 12px 30px -10px rgb(0 0 0 / 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(16px) scale(0.9);
+    transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out), visibility 0s linear 0.25s;
+  }
+
+  .wa-fab:global(.is-visible) {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .wa-fab:hover {
+    background: #189548;
+  }
+</style>

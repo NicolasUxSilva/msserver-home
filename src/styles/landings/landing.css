@@ -1,0 +1,68 @@
+/* ——— Landings integradas (Servidores Físicos e Soluções Cloud) ———
+   As seções das landings foram feitas sobre o global.css, que é o mesmo do site. O site.css
+   (camada do site, carregada em todas as páginas) muda alguns padrões desse global: rótulos
+   (.eyebrow) em Inter com a linha animada, sombra no botão principal, fundo branco e elevação no
+   botão de contorno, botões que encolhem ao clicar e o foco arredondado. Aqui, só dentro do
+   conteúdo das landings (<main class="lp">), esses pontos voltam a ser exatamente os do global.css,
+   como nas versões aprovadas. O cabeçalho e o rodapé ficam fora de .lp e seguem o site.
+
+   :where(.lp) não soma especificidade: cada regra tem a mesma força da regra do site.css que ela
+   desfaz e vale por vir depois (este arquivo é importado pela página, depois do layout). Assim, os
+   estilos próprios de cada seção da landing continuam ganhando, como no original. */
+
+/* Botões (global.css: sem sombra extra, contorno transparente, sem elevação no contorno). */
+:where(.lp) .btn:active {
+  transform: none;
+  transition-duration: 0.18s;
+}
+
+:where(.lp) .btn--primary {
+  box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.12);
+}
+
+:where(.lp) .btn--primary:hover {
+  box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.12);
+}
+
+:where(.lp) .btn--primary:active {
+  transform: translateY(0);
+}
+
+:where(.lp) .btn--outline {
+  background: transparent;
+}
+
+:where(.lp) .btn--outline:hover {
+  transform: none;
+  border-color: var(--c-ink);
+  background: rgb(27 24 32 / 0.04);
+  box-shadow: none;
+}
+
+/* Foco (global.css: raio de 6px; laranja sobre fundo escuro). */
+:where(.lp) .btn:focus-visible {
+  border-radius: 6px;
+}
+
+:where(.lp) .on-dark .btn--primary:focus-visible {
+  outline-color: var(--c-orange);
+}
+
+/* Rótulos editoriais (global.css: JetBrains Mono, linha fixa). */
+:where(.lp) .eyebrow {
+  font-family: var(--f-mono);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+:where(.lp) .eyebrow b {
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js :where(.lp) [data-reveal] .eyebrow::after,
+  .js :where(.lp) .eyebrow[data-reveal]::after {
+    transform: none;
+    transition: none;
+  }
+}
