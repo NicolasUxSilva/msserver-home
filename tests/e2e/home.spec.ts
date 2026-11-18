@@ -292,6 +292,7 @@ test.describe('celular', () => {
     await menu.getByRole('button', { name: 'Soluções', exact: true }).click();
     await expect(menu.getByRole('link', { name: 'Nuvem Privada' })).toBeVisible();
     await expect(menu.getByRole('link', { name: 'Servidores Físicos' })).toHaveAttribute('href', 'https://msserver.com.br/servidores-fisicos/');
+    await expect(menu.getByRole('link', { name: 'Aplicativo de Gestão' })).toHaveCount(0);
     await menu.locator('#m-v-root-3').getByRole('button', { name: 'Voltar' }).click();
     await expect(menu.getByRole('link', { name: 'Cases de sucesso' })).toHaveAttribute('href', '/cases-de-sucesso/');
     await expect(menu.getByRole('link', { name: 'Blog' })).toHaveAttribute('href', '/blog/');

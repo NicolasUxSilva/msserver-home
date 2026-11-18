@@ -132,14 +132,14 @@ export const NAV: NavLink[] = [
   {
     // No WordPress, "Soluções" apenas abre o submenu (href="#"). Uma lista só, na ordem definida
     // pela MSSERVER. Soluções Cloud é a landing aprovada (publicada por este build em
-    // /solucoes-cloud/); Servidores Físicos é a landing própria já publicada no WordPress; o
-    // Aplicativo de Gestão continua na página atual do WordPress.
+    // /solucoes-cloud/); Servidores Físicos é a landing própria já publicada no WordPress. O
+    // Aplicativo de Gestão saiu deste menu por decisão da MSSERVER (18/11/2026); a página
+    // (/aplicativo-ms-server/, no WordPress) continua no ar e com os links da home (LINKS.app).
     label: 'Soluções',
     children: [
       { label: 'Soluções Cloud', href: ROUTES.cloud },
       { label: 'Nuvem Privada', href: ROUTES.nuvemPrivada },
       { label: 'Servidores Físicos', href: `${U}/servidores-fisicos/` },
-      { label: 'Aplicativo de Gestão', href: `${U}/aplicativo-ms-server/` },
       { label: 'Extensão de Garantia', href: ROUTES.garantia },
       { label: 'Backup em Nuvem', href: ROUTES.backup },
       { label: 'Consultoria', href: ROUTES.consultoria },

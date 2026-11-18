@@ -283,17 +283,18 @@ test.describe('soluções: vídeo, menu e navegação', () => {
     ['Soluções Cloud', '/solucoes-cloud/'],
     ['Nuvem Privada', '/nuvem-privada/'],
     ['Servidores Físicos', 'https://msserver.com.br/servidores-fisicos/'],
-    ['Aplicativo de Gestão', 'https://msserver.com.br/aplicativo-ms-server/'],
     ['Extensão de Garantia', '/extencao-de-garantia/'],
     ['Backup em Nuvem', '/backup-em-nuvem/'],
     ['Consultoria', '/consultoria-em-implantacao-de-servidores/'],
   ];
 
-  test('menu Soluções: os sete itens, na ordem, com os destinos (desktop e celular)', async ({ page, isMobile }) => {
+  // O Aplicativo de Gestão saiu do menu Soluções (18/11/2026); a página continua no ar e na home.
+  test('menu Soluções: os seis itens, na ordem, com os destinos (desktop e celular)', async ({ page, isMobile }) => {
     await page.goto('/nuvem-privada/');
     const header = page.locator('header.site-header');
     await expect(header).not.toContainText('Servidores Dedicados');
     await expect(header).not.toContainText('Servidores em Nuvem');
+    await expect(header).not.toContainText('Aplicativo de Gestão');
     if (isMobile) {
       await page.getByRole('button', { name: 'Abrir menu' }).click();
       const menu = page.locator('#menu-movel');
