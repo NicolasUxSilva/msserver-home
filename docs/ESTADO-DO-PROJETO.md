@@ -107,7 +107,27 @@ Estes problemas vêm da auditoria (P25) e foram mantidos por decisão de escopo:
 | Sincronização e validação dos dados | Pronta | `validate-data --online` em 17/11/2026: 74 produtos, 160 variações, 51 postagens |
 | Roteamento nginx | **Exemplo testado localmente** (64/64), não aplicado | `npm run test:nginx` |
 
-## 5. Testes e medições (17/11/2026)
+## 5. Testes e medições
+
+### 5.0 Depois da integração das landings (18/11/2026)
+
+| Verificação | Resultado |
+| --- | --- |
+| `astro check` | 0 erros, 0 avisos, 0 dicas |
+| `npm run build` | OK: 176 páginas e 9 arquivos na lista de rotas |
+| `npm run test:unit` (vitest) | 28 de 28: os testes de unidade dos dois repositórios das landings |
+| `npm run test:e2e` | 211 testes × 2 telas = 422 execuções: **403 passaram, 0 falharam, 19 pulados** |
+| `npm run test:nginx` (nginx 1.24) | 65 de 65, com `/servidores-fisicos/` servida pelo site novo |
+| `npm run build:suporte` | OK |
+| `validate-data` | OK, com os preços em destaque da landing de Servidores Físicos iguais aos do catálogo do site |
+| Comparação com os originais | 80 seções idênticas pixel a pixel (390, 768, 1024 e 1440 px). Estados de hover de 22 botões e 14 rótulos idênticos (`docs/LANDINGS.md`, seção 4). |
+
+**Os 19 pulados:** os 16 da tabela abaixo, mais 3 testes só de celular, pulados no desktop:
+- o menu móvel do site na landing de Servidores Físicos;
+- o menu móvel do site na landing de Cloud;
+- a barra fixa e o resumo em folha do simulador.
+
+### 5.1 Etapa de conclusão (17/11/2026)
 
 ### Suíte E2E
 
