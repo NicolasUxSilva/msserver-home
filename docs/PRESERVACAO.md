@@ -173,6 +173,11 @@ pontos, que passou de 3 para 4).
   `src/assets/hero/slide-4-mobile.webp` (941 × 1672, só celular e telas em pé). Chegaram como
   WebP, no mesmo tamanho dos outros banners; para usar os PNG originais, basta colocá-los na mesma
   pasta com o mesmo nome (`slide-4-desktop.png`, `slide-4-mobile.png`) e apagar os WebP.
+  **18/11/2026:** a arte do desktop foi trocada, a pedido da MSSERVER, pela foto do servidor com placas
+  de GPU, com o mesmo modelo (logo, palavra "LOCAÇÃO" na mesma posição, 1713 × 918, WebP enviado,
+  sem alteração). A arte do celular continua a mesma. O texto alternativo passou a servir às duas
+  ("Servidores sob a palavra “Locação”, em fundo azul escuro"). O teste que garante que o texto não
+  cobre a palavra nem os servidores usa as áreas medidas na foto nova.
 - **Copy:** título "Potência para IA. / Sua infraestrutura por locação.", texto "Tenha acesso a
   servidores equipados com GPUs de alto desempenho para inteligência artificial, sem precisar
   investir na aquisição dos equipamentos." e botão "Conheça a locação". Sem a sigla HaaS.

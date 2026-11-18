@@ -82,7 +82,8 @@ export const SLIDES: Slide[] = [
   },
   {
     // Banner novo (08/11/2026): locação de servidores com GPU para projetos de IA. Artes da
-    // MSSERVER (desktop e celular) em src/assets/hero/slide-4-*.webp, sem alteração. Não existe
+    // MSSERVER (desktop e celular) em src/assets/hero/slide-4-*.webp, sem alteração; a do desktop
+    // (também usada no tablet) foi trocada em 18/11/2026 pela foto do servidor com GPUs. Não existe
     // página publicada só sobre locação; o botão leva ao pedido de orçamento (ver docs/PRESERVACAO.md).
     key: 'locacao',
     label: 'Locação para IA',
@@ -100,7 +101,9 @@ export const SLIDES: Slide[] = [
       button: 'Conheça a locação',
       href: LINKS.quote,
     },
-    alt: 'Servidores Dell em blade, torre e rack sob a palavra “Locação”, em fundo azul escuro',
+    // Uma descrição para as duas artes (desktop: servidor com placas de GPU; celular: servidores em
+    // blade, torre e rack).
+    alt: 'Servidores sob a palavra “Locação”, em fundo azul escuro',
   },
 ];
 

@@ -498,7 +498,8 @@ test.describe('hero interativa', () => {
 // Banner de locação de servidores para IA (artes enviadas pela MSSERVER, uma para desktop e outra
 // para o celular). Regiões da arte em pixels do arquivo: [x1, y1, x2, y2].
 const LOC_ART = {
-  desktop: { nat: [1714, 918], palavra: [112, 140, 1002, 300], servidores: [188, 288, 1052, 785] },
+  // Desktop: arte de 18/11/2026 (servidor com placas de GPU); caixas medidas na própria imagem.
+  desktop: { nat: [1713, 918], palavra: [112, 140, 1002, 302], servidores: [345, 305, 960, 825] },
   mobile: { nat: [941, 1672], palavra: [113, 808, 847, 958], servidores: [137, 1005, 817, 1418] },
 };
 
