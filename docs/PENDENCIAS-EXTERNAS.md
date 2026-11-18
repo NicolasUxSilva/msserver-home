@@ -111,11 +111,9 @@ Os itens estão em ordem de prioridade. Cada um traz: **procedimento** · **depe
   - O modo de visualização do GTM mostra a sequência `view_item` → `add_to_cart` → `view_cart` → `begin_checkout`, uma vez cada.
   - Nenhuma ferramenta carrega antes do consentimento.
 
-### 12. Consentimento nas páginas que continuam no WordPress e na landing Cloud
-- **Procedimento.**
-  - Instalar no WordPress um gestor de consentimento com as mesmas categorias, ou adaptar o script deste site.
-  - Para a landing de Soluções Cloud: adaptar a landing para ler a escolha (`msserver:consent`) ou documentar a decisão de carregar o GTM direto (`docs/PRIVACIDADE.md`, seção 4).
-- **Depende de.** Jurídico e administrador do WordPress. A landing é outro repositório (`cloud-ms`), já aprovado.
+### 12. Consentimento nas páginas que continuam no WordPress
+- **Procedimento.** Instalar no WordPress um gestor de consentimento com as mesmas categorias, ou adaptar o script deste site. As landings de Soluções Cloud e Servidores Físicos já seguem o consentimento do site, porque foram integradas em 18/11/2026 (`docs/LANDINGS.md`).
+- **Depende de.** Jurídico e administrador do WordPress.
 - **Validação.** Nenhuma página do domínio carrega rastreadores antes da escolha.
 
 ## Segurança do WordPress (P20)
@@ -194,11 +192,16 @@ Os itens estão em ordem de prioridade. Cada um traz: **procedimento** · **depe
 - **Depende de.** Autorização.
 - **Validação.** `git branch -r --merged origin/main` só com as branches ativas.
 
-### 24. Landings aprovadas (P24)
-- **Situação.** As landings de Servidores Físicos e Soluções Cloud não têm o menu do site e têm links para páginas antigas. Elas estão aprovadas e **não foram alteradas**.
-- **Procedimento.** Se a MSSERVER quiser, atualizar os links nos repositórios das landings e aprovar uma nova versão. Para a Cloud, basta trocar o `COMMIT` em `scripts/landing-cloud.mjs`.
-- **Depende de.** Aprovação da MSSERVER.
-- **Validação.** A nova versão aprovada está publicada.
+### 24. Landings integradas ao site (P24): decisões que restam
+- **Situação.** Desde 18/11/2026, as landings de Servidores Físicos e Soluções Cloud são páginas do site, com o cabeçalho e o rodapé dele e os links internos (`docs/LANDINGS.md`). As seções estão idênticas às aprovadas.
+- **Procedimento.** A MSSERVER decide:
+  1. **Navegação por seções.** As âncoras do cabeçalho próprio das landings saíram com ele. Elas podem voltar como uma faixa abaixo do cabeçalho do site.
+  2. **Versão para Portugal.** O link para `/servidores-dedicados-para-empresas-pt/` ficava no rodapé próprio de Servidores Físicos. Decida onde ele deve ficar, se a página continuar.
+  3. **Plugin `msserver-landing-servidores-fisicos`.** Depois que o roteamento servir `/servidores-fisicos/` pelo site, o plugin deixa de ser usado. Ele pode ser desativado no WordPress, com autorização.
+  4. **`/servidores-dedicados/`.** A landing de Cloud usa essa página para a oferta de servidor dedicado em data center. Rever a recomendação de 301 de `docs/ROTEAMENTO.md`, seção 4.
+  5. **Notas de preço dos rodapés próprios** ("Preços e condições sujeitos a alteração…" e "O simulador gera um levantamento preliminar…"). O sentido continua no conteúdo das páginas. Decida se a frase exata deve voltar no fim da chamada final (`docs/LANDINGS.md`, seção 2).
+- **Depende de.** MSSERVER (decisões) e administrador do WordPress (plugin).
+- **Validação.** As decisões estão registradas neste documento e aplicadas.
 
 ### 25. Leadster
 - **Situação.** O WordPress tem um rótulo de conversão do Google Ads associado ao Leadster (`docs/TRACKING.md`). O widget do Leadster não está no site novo.

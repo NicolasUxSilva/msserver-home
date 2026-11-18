@@ -83,6 +83,21 @@ Assim, o remarketing e o Merchant Center continuam recebendo os mesmos dados que
 | `catalog_search`, `catalog_sort` | Busca e ordenação no catálogo | `listing`, `results`, `orderby` |
 | `blog_search` | Busca nos artigos | — |
 
+### 3.4 Landings de Servidores Físicos e Soluções Cloud
+
+As landings integradas (`docs/LANDINGS.md`) mantêm os eventos dos repositórios delas. Não há mais o GTM próprio de cada landing: os eventos vão para o mesmo `dataLayer` e só saem do navegador nas condições da seção 1.
+
+| Evento | Quando | Parâmetros |
+| --- | --- | --- |
+| `contact_whatsapp_click` | Qualquer CTA de WhatsApp das landings: hero, modelos, processo, dúvidas, chamada final, botão flutuante e envio do simulador | `location` (ex.: `hero`, `modelo-servidor-dell-r740`, `processo`, `simulador-envio`) |
+| `cta_click` | CTAs que abrem o simulador de Cloud (hero, desafios, soluções, chamada final) | `location` |
+| `simulation_start` | Primeira interação com o simulador de Cloud | `entry` (por onde entrou) |
+| `simulation_step_complete` | Cada etapa concluída do simulador (uma vez por etapa) | `step_id` |
+| `simulation_complete` | Simulação completa (uma vez) | `cloud_model` |
+| `simulation_summary_copy` | "Copiar resumo" no simulador | `ok` |
+
+Nenhum desses eventos é uma conversão confirmada: o envio pelo WhatsApp é feito pela própria pessoa no aplicativo. Para o Google Ads, a decisão sobre contar ou não `contact_whatsapp_click` está na seção 4.
+
 **Regras:**
 - Nenhum evento leva nome, e-mail, telefone ou texto digitado (nem o termo buscado).
 - Nenhuma conversão é disparada sem a ação real: o envio confirmado pelo servidor, ou o envio ao WhatsApp depois da conferência dos dados.

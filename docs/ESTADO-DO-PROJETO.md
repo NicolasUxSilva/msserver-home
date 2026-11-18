@@ -1,20 +1,31 @@
-# Estado do projeto — 17/11/2026
+# Estado do projeto — 18/11/2026
 
-- **Branch:** `conclusao`, criada a partir de `main` em `068f9fe`.
-- **Situação:** pronto para homologação. **Não publicado** e sem merge na `main`.
+- **Situação:** pronto para homologação. **Não publicado.**
+- **Etapa de conclusão:** branch `conclusao`, a partir de `068f9fe`, levada para a `main` em `0838d37` (17/11/2026).
+- **Integração das landings:** branch `integracao-landings`, a partir de `0838d37`, **sem merge na `main`**. As landings de Servidores Físicos e Soluções Cloud passaram a ser páginas nativas do site, e o Aplicativo de Gestão saiu do menu Soluções (seção 0 abaixo e `docs/LANDINGS.md`).
 - **Ponto de partida:** a auditoria de 15/11/2026 (`docs/AUDITORIA-2026-11-15.md`).
 - **Pendências:** o que depende de terceiros está em `docs/PENDENCIAS-EXTERNAS.md`.
+
+## 0. Integração das landings (18/11/2026)
+
+| Item | Situação |
+| --- | --- |
+| `/servidores-fisicos/` | Landing aprovada (`landins-servidores-fisicos` a8439e1), nativa, com o cabeçalho e o rodapé do site. Substitui, depois do roteamento, a versão servida pelo plugin do WordPress. |
+| `/solucoes-cloud/` | Landing aprovada (`cloud-ms` 3199d6f), nativa, com o simulador. Não é mais a cópia do build. |
+| Comparação com os originais | 80 seções visíveis, em 390, 768, 1024 e 1440 px: **idênticas pixel a pixel**. Mesma altura do conteúdo e nenhuma rolagem lateral. |
+| Menu Soluções | Seis itens. O Aplicativo de Gestão saiu só do menu: a página, a rota e os links da home continuam. |
+| O que saiu com o cabeçalho e o rodapé próprios | Navegação por âncoras, botões de WhatsApp e "Avaliar meu ambiente" do cabeçalho, link "Versão para Portugal" (pendência 24) |
 
 ## 1. Decisões de escopo aplicadas
 
 | Tema | Decisão | Onde |
 | --- | --- | --- |
-| Soluções Cloud | `/solucoes-cloud/` com a versão aprovada (`cloud-ms` 3199d6f), sem alteração. O menu e o banner da home apontam para ela. Os 301 das URLs antigas estão preparados e documentados, mas não aplicados. | `scripts/landing-cloud.mjs`, `docs/ROTEAMENTO.md` §4 |
+| Soluções Cloud | `/solucoes-cloud/` com a versão aprovada (`cloud-ms` 3199d6f), sem alteração; desde 18/11/2026, integrada ao site (`docs/LANDINGS.md`). O menu e o banner da home apontam para ela. Os 301 das URLs antigas estão preparados e documentados, mas não aplicados. | `docs/LANDINGS.md`, `docs/ROTEAMENTO.md` §4 |
 | Busca do cabeçalho | No catálogo (`/servidores/?busca=`), com sugestões. Nunca usa a busca do WordPress. | `header-search.ts`, `busca.json` |
 | Blog, Cases, Suporte | Blog e Cases reconstruídos com o conteúdo real. Suporte continua no Awesome Support, com a identidade nova via plugin. | `docs/SUPORTE.md` |
 | Catálogo | Rack, Torre e Escala Nuvem adicionados. O produto sem categoria e `sem-categoria` ficaram documentados, sem invenção. | `catalog.ts`, pendências 18 |
 | 4 soluções | Sem redesenho. Só correções técnicas: overflow da Consultoria e nomes de eventos. Problemas visuais registrados (seção 3). | — |
-| Aplicativo de Gestão | Sem alteração. Continua no WordPress. | — |
+| Aplicativo de Gestão | Sem alteração. Continua no WordPress. Desde 18/11/2026, fora do menu Soluções (a página e os links da home continuam). | `src/config/site.ts` |
 | Jornada comercial | Nenhum caminho para pagamento. Sessão, nonce, variações, quantidades e totais mantidos. Atalho do carrinho com contador. | `docs/PRESERVACAO.md` (fim) |
 | 404, privacidade, cookies | 404 própria. Política só com a estrutura, sem texto jurídico. Consentimento que respeita a escolha. | `docs/PRIVACIDADE.md` |
 | SEO | `noindex` no carrinho, na finalização, na 404 e na política pendente; canonicals; descrições; OG; JSON-LD; `robots.txt` e `sitemap-site.xml`. Títulos e slugs duplicados **não** foram alterados. | — |
@@ -36,7 +47,8 @@
 | Produtos | `/servidor/{slug}/` (74) | Sem a loja, o pedido vai pelo WhatsApp |
 | Carrinho | `/carrinho/` | Contador no cabeçalho |
 | Finalização de orçamento | `/finalizar-compra/` | `noindex`, sem pagamento |
-| Soluções Cloud | `/solucoes-cloud/` | Landing aprovada, integrada ao build (**novo**) |
+| Soluções Cloud | `/solucoes-cloud/` | Landing aprovada, nativa, com o simulador (**integrada em 18/11**) |
+| Servidores Físicos | `/servidores-fisicos/` | Landing aprovada, nativa (**integrada em 18/11**) |
 | Blog | `/blog/`, `/category/{slug}/`, 51 artigos | **Novo** |
 | Cases de sucesso | `/cases-de-sucesso/` | **Novo**. Certificações a confirmar (pendência 17). |
 | 404 | — | **Nova** |
@@ -57,7 +69,6 @@
 ### Continuam no WordPress, sem alteração
 
 - Aplicativo de Gestão (`/aplicativo-ms-server/`).
-- Servidores Físicos (`/servidores-fisicos/`, landing aprovada).
 - Minha conta.
 - Landings antigas e de campanha (pendência 7).
 - `/categoria-produto/sem-categoria/`.

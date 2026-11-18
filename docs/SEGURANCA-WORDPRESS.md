@@ -88,7 +88,7 @@ Formato de cada item: problema · evidência · risco · ação · dependência 
 - **Risco.** Falhas conhecidas corrigidas em versões novas, ainda abertas aqui.
 - **Ação.**
   1. Faça backup completo (arquivos e banco).
-  2. Numa cópia de homologação, atualize um plugin por vez, começando pelo WooCommerce. Teste: catálogo, Store API do carrinho, formulários do Elementor, suporte (Awesome Support) e a landing de Servidores Físicos.
+  2. Numa cópia de homologação, atualize um plugin por vez, começando pelo WooCommerce. Teste: catálogo, Store API do carrinho, formulários do Elementor, suporte (Awesome Support) e, enquanto o roteamento não for aplicado, a landing de Servidores Físicos servida pelo plugin.
   3. Repita em produção, numa janela de baixo movimento.
   4. Remova os plugins inativos.
 - **Dependência.** Homologação do WordPress e backup.

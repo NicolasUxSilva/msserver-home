@@ -29,7 +29,7 @@ Ele deve terminar com "Roteamento conferido."
 - [ ] **Menu principal:** cada item e subitem abre a página certa.
   - Servidores: Todos, Dell, HP, IBM, Rack, Torre e Escala Nuvem.
   - Componentes e subcategorias.
-  - Soluções, com os sete itens.
+  - Soluções, com os seis itens (sem o Aplicativo de Gestão, que continua no ar e na home).
   - Soluções Cloud.
   - Blog.
   - Cases.
@@ -62,6 +62,30 @@ Ele deve terminar com "Roteamento conferido."
 - [ ] Um produto com variações (ex.: Dell R740): escolher memória muda o preço; quantidade; "Orçamento" leva ao carrinho com a variação certa.
 - [ ] Um produto simples e um sem preço: no produto sem preço, "Fale com um consultor" abre o WhatsApp com o nome do produto.
 - [ ] Etiquetas Rack/Torre levam à listagem do formato.
+
+## 3a. Landings de Servidores Físicos e Soluções Cloud
+
+Compare cada página com a versão aprovada (`/servidores-fisicos/` no ar hoje e `cloud-ms-beige.vercel.app`): as seções devem ser as mesmas, na mesma ordem e com o mesmo visual. Só o cabeçalho e o rodapé mudam (`docs/LANDINGS.md`).
+
+- [ ] **Cabeçalho e rodapé do site:**
+  - "Soluções → Servidores Físicos" e "Soluções → Soluções Cloud" levam às páginas;
+  - no celular, o menu abre e fecha;
+  - o cabeçalho fica fixo ao rolar e não cobre o início das seções.
+- [ ] **Servidores Físicos:**
+  - "Falar com um especialista" (hero), os 6 modelos com "Consultar disponibilidade", "Falar com a equipe" (Como funciona a compra), dúvidas e chamada final abrem o WhatsApp com a mensagem da página (conferir e **não enviar**);
+  - "Ver modelos" leva à seção;
+  - "Como funciona a extensão" abre a Extensão de Garantia do site.
+- [ ] **Soluções Cloud, simulador:**
+  - "Avaliar minha infraestrutura" (hero), os atalhos dos desafios e "Avaliar com este modelo" abrem o simulador com a escolha certa;
+  - percorra as 6 etapas e a revisão: validação de "Outro", resumo ao lado (no celular, a barra fixa e o resumo em folha);
+  - "Enviar levantamento pelo WhatsApp" monta a mensagem com as escolhas (conferir e **não enviar**);
+  - recarregar a página mantém a simulação.
+- [ ] **Links "Saiba mais" das soluções de Cloud:**
+  - Nuvem privada e Híbrida levam às páginas do site;
+  - Servidor dedicado leva a `/servidores-dedicados/` (WordPress; pendência 24).
+- [ ] **WhatsApp flutuante:**
+  - aparece depois do hero;
+  - em Cloud, some enquanto o simulador está na tela.
 
 ## 4. Jornada comercial (catálogo → produto → carrinho → finalização → WhatsApp)
 
@@ -144,5 +168,5 @@ Em cada formulário:
 
 - [ ] O verificador de roteamento passa contra `https://msserver.com.br`.
 - [ ] Home, um produto, o carrinho com um item (remover depois), um artigo, Cases, Soluções Cloud e `/obter-suporte/` abrem corretamente.
-- [ ] `/wp-admin/`, `/minha-conta/` e `/servidores-fisicos/` continuam funcionando.
+- [ ] `/wp-admin/`, `/minha-conta/` e `/aplicativo-ms-server/` continuam funcionando (WordPress); `/servidores-fisicos/` e `/solucoes-cloud/` abrem as landings integradas.
 - [ ] No Search Console: envie o `/sitemap-site.xml`. Nos dias seguintes, acompanhe 404 e cobertura.

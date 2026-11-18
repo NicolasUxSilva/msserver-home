@@ -9,7 +9,7 @@
 O site novo responde por uma requisição **somente quando todas as condições abaixo são verdadeiras**:
 
 1. **Método GET ou HEAD.** Todo POST vai para o WordPress: formulários do Elementor, AJAX, login, comentários e Store API.
-2. **Caminho exato da lista de rotas do build.** A lista fica em `dist/_rotas/nginx-rotas.map` e é gerada por `scripts/routes.mjs` a cada build. Ela tem as 175 páginas e os arquivos públicos (`/busca.json`, `/blog/busca.json`, `/robots.txt`, `/sitemap-site.xml`, ícones). Os arquivos de `/_astro/` e `/solucoes-cloud/_astro/` têm regra própria.
+2. **Caminho exato da lista de rotas do build.** A lista fica em `dist/_rotas/nginx-rotas.map` e é gerada por `scripts/routes.mjs` a cada build. Ela tem as 176 páginas e os arquivos públicos (`/busca.json`, `/blog/busca.json`, `/robots.txt`, `/sitemap-site.xml`, ícones e as imagens de compartilhamento das landings). Os arquivos de `/_astro/` têm regra própria.
 3. **Sem parâmetro do WordPress na URL.** Os parâmetros são: `s`, `p`, `page_id`, `preview`, `preview_id`, `preview_nonce`, `rest_route`, `wc-ajax`, `post_type`, `attachment_id`, `feed`, `cat`, `tag`, `author`, `m`, `year`, `monthnum`, `day`, `replytocom`, `wc-api`, `order`, `key` e `pay_for_order`.
    - `/?s=…` (busca do WordPress) e `/?wc-ajax=…` (AJAX do WooCommerce) **continuam no WordPress**, mesmo sendo o caminho `/`.
    - Parâmetros de campanha (`utm_*`, `gclid`, `fbclid`) **não** contam: `/?utm_source=x` é a home nova.
@@ -33,7 +33,8 @@ Não existe fallback genérico para o site novo. Endereço fora da lista vai par
 | `/carrinho/` | Carrinho, pela Store API |
 | `/finalizar-compra/` (só GET) | Finalização de orçamento, sem pagamento |
 | `/nuvem-privada/`, `/extencao-de-garantia/`, `/backup-em-nuvem/`, `/consultoria-em-implantacao-de-servidores/` | Soluções |
-| `/solucoes-cloud/` | Landing aprovada de Soluções Cloud (`cloud-ms` 3199d6f), copiada para o build por `scripts/landing-cloud.mjs` |
+| `/solucoes-cloud/` | Landing aprovada de Soluções Cloud (`cloud-ms` 3199d6f), integrada ao site com o cabeçalho e o rodapé dele (`docs/LANDINGS.md`) |
+| `/servidores-fisicos/` | Landing aprovada de Servidores Físicos (`landins-servidores-fisicos` a8439e1), integrada ao site; substitui a versão servida hoje pelo plugin `msserver-landing-servidores-fisicos` do WordPress (`docs/LANDINGS.md`) |
 | `/blog/` (e `/page/N/`), `/{slug}/` (51 artigos), `/category/{slug}/` (e `/page/N/`) | Blog |
 | `/cases-de-sucesso/` | Cases |
 | `/politica-de-privacidade/` | Política (estrutura; conteúdo em aprovação, `noindex`) |
@@ -58,7 +59,6 @@ Não existe fallback genérico para o site novo. Endereço fora da lista vai par
 
 **Páginas:**
 - `/aplicativo-ms-server/` (sem alteração);
-- `/servidores-fisicos/` (landing aprovada, plugin próprio);
 - landings antigas e de campanha (seção 4);
 - `/categoria-produto/sem-categoria/`.
 
@@ -82,7 +82,7 @@ O arquivo completo e comentado está em [`docs/nginx/msserver-site.conf`](nginx/
   - `add-to-cart`;
   - e o método da requisição.
 - **`location /`:** com `$msserver_novo`, faz `rewrite` interno para `/@site-novo$uri`, servido de `/var/www/msserver-site/current` com `try_files $uri $uri/index.html =404`. Sem ele, segue o `try_files … /index.php?$args` atual do WordPress.
-- **Arquivos com hash:** `/_astro/` e `/solucoes-cloud/_astro/` saem do build com cache de 1 ano.
+- **Arquivos com hash:** `/_astro/` sai do build com cache de 1 ano.
 - **HTTP → HTTPS:** redirecionamento 301 em todas as URLs. Hoje, as páginas internas respondem por `http://` sem redirecionar.
 - **Cabeçalhos de segurança recomendados:** HSTS (começando com `max-age` curto), `X-Content-Type-Options`, `Referrer-Policy` e `X-Frame-Options`, em [`docs/nginx/msserver-seguranca.conf`](nginx/msserver-seguranca.conf).
   - O arquivo é incluído no `server` e repetido em cada `location` que tem `add_header` próprio, porque o nginx não herda `add_header` nesses blocos.
@@ -119,7 +119,7 @@ Cada destino foi conferido em 17/11/2026. **Os redirecionamentos estão preparad
 | `/cloud/` | Página 6430, de 2023 | **301 → `/solucoes-cloud/`** | Versão antiga da mesma oferta |
 | `/cloud-privada/` | Landing Cloud **divergente** da aprovada (plugin `msserver-landing-cloud`, publicada em 04/11/2026), indexável | Se houver campanha ativa: manter com `noindex` e canonical para `/solucoes-cloud/` até a campanha mudar de destino; depois, **301 → `/solucoes-cloud/`** | Evita duas versões indexadas da mesma oferta sem quebrar anúncios |
 | `/solucoes-cloud-campanha/` | Landing de campanha (8232, 24/03/2026) | Manter, com **`noindex`** | Finalidade própria (campanha); não deve competir no Google |
-| `/servidores-dedicados/` | Página 6913 (2023); saiu do menu | **301 → `/servidores-fisicos/`** | A oferta passou a ser Servidores Físicos |
+| `/servidores-dedicados/` | Página 6913 (2023); saiu do menu. **É o destino do "Saiba mais" de "Servidor dedicado em data center" na landing de Soluções Cloud aprovada** | **Rever:** manter no WordPress, com conteúdo atualizado, ou redirecionar para uma página da oferta de servidor dedicado em data center. **Não** redirecionar para `/servidores-fisicos/`. | Servidores Físicos é a venda de equipamentos; a landing de Cloud trata esta página como a oferta de hospedagem em data center (revisado em 18/11/2026, `docs/LANDINGS.md`) |
 | `/servidores-dedicados-para-empresas/`, `…-pt/` | Landings de 2025 (campanhas) | Manter, com **`noindex`** | Podem estar em anúncios |
 | `/cyber-seguranca/` | Página de 2023 | Manter (sem substituta) | Não há página nova equivalente |
 | `/teste/`, `/pagina-exemplo/` | Rascunhos publicados e no sitemap | **Despublicar no WordPress** (ou 301 → `/`) | Conteúdo sem finalidade, indexado |
@@ -143,16 +143,16 @@ npm run test:nginx
 - os caminhos do `dist/` e do arquivo de cabeçalhos;
 - o PHP-FPM, por um "WordPress" de mentira que responde `wordpress`.
 
-Ele confere 64 pontos e sai com erro se algum falhar:
+Ele confere 65 pontos e sai com erro se algum falhar:
 - **Quem responde (site novo ou WordPress)** cada método, endereço e parâmetro da seção 1: home com `?s=`, `?wc-ajax=`, `?p=` e `utm_*`; POST; `?add-to-cart=` dentro e fora do carrinho; finalização em GET e em POST; conta; suporte; Store API; `admin-ajax`; sitemaps; feed; postagem nova; casca do suporte.
 - **Os bloqueios de pagamento.**
 - **Os redirecionamentos:** `http://` para `https://` (com caminho e parâmetros) e `www`.
 - **Cache e cabeçalhos:** o cache longo de `/_astro/` e os cabeçalhos de segurança, inclusive nas `location` com `add_header` próprio.
-- **As rotas da lista do build** (186), todas por HEAD.
+- **As rotas da lista do build** (185: 176 páginas e 9 arquivos), todas por HEAD.
 
 Requer o `nginx` instalado na máquina (`apt install nginx-core`). Sem ele, o script avisa e sai com código 2.
 
-Executado em 17/11/2026 com nginx 1.24: **64 de 64 conferidos.** O teste encontrou e corrigiu dois problemas do exemplo:
+Executado em 17/11/2026 com nginx 1.24: **64 de 64 conferidos.** Em 18/11/2026, com as landings integradas (Servidores Físicos passou a ser servida pelo site novo): **65 de 65**. O teste encontrou e corrigiu dois problemas do exemplo:
 - o `map_hash_bucket_size`;
 - a perda dos cabeçalhos de segurança nas `location` com `add_header`.
 

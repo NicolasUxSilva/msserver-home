@@ -25,6 +25,7 @@ O site foi reconstruído na identidade visual das landings aprovadas: [Servidore
 | [docs/TRACKING.md](docs/TRACKING.md) | Eventos GA4, consentimento e mapeamento no GTM e no Google Ads |
 | [docs/PRIVACIDADE.md](docs/PRIVACIDADE.md) | Política de privacidade (estrutura) e consentimento de cookies |
 | [docs/SUPORTE.md](docs/SUPORTE.md) | Plugin do suporte (Awesome Support) na identidade nova |
+| [docs/LANDINGS.md](docs/LANDINGS.md) | Landings de Servidores Físicos e Soluções Cloud integradas ao site: origem, adaptação, comparação visual e como atualizar |
 | [docs/PRESERVACAO.md](docs/PRESERVACAO.md) | O que foi preservado de cada página e as correções feitas |
 | [docs/SISTEMA-VISUAL.md](docs/SISTEMA-VISUAL.md) | Sistema visual: tokens, componentes e padrões |
 | [docs/AUDITORIA-2026-11-15.md](docs/AUDITORIA-2026-11-15.md) | Auditoria de 15/11/2026, ponto de partida desta etapa |
@@ -42,8 +43,9 @@ O site foi reconstruído na identidade visual das landings aprovadas: [Servidore
 | `npm run dev` | Servidor de desenvolvimento |
 | `npm run sync:all` | Sincroniza tudo do WordPress: produtos da home, catálogo, blog e avaliações (opcional) |
 | `npm run validate:data` | Confere os dados sincronizados. Com `-- --online`, compara com o publicado. |
-| `npm run build` | `astro check`, build, landing de Soluções Cloud e lista de rotas para o nginx → `dist/` |
+| `npm run build` | `astro check`, build e lista de rotas para o nginx → `dist/` |
 | `npm run test:e2e` | Suíte Playwright, em desktop e celular |
+| `npm run test:unit` | Testes de unidade das landings (vitest): simulador de Cloud, catálogo e mensagens |
 | `npm run test:nginx` | Testa o exemplo de nginx localmente (precisa do `nginx` instalado) |
 | `npm run build:suporte` | Gera o plugin do suporte → `dist-plugins/msserver-suporte.zip` |
 | `npm run release` | Tudo, em ordem: sincroniza, valida, gera, testa e empacota (`docs/DEPLOY.md`) |
@@ -63,13 +65,14 @@ O site foi reconstruído na identidade visual das landings aprovadas: [Servidore
 | `/carrinho/` | Carrinho (Store API) |
 | `/finalizar-compra/` | Finalização de orçamento, pelo WhatsApp, sem pagamento |
 | `/nuvem-privada/`, `/extencao-de-garantia/`, `/backup-em-nuvem/`, `/consultoria-em-implantacao-de-servidores/` | Soluções |
-| `/solucoes-cloud/` | Landing aprovada de Soluções Cloud |
+| `/solucoes-cloud/` | Landing aprovada de Soluções Cloud, com o simulador, integrada ao site ([docs/LANDINGS.md](docs/LANDINGS.md)) |
+| `/servidores-fisicos/` | Landing aprovada de Servidores Físicos, integrada ao site |
 | `/blog/`, `/category/{slug}/`, `/{slug}/` | Blog: 51 artigos, nos mesmos endereços do WordPress |
 | `/cases-de-sucesso/` | Cases |
 | `/politica-de-privacidade/` | Estrutura da política. O texto aguarda aprovação jurídica. |
 | 404 | Página de endereço não encontrado |
 
-**Continuam no WordPress:** conta, suporte (com a identidade nova pelo plugin), Aplicativo de Gestão, Servidores Físicos, landings, `/wp-json/` e `/wp-admin/`. A lista completa e a regra estão em [docs/ROTEAMENTO.md](docs/ROTEAMENTO.md).
+**Continuam no WordPress:** conta, suporte (com a identidade nova pelo plugin), Aplicativo de Gestão, landings antigas e de campanha, `/wp-json/` e `/wp-admin/`. A lista completa e a regra estão em [docs/ROTEAMENTO.md](docs/ROTEAMENTO.md).
 
 ## Onde mudar o quê
 
@@ -81,7 +84,8 @@ O site foi reconstruído na identidade visual das landings aprovadas: [Servidore
 | Artigos do blog | **No WordPress**. Depois, `npm run sync:blog` e build. |
 | Produtos das abas da home | IDs em `scripts/sync-content.mjs`. Depois, `npm run sync`. |
 | Banners da home | `src/assets/hero/` e `SLIDES` em `src/data/content.ts` |
-| Landing de Soluções Cloud | `COMMIT` em `scripts/landing-cloud.mjs` (versão aprovada do repositório `cloud-ms`) |
+| Landings de Servidores Físicos e Soluções Cloud | `src/components/landings/`, `src/data/landings/`, `src/scripts/landings/`; para trazer uma nova versão aprovada dos repositórios, `docs/LANDINGS.md`, seção 8 |
+| Preços em destaque da landing de Servidores Físicos | **No WooCommerce**. Depois, `npm run sync:servidores-fisicos` (também em `sync:all`) e build. |
 | Imagens publicadas (sobre, soluções, cases, logos) | `node scripts/prepare-*-assets.mjs`. Baixa do WordPress. |
 
 Para ler pelo HTTP enquanto o HTTPS de msserver.com.br estiver fora do ar: `WP_ORIGIN=http://msserver.com.br`.
@@ -141,7 +145,7 @@ O mesmo vale para os formulários das soluções ([docs/HOMOLOGACAO.md](docs/HOM
 npm run test:e2e
 ```
 
-A suíte tem 180 testes, executados em desktop (1440 px) e celular (Pixel 7, 390 px): 360 execuções. Nenhuma requisição chega à produção:
+A suíte E2E tem 211 testes, executados em desktop (1440 px) e celular (Pixel 7, 390 px): 422 execuções. Os testes de unidade (`npm run test:unit`, vitest) são 28. Nenhuma requisição chega à produção:
 - a Store API e o `admin-ajax.php` são simulados;
 - os domínios externos são bloqueados.
 
@@ -156,7 +160,8 @@ A preservação de conteúdo é conferida contra o HTML publicado no WordPress, 
 | `carrinho`, `finalizacao` | Itens e totais, nonce, loja indisponível, `?add-to-cart=`, mensagem do WhatsApp, jornada completa e axe |
 | `solucoes`, `orcamento` | Formulários: conteúdo, envio no formato do Elementor, erros, falha de rede e axe |
 | `blog` | Listagem, paginação, categorias, busca, os 51 artigos (texto completo, SEO, canonical), compartilhamento e axe |
-| `paginas` | Cases, 404, privacidade, robots, sitemap, Soluções Cloud, casca do suporte, Rack, Torre e Escala Nuvem, e a varredura "nenhum caminho para pagamento" |
+| `paginas` | Cases, 404, privacidade, robots, sitemap, landings integradas, casca do suporte, Rack, Torre e Escala Nuvem, e a varredura "nenhum caminho para pagamento" |
+| `servidores-fisicos`, `solucoes-cloud`, `solucoes-cloud-simulador` | Os testes dos repositórios das landings, nas páginas integradas: SEO, CTAs e mensagens de WhatsApp, simulador completo (etapas, validações, resumo, envio, celular), acessibilidade, e a integração (cabeçalho e rodapé do site, links internos) |
 | `rastreamento` | Eventos GA4 e consentimento (nada carrega antes da escolha; cada categoria carrega só as suas ferramentas) |
 
 Capturas de QA: `node scripts/qa-screenshots.mjs http://localhost:4330/ 390,768,1024,1440`.

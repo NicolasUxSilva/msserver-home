@@ -5,7 +5,7 @@
 ```
                      ┌──────────────────────────── msserver.com.br (nginx) ───────────────────────────┐
  visitante ──HTTPS──▶│ GET/HEAD + rota da lista + sem parâmetro do WP ──▶ dist/ (site novo, estático) │
-                     │ todo o resto (POST, /wp-json/, /wp-admin/, conta, suporte, landings…) ──▶ WP   │
+                     │ todo o resto (POST, /wp-json/, /wp-admin/, conta, suporte, landings antigas) ──▶ WP│
                      └────────────────────────────────────────────────────────────────────────────────┘
  navegador (site novo) ──▶ /wp-json/wc/store/v1/cart…  (carrinho, mesma sessão do WooCommerce)
                        ──▶ /wp-admin/admin-ajax.php      (formulários do Elementor)
@@ -30,11 +30,11 @@
 | Pasta | Conteúdo |
 | --- | --- |
 | `src/config/site.ts` | Rotas internas (`ROUTES`), links externos (`LINKS`), menu (`NAV`), contatos e WhatsApp, Store API, rastreamento (`TRACKING`) e consentimento (`CONSENT`). **Ponto único** para mudar destinos e contatos. |
-| `src/data/` | Textos de cada página (`content.ts`, `sobre.ts`, `solucoes.ts`, `cases.ts`, `produto.ts`, `carrinho.ts`, `finalizacao.ts`, `privacidade.ts`) e dados sincronizados (`catalog.json`, `product-seo.json`, `blog.json`, `products.json`, `google-reviews.json`, `*-schema.json`, `*-seo.json`). `catalog.ts` e `blog.ts` derivam listagens, paginação e índices de busca. |
+| `src/data/` | Textos de cada página (`content.ts`, `sobre.ts`, `solucoes.ts`, `cases.ts`, `produto.ts`, `carrinho.ts`, `finalizacao.ts`, `privacidade.ts`) e dados sincronizados (`catalog.json`, `product-seo.json`, `blog.json`, `products.json`, `google-reviews.json`, `*-schema.json`, `*-seo.json`). `catalog.ts` e `blog.ts` derivam listagens, paginação e índices de busca. `landings/` tem os dados das duas landings (conteúdo, contatos, catálogo de Servidores Físicos, opções de Cloud). |
 | `src/pages/` | Rotas (abaixo). |
-| `src/components/` | Componentes por área: `catalog/`, `product/`, `cart/`, `finalizacao/`, `blog/`, `cases/`, `solucoes/`, `orcamento/`, `sobre/`. Na raiz, cabeçalho, rodapé, aviso de cookies, botão de WhatsApp etc. |
+| `src/components/` | Componentes por área: `catalog/`, `product/`, `cart/`, `finalizacao/`, `blog/`, `cases/`, `solucoes/`, `orcamento/`, `sobre/`. Na raiz, cabeçalho, rodapé, aviso de cookies, botão de WhatsApp etc. `landings/` tem as seções das landings de Servidores Físicos e Soluções Cloud (`docs/LANDINGS.md`). |
 | `src/layouts/Base.astro` | Documento-base: SEO (title, description, canonical, robots, Open Graph, JSON-LD), consentimento e scripts comuns. |
-| `src/scripts/` | Comportamento no navegador (seção 4). |
+| `src/scripts/` | Comportamento no navegador (seção 4). `landings/` tem o simulador de Cloud e o botão flutuante das landings. |
 | `src/styles/` | `global.css` (tokens, base), `site.css` (cabeçalho, rodapé, componentes comuns) e uma folha por área. |
 | `src/lib/` | Funções de build: limpeza do HTML dos produtos (`product-html.ts`) e das postagens (`post-html.ts`), ícones, partes comuns do catálogo. |
 | `src/assets/` | Imagens processadas no build: catálogo, galeria, blog, cases, soluções, home, sobre. |
@@ -42,6 +42,7 @@
 | `scripts/` | Sincronização, validação, pós-build, empacotamento e verificação (seção 5). |
 | `wordpress/` | Plugins para o WordPress: `msserver-suporte` (suporte na identidade nova) e `msserver-orcamento` (bloqueio de pagamento). **Instalação manual e autorizada.** |
 | `tests/e2e/` | Suíte Playwright (seção 6). `tests/fixtures/` guarda o conteúdo publicado capturado do WordPress, usado para conferir a preservação. |
+| `tests/unit/` | Testes de unidade das landings (vitest), vindos dos repositórios delas. |
 | `docs/` | Documentação (índice no README). |
 
 ## 3. Rotas e geração
@@ -54,7 +55,7 @@
 | `/servidor/{slug}/` | `pages/servidor/[slug].astro` → `ProductPage.astro` | `catalog.json`, `product-seo.json` |
 | `/carrinho/`, `/finalizar-compra/` | `CartPage.astro`, `FinalizacaoPage.astro` | Itens lidos no navegador pela Store API |
 | Soluções (4) | `pages/{slug}/` → `solucoes/*Page.astro` | `solucoes.ts`, `solucoes-seo.json` |
-| `/solucoes-cloud/` | Copiado do build da landing aprovada por `scripts/landing-cloud.mjs` | Repositório `cloud-ms`, commit fixo |
+| `/solucoes-cloud/`, `/servidores-fisicos/` | `pages/solucoes-cloud/`, `pages/servidores-fisicos/` → `components/landings/` (cabeçalho e rodapé do site) | `data/landings/` (Servidores Físicos: catálogo próprio, `sync:servidores-fisicos`) |
 | `/blog/`, `/blog/page/N/`, `/category/{slug}/…`, `/{slug}/` | `pages/blog/…`, `pages/category/…`, `pages/[slug].astro` → `components/blog/` | `blog.json` (`blog.ts`) |
 | `/cases-de-sucesso/` | `CasesPage.astro` | `cases.ts`, `cases-seo.json` |
 | `/politica-de-privacidade/` | `pages/politica-de-privacidade/` | `privacidade.ts` |
@@ -104,7 +105,7 @@
 | `sync-blog.mjs` (`sync:blog`) | Antes do build | Postagens, categorias, imagens destacadas e o SEO (All in One SEO) de cada artigo |
 | `sync-google-reviews.mjs` (`sync:reviews`, `prebuild`) | Antes do build | Avaliações do Google (opcional) |
 | `validate-data.mjs` (`validate:data`) | Antes do build | Coerência dos dados. Com `--online`, compara com o publicado. |
-| `landing-cloud.mjs` | Depois do `astro build` | Gera a landing de Soluções Cloud (commit aprovado) em `dist/solucoes-cloud/` |
+| `sync-servidores-fisicos.mjs` (`sync:servidores-fisicos`) | Antes do build | Catálogo da landing de Servidores Físicos (preços e variações dos modelos em destaque) |
 | `routes.mjs` | Depois do build | `dist/_rotas/rotas.txt` e `nginx-rotas.map` |
 | `package-suporte.mjs` (`build:suporte`) | Depois do build | `dist-plugins/msserver-suporte.zip` |
 | `traducoes-suporte.mjs` | Quando o Awesome Support mudar | Regera a tradução do suporte |
@@ -133,6 +134,7 @@
 | `solucoes`, `orcamento` | Formulários |
 | `blog`, `paginas` | Blog, cases, 404, privacidade, robots, sitemap, Soluções Cloud, suporte e formatos |
 | `rastreamento` | Eventos GA4 e consentimento |
+| `servidores-fisicos`, `solucoes-cloud`, `solucoes-cloud-simulador` | As landings integradas: os testes dos repositórios delas e a integração ao site |
 
 **Acessibilidade:** axe (WCAG 2.1 AA) em cada área e sem rolagem lateral.
 
@@ -142,5 +144,5 @@
 - **Os mesmos endereços do WordPress.** Produtos, categorias, artigos e soluções mantêm as URLs indexadas, sem redirecionamentos.
 - **Sem pagamento.** A finalização encaminha o orçamento pelo WhatsApp. Nenhum caminho do site novo chega ao checkout do WooCommerce: o teste `paginas.spec.ts` varre o build inteiro.
 - **Suporte no WordPress, com casca do site.** O Awesome Support depende de sessão e nonces. Reescrevê-lo seria trocar o sistema de chamados.
-- **Soluções Cloud copiada do repositório aprovado,** sem alterar a landing. Há uma única versão da oferta.
+- **Landings integradas de forma nativa,** com o código dos repositórios aprovados (só os caminhos de importação mudaram) e o cabeçalho e o rodapé do site. `src/styles/landings/landing.css` mantém o visual original dentro do conteúdo delas. A comparação pixel a pixel está em `docs/LANDINGS.md`.
 - **Rastreamento desligado por padrão e condicionado ao consentimento.**

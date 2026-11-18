@@ -946,6 +946,7 @@ conferidos antes do envio.
 Uma lista só, na ordem definida pela MSSERVER: Soluções Cloud (`/solucoes-cloud/`), Nuvem Privada,
 Servidores Físicos (`/servidores-fisicos/`, no lugar de "Servidores Dedicados"), Aplicativo de Gestão
 (`/aplicativo-ms-server/`, sem nenhuma alteração), Extensão de Garantia, Backup em Nuvem e Consultoria.
+*(Em 18/11/2026, o Aplicativo de Gestão saiu deste menu, e Servidores Físicos passou a ser página do site: ver o fim deste documento.)*
 O grupo "Servidores em Nuvem" saiu. As quatro páginas reconstruídas são links internos; na home, o
 cartão "Consultoria" também passou a levar à página reconstruída (mesmo endereço em produção). O
 conteúdo das páginas não foi alterado em relação a "servidores dedicados" (o termo não aparece nelas).
@@ -1040,4 +1041,22 @@ Continua no Awesome Support do WordPress, com a identidade nova e em português 
 
   O sitemap do All in One SEO continua no WordPress.
 - **Títulos:** os títulos duplicados entre produtos, como o R640, **não foram alterados**. Eles vêm do WooCommerce e do All in One SEO, e mudar nome ou slug exige avaliação.
+
+# Landings de Servidores Físicos e Soluções Cloud (18/11/2026)
+
+As duas landings aprovadas passaram a ser páginas do site (`docs/LANDINGS.md`).
+
+**Preservado, sem alteração:**
+- seções, ordem, textos, imagens, ilustrações, animações, simulador, CTAs e mensagens de WhatsApp;
+- botão flutuante e responsividade.
+
+A comparação pixel a pixel com os builds dos repositórios, em quatro larguras, deu 80 seções idênticas.
+
+**O que mudou:**
+- **Cabeçalho e rodapé:** são os do site. Saíram a navegação por âncoras, os botões do cabeçalho próprio e o rodapé próprio, com o link "Versão para Portugal".
+- **Links para páginas que existem no site:** passaram a ser internos (Extensão de Garantia, Nuvem Privada, Consultoria, Backup), com os mesmos destinos.
+- **Canonical:** o publicado, `/servidores-fisicos/` e `/solucoes-cloud/`.
+- **Rastreamento:** segue o consentimento do site, sem o GTM próprio das landings.
+
+**Menu Soluções:** o Aplicativo de Gestão saiu do menu, por decisão da MSSERVER. A página continua no WordPress, sem alteração, e com os links da home.
 

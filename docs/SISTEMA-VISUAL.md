@@ -295,6 +295,15 @@ Abertura do catálogo, título "Página não encontrada", busca no catálogo, ig
 
 O rodapé reserva espaço à direita, na última linha, para o botão flutuante não cobrir o copyright nem os links legais. No produto, no carrinho e na finalização, o botão sai da frente (esmaece e desce) enquanto cobriria os botões de compra ou os totais, e volta em seguida (`fab-guard.ts`).
 
+## Landings integradas (18/11/2026)
+
+As landings de Servidores Físicos e Soluções Cloud usam a linguagem própria delas dentro de `<main class="lp">`:
+- rótulos `.eyebrow` em JetBrains Mono, com linha fixa;
+- botões do `global.css`, sem as camadas do `site.css`;
+- composição editorial com cartão escuro de especificação.
+
+`src/styles/landings/landing.css` garante isso sem mudar o resto do site. O cabeçalho e o rodapé são os do site. Para novas páginas do site, continue usando os padrões deste documento (`site.css`); o padrão das landings vale só para elas (`docs/LANDINGS.md`).
+
 ## Breakpoints
 
 Mobile-first. Pontos usados: 480, 640, 720/768, 900, 1024, 1100/1180 (menu completo; a partir de 1180, grade de 3 colunas em "Nossa linha"), 1360

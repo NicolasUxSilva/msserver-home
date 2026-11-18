@@ -47,10 +47,8 @@ Hoje o WordPress não tem página nesse endereço: `/politica-de-privacidade/` r
 
 ## 4. Pontos de atenção para o jurídico e para o marketing
 
-1. **Landing de Soluções Cloud.** A versão aprovada (`cloud-ms`) carrega o GTM sem consultar o consentimento deste site. Por isso, o build publica a landing **sem GTM** (`CLOUD_GTM_ID` vazio). Para medir a landing, é preciso:
-   - adaptar a landing para ler a escolha guardada em `localStorage` (`msserver:consent`);
-   - ou aceitar o carregamento direto, com decisão jurídica documentada.
-2. **Landing de Servidores Físicos e páginas do WordPress.** Continuam com os scripts atuais do WordPress, sem gestor de consentimento. O mesmo aviso precisa ser instalado no WordPress (plugin de consentimento ou o mesmo script), para que o domínio inteiro tenha uma política só.
+1. **Landings de Soluções Cloud e Servidores Físicos.** Desde 18/11/2026 são páginas do site (`docs/LANDINGS.md`) e seguem o mesmo consentimento: o GTM próprio delas saiu, e as ferramentas só carregam com `PUBLIC_TRACKING=true` e a escolha da pessoa. A versão de Servidores Físicos que está no ar hoje, pelo plugin do WordPress, carrega Meta Pixel, Clarity, Google Ads e GTM sem consentimento; isso termina quando o roteamento passar a servir a página do site.
+2. **Páginas que continuam no WordPress.** Continuam com os scripts atuais, sem gestor de consentimento. O mesmo aviso precisa ser instalado no WordPress (plugin de consentimento ou o mesmo script), para que o domínio inteiro tenha uma política só.
 3. **RD Station.** O loader exibe um pop-up de conversão no celular. Com o consentimento, ele volta a aparecer como hoje.
 4. **Formulários.** Os dados enviados vão para o WordPress (Elementor). Quem recebe, por quanto tempo os dados ficam guardados e as integrações (e-mail, RD Station) estão configurados no WordPress e devem constar da política.
 5. **Finalização pelo WhatsApp.** Os dados de contato digitados ficam na sessão do navegador (`sessionStorage`) até a aba ser fechada, e vão na mensagem do WhatsApp que a própria pessoa envia. O site não grava esses dados em servidor.
